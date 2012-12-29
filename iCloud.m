@@ -27,18 +27,33 @@
         NSURL *destinationURL = [ubiquitousURL URLByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",name]];
         NSURL *directoryURL = [[NSURL alloc] initWithString:[documentsDirectory stringByAppendingPathComponent:name]];
         [filemgr setUbiquitous:YES itemAtURL:directoryURL destinationURL:destinationURL error:nil];
+        
+        //Notify Delegate
+        [[self delegate] documentWasSaved];
     });
-    
-    [[self delegate] documentWasSaved];
 }
 
 + (void)removeDocumentWithName:(NSString *)name
 {
-    //Create the complete file path
-    NSString *documentsDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
-    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:name];
-    [[self delegate] documentWasDeleted];
-    
+    //Perform tasks on background thread to avoid problems on the main / UI thread
+	dispatch_queue_t minusDoc = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
+    dispatch_async(minusDoc, ^{
+        //Create the complete file path
+        NSString *documentsDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+        NSURL *directoryURL = [[NSURL alloc] initWithString:[documentsDirectory stringByAppendingPathComponent:name]];
+        
+        //Delete file from iCloud
+        NSFileCoordinator* fileCoordinator = [[NSFileCoordinator alloc] initWithFilePresenter:nil];
+		[fileCoordinator coordinateWritingItemAtURL:directoryURL options:NSFileCoordinatorWritingForDeleting error:nil byAccessor:^(NSURL* writingURL)
+		 {
+             //Delete file from local directory
+			 NSFileManager* fileManager = [[NSFileManager alloc] init];
+			 [fileManager removeItemAtURL:writingURL error:nil];
+             
+             //Notify Delegate
+             [[self delegate] documentWasDeleted];
+         }];
+    });
 }
 
 @end
