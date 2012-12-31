@@ -9,22 +9,37 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
+@protocol iCloudDelegate;
 @class iCloud;
 
+@interface iCloud : NSObject
+{
+    __weak id<iCloudDelegate> delegate_;
+}
+
+@property (nonatomic, weak) id <iCloudDelegate> delegate;
+
+@property (retain) NSMetadataQuery *query;
+@property (retain) NSMutableArray *previousQueryResults;
+@property (retain) NSTimer *updateTimer;
+@property (retain) NSMutableArray *FileList;
+
+//Sync and Update Docs
++ (BOOL)checkCloudAvailability;
+- (void)syncWithCloud;
+- (void)updateCloudFiles;
+
+//Save and Delete Docs
++ (void)createDocumentWithData:(NSData *)data withName:(NSString *)name withDelegate:(id<iCloudDelegate>)delegate;
++ (void)removeDocumentWithName:(NSString *)name withDelegate:(id<iCloudDelegate>)delegate;
+
+@end
+
+@class iCloud;
 @protocol iCloudDelegate <NSObject>
 @optional
 - (void)documentWasDeleted;
 - (void)documentWasSaved;
-@end
-
-@interface iCloud : NSObject
-{
-    id <iCloudDelegate> delegate;
-}
-
-@property (retain) id delegate;
-
-+ (void)createDocumentWithData:(NSData *)data withName:(NSString *)name;
-+ (void)removeDocumentWithName:(NSString *)name;
-
+@required
+- (void)fileList:(NSArray *)files;
 @end
