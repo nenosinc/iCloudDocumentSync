@@ -41,5 +41,5 @@
 - (void)documentWasDeleted;
 - (void)documentWasSaved;
 @required
-- (void)fileList:(NSArray *)files;
+- (void)fileList:(NSMutableArray *)files;
 @end

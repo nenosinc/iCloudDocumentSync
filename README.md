@@ -40,3 +40,9 @@ Documents can be deleted from iCloud and the local documents directory by using 
 
 ## Work in Progress
 **iCloud Document Sync is a work in progress**. It should be noted that the code provided with this particular commit is NOT stable and may not work as is. This software is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement of third party rights. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software.
+
+## Known Problems
+- When attempting to sync with iCloud, the `fileList` delegate method never gets called nor does it return an NSArray value
+- Saving a document will move it to iCloud, however it will not be stored in the local directory
+- Removing documents feature has not yet been tested
+- When attempting to sync, no files are downloaded

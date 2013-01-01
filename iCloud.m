@@ -26,7 +26,7 @@
         [self syncWithCloud];
         [self updateCloudFiles];
         self.previousQueryResults = [NSMutableArray array];
-        
+        FileList = [[NSMutableArray alloc] init];
         //Add a timer that updates out for changes in the file metadata
         //updateTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTimerFired) userInfo:nil repeats:YES];
     }
@@ -97,7 +97,8 @@
         }
         
         self.previousQueryResults = queryResultURLs;
-        [[self delegate] fileList:FileList];
+        NSLog(@"File List: %@", FileList);
+        [self fileList:FileList];
     });
 }
 
