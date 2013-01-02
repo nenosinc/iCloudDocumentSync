@@ -8,8 +8,17 @@
 
 #import "iCloud.h"
 
+@interface iCloud ()
+- (void) enumerateCloudDocuments;
+- (void) fileListReceived;
+- (void) updateTimerFired:(NSTimer *)timer;
+@end
+
 @implementation iCloud
-@synthesize query, previousQueryResults, updateTimer, FileList;
+@synthesize query;
+@synthesize previousQueryResults;
+@synthesize updateTimer;
+@synthesize fileList;
 @synthesize delegate;
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -22,26 +31,71 @@
 {
     self = [super init];
     if (self) {
+        //Check iCloud Availability
         [iCloud checkCloudAvailability];
-        [self syncWithCloud];
-        [self updateCloudFiles];
+        
+        //No Know Docs Yet - Initialize Array
+        self.fileList = [NSMutableArray array];
         self.previousQueryResults = [NSMutableArray array];
-        FileList = [[NSMutableArray alloc] init];
+        
+        //Sync and Update Documents List
+        [self enumerateCloudDocuments];
+        [iCloud fileListReceivedWithDelegate:delegate];
+        
         //Add a timer that updates out for changes in the file metadata
-        //updateTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTimerFired) userInfo:nil repeats:YES];
+        updateTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTimerFired:) userInfo:nil repeats:YES];
     }
     
     return self;
 }
 
+- (void)updateTimerFired:(NSTimer *)timer;
+{
+	//For some strange reason, deleting this method and the line that creates the timer that calls it causes iCloud not to function... If anyone can figure out this mystery, please submit a pull request / issue on Github at https://github.com/iRareMedia/iCloudDocumentSync
+}
+
++ (NSMetadataQuery *) query
+{
+    static NSMetadataQuery* q = nil;
+    if (q == nil) {
+        q = [[NSMetadataQuery alloc] init];
+    }
+    
+    return q;
+}
+
++ (NSMutableArray *) fileList
+{
+    static NSMutableArray* f = nil;
+    if (f == nil) {
+        f = [NSMutableArray array];
+    }
+    
+    return f;
+}
+
++ (NSMutableArray *) previousQueryResults
+{
+    static NSMutableArray* p = nil;
+    if (p == nil) {
+        p = [NSMutableArray array];
+    }
+    
+    return p;
+}
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//Region: Sync -------------------------------------------------------------------------------------------------------------------------------------------------//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+#pragma mark - Sync
+
 //Check for iCloud Availability
 + (BOOL)checkCloudAvailability
 {
-    NSLog(@"Checking iCloud availablity...");
 	NSURL *returnedURL = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil];
 	
 	if (returnedURL){
-		NSLog(@"iCloud is available");
+		NSLog(@"iCloud is available at URL: %@", returnedURL);
         return YES;
 	} else {
 		NSLog(@"iCloud not available. ☹");
@@ -50,56 +104,94 @@
 }
 
 //Enumerate through the iCloud Document Metadata
-- (void)syncWithCloud
+- (void)enumerateCloudDocuments
 {
-	self.query = [[NSMetadataQuery alloc] init];
-	[query setSearchScopes:[NSArray arrayWithObjects:NSMetadataQueryUbiquitousDocumentsScope, nil]];
+	//self.query = [[NSMetadataQuery alloc] init];
+	[[iCloud query] setSearchScopes:[NSArray arrayWithObjects:NSMetadataQueryUbiquitousDocumentsScope, nil]];
+	NSString* predicate = [NSString stringWithFormat:@"%%K like '*.*'"];
+	[[iCloud query] setPredicate:[NSPredicate predicateWithFormat:predicate, NSMetadataItemFSNameKey]];
     
-	//Pull a list of all the Documents in The Cloud
-	[[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(updateCloudFiles)
+	// pull a list of all the documents in the cloud
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(startUpdate)
 												 name:NSMetadataQueryDidFinishGatheringNotification object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCloudFiles)
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(startUpdate)
 												 name:NSMetadataQueryDidUpdateNotification object:nil];
     
-	[self.query startQuery];
+	[[iCloud query] startQuery];
+}
+
+- (void)startUpdate
+{
+    [iCloud fileListReceivedWithDelegate:self];
 }
 
 //Create and Update the list of files
-- (void)updateCloudFiles
++ (void)fileListReceivedWithDelegate:(id<iCloudDelegate>)delegate
 {
-    //Move process to background thread
     dispatch_queue_t iCloudFiles = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
-    dispatch_async(iCloudFiles, ^{
-        //Get URLs out of query results
-        NSMutableArray* queryResultURLs = [NSMutableArray array];
-        for (NSMetadataItem *aResult in [self.query results]) {
-            [queryResultURLs addObject:[aResult valueForAttribute:NSMetadataItemURLKey]];
-        }
-        
-        //Calculate difference between arrays to find which are new, which are to be removed
-        NSMutableArray* newURLs = [queryResultURLs mutableCopy];
-        NSMutableArray* removedURLs = [previousQueryResults mutableCopy];
-        [newURLs removeObjectsInArray:previousQueryResults];
-        [removedURLs removeObjectsInArray:queryResultURLs];
-        
-        //Remove entries from array
-        for (int i = 0; i < [FileList count]; ) {
-            NSFileVersion *aFile = [FileList objectAtIndex:i];
-            if ([removedURLs containsObject:aFile.URL]) {
-                [FileList removeObjectAtIndex:i];
-            } else {
-                i++;
-            }}
+        dispatch_async(iCloudFiles, ^{
+            //Background Process
+            //Get URLs out of query results
+            NSMutableArray* queryResultURLs = [NSMutableArray array];
+            for (NSMetadataItem *aResult in [[iCloud query] results])  {
+                [queryResultURLs addObject:[aResult valueForAttribute:NSMetadataItemURLKey]];
+            }
             
-        //Add entries (file exists, but we have to create a new NSFileVersion to track it)
-        for (NSURL *aNewURL in newURLs) {
-            [FileList addObject:[NSFileVersion currentVersionOfItemAtURL:aNewURL]];
-        }
-        
-        self.previousQueryResults = queryResultURLs;
-        NSLog(@"File List: %@", FileList);
-        [self fileList:FileList];
-    });
+            //Calculate difference between arrays to find which are new, which are to be removed
+            NSMutableArray* newURLs = [queryResultURLs mutableCopy];
+            NSMutableArray* removedURLs = [[iCloud previousQueryResults] mutableCopy];
+            [newURLs removeObjectsInArray:[iCloud previousQueryResults]];
+            [removedURLs removeObjectsInArray:queryResultURLs];
+            
+            //Remove entries (file is already gone, we are just updating the array)
+            for (int i = 0; i < [[iCloud fileList] count];) {
+                NSFileVersion *aFile = [[iCloud fileList] objectAtIndex:i];
+                if ([removedURLs containsObject:aFile.URL]) {
+                    [[iCloud fileList] removeObjectAtIndex:i];
+                    // Make a nice animation or swap to the cell with the hint text
+                    if ([[iCloud fileList] count] != 0) {
+                        //Here is where you could update a table or collection view (possibly coming in a future update)
+                        //[self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
+                    } else {
+                        //Here is where you could update a table or collection view (possibly coming in a future update)
+                        //[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
+                    }
+                } else {
+                    i++;
+                }
+            }
+            
+            // add tableview entries (file exists, but we have to create a new NSFileVersion to track it)
+            for (NSURL *aNewURL in newURLs) {
+                [[iCloud fileList] addObject:[NSFileVersion currentVersionOfItemAtURL:aNewURL]];
+                
+                if ([[iCloud fileList] count] != 1) {
+                    //Here is where you could update a table or collection view (possibly coming in a future update)
+                    //[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:([self.fileList count] -1) inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
+                } else {
+                    //Here is where you could update a table or collection view (possibly coming in a future update)
+                    //[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:([self.fileList count] -1) inSection:0]] withRowAnimation:UITableViewRowAnimationRight];
+                }
+            }
+            
+            NSMutableArray *array = [NSMutableArray array];
+            for (NSMetadataItem *item in [iCloud query].results) {
+                [array addObject:[item valueForAttribute:NSMetadataItemFSNameKey]];
+            }
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //Main UI Process
+                NSLog(@"File Names:%@", array);
+                NSLog(@"File URLs:%@", queryResultURLs);
+                
+                //[iCloud previousQueryResults] = queryResultURLs;
+                
+                [delegate fileListChanged:array];
+            });
+            
+        });
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -132,6 +224,7 @@
 
 + (void)removeDocumentWithName:(NSString *)name withDelegate:(id<iCloudDelegate>)delegate
 {
+    //Feature Coming Soon!
     //Perform tasks on background thread to avoid problems on the main / UI thread
 	dispatch_queue_t minusDoc = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
     dispatch_async(minusDoc, ^{
@@ -141,8 +234,7 @@
         
         //Delete file from iCloud
         NSFileCoordinator* fileCoordinator = [[NSFileCoordinator alloc] initWithFilePresenter:nil];
-		[fileCoordinator coordinateWritingItemAtURL:directoryURL options:NSFileCoordinatorWritingForDeleting error:nil byAccessor:^(NSURL* writingURL)
-		 {
+		[fileCoordinator coordinateWritingItemAtURL:directoryURL options:NSFileCoordinatorWritingForDeleting error:nil byAccessor:^(NSURL* writingURL){
              //Delete file from local directory
 			 NSFileManager* fileManager = [[NSFileManager alloc] init];
 			 [fileManager removeItemAtURL:writingURL error:nil];
@@ -154,6 +246,12 @@
     });
 }
 
++ (NSData*)retrieveDocumentwithName:(NSString *)name withDelegate:(id<iCloudDelegate>)delegate
+{
+    //Feature Coming Soon!
+    NSData *data = [[NSData alloc] init];
+    return data;
+}
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //Region: Delegate ---------------------------------------------------------------------------------------------------------------------------------------------//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -169,10 +267,9 @@
     [[self delegate] documentWasSaved];
 }
 
-
-- (void)fileList:(NSMutableArray *)files
+- (void)fileListChanged:(NSMutableArray *)files
 {
-    [[self delegate] fileList:files];
+    [[self delegate] fileListChanged:files];
 }
 
 @end

@@ -28,12 +28,17 @@ To check if iCloud is available, simply add the following method call anywhere i
     }
 
 ## Syncing Documents
-iCloud Document Sync will automatically sync all documents stored in the documents folder whenever there are changes in those documents. When things do change, the following delegate method will be called and will return an NSMutableArray of all the files that are now stored both in iCloud and locally. Here's the method (it's the only required one): 
+To get iCloud Sync to initialize for the first time, and continue to update when there are changes please follow these steps (same as steps three and four of the integration process):  
+1. Add the iCloud class to the top of the header of all the files that import "iCloud.h": `@class iCloud`  
+2. Call `[[iCloud alloc] init];` to start syncing with iCloud for the first time and in the future.    
+ iCloud Document Sync will automatically sync all documents stored in the documents folder whenever there are changes in those documents. When something changes the following delegate method will be called and will return an NSMutableArray of all the files that are stored in iCloud. Here's the method (it's the only required one): 
 
     - (void)fileList:(NSMutableArray *)files
 
+Known Problem:  When syncing with iCloud, the `fileList` delegate method does not get called on the actual delegate, only in the delegates class.
+
 ## Saving Documents
-Documents can be saved / uploaded / moved to iCloud by using the following line: `[iCloud createDocumentWithData:NSDATA withName:@"DOCUMENT_NAME" withDelegate:self];`.  Make sure to replace NSDATA with your own NSData, and make sure to replace DOCUMENT_NAME with your own document name. All documents are saved to the local documents directory inside of your application's sandbox / directory and then uploaded to your application's iCloud folder and placed in a directory titled "Documents".
+Documents can be created and then moved / saved to iCloud by using the following line: `[iCloud createDocumentWithData:NSDATA withName:@"DOCUMENT_NAME" withDelegate:self];`.  Make sure to replace NSDATA with your own NSData, and make sure to replace DOCUMENT_NAME with your own document name. All documents are saved to the local documents directory inside of your application's sandbox / directory and then uploaded to your application's iCloud folder and placed in a directory titled "Documents".
 
 ## Removing Documents
 Documents can be deleted from iCloud and the local documents directory by using the following line: `[iCloud removeDocumentWithName:@"DOCUMENT_NAME" withDelegate:self];`.  Make sure to replace DOCUMENT_NAME with the name of a document that exists in both iCloud and the local directory. If it only exists in one location, it will only be deleted from that location.
@@ -42,7 +47,6 @@ Documents can be deleted from iCloud and the local documents directory by using 
 **iCloud Document Sync is a work in progress**. It should be noted that the code provided with this particular commit is NOT stable and may not work as is. This software is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement of third party rights. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software.
 
 ## Known Problems
-- When attempting to sync with iCloud, the `fileList` delegate method never gets called nor does it return an NSArray value
-- Saving a document will move it to iCloud, however it will not be stored in the local directory
-- Removing documents feature has not yet been tested
-- When attempting to sync, no files are downloaded
+- When syncing with iCloud, the `fileList` delegate method does not get called on the actual delegate, only in the delegates class
+- Saving a document will move it to iCloud rather than copying it
+- Removing a document will attempt to remove a non-existant locally stored version of the iCloud document
