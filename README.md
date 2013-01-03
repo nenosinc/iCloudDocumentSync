@@ -1,7 +1,7 @@
 iCloudDocumentSync
 ==================
 
-iCloud Document Sync allows developers to integrate iCloud into their document projects with one-line code methods. Sync, download, save, and remove documents to and from iCloud with only three lines of code.
+iCloud Document Sync allows developers to integrate iCloud into their document projects with one-line code methods. Sync, download, save, and remove documents to and from iCloud with only ten lines of code.
 
 ## Integration
 Adding iCloud Document sync to your project is easy. Follow these steps to get everything up and running:  
