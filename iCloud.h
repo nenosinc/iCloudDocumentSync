@@ -35,10 +35,12 @@
 + (BOOL)checkCloudAvailability;
 - (void)enumerateCloudDocuments;
 + (void)fileListReceivedWithDelegate:(id<iCloudDelegate>)delegate;
++ (void)uploadDocumentsWithDelegate:(id<iCloudDelegate>)delegate;
 
-//Save and Delete Docs
+//Save, Delete, and Download Docs
 + (void)createDocumentWithData:(NSData *)data withName:(NSString *)name withDelegate:(id<iCloudDelegate>)delegate;
 + (void)removeDocumentWithName:(NSString *)name withDelegate:(id<iCloudDelegate>)delegate;
++ (NSData*)retrieveDocumentDatawithName:(NSString *)name;
 
 @end
 
@@ -47,6 +49,8 @@
 @optional
 - (void)documentWasDeleted;
 - (void)documentWasSaved;
+- (void)documentsFinishedUploading;
+- (void)documentsStartedUploading;
 @required
 - (void)fileListChanged:(NSMutableArray *)files;
 @end
