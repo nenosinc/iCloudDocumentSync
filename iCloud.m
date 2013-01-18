@@ -216,26 +216,41 @@
     dispatch_async(upload, ^{
         //Get the array of files in the documents directory
         NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-        NSArray *fileListAct = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:documentsDirectory error:nil];
-        NSMutableArray *localDocuments = [NSMutableArray array];
-        [localDocuments setArray:fileListAct];
-    
-        //Compare the arrays then upload documents not already existant in iCloud
-        for (int item = 0; item < [localDocuments count] - 1; item++) {
-            //If the file does not exist in iCloud, upload it
-            if (![[iCloud previousQueryResults] containsObject:[localDocuments objectAtIndex:item]]) {
-                NSLog(@"Uploading Document to Cloud...");
-                //Move the file to iCloud
-                NSURL *destinationURL = [[[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil] URLByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",[localDocuments objectAtIndex:item]]];
-                NSURL *directoryURL = [[NSURL alloc] initWithString:[documentsDirectory stringByAppendingPathComponent:[localDocuments objectAtIndex:item]]];
-                [[NSFileManager defaultManager] setUbiquitous:YES itemAtURL:directoryURL destinationURL:destinationURL error:nil];
+        NSArray *localDocuments = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:documentsDirectory error:nil];
+        
+        NSLog(@"Local Files: %@", localDocuments);
+        
+        //Compare the arrays then upload documents not already existent in iCloud
+        for (int item = 0; item < [localDocuments count]; item++) {
+            NSLog(@"Items: %i", item);
+            if (![[localDocuments objectAtIndex:item] hasPrefix:@"."] || ![[localDocuments objectAtIndex:item] hasSuffix:@".sqlite"]) {
+                //Not a hidden or messy file, proceed
+                //If the file does not exist in iCloud, upload it
+                if (![[iCloud previousQueryResults] containsObject:[localDocuments objectAtIndex:item]]) {
+                    NSLog(@"Uploading %@ to iCloud...", [localDocuments objectAtIndex:item]);
+                    //Move the file to iCloud
+                    NSURL *destinationURL = [[[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil] URLByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",[localDocuments objectAtIndex:item]]];
+                    NSError *error;
+                    NSURL *directoryURL = [NSURL fileURLWithPath:[documentsDirectory stringByAppendingPathComponent:[localDocuments objectAtIndex:item]]];
+                    BOOL success = [[NSFileManager defaultManager] setUbiquitous:YES itemAtURL:directoryURL destinationURL:destinationURL error:&error];
+                    if (success == NO) {
+                        // Maybe try to determine cause of error and recover first.
+                        NSLog(@"%@",error);
+                    }
+                    
+                } else {
+                    //Check if the local document is newer than the cloud document
+                }
+            } else {
+                //Hidden or messy file, do not proceed
             }
         }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //Notify Delegate
+            if ([delegate respondsToSelector:@selector(documentsFinishedUploading)])
+                [delegate documentsFinishedUploading];
+        });
     });
-    
-    //Notify Delegate
-    if ([delegate respondsToSelector:@selector(documentsFinishedUploading)])
-        [delegate documentsFinishedUploading];
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
