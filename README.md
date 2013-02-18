@@ -65,6 +65,7 @@ Files retreived are always searched for in your iCloud app's documents directory
 ## Change Log
 **iCloud Document Sync is a work in progress**. Please help us get all features working and working well. We believe that this project will help many developers by easing the burden of iCloud. Below are the changes for each major commit:
 
+Version 4.3.1 - License Update. Readme Update.
 Version 4.3 - New delegate methods for error reporting and file downloading. File downloaing introduced but not implemented. Updated Readme.  
 Version 4.2 - Fixed errors when uploading files  
 Version 4.1 - Updated Readme  
@@ -79,4 +80,4 @@ Version 1.1 - Add ability to remove documents from iCloud and local directory
 Version 1.0 - Initial Commit
 
 ## License
-<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a><br />This work by iRare Media</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. This license lets you remix, tweak, and build upon our work even for commercial purposes, as long as you credit us (**only when redistributing** this code - **no attribution required in your app**) and license your new creations under the identical terms. This license is often compared to “copyleft” free and open source software licenses. 
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a><br />This work by iRare Media</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. This license lets you remix, tweak, and build upon our work even for commercial purposes, as long as you credit us ( **only when redistributing** this code - **no attribution required in your app**) and license your new creations under the identical terms.
