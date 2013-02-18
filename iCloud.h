@@ -51,6 +51,9 @@
 - (void)documentWasSaved;
 - (void)documentsFinishedUploading;
 - (void)documentsStartedUploading;
+- (void)documentsStartedDownloading;
+- (void)documentsFinishedDownloading;
 @required
 - (void)fileListChanged:(NSMutableArray *)files;
+- (void)cloudError:(NSError *)error;
 @end

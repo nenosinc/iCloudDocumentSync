@@ -57,12 +57,26 @@ You can get the NSData from a file stored in your iCloud directory with the foll
 Files retreived are always searched for in your iCloud app's documents directory. If a file does not exist it will return a `nil` value instead of actual data.
 
 ## Known Problems
-- <del>When syncing with iCloud, the `fileList` delegate method does not get called on the actual delegate, only in the delegates class. </del> **FIXED**: Please refer to the revised step four of the "Integration" section to fix the problem.
-- Saving a document will move it to iCloud rather than copying it
 - Saving a local document to iCloud with the same name as one that already exists in iCloud will cause the document not to save to iCloud, instead it will remain in the local directory
+- Document downloading to a local directory is not yet implemented
+- <del>When syncing with iCloud, the `fileList` delegate method does not get called on the actual delegate, only in the delegates class. </del> **FIXED**: Please refer to the revised step four of the "Integration" section to fix the problem.
+- <del>Saving a document will move it to iCloud rather than copying it<del>
 
-## Work in Progress
-**iCloud Document Sync is a work in progress**. This software is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement of third party rights. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software.
+## Change Log
+**iCloud Document Sync is a work in progress**. Please help us get all features working and working well. We believe that this project will help many developers by easing the burden of iCloud. Below are the changes for each major commit:
+
+Version 4.3 - New delegate methods for error reporting and file downloading. File downloaing introduced but not implemented. Updated Readme.  
+Version 4.2 - Fixed errors when uploading files  
+Version 4.1 - Updated Readme  
+Version 4.0 - Upload and retrieve files with greater ease  
+
+Version 3.0 - iCloud Syncing now allows for the uploading of all files in the local directory with one call. Gets changes everytime iCloud notifies of a change
+
+Version 2.1 - Changed the File List to an `NSMutableArray` for better flexibility  
+Version 2.0 - New delegate methods  
+
+Version 1.1 - Add ability to remove documents from iCloud and local directory  
+Version 1.0 - Initial Commit
 
 ## License
-<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a><br />This work by iRare Media</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. That means you can use this work in your personal and commercial projects as long as you give us a little credit (it'd be nice if you even sent us an email and told us what app you're using this in so we can make a list). You are free to redistribute and remix this work as long as you give us credit and include this same CC license
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a><br />This work by iRare Media</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. This license lets you remix, tweak, and build upon our work even for commercial purposes, as long as you credit us (**only when redistributing** this code - **no attribution required in your app**) and license your new creations under the identical terms. This license is often compared to “copyleft” free and open source software licenses. 

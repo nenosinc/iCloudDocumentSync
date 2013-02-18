@@ -188,7 +188,6 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 //Main UI Process
                 NSLog(@"File Names:%@", array);
-                NSLog(@"File URLs:%@", queryResultURLs);
                 
                 //[iCloud previousQueryResults] = queryResultURLs;
                 
@@ -217,7 +216,7 @@
         //Get the array of files in the documents directory
         NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         NSArray *localDocuments = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:documentsDirectory error:nil];
-        
+    
         NSLog(@"Local Files: %@", localDocuments);
         
         //Compare the arrays then upload documents not already existent in iCloud
@@ -236,8 +235,9 @@
                     if (success == NO) {
                         // Maybe try to determine cause of error and recover first.
                         NSLog(@"%@",error);
+                        [delegate cloudError:error];
                     }
-                    
+                
                 } else {
                     //Check if the local document is newer than the cloud document
                 }
@@ -245,6 +245,31 @@
                 //Hidden or messy file, do not proceed
             }
         }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //Notify Delegate
+            if ([delegate respondsToSelector:@selector(documentsFinishedUploading)])
+                [delegate documentsFinishedUploading];
+        });
+    });
+}
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//Region: Downloading ------------------------------------------------------------------------------------------------------------------------------------------//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+#pragma mark - Downloading
+
++ (void)downloadDocumentsWithDelegate:(id<iCloudDelegate>)delegate
+{
+    //Notify Delegate
+    if ([delegate respondsToSelector:@selector(documentsStartedDownloading)])
+        [delegate documentsStartedDownloading];
+    
+    //Perform tasks on background thread to avoid problems on the main / UI thread
+	dispatch_queue_t download = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
+    dispatch_async(download, ^{
+        
+        NSLog(@"This feature isn't ready yet. Fork our project on GitHub and help us out! www.github.com/iraremedia/iclouddocumentsync");
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             //Notify Delegate
             if ([delegate respondsToSelector:@selector(documentsFinishedUploading)])
@@ -335,9 +360,24 @@
     [[self delegate] documentsStartedUploading];
 }
 
+- (void)documentsStartedDownloading
+{
+    [[self delegate] documentsStartedDownloading];
+}
+
+- (void)documentsFinishedDownloading
+{
+    [[self delegate] documentsFinishedDownloading];
+}
+
 - (void)fileListChanged:(NSMutableArray *)files
 {
     [[self delegate] fileListChanged:files];
+}
+
+- (void)cloudError:(NSError *)error
+{
+    [[self delegate] cloudError:error];
 }
 
 @end
