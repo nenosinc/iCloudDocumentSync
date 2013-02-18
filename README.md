@@ -65,7 +65,7 @@ Files retreived are always searched for in your iCloud app's documents directory
 ## Change Log
 **iCloud Document Sync is a work in progress**. Please help us get all features working and working well. We believe that this project will help many developers by easing the burden of iCloud. Below are the changes for each major commit:
 
-Version 4.3.1 - License Update. Readme Update.
+Version 4.3.1 - License Update. Readme Update.  
 Version 4.3 - New delegate methods for error reporting and file downloading. File downloaing introduced but not implemented. Updated Readme.  
 Version 4.2 - Fixed errors when uploading files  
 Version 4.1 - Updated Readme  
