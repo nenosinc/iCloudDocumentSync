@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Protocols/iCloudDelegate.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intf/iCloudDelegate</TokenIdentifier>
+			<Abstract type="html">The iCloudDelegate protocol defines the methods used to receive event notifications and allow for deeper control of the iCloud Class.</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>
+			
+			<NodeRef refid="2"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/iCloudFilesDidChange:withNewFileNames:</TokenIdentifier>
+			<Abstract type="html">Tells the delegate that the files in iCloud have been modified</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>- (void)iCloudFilesDidChange:(NSMutableArray *)files withNewFileNames:(NSMutableArray *)fileNames</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>files</Name>
+					<Abstract type="html">A list of the files now in the app&apos;s iCloud documents directory - each file in the array contains information such as file version, url, localized name, date, etc.</Abstract>
+				</Parameter><Parameter>
+					<Name>fileNames</Name>
+					<Abstract type="html">A list of the file names now in the app&apos;s iCloud documents directory</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/iCloudFilesDidChange:withNewFileNames:</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/iCloudError:</TokenIdentifier>
+			<Abstract type="html">Called where there is an error while performing an iCloud process</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>- (void)iCloudError:(NSError *)error</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>error</Name>
+					<Abstract type="html">An NSError with a message, error code, and information</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/iCloudError:</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/cloudError:</TokenIdentifier>
+			<Abstract type="html">Tells the delegate that there was an error while performing a process (&lt;b class=&quot;deprecated&quot;&gt;Deprecated:&lt;/b&gt;&lt;span class=&quot;deprecated&quot;&gt; This method is deprecated, use iCloudError: delegate method instead.&lt;/span&gt;)</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>- (void)cloudError:(NSError *)error</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>error</Name>
+					<Abstract type="html">Returns the NSError that occured</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/cloudError:</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/fileListChangedWithFiles:andFileNames:</TokenIdentifier>
+			<Abstract type="html">Tells the delegate that the files in iCloud have been modified (&lt;b class=&quot;deprecated&quot;&gt;Deprecated:&lt;/b&gt;&lt;span class=&quot;deprecated&quot;&gt; This method is deprecated, use iCloud:cloudFilesDidChange:withNewFileNames: delegate method instead.&lt;/span&gt;)</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>- (void)fileListChangedWithFiles:(NSMutableArray *)files andFileNames:(NSMutableArray *)fileNames</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>files</Name>
+					<Abstract type="html">Returns a list of the files now in the app&apos;s iCloud documents directory - each file in the array contains information such as file version, url, localized name, date, etc.</Abstract>
+				</Parameter><Parameter>
+					<Name>fileNames</Name>
+					<Abstract type="html">Returns a list of the file names now in the app&apos;s iCloud documents directory</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/fileListChangedWithFiles:andFileNames:</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/documentWasDeleted</TokenIdentifier>
+			<Abstract type="html">Tells the delegate that a document was successfully deleted. (&lt;b class=&quot;deprecated&quot;&gt;Deprecated:&lt;/b&gt;&lt;span class=&quot;deprecated&quot;&gt; This method is deprecated, use the completion block in the removedDocumentNamed: method instead.&lt;/span&gt;)</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>- (void)documentWasDeleted</Declaration>
+			
+			
+			<Anchor>//api/name/documentWasDeleted</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/documentWasSaved</TokenIdentifier>
+			<Abstract type="html">Tells the delegate that a document was successfully saved (&lt;b class=&quot;deprecated&quot;&gt;Deprecated:&lt;/b&gt;&lt;span class=&quot;deprecated&quot;&gt; This method is deprecated, use the completion block in the createDocumentNamed: method instead.&lt;/span&gt;)</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>- (void)documentWasSaved</Declaration>
+			
+			
+			<Anchor>//api/name/documentWasSaved</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/documentsFinishedUploading</TokenIdentifier>
+			<Abstract type="html">Tells the delegate that a document finished uploading (&lt;b class=&quot;deprecated&quot;&gt;Deprecated:&lt;/b&gt;&lt;span class=&quot;deprecated&quot;&gt; This method is deprecated, use the completion block in the uploadLocalOfflineDocumentsWithDelegate: method instead.&lt;/span&gt;)</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>- (void)documentsFinishedUploading</Declaration>
+			
+			
+			<Anchor>//api/name/documentsFinishedUploading</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/documentsStartedUploading</TokenIdentifier>
+			<Abstract type="html">Tells the delegate that a document started uploading (&lt;b class=&quot;deprecated&quot;&gt;Deprecated:&lt;/b&gt;&lt;span class=&quot;deprecated&quot;&gt; This method is deprecated, avoid use.&lt;/span&gt;)</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>- (void)documentsStartedUploading</Declaration>
+			
+			
+			<Anchor>//api/name/documentsStartedUploading</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/documentsStartedDownloading</TokenIdentifier>
+			<Abstract type="html">Tells the delegate that a document started downloading (&lt;b class=&quot;deprecated&quot;&gt;Deprecated:&lt;/b&gt;&lt;span class=&quot;deprecated&quot;&gt; This method is deprecated, avoid use.&lt;/span&gt;)</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>- (void)documentsStartedDownloading</Declaration>
+			
+			
+			<Anchor>//api/name/documentsStartedDownloading</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/documentsFinishedDownloading</TokenIdentifier>
+			<Abstract type="html">Tells the delegate that a document finished downloading (&lt;b class=&quot;deprecated&quot;&gt;Deprecated:&lt;/b&gt;&lt;span class=&quot;deprecated&quot;&gt; This method is deprecated, avoid use.&lt;/span&gt;)</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>- (void)documentsFinishedDownloading</Declaration>
+			
+			
+			<Anchor>//api/name/documentsFinishedDownloading</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+	</File>
+</Tokens>

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/iCloud.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/iCloud</TokenIdentifier>
+			<Abstract type="html">The iCloud Class and Delegate provides methods to integrate iCloud into document projects. Sync, download, save, and remove documents to and from iCloud with only a few lines of code. These methods are standardized throughout iRare Media products. Updates and more details on this project can be found at www.GitHub.com/iRareMedia/iCloudDocumentSync</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>
+			
+			<NodeRef refid="1"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/iCloud/setDelegate:</TokenIdentifier>
+			<Abstract type="html">iCloud Delegate helps call methods when document processes begin or end</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, weak) id&lt;iCloudDelegate&gt; delegate</Declaration>
+			
+			
+			<Anchor>//api/name/delegate</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/iCloud/delegate</TokenIdentifier>
+			<Abstract type="html">iCloud Delegate helps call methods when document processes begin or end</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, weak) id&lt;iCloudDelegate&gt; delegate</Declaration>
+			
+			
+			<Anchor>//api/name/delegate</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/iCloud/delegate</TokenIdentifier>
+			<Abstract type="html">iCloud Delegate helps call methods when document processes begin or end</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, weak) id&lt;iCloudDelegate&gt; delegate</Declaration>
+			
+			
+			<Anchor>//api/name/delegate</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/iCloud/query</TokenIdentifier>
+			<Abstract type="html">Returns an NSMetadataQuery</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>+ (NSMetadataQuery *)query</Declaration>
+			
+			<ReturnValue><Abstract type="html">The iCloud NSMetadataQuery.</Abstract></ReturnValue>
+			<Anchor>//api/name/query</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/iCloud/fileList</TokenIdentifier>
+			<Abstract type="html">Returns a list of files stored in iCloud</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>+ (NSMutableArray *)fileList</Declaration>
+			
+			<ReturnValue><Abstract type="html">NSMutableArray (editable list) of files stored in iCloud.</Abstract></ReturnValue>
+			<Anchor>//api/name/fileList</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/iCloud/previousQueryResults</TokenIdentifier>
+			<Abstract type="html">Returns a list of the files from the previous iCloud Query</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>+ (NSMutableArray *)previousQueryResults</Declaration>
+			
+			<ReturnValue><Abstract type="html">NSMutableArray (editable list) of files in iCloud during the previous sync.</Abstract></ReturnValue>
+			<Anchor>//api/name/previousQueryResults</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/iCloud/checkCloudAvailability</TokenIdentifier>
+			<Abstract type="html">Check for iCloud Availability. This method may return NO (iCloud Not Available) for a number of reasons:
+- iCloud is turned off by the user
+- The app is being run in the iOS Simulator
+- The entitlements profile, code signing identity, and/or provisioning profile is invalid</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>+ (BOOL)checkCloudAvailability</Declaration>
+			
+			<ReturnValue><Abstract type="html">Boolean value that shows if iCloud is available or not.</Abstract></ReturnValue>
+			<Anchor>//api/name/checkCloudAvailability</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/iCloud/updateFilesWithDelegate:</TokenIdentifier>
+			<Abstract type="html">Check for and update the list of files stored in your app&apos;s iCloud Documents Folder. This method is automatically called by iOS when there are changes to files in the iCloud Directory.</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>+ (void)updateFilesWithDelegate:(id&lt;iCloudDelegate&gt;)delegate</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>delegate</Name>
+					<Abstract type="html">The iCloud Class requires a delegate. Make sure to set the delegate of iCloud before calling this method. The [fileListChangedWithFiles: andFileNames:] delegate method is triggered by this method.</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/updateFilesWithDelegate:</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/iCloud/saveDocumentWithName:withContent:withDelegate:completion:</TokenIdentifier>
+			<Abstract type="html">Create a document to upload to iCloud.</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>+ (void)saveDocumentWithName:(NSString *)name withContent:(NSData *)content withDelegate:(id&lt;iCloudDelegate&gt;)delegate completion:(void ( ^ ) ( UIDocument *cloudDocument , NSData *documentData ))handler</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>name</Name>
+					<Abstract type="html">The name of the UIDocument file being written to iCloud</Abstract>
+				</Parameter><Parameter>
+					<Name>content</Name>
+					<Abstract type="html">The data to write to the UIDocument file</Abstract>
+				</Parameter><Parameter>
+					<Name>delegate</Name>
+					<Abstract type="html">The iCloud Class requires a delegate. Make sure to set the delegate of iCloud before calling this method. The documentWasSaved delegate method is triggered by this method.</Abstract>
+				</Parameter><Parameter>
+					<Name>handler</Name>
+					<Abstract type="html">Code block called when the document is successfully saved. The completion block passes UIDocument and NSData objects containing the saved document and it&apos;s contents in the form of NSData</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/saveDocumentWithName:withContent:withDelegate:completion:</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/iCloud/uploadLocalOfflineDocumentsWithDelegate:completion:</TokenIdentifier>
+			<Abstract type="html">Upload any local files that weren&apos;t created with iCloud or were created while offline</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>+ (void)uploadLocalOfflineDocumentsWithDelegate:(id&lt;iCloudDelegate&gt;)delegate completion:(void ( ^ ) ( void ))completionBlock</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>delegate</Name>
+					<Abstract type="html">The iCloud Class requires a delegate. Make sure to set the delegate of iCloud before calling this method.</Abstract>
+				</Parameter><Parameter>
+					<Name>completionBlock</Name>
+					<Abstract type="html">Code block called when files are uploaded to iCloud</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/uploadLocalOfflineDocumentsWithDelegate:completion:</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/iCloud/deleteDocumentWithName:withDelegate:completion:</TokenIdentifier>
+			<Abstract type="html">Delete a document from iCloud.</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>+ (void)deleteDocumentWithName:(NSString *)name withDelegate:(id&lt;iCloudDelegate&gt;)delegate completion:(void ( ^ ) ( void ))completionBlock</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>name</Name>
+					<Abstract type="html">The name of the UIDocument file to delete from iCloud</Abstract>
+				</Parameter><Parameter>
+					<Name>delegate</Name>
+					<Abstract type="html">The iCloud Class requires a delegate. Make sure to set the delegate of iCloud before calling this method. The documentWasSaved delegate method is triggered by this method.</Abstract>
+				</Parameter><Parameter>
+					<Name>completionBlock</Name>
+					<Abstract type="html">Code block called when a file is successfully deleted from iCloud</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/deleteDocumentWithName:withDelegate:completion:</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/iCloud/retrieveCloudDocumentWithName:completion:</TokenIdentifier>
+			<Abstract type="html">Open a UIDocument stored in iCloud. If the document does not exist, a new blank document will be created using the documentName provided. You can use the doesFileExistInCloud: method to check if a file exists before calling this method.</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>+ (void)retrieveCloudDocumentWithName:(NSString *)documentName completion:(void ( ^ ) ( UIDocument *cloudDocument , NSData *documentData , NSError *error ))handler</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>documentName</Name>
+					<Abstract type="html">The name of the UIDocument file in iCloud</Abstract>
+				</Parameter><Parameter>
+					<Name>handler</Name>
+					<Abstract type="html">Code block called when the document is successfully retrieved (opened or downloaded). The completion block passes UIDocument and NSData objects containing the opened document and it&apos;s contents in the form of NSData. If there is an error, the NSError object will have an error message</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/retrieveCloudDocumentWithName:completion:</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/iCloud/doesFileExistInCloud:</TokenIdentifier>
+			<Abstract type="html">Check if a file exists in iCloud</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>+ (BOOL)doesFileExistInCloud:(NSString *)fileName</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>fileName</Name>
+					<Abstract type="html">The name of the UIDocument in iCloud</Abstract>
+				</Parameter>
+			</Parameters>
+			<ReturnValue><Abstract type="html">BOOL value, YES if the file does exist in iCloud, NO if it does not</Abstract></ReturnValue>
+			<Anchor>//api/name/doesFileExistInCloud:</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+	</File>
+</Tokens>
