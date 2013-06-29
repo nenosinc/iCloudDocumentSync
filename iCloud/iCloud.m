@@ -1,6 +1,6 @@
 //
 //  iCloud.m
-//  iRare Media
+//  iCloud Document Sync
 //
 //  Originally from iCloudPlayground
 //
@@ -11,9 +11,10 @@
 #import "iCloud.h"
 
 @interface iCloud ()
-- (void) enumerateCloudDocuments;
-+ (void)updateFileListWithDelegate:(id<iCloudDelegate>)delegate;
-- (void) updateTimerFired:(NSTimer *)timer;
+- (void)enumerateCloudDocuments;
++ (void)updateFilesWithDelegate:(id<iCloudDelegate>)delegate;
+- (void)doNothingAtAll;
+- (void)startUpdate;
 @end
 
 @implementation iCloud
@@ -23,14 +24,13 @@
 @synthesize fileList;
 @synthesize delegate;
 
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//Region: Setup ------------------------------------------------------------------------------------------------------------------------------------------------//
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//---------------------------------------------------------------------------------------------------------------------------------------------//
+//- Setup -------------------------------------------------------------------------------------------------------------------------------------//
+//---------------------------------------------------------------------------------------------------------------------------------------------//
 #pragma mark - Setup
 
-//Setup Starter Sync
-- (id)init
-{
+- (id)init {
+    //Setup Starter Sync
     self = [super init];
     if (self) {
         //Check iCloud Availability
@@ -42,17 +42,16 @@
         
         //Sync and Update Documents List
         [self enumerateCloudDocuments];
-        [iCloud updateFileListWithDelegate:delegate];
+        //[iCloud updateFilesWithDelegate:delegate];
         
         //Add a timer that updates out for changes in the file metadata
-        updateTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTimerFired:) userInfo:nil repeats:YES];
+        updateTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(doNothingAtAll) userInfo:nil repeats:NO];
     }
     
     return self;
 }
 
-+ (NSMetadataQuery *) query
-{
++ (NSMetadataQuery *) query {
     static NSMetadataQuery* q = nil;
     if (q == nil) {
         q = [[NSMetadataQuery alloc] init];
@@ -61,8 +60,7 @@
     return q;
 }
 
-+ (NSMutableArray *) fileList
-{
++ (NSMutableArray *) fileList {
     static NSMutableArray* f = nil;
     if (f == nil) {
         f = [NSMutableArray array];
@@ -71,8 +69,7 @@
     return f;
 }
 
-+ (NSMutableArray *) previousQueryResults
-{
++ (NSMutableArray *) previousQueryResults {
     static NSMutableArray* p = nil;
     if (p == nil) {
         p = [NSMutableArray array];
@@ -81,62 +78,58 @@
     return p;
 }
 
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//Region: Check ------------------------------------------------------------------------------------------------------------------------------------------------//
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//---------------------------------------------------------------------------------------------------------------------------------------------//
+//- Check -------------------------------------------------------------------------------------------------------------------------------------//
+//---------------------------------------------------------------------------------------------------------------------------------------------//
 #pragma mark - Check
 
-//Check for iCloud Availability
-+ (BOOL)checkCloudAvailability
-{
++ (BOOL)checkCloudAvailability {
+    //Check for iCloud Availability by finsing the Ubiquity URl of the app
 	NSURL *returnedURL = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil];
-	
 	if (returnedURL){
-		NSLog(@"iCloud is available at URL: %@", returnedURL);
+		NSLog(@"iCloud is available at the following URL\n%@", returnedURL);
         return YES;
 	} else {
-		NSLog(@"iCloud not available. ☹");
+#if TARGET_IPHONE_SIMULATOR
+        //Simulator
+        NSLog(@"iCloud is not available in the iOS Simulator. Please run this app on a device to test iCloud.");
+#else
+        //Device
+		NSLog(@"iCloud is not available. iCloud may be unavailable for a number of reasons:\n• The device has not yet been configured with an iCloud account, or the Documents & Data option is disabled\n• Your app, %@, does not have properly configured entitlements\nGo to http://bit.ly/15ECEWj for more information on setting up iCloud", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"]);
+#endif
         return NO;
 	}
 }
 
-- (void)updateTimerFired:(NSTimer *)timer;
-{
-	//For some strange reason, deleting this method and the line that creates the timer that calls it causes iCloud not to function... If anyone can figure out this mystery, please submit a pull request / issue on Github at https://github.com/iRareMedia/iCloudDocumentSync
+- (void)doNothingAtAll {
+    //For some strange reason, deleting this method and the line that creates the timer that calls it causes iCloud not to function and the app to crash... If anyone can figure out this mystery, please submit a pull request / issue on Github at https://github.com/iRareMedia/iCloudDocumentSync
 }
 
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//Region: Sync -------------------------------------------------------------------------------------------------------------------------------------------------//
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//---------------------------------------------------------------------------------------------------------------------------------------------//
+//- Sync --------------------------------------------------------------------------------------------------------------------------------------//
+//---------------------------------------------------------------------------------------------------------------------------------------------//
 #pragma mark - Sync
 
-//Enumerate through the iCloud Document Metadata
-- (void)enumerateCloudDocuments
-{
+- (void)enumerateCloudDocuments {
+    //Setup iCloud Metadata Query
 	//self.query = [[NSMetadataQuery alloc] init];
 	[[iCloud query] setSearchScopes:[NSArray arrayWithObjects:NSMetadataQueryUbiquitousDocumentsScope, nil]];
-	NSString* predicate = [NSString stringWithFormat:@"%%K like '*.*'"];
-	[[iCloud query] setPredicate:[NSPredicate predicateWithFormat:predicate, NSMetadataItemFSNameKey]];
+	[[iCloud query] setPredicate:[NSPredicate predicateWithFormat:[NSString stringWithFormat:@"%%K like '*.*'"], NSMetadataItemFSNameKey]];
     
-	// pull a list of all the documents in the cloud
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(startUpdate)
-												 name:NSMetadataQueryDidFinishGatheringNotification object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(startUpdate)
-												 name:NSMetadataQueryDidUpdateNotification object:nil];
+	//Pull a list of all the documents in the cloud
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startUpdate) name:NSMetadataQueryDidFinishGatheringNotification object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startUpdate) name:NSMetadataQueryDidUpdateNotification object:nil];
     
 	[[iCloud query] startQuery];
 }
 
-- (void)startUpdate
-{
-    [iCloud updateFileListWithDelegate:delegate];
+- (void)startUpdate {
+    [iCloud updateFilesWithDelegate:delegate];
 }
 
-//Create and Update the list of files
-+ (void)updateFileListWithDelegate:(id<iCloudDelegate>)delegate
-{
++ (void)updateFilesWithDelegate:(id<iCloudDelegate>)delegate {
+    //Create and Update the list of files
+    
     //Start Process on Background Thread
     dispatch_queue_t iCloudFiles = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
     dispatch_async(iCloudFiles, ^{
@@ -144,59 +137,28 @@
         //Disable updates to iCloud while we update to avoid errors
         [[iCloud query] disableUpdates];
         
-        //Retrieve URLs out of query results
-        NSMutableArray* queryResultURLs = [NSMutableArray array];
-        for (NSMetadataItem *aResult in [[iCloud query] results])  {
-            [queryResultURLs addObject:[aResult valueForAttribute:NSMetadataItemURLKey]];
-        }
+        NSMutableArray *discoveredFiles = [NSMutableArray array];
         
-        //Calculate difference between arrays to find which are new, which are to be removed
-        NSMutableArray* newURLs = [queryResultURLs mutableCopy];
-        NSMutableArray* removedURLs = [[iCloud previousQueryResults] mutableCopy];
-        [newURLs removeObjectsInArray:[iCloud previousQueryResults]];
-        [removedURLs removeObjectsInArray:queryResultURLs];
+        // The query reports all files found, every time.
+        NSArray *queryResults = [[iCloud query] results];
+        for (NSMetadataItem *result in queryResults) {
+            NSURL *fileURL = [result valueForAttribute:NSMetadataItemURLKey];
+            NSNumber *aBool = nil;
+            
+            // Don't include hidden files.
+            [fileURL getResourceValue:&aBool forKey:NSURLIsHiddenKey error:nil];
+            if (aBool && ![aBool boolValue])
+                [discoveredFiles addObject:fileURL];
+        }
         
         //Get File Names in from the Query
-        NSMutableArray *array = [NSMutableArray array];
+        NSMutableArray *names = [NSMutableArray array];
         for (NSMetadataItem *item in [iCloud query].results) {
-            [array addObject:[item valueForAttribute:NSMetadataItemFSNameKey]];
-        }
-        //NSLog(@"File Names:%@", array);
-        
-        //Remove entries (file is already gone, we are just updating the array)
-        for (int i = 0; i < [[iCloud fileList] count];) {
-            NSFileVersion *aFile = [[iCloud fileList] objectAtIndex:i];
-            if ([removedURLs containsObject:aFile.URL]) {
-                [[iCloud fileList] removeObjectAtIndex:i];
-                // Make a nice animation or swap to the cell with the hint text
-                if ([[iCloud fileList] count] != 0) {
-                    //Notify Delegate
-                    //if ([delegate respondsToSelector:@selector(deleteListItemAtIndexPath:)])
-                    //[delegate deleteListItemAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-                } else {
-                    // if ([delegate respondsToSelector:@selector(reloadListRowsAtIndexPaths:)])
-                    //[delegate reloadListRowsAtIndexPaths:[NSIndexPath indexPathForRow:i inSection:0]];
-                }
-            } else {
-                i++;
-            }
-        }
-        
-        //Add tableview entries (file exists, but we have to create a new NSFileVersion to track it)
-        for (NSURL *aNewURL in newURLs) {
-            [[iCloud fileList] addObject:[NSFileVersion currentVersionOfItemAtURL:aNewURL]];
-            
-            if ([[iCloud fileList] count] != 1) {
-                //if ([delegate respondsToSelector:@selector(insertListItemAtIndexPath:)])
-                //[delegate insertListItemAtIndexPath:[NSIndexPath indexPathForRow:([self.fileList count] -1) inSection:0]];
-            } else {
-                //if ([delegate respondsToSelector:@selector(reloadNewListRowsAtIndexPaths:)])
-                //[delegate reloadNewListRowsAtIndexPaths:[NSIndexPath indexPathForRow:([self.fileList count] -1) inSection:0]];
-            }
+            [names addObject:[item valueForAttribute:NSMetadataItemFSNameKey]];
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [delegate fileListChangedWithFiles:[iCloud fileList] andFileNames:array];
+            [delegate iCloudFilesDidChange:discoveredFiles withNewFileNames:names];
         });
         
         //Reenable Updates
@@ -204,44 +166,52 @@
     });
 }
 
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//Region: Add --------------------------------------------------------------------------------------------------------------------------------------------------//
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//---------------------------------------------------------------------------------------------------------------------------------------------//
+//- Add ---------------------------------------------------------------------------------------------------------------------------------------//
+//---------------------------------------------------------------------------------------------------------------------------------------------//
 #pragma mark - Add
 
-+ (void)createDocumentNamed:(NSString *)name withContent:(NSData *)content withDelegate:(id<iCloudDelegate>)delegate
-{
++ (void)saveDocumentWithName:(NSString *)name withContent:(NSData *)content withDelegate:(id<iCloudDelegate>)delegate completion:(void (^)(UIDocument *cloudDocument, NSData *documentData))handler {
 	//Get the URL to save the new file to
 	NSURL *folderURL = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil];
 	folderURL = [folderURL URLByAppendingPathComponent:@"Documents"];
 	NSURL *fileURL = [folderURL URLByAppendingPathComponent:name];
     
     //Initialize a document with that path
-	iCloudDocument *newDocument = [[iCloudDocument alloc] initWithFileURL:fileURL];
-    newDocument.contents = content;
+	iCloudDocument *document = [[iCloudDocument alloc] initWithFileURL:fileURL];
+    document.contents = content;
     
-	//Save the document immediately
-	[newDocument saveToURL:newDocument.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
-        if (success) {
-            //Saving implicitly opens the file. An open document will restore the its (remotely) deleted file representation.
-            [newDocument closeWithCompletionHandler:nil];
-            
-            if ([delegate respondsToSelector:@selector(documentWasSaved)])
-                [delegate documentWasSaved];
-        } else {
-            NSLog(@"%s error while saving", __PRETTY_FUNCTION__);
-            NSError *error = [NSString stringWithFormat:@"%s error while saving", __PRETTY_FUNCTION__];
-            [delegate cloudError:error];
-        }
-    }];
+    //If the file exists, close it; otherwise, create it.
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]]) {
+        //Save and close the document
+        [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success) {
+            if (success) {
+                handler(document, document.contents);
+            } else {
+                NSLog(@"%s error while saving", __PRETTY_FUNCTION__);
+                NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"%s error while saving document", __PRETTY_FUNCTION__] code:110 userInfo:[NSDictionary dictionaryWithObject:fileURL forKey:@"FileURL"]];
+                [delegate iCloudError:error];
+            }
+        }];
+    } else {
+        //Save and create the new document, then close it
+        [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
+            if (success) {
+                //Saving implicitly opens the file. An open document will restore the its (remotely) deleted file representation.
+                [document closeWithCompletionHandler:nil];
+                
+                //Run the completion block and pass the document
+                handler(document, document.contents);
+            } else {
+                NSLog(@"%s error while saving", __PRETTY_FUNCTION__);
+                NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"%s error while creating document", __PRETTY_FUNCTION__] code:100 userInfo:[NSDictionary dictionaryWithObject:fileURL forKey:@"FileURL"]];
+                [delegate iCloudError:error];
+            }
+        }];
+    }
 }
 
-+ (void)uploadLocalOfflineDocumentsWithDelegate:(id<iCloudDelegate>)delegate
-{
-    //Notify Delegate
-    if ([delegate respondsToSelector:@selector(documentsStartedUploading)])
-        [delegate documentsStartedUploading];
-    
++ (void)uploadLocalOfflineDocumentsWithDelegate:(id<iCloudDelegate>)delegate completion:(void (^)(void))completionBlock {
     //Perform tasks on background thread to avoid problems on the main / UI thread
 	dispatch_queue_t upload = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
     dispatch_async(upload, ^{
@@ -255,7 +225,6 @@
         for (int item = 0; item < [localDocuments count]; item++) {
             NSLog(@"Items: %i", item);
             if (![[localDocuments objectAtIndex:item] hasPrefix:@"."] || ![[localDocuments objectAtIndex:item] hasSuffix:@".sqlite"]) {
-                //Not a hidden or messy file, proceed
                 //If the file does not exist in iCloud, upload it
                 if (![[iCloud previousQueryResults] containsObject:[localDocuments objectAtIndex:item]]) {
                     NSLog(@"Uploading %@ to iCloud...", [localDocuments objectAtIndex:item]);
@@ -267,7 +236,7 @@
                     if (success == NO) {
                         // Maybe try to determine cause of error and recover first.
                         NSLog(@"%@",error);
-                        [delegate cloudError:error];
+                        [delegate iCloudError:error];
                     }
                     
                 } else {
@@ -278,131 +247,92 @@
             }
         }
         dispatch_async(dispatch_get_main_queue(), ^{
-            //Notify Delegate
-            if ([delegate respondsToSelector:@selector(documentsFinishedUploading)])
-                [delegate documentsFinishedUploading];
+            completionBlock();
         });
     });
 }
 
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//Region: Open -------------------------------------------------------------------------------------------------------------------------------------------------//
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-#pragma mark - Open
+//---------------------------------------------------------------------------------------------------------------------------------------------//
+//- Read --------------------------------------------------------------------------------------------------------------------------------------//
+//---------------------------------------------------------------------------------------------------------------------------------------------//
+#pragma mark - Read
 
-+ (UIDocument *)openDocumentNamed:(NSString *)name
-{
++ (void)retrieveCloudDocumentWithName:(NSString *)documentName completion:(void (^)(UIDocument *cloudDocument, NSData *documentData, NSError *error))handler {
     //Get the URL to get the file from
 	NSURL *folderURL = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil];
 	folderURL = [folderURL URLByAppendingPathComponent:@"Documents"];
-	NSURL *fileURL = [folderURL URLByAppendingPathComponent:name];
+	NSURL *fileURL = [folderURL URLByAppendingPathComponent:documentName];
     
-    iCloudDocument *selectedDocument = [[iCloudDocument alloc] initWithFileURL:fileURL];
-    return selectedDocument;
+    //Create the document and assign the delegate.
+    iCloudDocument *document = [[iCloudDocument alloc] initWithFileURL:fileURL];
+    
+    //If the file exists, open it; otherwise, create it.
+    NSFileManager *fm = [NSFileManager defaultManager];
+    if ([fm fileExistsAtPath:[fileURL path]]) {
+        [document openWithCompletionHandler:^(BOOL success){
+            if (success) {
+                handler(document, document.contents, nil);
+            } else {
+                NSLog(@"%s error while retrieving document", __PRETTY_FUNCTION__);
+                NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"%s error while retrieving document", __PRETTY_FUNCTION__] code:200 userInfo:[NSDictionary dictionaryWithObject:fileURL forKey:@"FileURL"]];
+                handler(document, nil, error);
+            }
+        }];
+    } else {
+        //Save the new document to disk.
+        [document saveToURL:fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success){
+            handler(document, document.contents, nil);
+        }];
+    }
 }
 
-+ (NSData *)getDataFromDocumentNamed:(NSString *)name
-{
++ (BOOL)doesFileExistInCloud:(NSString *)fileName {
     //Get the URL to get the file from
-	NSURL *folderURL = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil];
-	folderURL = [folderURL URLByAppendingPathComponent:@"Documents"];
-	NSURL *fileURL = [folderURL URLByAppendingPathComponent:name];
+	NSURL *folderURL = [[[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil] URLByAppendingPathComponent:@"Documents"];
+	NSURL *fileURL = [folderURL URLByAppendingPathComponent:fileName];
     
-    iCloudDocument *selectedDocument = [[iCloudDocument alloc] initWithFileURL:fileURL];
-    return selectedDocument.contents;
+    //Check if the file exists, and return
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]]) {
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//Region: Remove -----------------------------------------------------------------------------------------------------------------------------------------------//
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-#pragma mark - Remove
+//---------------------------------------------------------------------------------------------------------------------------------------------//
+//- Delete ------------------------------------------------------------------------------------------------------------------------------------//
+//---------------------------------------------------------------------------------------------------------------------------------------------//
+#pragma mark - Delete
 
-+ (void)removeDocumentNamed:(NSString *)name withDelegate:(id<iCloudDelegate>)delegate
-{
++ (void)deleteDocumentWithName:(NSString *)name withDelegate:(id<iCloudDelegate>)delegate completion:(void (^)(void))completionBlock {
 	//Get the URL to remove the file from
 	NSURL *folderURL = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil];
 	folderURL = [folderURL URLByAppendingPathComponent:@"Documents"];
 	NSURL *fileURL = [folderURL URLByAppendingPathComponent:name];
     
     //Start Process on Background Thread
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
-		NSFileCoordinator* fileCoordinator = [[NSFileCoordinator alloc] initWithFilePresenter:nil];
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSError *error;
-		[fileCoordinator coordinateWritingItemAtURL:fileURL options:NSFileCoordinatorWritingForDeleting error:&error byAccessor:^(NSURL* writingURL) {
-            NSFileManager* fileManager = [[NSFileManager alloc] init];
+		NSFileCoordinator *fileCoordinator = [[NSFileCoordinator alloc] initWithFilePresenter:nil];
+		[fileCoordinator coordinateWritingItemAtURL:fileURL options:NSFileCoordinatorWritingForDeleting error:&error byAccessor:^(NSURL *writingURL) {
+            NSFileManager *fileManager = [[NSFileManager alloc] init];
             [fileManager removeItemAtURL:writingURL error:nil];
-            if ([delegate respondsToSelector:@selector(documentWasDeleted)])
-                [delegate documentWasDeleted];
+            completionBlock();
         }];
 	});
 }
 
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//Region: Delegate ---------------------------------------------------------------------------------------------------------------------------------------------//
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//---------------------------------------------------------------------------------------------------------------------------------------------//
+//- Delegate ----------------------------------------------------------------------------------------------------------------------------------//
+//---------------------------------------------------------------------------------------------------------------------------------------------//
 #pragma mark - Delegate
 
-- (void)fileListChangedWithFiles:(NSMutableArray *)files andFileNames:(NSMutableArray *)fileNames
-{
-    [[self delegate] fileListChangedWithFiles:files andFileNames:fileNames];
+- (void)iCloudFilesDidChange:(NSMutableArray *)files withNewFileNames:(NSMutableArray *)fileNames {
+    [[self delegate] iCloudFilesDidChange:files withNewFileNames:fileNames];
 }
 
-- (void)cloudError:(NSError *)error
-{
-    [[self delegate] cloudError:error];
+- (void)iCloudError:(NSError *)error {
+    [[self delegate] iCloudError:error];
 }
-
-- (void)documentWasDeleted
-{
-    [[self delegate] documentWasDeleted];
-}
-
-- (void)documentWasSaved
-{
-    [[self delegate] documentWasSaved];
-}
-
-- (void)documentsFinishedUploading
-{
-    [[self delegate] documentsFinishedUploading];
-}
-
-- (void)documentsStartedUploading
-{
-    [[self delegate] documentsStartedUploading];
-}
-
-- (void)documentsStartedDownloading
-{
-    [[self delegate] documentsStartedDownloading];
-}
-
-- (void)documentsFinishedDownloading
-{
-    [[self delegate] documentsFinishedDownloading];
-}
-
-//The following delegate methods are coming soon. These methods will allow you to update your UI, specifically a UITableView or UICollectionView, when there is a change in the FileList. If you can figure out how to use these without causing a crash (in particular an Assertion Failure) please submit a pull request / issue on Github at https://github.com/iRareMedia/iCloudDocumentSync
-/*
- - (void)deleteListItemAtIndexPath:(NSIndexPath *)indexPath
- {
- [[self delegate] deleteListItemAtIndexPath:indexPath];
- }
- 
- - (void)reloadListRowsAtIndexPaths:(NSIndexPath *)indexPath;
- {
- [[self delegate] reloadListRowsAtIndexPaths:indexPath];
- }
- 
- - (void)reloadNewListRowsAtIndexPaths:(NSIndexPath *)indexPath
- {
- [[self delegate] reloadNewListRowsAtIndexPaths:indexPath];
- }
- 
- - (void)insertListItemAtIndexPath:(NSIndexPath *)indexPath
- {
- [[self delegate] insertListItemAtIndexPath:indexPath];
- }
- */
 
 @end

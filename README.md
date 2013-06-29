@@ -1,12 +1,12 @@
 iCloudDocumentSync
 ==================
 
-iCloud Document Sync allows developers to integrate iCloud into their document projects with one-line code methods. Sync, upload, manage, and remove documents to and from iCloud with only ten lines of code.
+iCloud Document Sync allows developers to integrate iCloud into their document projects with one-line code methods. Sync, upload, manage, and remove documents to and from iCloud with only ten lines of code. Although this project will make iCloud tasks quick and simple, you'll still need to implement your own logic, UI, and design (both in code and interface).
 
 ## Integration
-Adding iCloud Document sync to your project is easy. Follow these steps to get everything up and running:  
+Adding iCloud Document Sync to your project is easy. Follow these steps to get everything up and running:  
 1. Drag the iCloud Framework into your project  
-2. Add `#import <iCloud/iCloud.h>` to the header file of any class with which you wish to use iCloud Document Sync  
+2. Add `#import <iCloud/iCloud.h>` to the header file of any class with which you wish to use iCloud Document Sync. You can also add it to your project's Prefix.pch file so you only have to import it once.  
 3. Add the `<iCloudDelegate>` delegate to all of the files that import `<iCloud/iCloud.h>` Here's what your document should look like:
 
     #import <iCloud/iCloud.h>
@@ -16,8 +16,11 @@ This next step is very important. Don't skip it!
 
     iCloud *cloud = [[iCloud alloc] init];
     [cloud setDelegate:self];  
-It is important that you set the iCloud delegate, otherwise some methods may not be called. This also help to begin the sync process.   
-5. Add the following **required** delegate methods: `- (void)fileListChangedWithFiles:(NSMutableArray *)files andFileNames:(NSMutableArray *)fileNames`   and `- (void)cloudError:(NSError *)error`. If you like, you can add other optional delegate methods. Check the documentation that comes with iCloud Document Sync for more information.
+It is important that you set the iCloud delegate, otherwise some methods may not be called. This also helps to begin the sync process.   
+5. Add the following **required** delegate methods:  
+	*  `- (void)fileListChangedWithFiles:(NSMutableArray *)files andFileNames:(NSMutableArray *)fileNames`   
+	*  `- (void)cloudError:(NSError *)error`   
+   If you like, you can add other optional delegate methods. Check the documentation that comes with iCloud Document Sync for more information.
 
 ## Checking for iCloud Availability
 To check if iCloud is available use `[iCloud checkCloudAvailability];`. This method will return a boolean value (YES / NO). You can retrieve the value like this:
@@ -32,7 +35,7 @@ To check if iCloud is available use `[iCloud checkCloudAvailability];`. This met
 ## Syncing Documents
 To get iCloud Sync to initialize for the first time, and continue to update when there are changes call `[[iCloud alloc] init];` to start syncing with iCloud for the first time and in the future. 
 
-To manually fetch changes from iCloud, just call `[iCloud updateFileListWithDelegate:]`. Please refer to the next paragraph about how to get the file list and file data.
+To manually fetch changes from iCloud, just call `[iCloud updateFileListWithDelegate:]`. Refer to the next paragraph about how to get the file list and file data.
 
  iCloud Document Sync will automatically sync all documents stored in the documents folder whenever there are changes in those documents. When something changes the following delegate method will be called and will return an NSMutableArray of all the files (and their names) that are stored in iCloud: `[fileListChangedWithFiles: andFileNames:]`.
 
@@ -67,24 +70,46 @@ It may provide a little peace of mind to read this section. Although this projec
 ## Change Log
 **iCloud Document Sync is a work in progress**. Please help us get all features working and working well. We believe that this project will help many developers by easing the burden of iCloud. Below are the changes for each major commit:
 
-Version 5.0 - All methods have been completely revised and improved. Code is much cleaner. Now uses more efficient UIDocument structure than NSFileManager. Project now also includes a Framework which can be used for easy addition to projects. Better documentation, new methods, and more!
+**Version 5.0**  
+ - All methods have been completely revised and improved   
+ - Code is much cleaner   
+ - Now uses more efficient UIDocument structure than NSFileManager   
+ - Project now also includes a Framework which can be used for easy addition to projects   
+ - Better documentation  
+ - New methods, and more  
 
 Version 4.3.1 - License Update. Readme Update.  
 Version 4.3 - New delegate methods for error reporting and file downloading. File downloading introduced but not implemented. Updated Readme.  
 Version 4.2 - Fixed errors when uploading files  
 Version 4.1 - Updated Readme  
-Version 4.0 - Upload and retrieve files with greater ease  
 
-Version 3.0 - iCloud Syncing now allows for the uploading of all files in the local directory with one call. Gets changes every time iCloud notifies of a change
+**Version 4.0**  
+ - Upload and retrieve files with greater ease  
+
+**Version 3.0**  
+ - iCloud Syncing now allows for the uploading of all files in the local directory with one call  
+ - Gets changes every time iCloud notifies of a change  
 
 Version 2.1 - Changed the File List to an `NSMutableArray` for better flexibility  
-Version 2.0 - New delegate methods  
+
+**Version 2.0**   
+ - New delegate methods  
 
 Version 1.1 - Add ability to remove documents from iCloud and local directory  
-Version 1.0 - Initial Commit
+
+**Version 1.0**   
+ - Initial Commit
 
 ##Attribution
 This project uses and is a derivative work of <a href="https://github.com/lichtschlag/iCloudPlayground">iCloudPlayground</a>.
 
 ## License
-<a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. You are free to share, remix, and make commercial use of this work. You must attribute this work. For any reuse or distribution, you must make clear to others the license terms of this work and the original author (attribution).
+This project uses the MIT License (MIT). You are not required to attribute this work, however it'd be nice if you did :). Below is the official license.
+
+Copyright (c) 2013 iRare Media
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

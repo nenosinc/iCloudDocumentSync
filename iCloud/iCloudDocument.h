@@ -1,18 +1,16 @@
 //
-//  iCPDocument.h
-//  iCloudPlayground
+//  iCloudDocument.h
+//  iCloud Document Sync
 //
-//  Created by Leonhard Lichtschlag (leonhard@lichtschlag.net) on 16/Nov/11.
-//  Copyright (c) 2011 Leonhard Lichtschlag. All rights reserved.
+//  Created by iRare Media on June 27, 2013
+//  Copyright (c) 2013 iRare Media. All rights reserved.
 //
-//  Edited by iRare Media on March 23, 2013
 //
 
 #import <UIKit/UIKit.h>
 
 @interface iCloudDocument : UIDocument
 
-@property (retain) NSData* contents;
-
+@property (strong) NSData *contents;
 
 @end
