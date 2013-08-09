@@ -1,0 +1,28 @@
+<feed xmlns="http://www.w3.org/2005/Atom"
+  xmlns:docset="http://developer.apple.com/rss/docset_extensions"
+  xml:lang="en">
+  <docset:publisherName>iRare Media</docset:publisherName>
+  <docset:publisherID>com.iRareMedia.documentation</docset:publisherID>
+  <id>http://github.com/iraremedia/iCloudDocumentSync</id>
+  <title type="text">iCloudSDK Documentation</title>
+  <updated>2013-08-09T0:10:00Z</updated>
+  
+  <author>
+    <name>iRare Media</name>
+    <uri>http://iraremedia.com/</uri>
+  </author>
+  <rights>Copyright (c) 2013, iRare Media</rights>
+  <link rel="self" href="iRareMedia.atom" />
+  
+  <entry>
+  <id>tag:github.com/iRareMedia/iCloudDocumentSync/Documentation</id>
+  <title type="text">iCloudSDK Documentation</title>
+  <summary type="text">Includes reference for the iCloud Document Sync project and related classes.</summary>
+  <updated>2013-08-09T0:10:00Z</updated>
+  <link rel="enclosure" type="application/octet-stream" href="http://github.com/iRareMedia/iCloudDocumentSync/Documentation/com.iRareMedia.iCloudSDK.docset"/>
+  <docset:identifier>com.iRareMedia.iCloudSDK</docset:identifier>
+  <docset:version>6.1</docset:version>
+  <docset:minimumXcodeVersion>3.0</docset:minimumXcodeVersion>
+</entry>
+
+</feed>

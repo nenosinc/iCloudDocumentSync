@@ -12,6 +12,7 @@
 					<Path>index.html</Path>
 					<Subnodes>
 						<NodeRef refid="1"/>
+						<NodeRef refid="2"/>
 						
 					</Subnodes>
 				</Node>
@@ -22,7 +23,7 @@
 					<Name>Protocols</Name>
 					<Path>index.html</Path>
 					<Subnodes>
-						<NodeRef refid="2"/>
+						<NodeRef refid="3"/>
 						
 					</Subnodes>
 				</Node>
@@ -36,9 +37,13 @@
 			<Name>iCloud</Name>
 			<Path>Classes/iCloud.html</Path>
 		</Node>
-		
-		
 		<Node id="2">
+			<Name>iCloudDocument</Name>
+			<Path>Classes/iCloudDocument.html</Path>
+		</Node>
+		
+		
+		<Node id="3">
 			<Name>iCloudDelegate</Name>
 			<Path>Protocols/iCloudDelegate.html</Path>
 		</Node>

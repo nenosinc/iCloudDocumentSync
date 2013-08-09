@@ -48,6 +48,8 @@
 	
 	<option value="//api/name/checkCloudAvailability">&nbsp;&nbsp;&nbsp;&nbsp;+ checkCloudAvailability</option>
 	
+	<option value="//api/name/deleteDocumentWithName:completion:">&nbsp;&nbsp;&nbsp;&nbsp;+ deleteDocumentWithName:completion:</option>
+	
 	<option value="//api/name/deleteDocumentWithName:withDelegate:completion:">&nbsp;&nbsp;&nbsp;&nbsp;+ deleteDocumentWithName:withDelegate:completion:</option>
 	
 	<option value="//api/name/doesFileExistInCloud:">&nbsp;&nbsp;&nbsp;&nbsp;+ doesFileExistInCloud:</option>
@@ -60,11 +62,15 @@
 	
 	<option value="//api/name/retrieveCloudDocumentWithName:completion:">&nbsp;&nbsp;&nbsp;&nbsp;+ retrieveCloudDocumentWithName:completion:</option>
 	
+	<option value="//api/name/saveDocumentWithName:withContent:completion:">&nbsp;&nbsp;&nbsp;&nbsp;+ saveDocumentWithName:withContent:completion:</option>
+	
 	<option value="//api/name/saveDocumentWithName:withContent:withDelegate:completion:">&nbsp;&nbsp;&nbsp;&nbsp;+ saveDocumentWithName:withContent:withDelegate:completion:</option>
 	
 	<option value="//api/name/updateFilesWithDelegate:">&nbsp;&nbsp;&nbsp;&nbsp;+ updateFilesWithDelegate:</option>
 	
 	<option value="//api/name/uploadLocalOfflineDocumentsWithDelegate:completion:">&nbsp;&nbsp;&nbsp;&nbsp;+ uploadLocalOfflineDocumentsWithDelegate:completion:</option>
+	
+	<option value="//api/name/uploadLocalOfflineDocumentsWithDelegate:repeatingHandler:completion:">&nbsp;&nbsp;&nbsp;&nbsp;+ uploadLocalOfflineDocumentsWithDelegate:repeatingHandler:completion:</option>
 	
 	
 	
@@ -88,7 +94,7 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Properties">Properties</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Checking iCloud">Checking iCloud</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Checking for iCloud">Checking for iCloud</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Syncing with iCloud">Syncing with iCloud</a></span></li>
 	
@@ -97,6 +103,8 @@
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Deleting content from iCloud">Deleting content from iCloud</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Getting content from iCloud">Getting content from iCloud</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Deprecated Methods">Deprecated Methods</a></span></li>
 	
 </ul></li>
 
@@ -116,6 +124,8 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/checkCloudAvailability">checkCloudAvailability</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/deleteDocumentWithName:completion:">deleteDocumentWithName:completion:</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/deleteDocumentWithName:withDelegate:completion:">deleteDocumentWithName:withDelegate:completion:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/doesFileExistInCloud:">doesFileExistInCloud:</a></span></li>
@@ -128,11 +138,15 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/retrieveCloudDocumentWithName:completion:">retrieveCloudDocumentWithName:completion:</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/saveDocumentWithName:withContent:completion:">saveDocumentWithName:withContent:completion:</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/saveDocumentWithName:withContent:withDelegate:completion:">saveDocumentWithName:withContent:withDelegate:completion:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/updateFilesWithDelegate:">updateFilesWithDelegate:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/uploadLocalOfflineDocumentsWithDelegate:completion:">uploadLocalOfflineDocumentsWithDelegate:completion:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/uploadLocalOfflineDocumentsWithDelegate:repeatingHandler:completion:">uploadLocalOfflineDocumentsWithDelegate:repeatingHandler:completion:</a></span></li>
 	
 </ul></li>
 
@@ -163,7 +177,7 @@
 	<td class="specification-value">NSObject</td>
 </tr><tr>
 	<td class="specification-title">Declared in</td>
-	<td class="specification-value">iCloud.h<br />iCloud.m</td>
+	<td class="specification-value">iCloud.h</td>
 </tr>
 						</tbody></table></div>
 					
@@ -173,10 +187,24 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>The iCloud Class and Delegate provides methods to integrate iCloud into document projects. Sync, download, save, and remove documents to and from iCloud with only a few lines of code. These methods are standardized throughout iRare Media products. Updates and more details on this project can be found at www.GitHub.com/iRareMedia/iCloudDocumentSync</p>
+						<p>iCloud Document Sync helps integrate iCloud into iOS (OS X coming soon) Objective-C document projects with one-line code methods. Sync, upload, manage, and remove documents to and from iCloud with only a few lines of code (compared to the 400+ lines that it usually takes). Updates and more details on this project can be found on <a href="http://www.github.com/iRareMedia/iCloudDocumentSync">GitHub</a>. If you like the project, please <a href="https://github.com/iRareMedia/iCloudDocumentSync">star it</a> on GitHub!</p>
 
-<pre><code> Only available on iOS 5.0 and later on apps with valid code signing and entitlements.
-</code></pre>
+<p>The <code>iCloud</code> class provides methods to integrate iCloud into document projects.</p>
+
+<p><br />
+Adding iCloud Document Sync to your project is easy. Follow these steps below to get everything up and running.</p>
+
+<ol>
+<li>Drag the iCloud Framework into your project</li>
+<li>Add <code>#import &lt;iCloud/iCloud.h&gt;</code> to your header file(s) iCloud Document Sync</li>
+<li>Subscribe to the <a href="../Protocols/iCloudDelegate.html"><code>iCloudDelegate</code></a> <a href="#//api/name/delegate">delegate</a>.</li>
+<li><p>Call the following methods to setup iCloud when your app starts:</p>
+
+<pre><code> iCloud *cloud = [[iCloud alloc] init]; // This will help to begin the sync process and register for document updates.
+ [cloud setDelegate:self]; // Only set this if you plan to use the delegate
+</code></pre></li>
+</ol>
+<div class="warning"><p><strong>Warning:</strong> Only available on iOS 5.0 and later on apps with valid code signing and entitlements.</p></div>
 					</div>
 					
 					
@@ -232,17 +260,14 @@
 						</ul>
 						
 						
-						<a title="Checking iCloud" name="task_Checking iCloud"></a>
-						<h3 class="subsubtitle task-title">Checking iCloud</h3>
+						<a title="Checking for iCloud" name="task_Checking for iCloud"></a>
+						<h3 class="subsubtitle task-title">Checking for iCloud</h3>
 
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/checkCloudAvailability">+&nbsp;checkCloudAvailability</a></code>
-		<span class="tooltip"><p>Check for iCloud Availability. This method may return NO (iCloud Not Available) for a number of reasons:
-- iCloud is turned off by the user
-- The app is being run in the iOS Simulator
-- The entitlements profile, code signing identity, and/or provisioning profile is invalid</p></span>
+		<span class="tooltip"><p>Check whether or not iCloud is available and that it can be accessed. Returns a boolean value.</p></span>
 	</span>
 	
 	
@@ -271,14 +296,14 @@
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/saveDocumentWithName:withContent:withDelegate:completion:">+&nbsp;saveDocumentWithName:withContent:withDelegate:completion:</a></code>
+		<code><a href="#//api/name/saveDocumentWithName:withContent:completion:">+&nbsp;saveDocumentWithName:withContent:completion:</a></code>
 		<span class="tooltip"><p>Create a document to upload to iCloud.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/uploadLocalOfflineDocumentsWithDelegate:completion:">+&nbsp;uploadLocalOfflineDocumentsWithDelegate:completion:</a></code>
+		<code><a href="#//api/name/uploadLocalOfflineDocumentsWithDelegate:repeatingHandler:completion:">+&nbsp;uploadLocalOfflineDocumentsWithDelegate:repeatingHandler:completion:</a></code>
 		<span class="tooltip"><p>Upload any local files that weren&rsquo;t created with iCloud or were created while offline</p></span>
 	</span>
 	
@@ -293,7 +318,7 @@
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/deleteDocumentWithName:withDelegate:completion:">+&nbsp;deleteDocumentWithName:withDelegate:completion:</a></code>
+		<code><a href="#//api/name/deleteDocumentWithName:completion:">+&nbsp;deleteDocumentWithName:completion:</a></code>
 		<span class="tooltip"><p>Delete a document from iCloud.</p></span>
 	</span>
 	
@@ -317,6 +342,35 @@
 	<span class="tooltip">
 		<code><a href="#//api/name/doesFileExistInCloud:">+&nbsp;doesFileExistInCloud:</a></code>
 		<span class="tooltip"><p>Check if a file exists in iCloud</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Deprecated Methods" name="task_Deprecated Methods"></a>
+						<h3 class="subsubtitle task-title">Deprecated Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/deleteDocumentWithName:withDelegate:completion:">+&nbsp;deleteDocumentWithName:withDelegate:completion:</a></code>
+		<span class="tooltip"><p>DEPRECATED. Delete a document from iCloud. (<b class="deprecated">Deprecated:</b><span class="deprecated"> This method is deprecated, use deleteDocumentWithName:completion: instead.</span>)</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/saveDocumentWithName:withContent:withDelegate:completion:">+&nbsp;saveDocumentWithName:withContent:withDelegate:completion:</a></code>
+		<span class="tooltip"><p>DEPRECATED. Create a document to upload to iCloud. (<b class="deprecated">Deprecated:</b><span class="deprecated"> This method is deprecated, use saveDocumentWithName:withContent:completion: instead.</span>)</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/uploadLocalOfflineDocumentsWithDelegate:completion:">+&nbsp;uploadLocalOfflineDocumentsWithDelegate:completion:</a></code>
+		<span class="tooltip"><p>DEPRECATED. Upload any local files that weren&rsquo;t created with iCloud or were created while offline (<b class="deprecated">Deprecated:</b><span class="deprecated"> This method is deprecated, use uploadLocalOfflineDocumentsWithDelegate:repeatingHandler:completion: instead.</span>)</p></span>
 	</span>
 	
 	
@@ -384,10 +438,7 @@
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Check for iCloud Availability. This method may return NO (iCloud Not Available) for a number of reasons:
-- iCloud is turned off by the user
-- The app is being run in the iOS Simulator
-- The entitlements profile, code signing identity, and/or provisioning profile is invalid</p>
+		<p>Check whether or not iCloud is available and that it can be accessed. Returns a boolean value.</p>
 	</div>		
 	
     
@@ -400,8 +451,71 @@
 	
 	<div class="method-subsection return">
 		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>Boolean value that shows if iCloud is available or not.</p>
+		<p>YES if iCloud is available. NO if iCloud is not available.</p>
 	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>You should always check if iCloud is available before performing any iCloud operations. Additionally, you may want to check if your users want to opt-in to iCloud on a per-app basis. The Return value could be <strong>NO</strong> (iCloud Unavailable) for one or more of the following reasons:</p>
+
+<ul>
+<li>iCloud is turned off by the user</li>
+<li>The app is being run in the iOS Simulator</li>
+<li>The entitlements profile, code signing identity, and/or provisioning profile is invalid</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">iCloud.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/deleteDocumentWithName:completion:" title="deleteDocumentWithName:completion:"></a>
+	<h3 class="subsubtitle method-title">deleteDocumentWithName:completion:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Delete a document from iCloud.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (void)deleteDocumentWithName:(NSString *)<em>name</em> completion:(void ( ^ ) ( NSError *error ))<em>handler</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>name</em></dt>
+			<dd><p>The name of the UIDocument file to delete from iCloud</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>handler</em></dt>
+			<dd><p>Code block called when a file is successfully deleted from iCloud. The NSError object contains any error information if an error occured, otherwise it will be nil.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
 	
 	
 	
@@ -428,12 +542,12 @@
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Delete a document from iCloud.</p>
+		<p>DEPRECATED. Delete a document from iCloud. (<b class="deprecated">Deprecated:</b><span class="deprecated"> This method is deprecated, use deleteDocumentWithName:completion: instead.</span>)</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>+ (void)deleteDocumentWithName:(NSString *)<em>name</em> withDelegate:(id&lt;iCloudDelegate&gt;)<em>delegate</em> completion:(void ( ^ ) ( void ))<em>completionBlock</em></code></div>
+	<div class="method-subsection method-declaration"><code>+ (void)deleteDocumentWithName:(NSString *)<em>name</em> withDelegate:(id&lt;iCloudDelegate&gt;)<em>delegate</em> completion:(void ( ^ ) ( NSError *error ))<em>handler</em></code></div>
 
     
 	
@@ -451,8 +565,8 @@
 		</dl>
 		
 		<dl class="argument-def parameter-def">
-			<dt><em>completionBlock</em></dt>
-			<dd><p>Code block called when a file is successfully deleted from iCloud</p></dd>
+			<dt><em>handler</em></dt>
+			<dd><p>Code block called when a file is successfully deleted from iCloud. The NSError object contains any error information if an error occured, otherwise it will ne nil.</p></dd>
 		</dl>
 		
 	</div>
@@ -677,7 +791,7 @@
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>handler</em></dt>
-			<dd><p>Code block called when the document is successfully retrieved (opened or downloaded). The completion block passes UIDocument and NSData objects containing the opened document and it&rsquo;s contents in the form of NSData. If there is an error, the NSError object will have an error message</p></dd>
+			<dd><p>Code block called when the document is successfully retrieved (opened or downloaded). The completion block passes UIDocument and NSData objects containing the opened document and it&rsquo;s contents in the form of NSData. If there is an error, the NSError object will have an error message (may be nil if there is no error).</p></dd>
 		</dl>
 		
 	</div>
@@ -687,6 +801,89 @@
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This method will attempt to open the specified document. If the file does not exist, a blank one will be created. The completion handler is called when the file is opened or created (either successfully or not). The completion handler contains a UIDocument, NSData, and NSError all of which contain information about the opened document.</p>
+
+<pre><code>[iCloud retrieveCloudDocumentWithName:@"docName.ext" completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
+    if (error == nil) {
+        NSString *fileName = [cloudDocument.fileURL lastPathComponent];
+        NSData *fileData = documentData;
+    }
+ }];
+</code></pre>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">iCloud.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/saveDocumentWithName:withContent:completion:" title="saveDocumentWithName:withContent:completion:"></a>
+	<h3 class="subsubtitle method-title">saveDocumentWithName:withContent:completion:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Create a document to upload to iCloud.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (void)saveDocumentWithName:(NSString *)<em>name</em> withContent:(NSData *)<em>content</em> completion:(void ( ^ ) ( UIDocument *cloudDocument , NSData *documentData , NSError *error ))<em>handler</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>name</em></dt>
+			<dd><p>The name of the UIDocument file being written to iCloud</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>content</em></dt>
+			<dd><p>The data to write to the UIDocument file</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>handler</em></dt>
+			<dd><p>Code block called when the document is successfully saved. The completion block passes UIDocument and NSData objects containing the saved document and it&rsquo;s contents in the form of NSData. The NSError object contains any error information if an error occured, otherwise it will ne nil.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>iCloud Document Sync uses UIDocument and NSData to store and manage files. All of the heavy lifting with NSData and UIDocument is handled for you. There&rsquo;s no need to actually create or manage any files, just give iCloud Document Sync your data, and the rest is done for you.</p>
+
+<p>To create a new document or save an exisiting one (close the document), use this method. Below is a code example of how to use it.</p>
+
+<pre><code>[iCloud saveDocumentWithName:@"Name.ext" withContent:[NSData data] withDelegate:self completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
+    if (error == nil) {
+        // Code here to use the UIDocument or NSData objects which have been passed with the completion handler
+    }
+}];
+</code></pre>
+	</div>
 	
 	
 	
@@ -709,12 +906,12 @@
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Create a document to upload to iCloud.</p>
+		<p>DEPRECATED. Create a document to upload to iCloud. (<b class="deprecated">Deprecated:</b><span class="deprecated"> This method is deprecated, use saveDocumentWithName:withContent:completion: instead.</span>)</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>+ (void)saveDocumentWithName:(NSString *)<em>name</em> withContent:(NSData *)<em>content</em> withDelegate:(id&lt;iCloudDelegate&gt;)<em>delegate</em> completion:(void ( ^ ) ( UIDocument *cloudDocument , NSData *documentData ))<em>handler</em></code></div>
+	<div class="method-subsection method-declaration"><code>+ (void)saveDocumentWithName:(NSString *)<em>name</em> withContent:(NSData *)<em>content</em> withDelegate:(id&lt;iCloudDelegate&gt;)<em>delegate</em> completion:(void ( ^ ) ( UIDocument *cloudDocument , NSData *documentData , NSError *error ))<em>handler</em></code></div>
 
     
 	
@@ -738,7 +935,7 @@
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>handler</em></dt>
-			<dd><p>Code block called when the document is successfully saved. The completion block passes UIDocument and NSData objects containing the saved document and it&rsquo;s contents in the form of NSData</p></dd>
+			<dd><p>Code block called when the document is successfully saved. The completion block passes UIDocument and NSData objects containing the saved document and it&rsquo;s contents in the form of NSData. The NSError object contains any error information if an error occured, otherwise it will ne nil.</p></dd>
 		</dl>
 		
 	</div>
@@ -784,7 +981,7 @@
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>delegate</em></dt>
-			<dd><p>The iCloud Class requires a delegate. Make sure to set the delegate of iCloud before calling this method. The [fileListChangedWithFiles: andFileNames:] <a href="#//api/name/delegate">delegate</a> method is triggered by this method.</p></dd>
+			<dd><p>The iCloud Class uses a <a href="#//api/name/delegate">delegate</a>. The iCloudFilesDidChange:withNewFileNames: <a href="#//api/name/delegate">delegate</a> method is triggered by this method.</p></dd>
 		</dl>
 		
 	</div>
@@ -816,12 +1013,12 @@
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Upload any local files that weren&rsquo;t created with iCloud or were created while offline</p>
+		<p>DEPRECATED. Upload any local files that weren&rsquo;t created with iCloud or were created while offline (<b class="deprecated">Deprecated:</b><span class="deprecated"> This method is deprecated, use uploadLocalOfflineDocumentsWithDelegate:repeatingHandler:completion: instead.</span>)</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>+ (void)uploadLocalOfflineDocumentsWithDelegate:(id&lt;iCloudDelegate&gt;)<em>delegate</em> completion:(void ( ^ ) ( void ))<em>completionBlock</em></code></div>
+	<div class="method-subsection method-declaration"><code>+ (void)uploadLocalOfflineDocumentsWithDelegate:(id&lt;iCloudDelegate&gt;)<em>delegate</em> completion:(void ( ^ ) ( NSError *error ))<em>handler</em></code></div>
 
     
 	
@@ -834,8 +1031,8 @@
 		</dl>
 		
 		<dl class="argument-def parameter-def">
-			<dt><em>completionBlock</em></dt>
-			<dd><p>Code block called when files are uploaded to iCloud</p></dd>
+			<dt><em>handler</em></dt>
+			<dd><p>Code block called when files are uploaded to iCloud. The NSError object contains any error information if an error occured, otherwise it will ne nil.</p></dd>
 		</dl>
 		
 	</div>
@@ -845,6 +1042,77 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">iCloud.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/uploadLocalOfflineDocumentsWithDelegate:repeatingHandler:completion:" title="uploadLocalOfflineDocumentsWithDelegate:repeatingHandler:completion:"></a>
+	<h3 class="subsubtitle method-title">uploadLocalOfflineDocumentsWithDelegate:repeatingHandler:completion:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Upload any local files that weren&rsquo;t created with iCloud or were created while offline</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (void)uploadLocalOfflineDocumentsWithDelegate:(id&lt;iCloudDelegate&gt;)<em>delegate</em> repeatingHandler:(void ( ^ ) ( NSString *fileName , NSError *error ))<em>repeatingHandler</em> completion:(void ( ^ ) ( void ))<em>completion</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>delegate</em></dt>
+			<dd><p>The iCloud Class uses a <a href="#//api/name/delegate">delegate</a>. The iCloudFileUploadConflictWithCloudFile:andLocalFile: <a href="#//api/name/delegate">delegate</a> method is triggered by this method.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>repeatingHandler</em></dt>
+			<dd><p>Code block called after each file is uploaded to iCloud. This block is called everytime a local file is uploaded, therefore it may be called multiple times. The NSError object contains any error information if an error occured, otherwise it will be nil.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>completion</em></dt>
+			<dd><p>Code block called after all files have been uploaded to iCloud. This block is only called once at the end of the method, regardless of any successes or failures that may have occured during the upload(s).</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Files in the local documents directory that do not already exist in iCloud will be <strong>moved</strong> into iCloud one by one. This process involves lots of file manipulation and as a result it may take a long time. This process will be performed on the background thread to avoid any lag or memory problems. When the upload processes end, the completion block is called on the main thread.</p>
+
+<pre><code>[iCloud uploadLocalOfflineDocumentsWithDelegate:self  repeatingHandler:^(NSString *fileName, NSError *error) {
+    if (error == nil) {
+        // This code block is called repeatedly until all files have been uploaded (or an upload has at least been attempted). 
+        // Code here to use the NSString (the name of the uploaded file) which have been passed with the repeating handler
+    }
+ } completion:^{
+     // Completion handler could be used to tell the user that the upload has completed
+ }];
+</code></pre>
+	</div>
 	
 	
 	
@@ -875,7 +1143,8 @@
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 iRare Media. All rights reserved. (Last updated: 2013-06-29)</span><br />
+						<p><span class="copyright">iCloud Document Sync Project version 6.1. Available on <a href="http://github.com/iRareMedia/iCloudDocumentSync" target="_blank">GitHub</a></span><br />
+						<p><span class="copyright">&copy; 2013 iRare Media. All rights reserved. (Last updated: 2013-08-09)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 858)</a>.</span></p>
 						
