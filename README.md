@@ -14,8 +14,8 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
   3. Subscribe to the `<iCloudDelegate>` delegate.  
   4. Call the following methods to setup iCloud when your app starts:  
 
-	      iCloud *cloud = [[iCloud alloc] init]; // This will help to begin the sync process and register for document updates.
-	      [cloud setDelegate:self];  // Only set this if you plan to use the delegate
+	    iCloud *cloud = [[iCloud alloc] init]; // This will help to begin the sync process and register for document updates.
+	    [cloud setDelegate:self];  // Only set this if you plan to use the delegate
 
 Documentation
 -----
