@@ -10,7 +10,7 @@ Setup
 Adding iCloud Document Sync to your project is easy. Follow these steps below to get everything up and running.
   
   1. Drag the iCloud Framework into your project  
-  2. Add `#import <iCloud/iCloud.h>` to your header file(s) iCloud Document Sync  
+  2. Add `#import <iCloud/iCloud.h>` to your header file(s)   
   3. Subscribe to the `<iCloudDelegate>` delegate.  
   4. Call the following methods to setup iCloud when your app starts:  
 
