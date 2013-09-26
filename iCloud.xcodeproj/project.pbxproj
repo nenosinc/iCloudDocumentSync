@@ -29,7 +29,7 @@
 		9994D1B716FE3B3B00AB071B /* iCloudDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 9994D1B616FE3B3B00AB071B /* iCloudDocument.m */; };
 		9994D1B816FE3B7E00AB071B /* iCloudDocument.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9994D1B516FE3B3B00AB071B /* iCloudDocument.h */; };
 		9994D1C316FE3CF600AB071B /* iCloud.h in Headers */ = {isa = PBXBuildFile; fileRef = 9994D1AC16FE3ABF00AB071B /* iCloud.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9994D1C416FE3CF600AB071B /* iCloudDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = 9994D1B516FE3B3B00AB071B /* iCloudDocument.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		9994D1C416FE3CF600AB071B /* iCloudDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = 9994D1B516FE3B3B00AB071B /* iCloudDocument.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
