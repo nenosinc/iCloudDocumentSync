@@ -60,6 +60,8 @@
 		99670E021806160E005BC6B7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		99670E0418061613005BC6B7 /* com.iRareMedia.iCloudSDK.docset */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = com.iRareMedia.iCloudSDK.docset; sourceTree = "<group>"; };
 		99670E0518061613005BC6B7 /* iRareMedia.atom */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = iRareMedia.atom; sourceTree = "<group>"; };
+		99670E49180622F6005BC6B7 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHANGELOG.md; sourceTree = "<group>"; };
+		99670E4A180622F6005BC6B7 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.md; sourceTree = "<group>"; };
 		996A9B7F177C8DCA0030039A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		996A9B82177C8DCA0030039A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		9994D1A416FE3ABF00AB071B /* libiCloud.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiCloud.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,6 +99,8 @@
 			isa = PBXGroup;
 			children = (
 				99670E021806160E005BC6B7 /* README.md */,
+				99670E49180622F6005BC6B7 /* CHANGELOG.md */,
+				99670E4A180622F6005BC6B7 /* LICENSE.md */,
 				9994D1A916FE3ABF00AB071B /* iCloud */,
 				9994D1A616FE3ABF00AB071B /* Frameworks */,
 				9994D1A516FE3ABF00AB071B /* Products */,

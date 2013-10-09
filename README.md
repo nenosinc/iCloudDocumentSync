@@ -49,7 +49,7 @@ iCloud Document Sync uses UIDocument and NSData to store and manage files. All o
 
 To create a new document or save an exisiting one (close the document), use the method below.
 
-    [iCloud saveDocumentWithName:@"Name.ext" withContent:[NSData data] withDelegate:self completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
+    [iCloud saveDocumentWithName:@"Name.ext" withContent:[NSData data] completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
         if (error == nil) {
             // Code here to use the UIDocument or NSData objects which have been passed with the completion handler
         }
@@ -72,7 +72,7 @@ Note the `repeatingHandler` block. This block is called everytime a local file i
 ### Removing Documents
 You can delete documents from iCloud by using the method below. The completion block is called when the file is successfully deleted.
 
-    [iCloud deleteDocumentWithName:@"docName.ext" withDelegate:self completion:^{
+    [iCloud deleteDocumentWithName:@"docName.ext" completion:^(NSError *error) {
         // Completion handler could be used to update your UI and tell the user that the document was deleted
     }];
 
@@ -132,84 +132,3 @@ Although this project is a work in progress, we have gone to great lengths to pr
    -  Every bit of memory intensive code (pretty much anything related to iCloud) is performed on a separate background thread to prevent clogs in the UI.  
    -  Each method is prepared to continue execution even when the user sends the app into the background.  
    -  iCloud Document Sync uses `NSLog` , delegate methods, and completion handlers, to show you what is happening.  
-   - We're working hard to update this library for iOS 7. We plan to have an update ready when iOS 7 goes public.
-
-## Change Log
-**iCloud Document Sync is a work in progress**. Please help us get all features working and working well. We believe that this project will help many developers by easing the burden of iCloud. Below are the changes for each major commit.
-
-<table>
-<tr><th colspan="2" style="text-align:center;"><b>Version 6.1</b></th></tr>
-  <tr>
-    <td>The use of delegates has been tuned down in favor of completion handlers. Some methods have been deprecated and replaced as a result. Others have been improved.
-    <ul>
-   <li>The <tt>iCloudError</tt> delegate method has been replaced with completion blocks. Some completion blocks now contain an NSError parameter which will contain information about any errors that may occur during a file operation. </li>
-   <li>A new delegate method has been added to handle file conflicts.</li>
-    <li>Three methods have been deprecated in favor of newer methods that provide more information using completion handlers rather than delegates.</li>
-    <li>The new method, uploadLocalOfflineDocumentsWithDelegate, has undergone numerous improvements. File conflict handling during upload is now supported - conflicts are automatically delt with. If a conflict cannot be resolved, the new <tt>iCloudFileUploadConflictWithCloudFile:andLocalFile:</tt> delegate method is called. This method no longer prevents <tt>sqlite</tt> files from being uploaded - now only hidden files aren't uploaded.</li>
-    <li>Major documentation improvements to both the DocSet and the Readme.</li>
-    </ul>
-    </td>
-  </tr>
-<tr><th colspan="2" style="text-align:center;"><b>Version 6.0</b></th></tr>
-  <tr>
-    <td>Huge UIDocument improvements. iCloud Document Sync now uses UIDocument to open, save, and maintain files. All methods are more stable. Fetching files is faster and more efficient. Many delegate methods have been replaced with completion blocks.
-    </td>
-  </tr>
-  <tr><th colspan="2" style="text-align:center;"><b>Version 5.0</b></th></tr>
-  <tr>
-    <td>All methods have been completely revised and improved. Code is much cleaner. Now uses more efficient UIDocument structure than NSFileManager. Project now also includes a Framework which can be used for easy addition to projects. Better documentation, new methods, and more!
-    </td>
-  </tr>
-</table>
-
-<table>
-  <tr><th colspan="2" style="text-align:center;">Version 4.3.1</th></tr>
-  <tr>
-    <td>License Update. Readme Update.  </td>
-  </tr>
-  <tr><th colspan="2" style="text-align:center;">Version 4.3</th></tr>
-  <tr>
-    <td>New delegate methods for error reporting and file downloading. File downloading introduced but not implemented. Updated Readme.</td>
-  </tr>
-  <tr><th colspan="2" style="text-align:center;">Version 4.2</th></tr>
-  <tr>
-    <td>Fixed errors when uploading files</td>
-  </tr>
-  <tr><th colspan="2" style="text-align:center;">Version 4.1</th></tr>
-  <tr>
-    <td>Updated Readme</td>
-  </tr>
-  <tr><th colspan="2" style="text-align:center;"><b>Version 4.0</b></th></tr>
-  <tr>
-    <td>Upload and retrieve files with greater ease </td>
-  </tr>
-  <tr><th colspan="2" style="text-align:center;">Version 3.0</th></tr>
-  <tr>
-    <td>iCloud Syncing now allows for the uploading of all files in the local directory with one call. Gets changes every time iCloud notifies of a change</td>
-  </tr>
-  <tr><th colspan="2" style="text-align:center;">Version 2.1</th></tr>
-  <tr>
-    <td>Changed the File List to an `NSMutableArray` for better flexibility</td>
-  </tr>
-  <tr><th colspan="2" style="text-align:center;">Version 2.0</th></tr>
-  <tr>
-    <td>New delegate methods</td>
-  </tr>
-  <tr><th colspan="2" style="text-align:center;"><b>Version 1.1</b></th></tr>
-  <tr>
-    <td>Add ability to remove documents from iCloud and local directory</td>
-  </tr>
-  <tr><th colspan="2" style="text-align:center;"><b>Version 1.0</b></th></tr>
-  <tr>
-    <td>Initial Commit</td>
-  </tr>
-</table>
-
-## License
-The MIT License (MIT). Copyright (c) 2013 iRare Media
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
