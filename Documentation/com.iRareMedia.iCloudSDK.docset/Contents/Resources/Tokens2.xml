@@ -49,7 +49,7 @@
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloudDocument/initWithFileURL:</TokenIdentifier>
-			<Abstract type="html">	Initialize a new UIDocument with the specified file path</Abstract>
+			<Abstract type="html">Initialize a new UIDocument with the specified file path</Abstract>
 			<DeclaredIn>iCloudDocument.h</DeclaredIn>			
 			
 			<Declaration>- (id)initWithFileURL:(NSURL *)url</Declaration>

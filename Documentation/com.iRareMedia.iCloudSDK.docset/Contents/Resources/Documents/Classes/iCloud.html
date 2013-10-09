@@ -6,7 +6,7 @@
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.1 (build 858)" />
+		<meta name="generator" content="appledoc 2.2 (build 961)" />
 	</head>
 	<body>
 		<header id="top_header">
@@ -55,6 +55,8 @@
 	<option value="//api/name/doesFileExistInCloud:">&nbsp;&nbsp;&nbsp;&nbsp;+ doesFileExistInCloud:</option>
 	
 	<option value="//api/name/fileList">&nbsp;&nbsp;&nbsp;&nbsp;+ fileList</option>
+	
+	<option value="//api/name/getListOfCloudFiles">&nbsp;&nbsp;&nbsp;&nbsp;+ getListOfCloudFiles</option>
 	
 	<option value="//api/name/previousQueryResults">&nbsp;&nbsp;&nbsp;&nbsp;+ previousQueryResults</option>
 	
@@ -131,6 +133,8 @@
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/doesFileExistInCloud:">doesFileExistInCloud:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/fileList">fileList</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getListOfCloudFiles">getListOfCloudFiles</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/previousQueryResults">previousQueryResults</a></span></li>
 	
@@ -345,6 +349,13 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	</span>
 	
 	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/getListOfCloudFiles">+&nbsp;getListOfCloudFiles</a></code>
+		<span class="tooltip"><p>Get a list of files stored in iCloud</p></span>
+	</span>
+	
+	
 </li>
 						</ul>
 						
@@ -510,7 +521,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>handler</em></dt>
-			<dd><p>Code block called when a file is successfully deleted from iCloud. The NSError object contains any error information if an error occured, otherwise it will be nil.</p></dd>
+			<dd><p>Code block called when a file is successfully deleted from iCloud. The NSError object contains any error information if an error occurred, otherwise it will be nil.</p></dd>
 		</dl>
 		
 	</div>
@@ -566,7 +577,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>handler</em></dt>
-			<dd><p>Code block called when a file is successfully deleted from iCloud. The NSError object contains any error information if an error occured, otherwise it will ne nil.</p></dd>
+			<dd><p>Code block called when a file is successfully deleted from iCloud. The NSError object contains any error information if an error occurred, otherwise it will be nil.</p></dd>
 		</dl>
 		
 	</div>
@@ -663,6 +674,47 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	<div class="method-subsection return">
 		<h4 class="method-subtitle parameter-title">Return Value</h4>
 		<p>NSMutableArray (editable list) of files stored in iCloud.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">iCloud.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/getListOfCloudFiles" title="getListOfCloudFiles"></a>
+	<h3 class="subsubtitle method-title">getListOfCloudFiles</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Get a list of files stored in iCloud</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (NSArray *)getListOfCloudFiles</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>NSArray with a list of all the files currently stored in your app&rsquo;s iCloud Documents directory</p>
 	</div>
 	
 	
@@ -860,7 +912,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>handler</em></dt>
-			<dd><p>Code block called when the document is successfully saved. The completion block passes UIDocument and NSData objects containing the saved document and it&rsquo;s contents in the form of NSData. The NSError object contains any error information if an error occured, otherwise it will ne nil.</p></dd>
+			<dd><p>Code block called when the document is successfully saved. The completion block passes UIDocument and NSData objects containing the saved document and it&rsquo;s contents in the form of NSData. The NSError object contains any error information if an error occurred, otherwise it will be nil.</p></dd>
 		</dl>
 		
 	</div>
@@ -875,7 +927,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 		<h4 class="method-subtitle">Discussion</h4>
 		<p>iCloud Document Sync uses UIDocument and NSData to store and manage files. All of the heavy lifting with NSData and UIDocument is handled for you. There&rsquo;s no need to actually create or manage any files, just give iCloud Document Sync your data, and the rest is done for you.</p>
 
-<p>To create a new document or save an exisiting one (close the document), use this method. Below is a code example of how to use it.</p>
+<p>To create a new document or save an existing one (close the document), use this method. Below is a code example of how to use it.</p>
 
 <pre><code>[iCloud saveDocumentWithName:@"Name.ext" withContent:[NSData data] withDelegate:self completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
     if (error == nil) {
@@ -935,7 +987,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>handler</em></dt>
-			<dd><p>Code block called when the document is successfully saved. The completion block passes UIDocument and NSData objects containing the saved document and it&rsquo;s contents in the form of NSData. The NSError object contains any error information if an error occured, otherwise it will ne nil.</p></dd>
+			<dd><p>Code block called when the document is successfully saved. The completion block passes UIDocument and NSData objects containing the saved document and it&rsquo;s contents in the form of NSData. The NSError object contains any error information if an error occurred, otherwise it will be nil.</p></dd>
 		</dl>
 		
 	</div>
@@ -1032,7 +1084,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>handler</em></dt>
-			<dd><p>Code block called when files are uploaded to iCloud. The NSError object contains any error information if an error occured, otherwise it will ne nil.</p></dd>
+			<dd><p>Code block called when files are uploaded to iCloud. The NSError object contains any error information if an error occurred, otherwise it will be nil.</p></dd>
 		</dl>
 		
 	</div>
@@ -1083,12 +1135,12 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>repeatingHandler</em></dt>
-			<dd><p>Code block called after each file is uploaded to iCloud. This block is called everytime a local file is uploaded, therefore it may be called multiple times. The NSError object contains any error information if an error occured, otherwise it will be nil.</p></dd>
+			<dd><p>Code block called after each file is uploaded to iCloud. This block is called every-time a local file is uploaded, therefore it may be called multiple times. The NSError object contains any error information if an error occurred, otherwise it will be nil.</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>completion</em></dt>
-			<dd><p>Code block called after all files have been uploaded to iCloud. This block is only called once at the end of the method, regardless of any successes or failures that may have occured during the upload(s).</p></dd>
+			<dd><p>Code block called after all files have been uploaded to iCloud. This block is only called once at the end of the method, regardless of any successes or failures that may have occurred during the upload(s).</p></dd>
 		</dl>
 		
 	</div>
@@ -1143,10 +1195,9 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">iCloud Document Sync Project version 6.1. Available on <a href="http://github.com/iRareMedia/iCloudDocumentSync" target="_blank">GitHub</a></span><br />
-						<p><span class="copyright">&copy; 2013 iRare Media. All rights reserved. (Last updated: 2013-08-09)</span><br />
+						<p><span class="copyright">&copy; 2013 iRare Media. All rights reserved. (Last updated: 2013-10-09)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 858)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 961)</a>.</span></p>
 						
 					</div>
 				</div>

@@ -12,7 +12,7 @@
 			buildConfigurationList = 9994D1BC16FE3C8400AB071B /* Build configuration list for PBXAggregateTarget "Framework" */;
 			buildPhases = (
 				9994D1C116FE3CAF00AB071B /* Build Framework */,
-				9900581A177F705900EF236B /* ShellScript */,
+				9900581A177F705900EF236B /* Build Documentation */,
 			);
 			dependencies = (
 				9994D1C016FE3C8C00AB071B /* PBXTargetDependency */,
@@ -57,6 +57,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		99670E021806160E005BC6B7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		99670E0418061613005BC6B7 /* com.iRareMedia.iCloudSDK.docset */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = com.iRareMedia.iCloudSDK.docset; sourceTree = "<group>"; };
+		99670E0518061613005BC6B7 /* iRareMedia.atom */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = iRareMedia.atom; sourceTree = "<group>"; };
 		996A9B7F177C8DCA0030039A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		996A9B82177C8DCA0030039A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		9994D1A416FE3ABF00AB071B /* libiCloud.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiCloud.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,9 +83,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		99670E0318061613005BC6B7 /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				99670E0418061613005BC6B7 /* com.iRareMedia.iCloudSDK.docset */,
+				99670E0518061613005BC6B7 /* iRareMedia.atom */,
+			);
+			name = Documentation;
+			path = ../Documentation;
+			sourceTree = "<group>";
+		};
 		9994D19B16FE3ABF00AB071B = {
 			isa = PBXGroup;
 			children = (
+				99670E021806160E005BC6B7 /* README.md */,
 				9994D1A916FE3ABF00AB071B /* iCloud */,
 				9994D1A616FE3ABF00AB071B /* Frameworks */,
 				9994D1A516FE3ABF00AB071B /* Products */,
@@ -122,6 +136,7 @@
 		9994D1AA16FE3ABF00AB071B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				99670E0318061613005BC6B7 /* Documentation */,
 				9994D1AB16FE3ABF00AB071B /* iCloud-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -189,18 +204,19 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		9900581A177F705900EF236B /* ShellScript */ = {
+		9900581A177F705900EF236B /* Build Documentation */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Build Documentation";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Start constants\ncompany=\"iRare Media\";\ncompanyID=\"com.iRareMedia\";\ncompanyURL=\"http://www.iRareMedia.com\";\ngitHubURL=\"https://github.com/iRareMedia/iCloudDocumentSync\";\nversion=\"6.1\";\ntarget=\"iphoneos\";\n#target=\"macosx\";\noutputPath=\"~/help\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}SDK\" \\\n--project-company \"${company}\" \\\n--project-version \"${version}\" \\\n--company-id \"${companyID}\" \\\n--docset-atom-filename \"iRareMedia.atom\" \\\n--docset-feed-url \"${gitHubURL}/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${gitHubURL}/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${gitHubURL}\" \\\n--output \"${outputPath}\" \\\n--publish-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--ignore \"*.m\" \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}\"";
+			shellScript = "# Start constants\ncompany=\"iRare Media\";\ncompanyID=\"com.iRareMedia\";\ncompanyURL=\"http://www.iRareMedia.com\";\ngitHubURL=\"https://github.com/iRareMedia/iCloudDocumentSync\";\nversion=\"6.2\";\ntarget=\"iphoneos\";\n#target=\"macosx\";\noutputPath=\"${BUILT_PRODUCTS_DIR}\";#\"~/help\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}SDK\" \\\n--project-company \"${company}\" \\\n--project-version \"${version}\" \\\n--company-id \"${companyID}\" \\\n--docset-atom-filename \"iRareMedia.atom\" \\\n--docset-feed-url \"${gitHubURL}/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${gitHubURL}/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${gitHubURL}\" \\\n--output \"${outputPath}\" \\\n--publish-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--ignore \"*.m\" \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}\"";
 		};
 		9994D1BA16FE3C5C00AB071B /* Prepare Framework */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -277,7 +293,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -300,7 +316,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

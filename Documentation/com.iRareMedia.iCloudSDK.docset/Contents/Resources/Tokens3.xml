@@ -53,7 +53,7 @@
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/iCloudError:</TokenIdentifier>
-			<Abstract type="html">DEPRECATED. Called when there is an error while performing an iCloud process (&lt;b class=&quot;deprecated&quot;&gt;Deprecated:&lt;/b&gt;&lt;span class=&quot;deprecated&quot;&gt; Deprecated in version 6.1. use the NSError parameter available in corresponding methods&apos; compeltion handlers.&lt;/span&gt;)</Abstract>
+			<Abstract type="html">DEPRECATED. Called when there is an error while performing an iCloud process (&lt;b class=&quot;deprecated&quot;&gt;Deprecated:&lt;/b&gt;&lt;span class=&quot;deprecated&quot;&gt; Deprecated in version 6.1. use the NSError parameter available in corresponding methods&apos; completion handlers.&lt;/span&gt;)</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>			
 			
 			<Declaration>- (void)iCloudError:(NSError *)error</Declaration>
@@ -70,14 +70,14 @@
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/cloudError:</TokenIdentifier>
-			<Abstract type="html">DEPRECATED. Tells the delegate that there was an error while performing a process (&lt;b class=&quot;deprecated&quot;&gt;Deprecated:&lt;/b&gt;&lt;span class=&quot;deprecated&quot;&gt; Deprecated in version 6.0. Use the NSError parameter available in corresponding methods&apos; compeltion handlers.&lt;/span&gt;)</Abstract>
+			<Abstract type="html">DEPRECATED. Tells the delegate that there was an error while performing a process (&lt;b class=&quot;deprecated&quot;&gt;Deprecated:&lt;/b&gt;&lt;span class=&quot;deprecated&quot;&gt; Deprecated in version 6.0. Use the NSError parameter available in corresponding methods&apos; completion handlers.&lt;/span&gt;)</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>			
 			
 			<Declaration>- (void)cloudError:(NSError *)error</Declaration>
 			<Parameters>
 				<Parameter>
 					<Name>error</Name>
-					<Abstract type="html">Returns the NSError that occured</Abstract>
+					<Abstract type="html">Returns the NSError that occurred</Abstract>
 				</Parameter>
 			</Parameters>
 			

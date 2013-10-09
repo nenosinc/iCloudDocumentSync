@@ -127,7 +127,7 @@
 					<Abstract type="html">The data to write to the UIDocument file</Abstract>
 				</Parameter><Parameter>
 					<Name>handler</Name>
-					<Abstract type="html">Code block called when the document is successfully saved. The completion block passes UIDocument and NSData objects containing the saved document and it&apos;s contents in the form of NSData. The NSError object contains any error information if an error occured, otherwise it will ne nil.</Abstract>
+					<Abstract type="html">Code block called when the document is successfully saved. The completion block passes UIDocument and NSData objects containing the saved document and it&apos;s contents in the form of NSData. The NSError object contains any error information if an error occurred, otherwise it will be nil.</Abstract>
 				</Parameter>
 			</Parameters>
 			
@@ -147,10 +147,10 @@
 					<Abstract type="html">The iCloud Class uses a delegate. The iCloudFileUploadConflictWithCloudFile:andLocalFile: delegate method is triggered by this method.</Abstract>
 				</Parameter><Parameter>
 					<Name>repeatingHandler</Name>
-					<Abstract type="html">Code block called after each file is uploaded to iCloud. This block is called everytime a local file is uploaded, therefore it may be called multiple times. The NSError object contains any error information if an error occured, otherwise it will be nil.</Abstract>
+					<Abstract type="html">Code block called after each file is uploaded to iCloud. This block is called every-time a local file is uploaded, therefore it may be called multiple times. The NSError object contains any error information if an error occurred, otherwise it will be nil.</Abstract>
 				</Parameter><Parameter>
 					<Name>completion</Name>
-					<Abstract type="html">Code block called after all files have been uploaded to iCloud. This block is only called once at the end of the method, regardless of any successes or failures that may have occured during the upload(s).</Abstract>
+					<Abstract type="html">Code block called after all files have been uploaded to iCloud. This block is only called once at the end of the method, regardless of any successes or failures that may have occurred during the upload(s).</Abstract>
 				</Parameter>
 			</Parameters>
 			
@@ -170,7 +170,7 @@
 					<Abstract type="html">The name of the UIDocument file to delete from iCloud</Abstract>
 				</Parameter><Parameter>
 					<Name>handler</Name>
-					<Abstract type="html">Code block called when a file is successfully deleted from iCloud. The NSError object contains any error information if an error occured, otherwise it will be nil.</Abstract>
+					<Abstract type="html">Code block called when a file is successfully deleted from iCloud. The NSError object contains any error information if an error occurred, otherwise it will be nil.</Abstract>
 				</Parameter>
 			</Parameters>
 			
@@ -216,6 +216,18 @@
 		</Token>
 		
 		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/iCloud/getListOfCloudFiles</TokenIdentifier>
+			<Abstract type="html">Get a list of files stored in iCloud</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>+ (NSArray *)getListOfCloudFiles</Declaration>
+			
+			<ReturnValue><Abstract type="html">NSArray with a list of all the files currently stored in your app&apos;s iCloud Documents directory</Abstract></ReturnValue>
+			<Anchor>//api/name/getListOfCloudFiles</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
 			<TokenIdentifier>//apple_ref/occ/clm/iCloud/deleteDocumentWithName:withDelegate:completion:</TokenIdentifier>
 			<Abstract type="html">DEPRECATED. Delete a document from iCloud. (&lt;b class=&quot;deprecated&quot;&gt;Deprecated:&lt;/b&gt;&lt;span class=&quot;deprecated&quot;&gt; This method is deprecated, use deleteDocumentWithName:completion: instead.&lt;/span&gt;)</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>			
@@ -230,7 +242,7 @@
 					<Abstract type="html">The iCloud Class requires a delegate. Make sure to set the delegate of iCloud before calling this method. The documentWasSaved delegate method is triggered by this method.</Abstract>
 				</Parameter><Parameter>
 					<Name>handler</Name>
-					<Abstract type="html">Code block called when a file is successfully deleted from iCloud. The NSError object contains any error information if an error occured, otherwise it will ne nil.</Abstract>
+					<Abstract type="html">Code block called when a file is successfully deleted from iCloud. The NSError object contains any error information if an error occurred, otherwise it will be nil.</Abstract>
 				</Parameter>
 			</Parameters>
 			
@@ -256,7 +268,7 @@
 					<Abstract type="html">The iCloud Class requires a delegate. Make sure to set the delegate of iCloud before calling this method. The documentWasSaved delegate method is triggered by this method.</Abstract>
 				</Parameter><Parameter>
 					<Name>handler</Name>
-					<Abstract type="html">Code block called when the document is successfully saved. The completion block passes UIDocument and NSData objects containing the saved document and it&apos;s contents in the form of NSData. The NSError object contains any error information if an error occured, otherwise it will ne nil.</Abstract>
+					<Abstract type="html">Code block called when the document is successfully saved. The completion block passes UIDocument and NSData objects containing the saved document and it&apos;s contents in the form of NSData. The NSError object contains any error information if an error occurred, otherwise it will be nil.</Abstract>
 				</Parameter>
 			</Parameters>
 			
@@ -276,7 +288,7 @@
 					<Abstract type="html">The iCloud Class requires a delegate. Make sure to set the delegate of iCloud before calling this method.</Abstract>
 				</Parameter><Parameter>
 					<Name>handler</Name>
-					<Abstract type="html">Code block called when files are uploaded to iCloud. The NSError object contains any error information if an error occured, otherwise it will ne nil.</Abstract>
+					<Abstract type="html">Code block called when files are uploaded to iCloud. The NSError object contains any error information if an error occurred, otherwise it will be nil.</Abstract>
 				</Parameter>
 			</Parameters>
 			

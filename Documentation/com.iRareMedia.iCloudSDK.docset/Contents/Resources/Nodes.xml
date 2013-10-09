@@ -33,17 +33,17 @@
     </TOC>
 	<Library>
 		
-		<Node id="1">
+		<Node id="1" type="file">
 			<Name>iCloud</Name>
 			<Path>Classes/iCloud.html</Path>
 		</Node>
-		<Node id="2">
+		<Node id="2" type="file">
 			<Name>iCloudDocument</Name>
 			<Path>Classes/iCloudDocument.html</Path>
 		</Node>
 		
 		
-		<Node id="3">
+		<Node id="3" type="file">
 			<Name>iCloudDelegate</Name>
 			<Path>Protocols/iCloudDelegate.html</Path>
 		</Node>

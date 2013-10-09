@@ -178,7 +178,7 @@
         
         // Get the URL to save the new file to
         NSURL *folderURL = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil];
-        folderURL = [folderURL URLByAppendingPathComponent:@"Documents"];
+        folderURL = [folderURL URLByAppendingPathComponent:DOCUMENT_DIRECTORY];
         NSURL *fileURL = [folderURL URLByAppendingPathComponent:name];
         
         // Initialize a document with that path
@@ -221,7 +221,7 @@
                     });
                 }
             }];
-        }        
+        }
     });
 }
 
@@ -264,7 +264,7 @@
                     
                     // Get the file URL for the iCloud document
                     NSURL *folderURL = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil];
-                    NSURL *cloudFileURL = [[folderURL URLByAppendingPathComponent:@"Documents"] URLByAppendingPathComponent:[localDocuments objectAtIndex:item]];
+                    NSURL *cloudFileURL = [[folderURL URLByAppendingPathComponent:DOCUMENT_DIRECTORY] URLByAppendingPathComponent:[localDocuments objectAtIndex:item]];
                     NSURL *localFileURL = [NSURL fileURLWithPath:[documentsDirectory stringByAppendingPathComponent:[localDocuments objectAtIndex:item]]];
                     
                     // Create the UIDocument object from the URL
@@ -312,7 +312,7 @@
                             NSDictionary *cloudFile = [[NSDictionary alloc] initWithObjects:@[document.contents, cloudFileURL, cloudModDate]
                                                                                     forKeys:@[@"fileContents", @"fileURL", @"modifiedDate"]];
                             NSDictionary *localFile = [[NSDictionary alloc] initWithObjects:@[localFileData, localFileURL, localModDate]
-                                                                                   forKeys:@[@"fileContents", @"fileURL", @"modifiedDate"]];;
+                                                                                    forKeys:@[@"fileContents", @"fileURL", @"modifiedDate"]];;
                             if ([delegate respondsToSelector:@selector(iCloudFileUploadConflictWithCloudFile:andLocalFile:)])
                                 [delegate iCloudFileUploadConflictWithCloudFile:cloudFile andLocalFile:localFile];
                         }
@@ -341,7 +341,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
         // Get the URL to get the file from
         NSURL *folderURL = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil];
-        NSURL *fileURL = [[folderURL URLByAppendingPathComponent:@"Documents"] URLByAppendingPathComponent:documentName];
+        NSURL *fileURL = [[folderURL URLByAppendingPathComponent:DOCUMENT_DIRECTORY] URLByAppendingPathComponent:documentName];
         
         // Create the UIDocument object from the URL
         iCloudDocument *document = [[iCloudDocument alloc] initWithFileURL:fileURL];
@@ -375,7 +375,7 @@
 
 + (BOOL)doesFileExistInCloud:(NSString *)fileName {
     // Get the URL to get the file from
-	NSURL *folderURL = [[[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil] URLByAppendingPathComponent:@"Documents"];
+	NSURL *folderURL = [[[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil] URLByAppendingPathComponent:DOCUMENT_DIRECTORY];
 	NSURL *fileURL = [folderURL URLByAppendingPathComponent:fileName];
     
     // Check if the file exists, and return
@@ -387,28 +387,70 @@
     
 }
 
++ (NSArray *)getListOfCloudFiles {
+    // Create iCloud Documents Directory URL
+    NSURL *folderURL = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil];
+    NSURL *fileURL = [folderURL URLByAppendingPathComponent:DOCUMENT_DIRECTORY];
+    
+    // Get the directory contents
+    NSArray *directoryContent = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:fileURL includingPropertiesForKeys:nil options:0 error:nil];
+    
+    return directoryContent;
+}
+
 //---------------------------------------------------------------------------------------------------------------------------------------------//
 //------------ Delete -------------------------------------------------------------------------------------------------------------------------//
 //---------------------------------------------------------------------------------------------------------------------------------------------//
 #pragma mark - Delete
 
 + (void)deleteDocumentWithName:(NSString *)name completion:(void (^)(NSError *error))handler {
-	// Get the URL to remove the file from
-	NSURL *folderURL = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil];
-	folderURL = [folderURL URLByAppendingPathComponent:@"Documents"];
+    // Create the File Manager
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+	// Create the URL for the file that is being removed
+	NSURL *folderURL = [[fileManager URLForUbiquityContainerIdentifier:nil] URLByAppendingPathComponent:DOCUMENT_DIRECTORY];
 	NSURL *fileURL = [folderURL URLByAppendingPathComponent:name];
     
     // Start Process on Background Thread
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSError *error;
-		NSFileCoordinator *fileCoordinator = [[NSFileCoordinator alloc] initWithFilePresenter:nil];
-		[fileCoordinator coordinateWritingItemAtURL:fileURL options:NSFileCoordinatorWritingForDeleting error:&error byAccessor:^(NSURL *writingURL) {
-            NSError *fmError;
-            NSFileManager *fileManager = [[NSFileManager alloc] init];
-            [fileManager removeItemAtURL:writingURL error:&fmError];
-            handler(fmError);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // Create the UIDocument Object
+        __block iCloudDocument *document = [[iCloudDocument alloc] initWithFileURL:fileURL];
+        
+        // Close the document before deleting
+        [document closeWithCompletionHandler:^(BOOL success){
+            if (success) {
+                // Set the Document to NIL
+                document = nil;
+                
+                // Create the Error Handler
+                NSError *error;
+                
+                // Remove the file at the specified URL
+                [fileManager removeItemAtURL:fileURL error:&error];
+                if (error) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        handler(error);
+                    });
+                    return;
+                } else {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        handler(nil);
+                    });
+                    return;
+                }
+            } else {
+                // The document failed to close, return an error
+                NSLog(@"%s error while closing document", __PRETTY_FUNCTION__);
+                NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"%s error while closing document, %@, from iCloud", __PRETTY_FUNCTION__, document.fileURL] code:300 userInfo:[NSDictionary dictionaryWithObject:fileURL forKey:@"FileURL"]];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        handler(error);
+                    });
+                    return;
+                });
+            }
         }];
-	});
+    });
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------//
