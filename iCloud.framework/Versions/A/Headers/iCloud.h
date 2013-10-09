@@ -11,6 +11,8 @@
 #import <Foundation/Foundation.h>
 #import <iCloud/iCloudDocument.h>
 
+#define DOCUMENT_DIRECTORY @"Documents"
+
 /** iCloud Document Sync helps integrate iCloud into iOS (OS X coming soon) Objective-C document projects with one-line code methods. Sync, upload, manage, and remove documents to and from iCloud with only a few lines of code (compared to the 400+ lines that it usually takes). Updates and more details on this project can be found on [GitHub](http://www.github.com/iRareMedia/iCloudDocumentSync). If you like the project, please [star it](https://github.com/iRareMedia/iCloudDocumentSync) on GitHub!
  
  The `iCloud` class provides methods to integrate iCloud into document projects.
@@ -90,7 +92,7 @@ NS_CLASS_AVAILABLE_IOS(5_0) @interface iCloud : NSObject
  
  @discussion iCloud Document Sync uses UIDocument and NSData to store and manage files. All of the heavy lifting with NSData and UIDocument is handled for you. There's no need to actually create or manage any files, just give iCloud Document Sync your data, and the rest is done for you.
  
- To create a new document or save an exisiting one (close the document), use this method. Below is a code example of how to use it.
+ To create a new document or save an existing one (close the document), use this method. Below is a code example of how to use it.
  
     [iCloud saveDocumentWithName:@"Name.ext" withContent:[NSData data] withDelegate:self completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
         if (error == nil) {
@@ -101,7 +103,7 @@ NS_CLASS_AVAILABLE_IOS(5_0) @interface iCloud : NSObject
  
  @param name The name of the UIDocument file being written to iCloud
  @param content The data to write to the UIDocument file
- @param handler Code block called when the document is successfully saved. The completion block passes UIDocument and NSData objects containing the saved document and it's contents in the form of NSData. The NSError object contains any error information if an error occured, otherwise it will ne nil.
+ @param handler Code block called when the document is successfully saved. The completion block passes UIDocument and NSData objects containing the saved document and it's contents in the form of NSData. The NSError object contains any error information if an error occurred, otherwise it will be nil.
  */
 + (void)saveDocumentWithName:(NSString *)name withContent:(NSData *)content completion:(void (^)(UIDocument *cloudDocument, NSData *documentData, NSError *error))handler;
 
@@ -119,8 +121,8 @@ NS_CLASS_AVAILABLE_IOS(5_0) @interface iCloud : NSObject
      }];
  
  @param delegate The iCloud Class uses a delegate. The iCloudFileUploadConflictWithCloudFile:andLocalFile: delegate method is triggered by this method.
- @param repeatingHandler Code block called after each file is uploaded to iCloud. This block is called everytime a local file is uploaded, therefore it may be called multiple times. The NSError object contains any error information if an error occured, otherwise it will be nil.
- @param completion Code block called after all files have been uploaded to iCloud. This block is only called once at the end of the method, regardless of any successes or failures that may have occured during the upload(s).
+ @param repeatingHandler Code block called after each file is uploaded to iCloud. This block is called every-time a local file is uploaded, therefore it may be called multiple times. The NSError object contains any error information if an error occurred, otherwise it will be nil.
+ @param completion Code block called after all files have been uploaded to iCloud. This block is only called once at the end of the method, regardless of any successes or failures that may have occurred during the upload(s).
  */
 + (void)uploadLocalOfflineDocumentsWithDelegate:(id<iCloudDelegate>)delegate repeatingHandler:(void (^)(NSString *fileName, NSError *error))repeatingHandler completion:(void (^)(void))completion;
 
@@ -128,8 +130,9 @@ NS_CLASS_AVAILABLE_IOS(5_0) @interface iCloud : NSObject
 /** @name Deleting content from iCloud */
 
 /** Delete a document from iCloud.
+ 
  @param name The name of the UIDocument file to delete from iCloud
- @param handler Code block called when a file is successfully deleted from iCloud. The NSError object contains any error information if an error occured, otherwise it will be nil.
+ @param handler Code block called when a file is successfully deleted from iCloud. The NSError object contains any error information if an error occurred, otherwise it will be nil.
  */
 + (void)deleteDocumentWithName:(NSString *)name completion:(void (^)(NSError *error))handler;
 
@@ -153,34 +156,47 @@ NS_CLASS_AVAILABLE_IOS(5_0) @interface iCloud : NSObject
 + (void)retrieveCloudDocumentWithName:(NSString *)documentName completion:(void (^)(UIDocument *cloudDocument, NSData *documentData, NSError *error))handler;
 
 /** Check if a file exists in iCloud
+ 
  @param fileName The name of the UIDocument in iCloud
  @return BOOL value, YES if the file does exist in iCloud, NO if it does not
  */
 + (BOOL)doesFileExistInCloud:(NSString *)fileName;
 
+/** Get a list of files stored in iCloud
+ 
+ @return NSArray with a list of all the files currently stored in your app's iCloud Documents directory
+ */
++ (NSArray *)getListOfCloudFiles;
+
 
 /** @name Deprecated Methods */
 
 /** DEPRECATED. Delete a document from iCloud.
+ 
  @param name The name of the UIDocument file to delete from iCloud
  @param delegate The iCloud Class requires a delegate. Make sure to set the delegate of iCloud before calling this method. The documentWasSaved delegate method is triggered by this method.
- @param handler Code block called when a file is successfully deleted from iCloud. The NSError object contains any error information if an error occured, otherwise it will ne nil.
+ @param handler Code block called when a file is successfully deleted from iCloud. The NSError object contains any error information if an error occurred, otherwise it will be nil.
+ 
  @deprecated This method is deprecated, use deleteDocumentWithName:completion: instead.
  */
 + (void)deleteDocumentWithName:(NSString *)name withDelegate:(id<iCloudDelegate>)delegate completion:(void (^)(NSError *error))handler __deprecated;
 
 /** DEPRECATED. Create a document to upload to iCloud.
+ 
  @param name The name of the UIDocument file being written to iCloud
  @param content The data to write to the UIDocument file
  @param delegate The iCloud Class requires a delegate. Make sure to set the delegate of iCloud before calling this method. The documentWasSaved delegate method is triggered by this method.
- @param handler Code block called when the document is successfully saved. The completion block passes UIDocument and NSData objects containing the saved document and it's contents in the form of NSData. The NSError object contains any error information if an error occured, otherwise it will ne nil.
+ @param handler Code block called when the document is successfully saved. The completion block passes UIDocument and NSData objects containing the saved document and it's contents in the form of NSData. The NSError object contains any error information if an error occurred, otherwise it will be nil.
+ 
  @deprecated This method is deprecated, use saveDocumentWithName:withContent:completion: instead.
  */
 + (void)saveDocumentWithName:(NSString *)name withContent:(NSData *)content withDelegate:(id<iCloudDelegate>)delegate completion:(void (^)(UIDocument *cloudDocument, NSData *documentData, NSError *error))handler __deprecated;
 
 /** DEPRECATED. Upload any local files that weren't created with iCloud or were created while offline
+ 
  @param delegate The iCloud Class requires a delegate. Make sure to set the delegate of iCloud before calling this method.
- @param handler Code block called when files are uploaded to iCloud. The NSError object contains any error information if an error occured, otherwise it will ne nil.
+ @param handler Code block called when files are uploaded to iCloud. The NSError object contains any error information if an error occurred, otherwise it will be nil.
+ 
  @deprecated This method is deprecated, use uploadLocalOfflineDocumentsWithDelegate:repeatingHandler:completion: instead.
  */
 + (void)uploadLocalOfflineDocumentsWithDelegate:(id<iCloudDelegate>)delegate completion:(void (^)(NSError *error))handler __deprecated;
@@ -189,10 +205,8 @@ NS_CLASS_AVAILABLE_IOS(5_0) @interface iCloud : NSObject
 
 @class iCloud;
 
-/** The iCloudDelegate protocol defines the methods used to receive event notifications and allow for deeper control of the iCloud Class.
- */
+/** The iCloudDelegate protocol defines the methods used to receive event notifications and allow for deeper control of the iCloud Class. */
 @protocol iCloudDelegate <NSObject>
-
 
 
 /** @name Optional Delegate Methods */
@@ -200,15 +214,18 @@ NS_CLASS_AVAILABLE_IOS(5_0) @interface iCloud : NSObject
 @optional
 
 /** Tells the delegate that the files in iCloud have been modified
+ 
  @param files A list of the files now in the app's iCloud documents directory - each file in the array contains information such as file version, url, localized name, date, etc.
  @param fileNames A list of the file names now in the app's iCloud documents directory
  */
 - (void)iCloudFilesDidChange:(NSMutableArray *)files withNewFileNames:(NSMutableArray *)fileNames;
 
 /** Sent to the delegate where there is a conflict between a local file and an iCloud file during an upload
+ 
+ @discussion When both files have the same modification date and file content, iCloud Document Sync will not be able to automatically determine how to handle the conflict. As a result, this delegate method is called to pass the file information to the delegate which should be able to appropriately handle and resolve the conflict. The delegate should, if needed, present the user with a conflict resolution interface. iCloud Document Sync does not need to know the result of the attempted resolution, it will continue to upload all files which are not conflicting. It is important to note that **this method may be called more than once in a very short period of time** - be prepared to handle the data appropriately. This delegate method is called on the main thread using GCD.
+ 
  @param cloudFile An NSDictionary with the cloud file and various other information. This parameter contains the fileContent as NSData, fileURL as NSURL, and modifiedDate as NSDate.
  @param localFile An NSDictionary with the local file and various other information. This parameter contains the fileContent as NSData, fileURL as NSURL, and modifiedDate as NSDate.
- @discussion When both files have the same modfication date and file content, iCloud Document Sync will not be able to automatically determine how to handle the conflict. As a result, this delegate method is called to pass the file information to the delegate which should be able to appropriately handle and resolve the conflict. The delegate should, if needed, present the user with a conflict resolution interface. iCloud Document Sync does not need to know the result of the attempted resolution, it will continue to upload all files which are not conflicting. It is important to note that **this method may be called more than once in a very short period of time** - be prepared to handle the data appropriately. This delegate method is called on the main thread using GCD.
  */
 - (void)iCloudFileUploadConflictWithCloudFile:(NSDictionary *)cloudFile andLocalFile:(NSDictionary *)localFile;
 
@@ -219,12 +236,12 @@ NS_CLASS_AVAILABLE_IOS(5_0) @interface iCloud : NSObject
 
 /** DEPRECATED. Called when there is an error while performing an iCloud process
  @param error An NSError with a message, error code, and information
- @deprecated Deprecated in version 6.1. use the NSError parameter available in corresponding methods' compeltion handlers. */
+ @deprecated Deprecated in version 6.1. use the NSError parameter available in corresponding methods' completion handlers. */
 - (void)iCloudError:(NSError *)error __deprecated;
 
 /** DEPRECATED. Tells the delegate that there was an error while performing a process
- @param error Returns the NSError that occured
- @deprecated Deprecated in version 6.0. Use the NSError parameter available in corresponding methods' compeltion handlers. */
+ @param error Returns the NSError that occurred
+ @deprecated Deprecated in version 6.0. Use the NSError parameter available in corresponding methods' completion handlers. */
 - (void)cloudError:(NSError *)error __deprecated;
 
 /** DEPRECATED. Tells the delegate that the files in iCloud have been modified
