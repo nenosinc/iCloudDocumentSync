@@ -76,6 +76,13 @@ You can delete documents from iCloud by using the method below. The completion b
         // Completion handler could be used to update your UI and tell the user that the document was deleted
     }];
 
+### Sharing Documents
+You can upload an iCloud document to a public URL by using the method below. The completion block is called when the public URL is created.
+
+    NSURL *publicURL = [iCloud shareDocumentWithName:@"docName.ext" completion:^(NSURL *sharedURL, NSDate *expirationDate, NSError *error) {
+        // Completion handler that passes the public URL created, the expriation date of the URL, and any errors. Could be used to update your UI and tell the user that the document was uploaded
+    }];
+
 ### Retrieving Documents and Data
 You can open and retrieve a document stored in your iCloud documents directory with the method below. This method will attempt to open the specified document. If the file does not exist, a blank one will be created. The completion handler is called when the file is opened or created (either successfully or not). The completion handler contains a UIDocument, NSData, and NSError all of which contain information about the opened document.
 
@@ -117,12 +124,6 @@ iCloud Document Sync delegate methods notify you of the status of iCloud and you
     </ul>
      <br /><br />
            <tt> - (void)iCloudFileUploadConflictWithCloudFile:(NSDictionary *)cloudFile andLocalFile:(NSDictionary *)localFile;</tt></td>
-  </tr>
-  <tr>
-    <td>iCloud Error <span style="color:#FF0000"><b>Deprecated</b></span></td>
-    <td> This delegate method was previously used to report errors when reading or writing files. Please use the NSError object provided in all method completion blocks instead of this delegate method. This delegate method is no longer called and may break in future versions.   
-     <br /><br />
-           <tt> - (void)iCloudError:(NSError *)error</tt></td>
   </tr>
 </table>
 
