@@ -47,7 +47,7 @@ iCloud Document Sync will automatically detect changes in iCloud documents. When
 ### Uploading Documents
 iCloud Document Sync uses UIDocument and NSData to store and manage files. All of the heavy lifting with NSData and UIDocument is handled for you. There's no need to actually create or manage any files, just give iCloud Document Sync your data, and the rest is done for you.
 
-To create a new document or save an exisiting one (close the document), use the method below.
+To create a new document or save an existing one (close the document), use the method below.
 
     [iCloud saveDocumentWithName:@"Name.ext" withContent:[NSData data] completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
         if (error == nil) {
@@ -67,7 +67,7 @@ You can also upload any documents created while offline, or locally.  Files in t
         // Completion handler could be used to tell the user that the upload has completed
     }];
 
-Note the `repeatingHandler` block. This block is called everytime a local file is uploaded, therefore it may be called multiple times in a short period. The NSError object contains any error information if an error occured, otherwise it will be nil.
+Note the `repeatingHandler` block. This block is called every-time a local file is uploaded, therefore it may be called multiple times in a short period. The NSError object contains any error information if an error occurred, otherwise it will be nil.
 
 ### Removing Documents
 You can delete documents from iCloud by using the method below. The completion block is called when the file is successfully deleted.
@@ -99,7 +99,7 @@ You can also check whether or not a file actually exists in iCloud or not by usi
 You can upload an iCloud document to a public URL by using the method below. The completion block is called when the public URL is created.
 
     NSURL *publicURL = [iCloud shareDocumentWithName:@"docName.ext" completion:^(NSURL *sharedURL, NSDate *expirationDate, NSError *error) {
-        // Completion handler that passes the public URL created, the expriation date of the URL, and any errors. Could be used to update your UI and tell the user that the document was uploaded
+        // Completion handler that passes the public URL created, the expiration date of the URL, and any errors. Could be used to update your UI and tell the user that the document was uploaded
     }];
 
 

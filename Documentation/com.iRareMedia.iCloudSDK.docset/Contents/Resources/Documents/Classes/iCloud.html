@@ -68,6 +68,8 @@
 	
 	<option value="//api/name/saveDocumentWithName:withContent:withDelegate:completion:">&nbsp;&nbsp;&nbsp;&nbsp;+ saveDocumentWithName:withContent:withDelegate:completion:</option>
 	
+	<option value="//api/name/shareDocumentWithName:completion:">&nbsp;&nbsp;&nbsp;&nbsp;+ shareDocumentWithName:completion:</option>
+	
 	<option value="//api/name/updateFilesWithDelegate:">&nbsp;&nbsp;&nbsp;&nbsp;+ updateFilesWithDelegate:</option>
 	
 	<option value="//api/name/uploadLocalOfflineDocumentsWithDelegate:completion:">&nbsp;&nbsp;&nbsp;&nbsp;+ uploadLocalOfflineDocumentsWithDelegate:completion:</option>
@@ -101,6 +103,8 @@
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Syncing with iCloud">Syncing with iCloud</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Uploading to iCloud">Uploading to iCloud</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Sharing iCloud Content">Sharing iCloud Content</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Deleting content from iCloud">Deleting content from iCloud</a></span></li>
 	
@@ -145,6 +149,8 @@
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/saveDocumentWithName:withContent:completion:">saveDocumentWithName:withContent:completion:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/saveDocumentWithName:withContent:withDelegate:completion:">saveDocumentWithName:withContent:withDelegate:completion:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/shareDocumentWithName:completion:">shareDocumentWithName:completion:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/updateFilesWithDelegate:">updateFilesWithDelegate:</a></span></li>
 	
@@ -309,6 +315,21 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	<span class="tooltip">
 		<code><a href="#//api/name/uploadLocalOfflineDocumentsWithDelegate:repeatingHandler:completion:">+&nbsp;uploadLocalOfflineDocumentsWithDelegate:repeatingHandler:completion:</a></code>
 		<span class="tooltip"><p>Upload any local files that weren&rsquo;t created with iCloud or were created while offline</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Sharing iCloud Content" name="task_Sharing iCloud Content"></a>
+						<h3 class="subsubtitle task-title">Sharing iCloud Content</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/shareDocumentWithName:completion:">+&nbsp;shareDocumentWithName:completion:</a></code>
+		<span class="tooltip"><p>Share an iCloud document by uploading it to a public URL.</p></span>
 	</span>
 	
 	
@@ -1013,6 +1034,67 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 </div>
 						
 						<div class="section-method">
+	<a name="//api/name/shareDocumentWithName:completion:" title="shareDocumentWithName:completion:"></a>
+	<h3 class="subsubtitle method-title">shareDocumentWithName:completion:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Share an iCloud document by uploading it to a public URL.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (NSURL *)shareDocumentWithName:(NSString *)<em>name</em> completion:(void ( ^ ) ( NSURL *sharedURL , NSDate *expirationDate , NSError *error ))<em>handler</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>name</em></dt>
+			<dd><p>The name of the iCloud file being uploaded to a public URL</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>handler</em></dt>
+			<dd><p>Code block called when the document is successfully uploaded. The completion block passes NSURL, NSDate, and NSError objects. The NSURL object is the public URL where the file is available at. The NSDate object is the date that the URL expries on. The NSError object contains any error information if an error occurred, otherwise it will be nil.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The public URL where the file is available at</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Upload a document stored in iCloud for a certain amount of time.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">iCloud.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
 	<a name="//api/name/updateFilesWithDelegate:" title="updateFilesWithDelegate:"></a>
 	<h3 class="subsubtitle method-title">updateFilesWithDelegate:</h3>
 	
@@ -1195,7 +1277,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 iRare Media. All rights reserved. (Last updated: 2013-10-09)</span><br />
+						<p><span class="copyright">&copy; 2013 iRare Media. All rights reserved. (Last updated: 2013-10-10)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 961)</a>.</span></p>
 						

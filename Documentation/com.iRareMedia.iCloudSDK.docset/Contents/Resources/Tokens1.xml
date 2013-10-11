@@ -159,6 +159,26 @@
 		</Token>
 		
 		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/iCloud/shareDocumentWithName:completion:</TokenIdentifier>
+			<Abstract type="html">Share an iCloud document by uploading it to a public URL.</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>+ (NSURL *)shareDocumentWithName:(NSString *)name completion:(void ( ^ ) ( NSURL *sharedURL , NSDate *expirationDate , NSError *error ))handler</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>name</Name>
+					<Abstract type="html">The name of the iCloud file being uploaded to a public URL</Abstract>
+				</Parameter><Parameter>
+					<Name>handler</Name>
+					<Abstract type="html">Code block called when the document is successfully uploaded. The completion block passes NSURL, NSDate, and NSError objects. The NSURL object is the public URL where the file is available at. The NSDate object is the date that the URL expries on. The NSError object contains any error information if an error occurred, otherwise it will be nil.</Abstract>
+				</Parameter>
+			</Parameters>
+			<ReturnValue><Abstract type="html">The public URL where the file is available at</Abstract></ReturnValue>
+			<Anchor>//api/name/shareDocumentWithName:completion:</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
 			<TokenIdentifier>//apple_ref/occ/clm/iCloud/deleteDocumentWithName:completion:</TokenIdentifier>
 			<Abstract type="html">Delete a document from iCloud.</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>			

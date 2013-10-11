@@ -2,6 +2,15 @@
 **iCloud Document Sync is a work in progress**. Please help us get all features working and working well. We believe that this project will help many developers by easing the burden of iCloud. Below are the changes for each major commit.
 
 <table>
+<tr><th colspan="2" style="text-align:center;"><b>Version 6.3</b></th></tr>
+  <tr>
+    <td>Adds new methods. Fixes issues with documentation spelling, etc.
+    <ul>
+   <li>A new method, <tt>shareDocumentWithName: completion:</tt>, is now available. Share a file stored in iCloud by uploading it to a public URL. </li>
+    <li>Fixed spelling issues with documentation</li>
+    </ul>
+    </td>
+  </tr>
 <tr><th colspan="2" style="text-align:center;"><b>Version 6.2</b></th></tr>
   <tr>
     <td>Adds new methods and improves other methods. Fixes issues with documentation spelling, etc.
