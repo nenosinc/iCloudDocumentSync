@@ -127,6 +127,21 @@ NS_CLASS_AVAILABLE_IOS(5_0) @interface iCloud : NSObject
 + (void)uploadLocalOfflineDocumentsWithDelegate:(id<iCloudDelegate>)delegate repeatingHandler:(void (^)(NSString *fileName, NSError *error))repeatingHandler completion:(void (^)(void))completion;
 
 
+/** @name Sharing iCloud Content */
+
+/** Share an iCloud document by uploading it to a public URL.
+ 
+ @discussion Upload a document stored in iCloud for a certain amount of time.
+ 
+ @param name The name of the iCloud file being uploaded to a public URL
+ @param handler Code block called when the document is successfully uploaded. The completion block passes NSURL, NSDate, and NSError objects. The NSURL object is the public URL where the file is available at. The NSDate object is the date that the URL expries on. The NSError object contains any error information if an error occurred, otherwise it will be nil.
+ 
+ @return The public URL where the file is available at
+ */
+
++ (NSURL *)shareDocumentWithName:(NSString *)name completion:(void (^)(NSURL *sharedURL, NSDate *expirationDate, NSError *error))handler;
+
+
 /** @name Deleting content from iCloud */
 
 /** Delete a document from iCloud.
