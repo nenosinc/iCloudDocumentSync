@@ -1,7 +1,7 @@
 iCloud Document Sync
 ==================
 
-iCloud Document Sync helps integrate iCloud into iOS (OS X coming soon) Objective-C document projects with one-line code methods. Sync, upload, manage, and remove documents to and from iCloud with only  a few lines of code (compared to the 400+ lines that it usually takes).
+iCloud Document Sync helps integrate iCloud into iOS (OS X coming soon) Objective-C document projects with one-line code methods. Sync, upload, manage, and remove documents to and from iCloud with only  a few lines of code (compared to the hundreds of lines that it usually takes).
 
 If you like the project, please [star it](https://github.com/iRareMedia/iCloudDocumentSync) on GitHub!
 
@@ -95,6 +95,14 @@ You can also check whether or not a file actually exists in iCloud or not by usi
     	// File Exists in iCloud
     }
 
+### Sharing Documents
+You can upload an iCloud document to a public URL by using the method below. The completion block is called when the public URL is created.
+
+    NSURL *publicURL = [iCloud shareDocumentWithName:@"docName.ext" completion:^(NSURL *sharedURL, NSDate *expirationDate, NSError *error) {
+        // Completion handler that passes the public URL created, the expriation date of the URL, and any errors. Could be used to update your UI and tell the user that the document was uploaded
+    }];
+
+
 Delegates
 -----
 iCloud Document Sync delegate methods notify you of the status of iCloud and your documents stored in iCloud. There are no required delegate method for iOS, however it is recommended that you utilize all available delegate methods. 
@@ -115,14 +123,8 @@ iCloud Document Sync delegate methods notify you of the status of iCloud and you
     <li><tt>fileURL</tt> contains the NSURL pointing to the file. This could possibly be used to gather more information about the file. </li>
     <li><tt>modifiedDate</tt> contains the NSDate representing the last modified date of the file. </li>
     </ul>
-     <br /><br />
+     <br />
            <tt> - (void)iCloudFileUploadConflictWithCloudFile:(NSDictionary *)cloudFile andLocalFile:(NSDictionary *)localFile;</tt></td>
-  </tr>
-  <tr>
-    <td>iCloud Error <span style="color:#FF0000"><b>Deprecated</b></span></td>
-    <td> This delegate method was previously used to report errors when reading or writing files. Please use the NSError object provided in all method completion blocks instead of this delegate method. This delegate method is no longer called and may break in future versions.   
-     <br /><br />
-           <tt> - (void)iCloudError:(NSError *)error</tt></td>
   </tr>
 </table>
 

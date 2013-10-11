@@ -399,6 +399,30 @@
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------//
+//------------ Share --------------------------------------------------------------------------------------------------------------------------//
+//---------------------------------------------------------------------------------------------------------------------------------------------//
+#pragma mark - Share
+
++ (NSURL *)shareDocumentWithName:(NSString *)name completion:(void (^)(NSURL *sharedURL, NSDate *expirationDate, NSError *error))handler {
+    // Get the URL to get the file from
+    NSURL *folderURL = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil];
+    NSURL *fileURL = [[folderURL URLByAppendingPathComponent:DOCUMENT_DIRECTORY] URLByAppendingPathComponent:name];
+    
+    // Create the Error Object and the Date Object
+    NSError *error;
+    NSDate *date;
+    
+    // Create the URL
+    NSURL *url = [[NSFileManager defaultManager] URLForPublishingUbiquitousItemAtURL:fileURL expirationDate:&date error:&error];
+    
+    // Pass the data to the handler
+    handler(url, date, error);
+    
+    // Return the URL
+    return url;
+}
+
+//---------------------------------------------------------------------------------------------------------------------------------------------//
 //------------ Delete -------------------------------------------------------------------------------------------------------------------------//
 //---------------------------------------------------------------------------------------------------------------------------------------------//
 #pragma mark - Delete
