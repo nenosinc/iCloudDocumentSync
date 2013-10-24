@@ -339,16 +339,18 @@
 
 + (void)retrieveCloudDocumentWithName:(NSString *)documentName completion:(void (^)(UIDocument *cloudDocument, NSData *documentData, NSError *error))handler {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
+        // Create the File Manager
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        
         // Get the URL to get the file from
-        NSURL *folderURL = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil];
+        NSURL *folderURL = [fileManager URLForUbiquityContainerIdentifier:nil];
         NSURL *fileURL = [[folderURL URLByAppendingPathComponent:DOCUMENT_DIRECTORY] URLByAppendingPathComponent:documentName];
         
-        // Create the UIDocument object from the URL
-        iCloudDocument *document = [[iCloudDocument alloc] initWithFileURL:fileURL];
-        
         // If the file exists open it; otherwise, create it
-        NSFileManager *fm = [NSFileManager defaultManager];
-        if ([fm fileExistsAtPath:[fileURL path]]) {
+        if ([fileManager fileExistsAtPath:[fileURL path]]) {
+            // Create the UIDocument object from the URL
+            iCloudDocument *document = [[iCloudDocument alloc] initWithFileURL:fileURL];
+            
             [document openWithCompletionHandler:^(BOOL success){
                 if (success) {
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -363,6 +365,10 @@
                 }
             }];
         } else {
+            // Create the UIDocument
+            iCloudDocument *document = [[iCloudDocument alloc] initWithFileURL:fileURL];
+            document.contents = [[NSData alloc] init];
+            
             // Save the new document to disk
             [document saveToURL:fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
                 dispatch_async(dispatch_get_main_queue(), ^{

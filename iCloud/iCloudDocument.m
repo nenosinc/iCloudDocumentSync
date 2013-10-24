@@ -84,7 +84,7 @@ NSFileVersion *laterVersion (NSFileVersion *first, NSFileVersion *second) {
         
         // Register the undo operation
         [self.undoManager setActionName:@"Data Change"];
-        [self.undoManager registerUndoWithTarget:self selector:@selector(setDocumentText:) object:oldData];
+        [self.undoManager registerUndoWithTarget:self selector:@selector(setDocumentData:) object:oldData];
     });
 }
 
