@@ -24,10 +24,14 @@
 @class iCloudDocument;
 @interface iCloudDocument : UIDocument
 
+/** The file version of the UIDocument object, used for handling file conflicts */
+NSFileVersion *laterVersion(NSFileVersion *first, NSFileVersion *second);
+
 /** The data to read or write to a UIDocument */
 @property (strong) NSData *contents;
 
-/** Initialize a new UIDocument with the specified file path
+/** 
+ Initialize a new UIDocument with the specified file path
 
  	@param	url	The path to the UIDocument file
  	@return	UIDocument object at the specified URL

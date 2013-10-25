@@ -2,6 +2,11 @@
 **iCloud Document Sync is a work in progress**. Please help us get all features working and working well. We believe that this project will help many developers by easing the burden of iCloud. Below are the changes for each major commit.
 
 <table>
+<tr><th colspan="2" style="text-align:center;"><b>Version 6.4 & 6.4.1</b></th></tr>
+  <tr>
+    <td>Bug Fixes. Fixes Issue #15 and Issue #14. This is a simple bug fix update making changes to the retrieveDocument: method and the iCloudDocument.m / iCloudDocument.h files.
+    </td>
+  </tr>
 <tr><th colspan="2" style="text-align:center;"><b>Version 6.3</b></th></tr>
   <tr>
     <td>Adds new methods. Fixes issues with documentation spelling, etc.
