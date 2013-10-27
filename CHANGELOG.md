@@ -1,7 +1,12 @@
 ## Change Log
-**iCloud Document Sync is a work in progress**. Please help us get all features working and working well. We believe that this project will help many developers by easing the burden of iCloud. Below are the changes for each major commit.
+**iCloud Document Sync is a work in progress**. If you have an issue, please submit an issue on GitHub. If you have a fix, enhancment, feature, etc. then please fork this on GitHub and submit a pull request.. We believe that this project will help many developers by easing the burden of iCloud. Below are the changes for each major commit.
 
 <table>
+<tr><th colspan="2" style="text-align:center;"><b>Version 6.5</b></th></tr>
+  <tr>
+    <td>Adds support for 64-bit Architecture. The iCloud Framework is now compiled for <tt>armv7</tt>, <tt>armv7s</tt>, <tt>armv64</tt>, and <tt>i386</tt>.
+    </td>
+  </tr>
 <tr><th colspan="2" style="text-align:center;"><b>Version 6.4 & 6.4.1</b></th></tr>
   <tr>
     <td>Bug Fixes. Fixes Issue #15 and Issue #14. This is a simple bug fix update making changes to the retrieveDocument: method and the iCloudDocument.m / iCloudDocument.h files.
