@@ -17,6 +17,14 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	    iCloud *cloud = [[iCloud alloc] init]; // This will help to begin the sync process and register for document updates.
 	    [cloud setDelegate:self];  // Only set this if you plan to use the delegate
 
+### Supported SDK and iOS Versions
+Requires Xcode 5.0.1 for use in any iOS Project. Requires a minimum of iOS 5.1.1 as the deployment target.  
+* Supported build target - iOS 7.0  (Xcode 5.0.1, Apple LLVM compiler 5.0)  
+* Earliest supported deployment target - iOS 6.0  
+* Earliest compatible deployment target - iOS 5.1.1  
+
+NOTE: 'Supported' means that the library has been tested with this version. 'Compatible' means that the library should work on this OS version (i.e. it doesn't rely on any unavailable SDK features) but is no longer being tested for compatibility and may require tweaking or bug fixes to run correctly.
+
 Documentation
 -----
 All methods, properties, types, and delegate methods available on the iCloud class are documented below. If you're using [Xcode 5](https://developer.apple.com/technologies/tools/whats-new.html) with iCloud Document Sync, documentation is available directly within Xcode (just Option-Click any method for Quick Help). For more advanced documentation in Xcode 4.0+ please install the docset included with this project. This will allow you to view iCloud Document Sync documentation inside of Xcode's Organizer Window.
