@@ -33,8 +33,7 @@ NSFileVersion *laterVersion(NSFileVersion *first, NSFileVersion *second);
 /** Initialize a new UIDocument with the specified file path
 
  	@param	url	The path to the UIDocument file
- 	@return	UIDocument object at the specified URL
- */
+ 	@return	UIDocument object at the specified URL */
 - (id)initWithFileURL:(NSURL *)url;
 
 @end

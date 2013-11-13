@@ -12,6 +12,41 @@
 		
 		
 		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/iCloudAvailabilityDidChangeToState:withUbiquityToken:withUbiquityContainer:</TokenIdentifier>
+			<Abstract type="html">Called when the availability of iCloud changes</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>- (void)iCloudAvailabilityDidChangeToState:(BOOL)cloudIsAvailable withUbiquityToken:(id)ubiquityToken withUbiquityContainer:(NSURL *)ubiquityContainer</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>cloudIsAvailable</Name>
+					<Abstract type="html">Boolean value that is YES if iCloud is available and NO if iCloud is not available</Abstract>
+				</Parameter><Parameter>
+					<Name>ubiquityToken</Name>
+					<Abstract type="html">An iCloud ubiquity token that represents the current iCloud identity. Can be used to determine if iCloud is available and if the iCloud account has been changed (ex. if the user logged out and then logged in with a different iCloud account). This object may be nil if iCloud is not available for any reason.</Abstract>
+				</Parameter><Parameter>
+					<Name>ubiquityContainer</Name>
+					<Abstract type="html">The root URL path to the current application&apos;s ubiquity container. This URL may be nil until the ubiquity container is initialized.</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/iCloudAvailabilityDidChangeToState:withUbiquityToken:withUbiquityContainer:</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/iCloudQueryLimitedToFileExtension</TokenIdentifier>
+			<Abstract type="html">Called before creating an iCloud Query filter. Specify the type of file to be queried.</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>- (NSString *)iCloudQueryLimitedToFileExtension</Declaration>
+			
+			<ReturnValue><Abstract type="html">An NSString with one file extension formatted like this: @&quot;txt&quot;</Abstract></ReturnValue>
+			<Anchor>//api/name/iCloudQueryLimitedToFileExtension</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
 			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/iCloudFilesDidChange:withNewFileNames:</TokenIdentifier>
 			<Abstract type="html">Tells the delegate that the files in iCloud have been modified</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>			
@@ -20,10 +55,10 @@
 			<Parameters>
 				<Parameter>
 					<Name>files</Name>
-					<Abstract type="html">A list of the files now in the app&apos;s iCloud documents directory - each file in the array contains information such as file version, url, localized name, date, etc.</Abstract>
+					<Abstract type="html">A list of the files now in the app&apos;s iCloud documents directory - each NSMetadataItem in the array contains information such as file version, url, localized name, date, etc.</Abstract>
 				</Parameter><Parameter>
 					<Name>fileNames</Name>
-					<Abstract type="html">A list of the file names now in the app&apos;s iCloud documents directory</Abstract>
+					<Abstract type="html">A list of the file names (NSString) now in the app&apos;s iCloud documents directory</Abstract>
 				</Parameter>
 			</Parameters>
 			

@@ -59,11 +59,15 @@
 	
 	<option value="//api/name/fileListChangedWithFiles:andFileNames:">&nbsp;&nbsp;&nbsp;&nbsp;- fileListChangedWithFiles:andFileNames:</option>
 	
+	<option value="//api/name/iCloudAvailabilityDidChangeToState:withUbiquityToken:withUbiquityContainer:">&nbsp;&nbsp;&nbsp;&nbsp;- iCloudAvailabilityDidChangeToState:withUbiquityToken:withUbiquityContainer:</option>
+	
 	<option value="//api/name/iCloudError:">&nbsp;&nbsp;&nbsp;&nbsp;- iCloudError:</option>
 	
 	<option value="//api/name/iCloudFileUploadConflictWithCloudFile:andLocalFile:">&nbsp;&nbsp;&nbsp;&nbsp;- iCloudFileUploadConflictWithCloudFile:andLocalFile:</option>
 	
 	<option value="//api/name/iCloudFilesDidChange:withNewFileNames:">&nbsp;&nbsp;&nbsp;&nbsp;- iCloudFilesDidChange:withNewFileNames:</option>
+	
+	<option value="//api/name/iCloudQueryLimitedToFileExtension">&nbsp;&nbsp;&nbsp;&nbsp;- iCloudQueryLimitedToFileExtension</option>
 	
 	
 	
@@ -111,11 +115,15 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/fileListChangedWithFiles:andFileNames:">fileListChangedWithFiles:andFileNames:</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/iCloudAvailabilityDidChangeToState:withUbiquityToken:withUbiquityContainer:">iCloudAvailabilityDidChangeToState:withUbiquityToken:withUbiquityContainer:</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/iCloudError:">iCloudError:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/iCloudFileUploadConflictWithCloudFile:andLocalFile:">iCloudFileUploadConflictWithCloudFile:andLocalFile:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/iCloudFilesDidChange:withNewFileNames:">iCloudFilesDidChange:withNewFileNames:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/iCloudQueryLimitedToFileExtension">iCloudQueryLimitedToFileExtension</a></span></li>
 	
 </ul></li>
 
@@ -171,6 +179,20 @@
 
 						<ul class="task-list">
 							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/iCloudAvailabilityDidChangeToState:withUbiquityToken:withUbiquityContainer:">&ndash;&nbsp;iCloudAvailabilityDidChangeToState:withUbiquityToken:withUbiquityContainer:</a></code>
+		<span class="tooltip"><p>Called when the availability of <a href="../Classes/iCloud.html">iCloud</a> changes</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/iCloudQueryLimitedToFileExtension">&ndash;&nbsp;iCloudQueryLimitedToFileExtension</a></code>
+		<span class="tooltip"><p>Called before creating an <a href="../Classes/iCloud.html">iCloud</a> Query filter. Specify the type of file to be queried.</p></span>
+	</span>
+	
+	
+</li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/iCloudFilesDidChange:withNewFileNames:">&ndash;&nbsp;iCloudFilesDidChange:withNewFileNames:</a></code>
 		<span class="tooltip"><p>Tells the delegate that the files in <a href="../Classes/iCloud.html">iCloud</a> have been modified</p></span>
@@ -586,6 +608,62 @@
 </div>
 						
 						<div class="section-method">
+	<a name="//api/name/iCloudAvailabilityDidChangeToState:withUbiquityToken:withUbiquityContainer:" title="iCloudAvailabilityDidChangeToState:withUbiquityToken:withUbiquityContainer:"></a>
+	<h3 class="subsubtitle method-title">iCloudAvailabilityDidChangeToState:withUbiquityToken:withUbiquityContainer:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Called when the availability of <a href="../Classes/iCloud.html">iCloud</a> changes</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)iCloudAvailabilityDidChangeToState:(BOOL)<em>cloudIsAvailable</em> withUbiquityToken:(id)<em>ubiquityToken</em> withUbiquityContainer:(NSURL *)<em>ubiquityContainer</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>cloudIsAvailable</em></dt>
+			<dd><p>Boolean value that is YES if <a href="../Classes/iCloud.html">iCloud</a> is available and NO if <a href="../Classes/iCloud.html">iCloud</a> is not available</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>ubiquityToken</em></dt>
+			<dd><p>An <a href="../Classes/iCloud.html">iCloud</a> ubiquity token that represents the current <a href="../Classes/iCloud.html">iCloud</a> identity. Can be used to determine if <a href="../Classes/iCloud.html">iCloud</a> is available and if the <a href="../Classes/iCloud.html">iCloud</a> account has been changed (ex. if the user logged out and then logged in with a different <a href="../Classes/iCloud.html">iCloud</a> account). This object may be nil if <a href="../Classes/iCloud.html">iCloud</a> is not available for any reason.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>ubiquityContainer</em></dt>
+			<dd><p>The root URL path to the current application&rsquo;s ubiquity container. This URL may be nil until the ubiquity container is initialized.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">iCloud.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
 	<a name="//api/name/iCloudError:" title="iCloudError:"></a>
 	<h3 class="subsubtitle method-title">iCloudError:</h3>
 	
@@ -708,12 +786,12 @@
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>files</em></dt>
-			<dd><p>A list of the files now in the app&rsquo;s <a href="../Classes/iCloud.html">iCloud</a> documents directory - each file in the array contains information such as file version, url, localized name, date, etc.</p></dd>
+			<dd><p>A list of the files now in the app&rsquo;s <a href="../Classes/iCloud.html">iCloud</a> documents directory - each NSMetadataItem in the array contains information such as file version, url, localized name, date, etc.</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>fileNames</em></dt>
-			<dd><p>A list of the file names now in the app&rsquo;s <a href="../Classes/iCloud.html">iCloud</a> documents directory</p></dd>
+			<dd><p>A list of the file names (NSString) now in the app&rsquo;s <a href="../Classes/iCloud.html">iCloud</a> documents directory</p></dd>
 		</dl>
 		
 	</div>
@@ -723,6 +801,52 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">iCloud.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/iCloudQueryLimitedToFileExtension" title="iCloudQueryLimitedToFileExtension"></a>
+	<h3 class="subsubtitle method-title">iCloudQueryLimitedToFileExtension</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Called before creating an <a href="../Classes/iCloud.html">iCloud</a> Query filter. Specify the type of file to be queried.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (NSString *)iCloudQueryLimitedToFileExtension</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>An NSString with one file extension formatted like this: @&ldquo;txt&rdquo;</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>If this delegate is not implemented or returns nil, all files stored in the documents directory will be queried.</p>
+	</div>
 	
 	
 	
@@ -751,7 +875,7 @@
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 iRare Media. All rights reserved. (Last updated: 2013-10-25)</span><br />
+						<p><span class="copyright">&copy; 2013 iRare Media. All rights reserved. (Last updated: 2013-11-12)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 961)</a>.</span></p>
 						

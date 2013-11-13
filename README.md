@@ -1,6 +1,10 @@
 iCloud Document Sync
 ==================
 
+/////////////////////////////////////////  
+// FEATURE BRANCH - UNDER DEVELOPMENT ///  
+/////////////////////////////////////////  
+
 iCloud Document Sync helps integrate iCloud into iOS (OS X coming soon) Objective-C document projects with one-line code methods. Sync, upload, manage, and remove documents to and from iCloud with only  a few lines of code (compared to the hundreds of lines that it usually takes).
 
 If you like the project, please [star it](https://github.com/iRareMedia/iCloudDocumentSync) on GitHub!
