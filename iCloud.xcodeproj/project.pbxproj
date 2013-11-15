@@ -90,6 +90,7 @@
 		9994D1AE16FE3ABF00AB071B /* iCloud.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iCloud.m; sourceTree = "<group>"; };
 		9994D1B516FE3B3B00AB071B /* iCloudDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCloudDocument.h; sourceTree = "<group>"; };
 		9994D1B616FE3B3B00AB071B /* iCloudDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCloudDocument.m; sourceTree = "<group>"; };
+		99B2C6731835DDBB00E4AE26 /* CloudBanner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CloudBanner.png; path = "iCloud App - iOS/CloudBanner.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,10 +118,8 @@
 		9994D19B16FE3ABF00AB071B = {
 			isa = PBXGroup;
 			children = (
-				99670E021806160E005BC6B7 /* README.md */,
-				99670E49180622F6005BC6B7 /* CHANGELOG.md */,
-				99670E4A180622F6005BC6B7 /* LICENSE.md */,
-				9972AF9B18332D6100DD9879 /* CONTRIBUTING.md */,
+				99B2C6741835DDC500E4AE26 /* Documentation */,
+				99B2C6721835DD9C00E4AE26 /* iCloud App - iOS */,
 				9994D1A916FE3ABF00AB071B /* iCloud */,
 				9994D1A616FE3ABF00AB071B /* Frameworks */,
 				9994D1A516FE3ABF00AB071B /* Products */,
@@ -164,6 +163,25 @@
 				9994D1AB16FE3ABF00AB071B /* iCloud-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		99B2C6721835DD9C00E4AE26 /* iCloud App - iOS */ = {
+			isa = PBXGroup;
+			children = (
+				99B2C6731835DDBB00E4AE26 /* CloudBanner.png */,
+			);
+			name = "iCloud App - iOS";
+			sourceTree = "<group>";
+		};
+		99B2C6741835DDC500E4AE26 /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				99670E021806160E005BC6B7 /* README.md */,
+				99670E49180622F6005BC6B7 /* CHANGELOG.md */,
+				99670E4A180622F6005BC6B7 /* LICENSE.md */,
+				9972AF9B18332D6100DD9879 /* CONTRIBUTING.md */,
+			);
+			name = Documentation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

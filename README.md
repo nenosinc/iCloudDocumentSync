@@ -2,6 +2,8 @@ iCloud Document Sync - FEATURE BRANCH
 ==================
 This is the feature branch of iCloud Document Sync. A feature branch, like beta / alpha software, is **not** production ready. Many aspects of the project on this branch are incomplete. If you need a stable production-ready build, please use the [master branch](https://github.com/iRareMedia/iCloudDocumentSync/tree/master).
 
+<img width=725 src="https://github.com/iRareMedia/iCloudDocumentSync/blob/feature/iCloud/CloudBanner.png?raw=true"/>
+
 iCloud Document Sync helps integrate iCloud into iOS (OS X coming soon) Objective-C document projects with one-line code methods. Sync, upload, manage, and remove documents to and from iCloud with only  a few lines of code (compared to the hundreds of lines and hours that it usually takes). Get iCloud up and running in your iOS app in only a few minutes.
 
 If you like the project, please [star it](https://github.com/iRareMedia/iCloudDocumentSync) on GitHub!

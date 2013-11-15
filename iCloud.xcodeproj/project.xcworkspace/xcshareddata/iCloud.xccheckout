@@ -2,20 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>04F4A562-DAFE-49B3-B028-172C61F559B1</string>
+	<string>49A9DB87-24B9-4914-86EA-3FCBDD936568</string>
 	<key>IDESourceControlProjectName</key>
 	<string>iCloud</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>0194F4F3-D547-41AA-8718-376E5A04C044</key>
+		<key>9F101C36-B21C-4C16-8C44-7A7FC8C0C15E</key>
 		<string>https://github.com/iRareMedia/iCloudDocumentSync.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>iCloud.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>0194F4F3-D547-41AA-8718-376E5A04C044</key>
+		<key>9F101C36-B21C-4C16-8C44-7A7FC8C0C15E</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -23,14 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>0194F4F3-D547-41AA-8718-376E5A04C044</string>
+	<string>9F101C36-B21C-4C16-8C44-7A7FC8C0C15E</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>0194F4F3-D547-41AA-8718-376E5A04C044</string>
+			<string>9F101C36-B21C-4C16-8C44-7A7FC8C0C15E</string>
 			<key>IDESourceControlWCCName</key>
 			<string>iCloudDocumentSync</string>
 		</dict>
