@@ -271,9 +271,7 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
 
 /** Managing iCloud Content */
 
-/** UNDER DEVELOPMENT. Rename a document in iCloud
- 
- @warning This method is under development.
+/** Rename a document in iCloud
  
  @param name The name of the document being renamed in iCloud
  @param newName The new name which the document should be renamed with

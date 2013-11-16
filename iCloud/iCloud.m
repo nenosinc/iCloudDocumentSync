@@ -174,6 +174,7 @@
     // Log file update
     if (verboseLogging == YES) NSLog(@"[iCloud] Beginning file update with NSMetadataQuery");
     
+    // Check for iCloud
     if ([self quickCloudCheck] == NO) return;
     
     // Create and Update the list of files on the background thread
@@ -225,6 +226,7 @@
     // Log save
     if (verboseLogging == YES) NSLog(@"[iCloud] Beginning document save");
     
+    // Check for iCloud
     if ([self quickCloudCheck] == NO) return;
     
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
@@ -294,6 +296,7 @@
     // Log save
     if (verboseLogging == YES) NSLog(@"[iCloud] Beginning document change save");
     
+    // Check for iCloud
     if ([self quickCloudCheck] == NO) return;
     
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
@@ -346,7 +349,7 @@
     // Log upload
     if (verboseLogging == YES) NSLog(@"[iCloud] Beginning local file upload to iCloud. This process may take a long time.");
     
-    // Check if iCloud is available
+    // Check for iCloud
     if ([self quickCloudCheck] == NO) return;
     
     // Perform tasks on background thread to avoid problems on the main / UI thread
@@ -476,6 +479,7 @@
     // Log download
     if (verboseLogging == YES) NSLog(@"[iCloud] Attempting to upload document, %@", name);
     
+    // Check for iCloud
     if ([self quickCloudCheck] == NO) return;
     
     NSLog(@"[iCloud] This method, uploadLocalDocumentToCloudWithName:completion:, is not yet available. It should be available soon.");
@@ -485,6 +489,7 @@
     // Log download
     if (verboseLogging == YES) NSLog(@"[iCloud] Attempting to download document, %@", name);
     
+    // Check for iCloud
     if ([self quickCloudCheck] == NO) return;
     
     NSLog(@"[iCloud] This method, downloadCloudDocumentWithName:completion:, is not yet available. It should be available soon.");
@@ -689,14 +694,20 @@
     // Log delete
     if (verboseLogging == YES) NSLog(@"[iCloud] Attempting to delete document");
     
+    // Check for iCloud
     if ([self quickCloudCheck] == NO) return;
     
     @try {
         // Create the URL for the file that is being removed
         NSURL *fileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:name];
         
+        // Check that the file exists
         if ([fileManager fileExistsAtPath:[fileURL path]]) {
+            
+            // Move to the background thread for safety
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+                
+                // Use a file coordinator to safely delete the file
                 NSFileCoordinator *fileCoordinator = [[NSFileCoordinator alloc] initWithFilePresenter:nil];
                 [fileCoordinator coordinateWritingItemAtURL:fileURL options:NSFileCoordinatorWritingForDeleting error:nil byAccessor:^(NSURL *writingURL) {
                     // Create the error handler
@@ -728,9 +739,7 @@
             NSLog(@"[iCloud] File not found: %@", name);
             NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"The document, %@, does not exist at path: %@", name, fileURL] code:404 userInfo:[NSDictionary dictionaryWithObject:fileURL forKey:@"FileURL"]];
             dispatch_async(dispatch_get_main_queue(), ^{
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    handler(error);
-                });
+                handler(error);
                 return;
             });
         }
@@ -748,15 +757,95 @@
     // Log rename
     if (verboseLogging == YES) NSLog(@"[iCloud] Attempting to rename document, %@, to the new name: %@", name, newName);
     
+    // Check for iCloud
     if ([self quickCloudCheck] == NO) return;
     
-    NSLog(@"[iCloud] This method, renameOriginalDocument:withNewName:completion:, is not yet available. It should be available soon.");
+    // Create the URLs for the files that are being renamed
+    NSURL *sourceFileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:name];
+    NSURL *newFileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:newName];
+    
+    // Check if file exists at source URL
+    if (![fileManager fileExistsAtPath:[newFileURL path]]) {
+        NSLog(@"[iCloud] File does not exist at path: %@", sourceFileURL);
+        NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"The document, %@, already exists at path: %@", name, sourceFileURL] code:404 userInfo:[NSDictionary dictionaryWithObject:sourceFileURL forKey:@"FileURL"]];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            handler(error);
+        });
+        
+        return;
+    }
+    
+    // Check if file does not exist at new URL
+    if ([fileManager fileExistsAtPath:[newFileURL path]]) {
+        NSLog(@"[iCloud] File already exists at path: %@", newFileURL);
+        NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"The document, %@, already exists at path: %@", newName, newFileURL] code:512 userInfo:[NSDictionary dictionaryWithObject:newFileURL forKey:@"FileURL"]];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            handler(error);
+        });
+        
+        return;
+    }
+    
+    // Log success of existance
+    if (verboseLogging == YES) NSLog(@"[iCloud] Files passed existance check, preparing to rename");
+    
+    // Log rename
+    if (verboseLogging == YES) NSLog(@"[iCloud] Renaming Files");
+    
+    // Move to the background thread for safety
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+        // Coordinate renaming safely with a file coordinator
+        NSError *coordinatorError = nil;
+        NSFileCoordinator *coordinator = [[NSFileCoordinator alloc] initWithFilePresenter:nil];
+        [coordinator coordinateWritingItemAtURL:sourceFileURL options:NSFileCoordinatorWritingForMoving writingItemAtURL:newFileURL options:NSFileCoordinatorWritingForReplacing error:&coordinatorError byAccessor:^(NSURL *newURL1, NSURL *newURL2) {
+            NSError *moveError;
+            BOOL moveSuccess;
+            
+            // Do the actual renaming
+            moveSuccess = [fileManager moveItemAtURL:sourceFileURL toURL:newFileURL error:&moveError];
+            
+            if (moveSuccess) {
+                // Log success
+                if (verboseLogging == YES) NSLog(@"[iCloud] Renamed Files");
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    handler(nil);
+                });
+                return;
+            }
+            
+            if (moveError) {
+                // Log failure
+                NSLog(@"[iCloud] Failed to rename file, %@, to new name: %@. Error: %@", name, newName , moveError);
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    handler(moveError);
+                });
+                
+                return;
+            }
+            
+            if (coordinatorError) {
+                // Log failure
+                NSLog(@"[iCloud] Failed to rename file, %@, to new name: %@. Error: %@", name, newName , coordinatorError);
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    handler(coordinatorError);
+                });
+                
+                return;
+            }
+        }];
+    });
 }
 
 - (void)duplicateOriginalDocument:(NSString *)name withNewName:(NSString *)newName completion:(void (^)(NSError *error))handler {
     // Log duplication
     if (verboseLogging == YES) NSLog(@"[iCloud] Attempting to duplicate document, %@", name);
     
+    // Check for iCloud
     if ([self quickCloudCheck] == NO) return;
     
     NSLog(@"[iCloud] This method, duplicateOriginalDocument:withNewName:completion:, is not yet available. It should be available soon.");

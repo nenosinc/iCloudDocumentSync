@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="huV-Mq-5rr">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
         <!--Document View Controller - iCloud Document-->
@@ -40,6 +40,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
                         <outlet property="textView" destination="0Gf-qp-yr3" id="0pL-Ux-cpR"/>
                     </connections>
@@ -94,6 +95,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
                         <segue destination="67H-UU-IPo" kind="modal" identifier="showWelcome" id="5CC-Xj-Ax2"/>
                     </connections>
@@ -191,6 +193,7 @@ To properly use this project please do the following:
                             <constraint firstItem="GqP-lu-jlf" firstAttribute="leading" secondItem="30K-du-Q7Q" secondAttribute="leading" id="zay-yQ-9An"/>
                         </constraints>
                     </view>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="setupCloudButton" destination="a62-pC-xrR" id="prS-BG-oyJ"/>
                         <outlet property="startCloudButton" destination="ZgZ-OX-6dP" id="IKn-HY-k5h"/>
@@ -205,8 +208,13 @@ To properly use this project please do the following:
             <objects>
                 <navigationController definesPresentationContext="YES" id="huV-Mq-5rr" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fdE-ms-J10">
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.0" green="0.64470146210000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="Fmu-lH-HEg" kind="relationship" relationship="rootViewController" id="fYq-Ay-OMt"/>
@@ -220,6 +228,7 @@ To properly use this project please do the following:
     <resources>
         <image name="Banner" width="280" height="200"/>
     </resources>
+    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
