@@ -1,12 +1,14 @@
-iCloud Document Sync - FEATURE BRANCH
+iCloud Document Sync 
 ==================
-This is the feature branch of iCloud Document Sync. A feature branch, like beta / alpha software, is **not** production ready. Many aspects of the project on this branch are incomplete. If you need a stable production-ready build, please use the [master branch](https://github.com/iRareMedia/iCloudDocumentSync/tree/master).
-
 <img width=725 src="https://raw.github.com/iRareMedia/iCloudDocumentSync/feature/iCloud%20App%20-%20iOS/CloudBanner.png"/>
 
 iCloud Document Sync helps integrate iCloud into iOS (OS X coming soon) Objective-C document projects with one-line code methods. Sync, upload, manage, and remove documents to and from iCloud with only  a few lines of code (compared to the hundreds of lines and hours that it usually takes). Get iCloud up and running in your iOS app in only a few minutes.
 
 If you like the project, please [star it](https://github.com/iRareMedia/iCloudDocumentSync) on GitHub!
+
+FEATURE BRANCH
+-----
+This is the feature branch of iCloud Document Sync. A feature branch, like beta / alpha software, is **not** production ready. Many aspects of the project on this branch are incomplete. If you need a stable production-ready build, please use the [master branch](https://github.com/iRareMedia/iCloudDocumentSync/tree/master).
 
 Setup
 -----
@@ -17,8 +19,8 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
   3. Subscribe to the `<iCloudDelegate>` delegate.  
   4. Call the following methods to setup iCloud when your app starts:  
 
-	    iCloud *cloud = [[iCloud sharedCloud] init]; // This will help to begin the sync process and register for document updates.
-	    [cloud setDelegate:self];  // Only set this if you plan to use the delegate
+	    iCloud *cloud = [[iCloud sharedCloud] init]; // This will begin the sync process, register for document updates, setup your ubiquity container, and verify iCloud.
+	    [cloud setDelegate:self];  // Set this if you plan to use the delegate, which is very useful
 
 ### Supported SDK and iOS Versions
 Requires Xcode 5.0.1 for use in any iOS Project. Requires a minimum of iOS 5.1.1 as the deployment target.  

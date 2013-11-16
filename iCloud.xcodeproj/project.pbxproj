@@ -51,6 +51,20 @@
 			remoteGlobalIDString = 9994D1A316FE3ABF00AB071B;
 			remoteInfo = iCloud;
 		};
+		99AD4AC11837C392008BBEA4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 99AD4ABC1837C392008BBEA4 /* iCloud App.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 99E85AFD182DC9280039FC97;
+			remoteInfo = "iCloud App";
+		};
+		99AD4AC31837C392008BBEA4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 99AD4ABC1837C392008BBEA4 /* iCloud App.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 99E85B1E182DC9280039FC97;
+			remoteInfo = "iCloud AppTests";
+		};
 		99B64661182EB73800249C57 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9994D19C16FE3ABF00AB071B /* Project object */;
@@ -90,7 +104,7 @@
 		9994D1AE16FE3ABF00AB071B /* iCloud.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iCloud.m; sourceTree = "<group>"; };
 		9994D1B516FE3B3B00AB071B /* iCloudDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCloudDocument.h; sourceTree = "<group>"; };
 		9994D1B616FE3B3B00AB071B /* iCloudDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCloudDocument.m; sourceTree = "<group>"; };
-		99B2C6731835DDBB00E4AE26 /* CloudBanner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CloudBanner.png; path = "iCloud App - iOS/CloudBanner.png"; sourceTree = "<group>"; };
+		99AD4ABC1837C392008BBEA4 /* iCloud App.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "iCloud App.xcodeproj"; path = "iCloud App - iOS/iCloud App.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,8 +132,8 @@
 		9994D19B16FE3ABF00AB071B = {
 			isa = PBXGroup;
 			children = (
+				99AD4ABC1837C392008BBEA4 /* iCloud App.xcodeproj */,
 				99B2C6741835DDC500E4AE26 /* Documentation */,
-				99B2C6721835DD9C00E4AE26 /* iCloud App - iOS */,
 				9994D1A916FE3ABF00AB071B /* iCloud */,
 				9994D1A616FE3ABF00AB071B /* Frameworks */,
 				9994D1A516FE3ABF00AB071B /* Products */,
@@ -165,12 +179,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		99B2C6721835DD9C00E4AE26 /* iCloud App - iOS */ = {
+		99AD4ABD1837C392008BBEA4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				99B2C6731835DDBB00E4AE26 /* CloudBanner.png */,
+				99AD4AC21837C392008BBEA4 /* iCloud App.app */,
+				99AD4AC41837C392008BBEA4 /* iCloud AppTests.xctest */,
 			);
-			name = "iCloud App - iOS";
+			name = Products;
 			sourceTree = "<group>";
 		};
 		99B2C6741835DDC500E4AE26 /* Documentation */ = {
@@ -233,10 +248,17 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 9994D19B16FE3ABF00AB071B;
 			productRefGroup = 9994D1A516FE3ABF00AB071B /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 99AD4ABD1837C392008BBEA4 /* Products */;
+					ProjectRef = 99AD4ABC1837C392008BBEA4 /* iCloud App.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				9994D1A316FE3ABF00AB071B /* iCloud */,
@@ -245,6 +267,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		99AD4AC21837C392008BBEA4 /* iCloud App.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "iCloud App.app";
+			remoteRef = 99AD4AC11837C392008BBEA4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		99AD4AC41837C392008BBEA4 /* iCloud AppTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "iCloud AppTests.xctest";
+			remoteRef = 99AD4AC31837C392008BBEA4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		9994D1BA16FE3C5C00AB071B /* Prepare Framework */ = {

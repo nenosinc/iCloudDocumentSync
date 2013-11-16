@@ -22,10 +22,15 @@ Want to make a change to this project? Maybe you have a great idea, a new featur
 9. Submit a pull request from your forked GitHub repo into the main repo. Your pull request will then be reviewed and possibly accepted if everything looks good
 
 #### Code Guidelines
-Before submitting any code changes, read over the code / syntax guidelines to make sure everything you write matches the appropriate coding style.
+Before submitting any code changes, read over the code / syntax guidelines to make sure everything you write matches the appropriate coding style. The [Objective-C Coding Guidelines](https://github.com/github/objective-c-conventions) are available on GitHub.
 
 #### Building the Framework
-Instructions Coming Soon
+Building the Framework for iCloud is easy, however finding where Xcode places it after built can be tricky. Follow these steps to build the Framework and copy it into the iCloud Document Sync project. In a future version, this process will be automated.
+
+1. Make any changes to the project and build it with the *iCloud* target selected  
+2. When you've finished making changes and testing, select the *Framework* target from the scheme selector in the upper-left corner of Xcode. Click on Build / Run. Xcode will generate the framework.
+3. To find the framework, right click on `libiCloud.a` in the Products folder within Xcode and then click *Show in Finder*.
+4. Finder will open with a folder showing all of the build products for iCloud Document Sync. Find the bundle called `iCloud.framework`. Copy that framework into the iCloud Document Sync project. Be sure that the old framwork is completely overwritten.
 
 #### Building the Documentation
 Instructions Coming Soon

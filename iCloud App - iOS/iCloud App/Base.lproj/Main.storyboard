@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="huV-Mq-5rr">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
+    </dependencies>
+    <scenes>
+        <!--Document View Controller - iCloud Document-->
+        <scene sceneID="ufC-wZ-h7g">
+            <objects>
+                <viewController id="vXZ-lx-hvc" customClass="DocumentViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="KCZ-fo-MVI"/>
+                        <viewControllerLayoutGuide type="bottom" id="UUR-9Q-mnB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" text="Type document text here" translatesAutoresizingMaskIntoConstraints="NO" id="0Gf-qp-yr3">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="0Gf-qp-yr3" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="9Pe-rp-XPF"/>
+                            <constraint firstAttribute="trailing" secondItem="0Gf-qp-yr3" secondAttribute="trailing" id="Hxe-S6-Etk"/>
+                            <constraint firstItem="0Gf-qp-yr3" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="Llb-Rc-0va"/>
+                            <constraint firstAttribute="bottom" secondItem="0Gf-qp-yr3" secondAttribute="bottom" id="gdW-4m-Qfg"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="iCloud Document" id="m1a-3h-Ydb">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="k3I-oe-9M7">
+                            <connections>
+                                <action selector="shareDocument:" destination="vXZ-lx-hvc" id="4Dk-6C-kX9"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="textView" destination="0Gf-qp-yr3" id="0pL-Ux-cpR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1446" y="220"/>
+        </scene>
+        <!--List View Controller - iCloud FIles-->
+        <scene sceneID="rOd-Qb-HgB">
+            <objects>
+                <tableViewController id="Fmu-lH-HEg" customClass="ListViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="55" sectionHeaderHeight="22" sectionFooterHeight="22" id="3Fj-5w-Yqh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="go8-yB-cYm" detailTextLabel="bE7-mf-qkf" rowHeight="55" style="IBUITableViewCellStyleSubtitle" id="Ts2-To-x5b">
+                                <rect key="frame" x="0.0" y="86" width="320" height="55"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ts2-To-x5b" id="TG9-qH-RG8">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="go8-yB-cYm">
+                                            <rect key="frame" x="15" y="9" width="34" height="22"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bE7-mf-qkf">
+                                            <rect key="frame" x="15" y="31" width="43" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Fmu-lH-HEg" id="27F-9a-cGB"/>
+                            <outlet property="delegate" destination="Fmu-lH-HEg" id="ICL-Bo-5C9"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="iCloud FIles" id="Udv-xo-v7z">
+                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="kKO-EM-UqG">
+                            <connections>
+                                <segue destination="vXZ-lx-hvc" kind="push" identifier="documentView" id="d7T-jd-tZf"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="67H-UU-IPo" kind="modal" identifier="showWelcome" id="5CC-Xj-Ax2"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xO2-6y-90r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="906" y="220"/>
+        </scene>
+        <!--Welcome View Controller-->
+        <scene sceneID="3KE-2z-Vt5">
+            <objects>
+                <viewController id="67H-UU-IPo" customClass="WelcomeViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="m1k-cu-Di4"/>
+                        <viewControllerLayoutGuide type="bottom" id="8Aa-8F-Gb6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="v05-c4-P0W">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to iCloud" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="30K-du-Q7Q">
+                                <rect key="frame" x="20" y="228" width="280" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="29" id="2sA-Tp-xB3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="CUr-T0-jGx">
+                                <rect key="frame" x="20" y="265" width="280" height="137"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="137" id="Wb2-KJ-DPk"/>
+                                </constraints>
+                                <string key="text">This iCloud demo app demonstrates how to use many features of iCloud with the iCloud Document Sync project available on GitHub. 
+
+To properly use this project please do the following:
+• Make sure this demo app's entitlements are valid
+• Sign into an iCloud account on the current device</string>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Banner" translatesAutoresizingMaskIntoConstraints="NO" id="GqP-lu-jlf">
+                                <rect key="frame" x="20" y="20" width="280" height="200"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a62-pC-xrR">
+                                <rect key="frame" x="0.0" y="503" width="320" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.67371316025159467" blue="0.051510570556390078" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="yDK-wd-31N"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Setup iCloud Before Continuing">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="setupCloud:" destination="67H-UU-IPo" eventType="touchUpInside" id="OBM-b3-ftT"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZgZ-OX-6dP">
+                                <rect key="frame" x="0.0" y="503" width="320" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.64470146207564039" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Start Using iCloud">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="startCloud:" destination="67H-UU-IPo" eventType="touchUpInside" id="7Ev-hA-1pq"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="a62-pC-xrR" firstAttribute="leading" secondItem="ZgZ-OX-6dP" secondAttribute="leading" id="3wh-Y1-aHS"/>
+                            <constraint firstItem="GqP-lu-jlf" firstAttribute="top" secondItem="v05-c4-P0W" secondAttribute="top" constant="20" symbolic="YES" id="555-70-Vf0"/>
+                            <constraint firstItem="CUr-T0-jGx" firstAttribute="top" secondItem="30K-du-Q7Q" secondAttribute="bottom" constant="8" symbolic="YES" id="DOY-Hf-iq6"/>
+                            <constraint firstItem="GqP-lu-jlf" firstAttribute="leading" secondItem="v05-c4-P0W" secondAttribute="leading" constant="20" symbolic="YES" id="Eeg-UV-UC0"/>
+                            <constraint firstItem="CUr-T0-jGx" firstAttribute="centerX" secondItem="a62-pC-xrR" secondAttribute="centerX" id="NhT-ae-YSU"/>
+                            <constraint firstItem="ZgZ-OX-6dP" firstAttribute="trailing" secondItem="a62-pC-xrR" secondAttribute="trailing" id="SnA-nX-vFt"/>
+                            <constraint firstItem="ZgZ-OX-6dP" firstAttribute="leading" secondItem="v05-c4-P0W" secondAttribute="leading" id="T9D-lP-DZJ"/>
+                            <constraint firstAttribute="bottom" secondItem="ZgZ-OX-6dP" secondAttribute="bottom" constant="20" symbolic="YES" id="Xwy-N5-WgE"/>
+                            <constraint firstItem="30K-du-Q7Q" firstAttribute="top" secondItem="GqP-lu-jlf" secondAttribute="bottom" constant="8" symbolic="YES" id="eDF-Ix-k2K"/>
+                            <constraint firstItem="a62-pC-xrR" firstAttribute="bottom" secondItem="ZgZ-OX-6dP" secondAttribute="bottom" id="eWe-KU-Vy5"/>
+                            <constraint firstItem="30K-du-Q7Q" firstAttribute="leading" secondItem="CUr-T0-jGx" secondAttribute="leading" id="gxn-qT-mom"/>
+                            <constraint firstItem="a62-pC-xrR" firstAttribute="top" secondItem="ZgZ-OX-6dP" secondAttribute="top" id="iVx-Om-5H0"/>
+                            <constraint firstItem="CUr-T0-jGx" firstAttribute="trailing" secondItem="30K-du-Q7Q" secondAttribute="trailing" id="pQd-cW-JmH"/>
+                            <constraint firstItem="GqP-lu-jlf" firstAttribute="leading" secondItem="30K-du-Q7Q" secondAttribute="leading" id="zay-yQ-9An"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="setupCloudButton" destination="a62-pC-xrR" id="prS-BG-oyJ"/>
+                        <outlet property="startCloudButton" destination="ZgZ-OX-6dP" id="IKn-HY-k5h"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pyq-nN-fo7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1446" y="978"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Rgl-Ak-gFH">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="huV-Mq-5rr" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fdE-ms-J10">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Fmu-lH-HEg" kind="relationship" relationship="rootViewController" id="fYq-Ay-OMt"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L6q-tO-VVf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="372" y="220"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Banner" width="280" height="200"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
