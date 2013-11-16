@@ -81,6 +81,14 @@
 
 #pragma mark - iCloud Methods
 
+- (void)iCloudAvailabilityDidChangeToState:(BOOL)cloudIsAvailable withUbiquityToken:(id)ubiquityToken withUbiquityContainer:(NSURL *)ubiquityContainer {
+    if (!cloudIsAvailable) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"iCloud Unavailable" message:@"iCloud is no longer available. Manke sure that you are signed into a valid iCloud account." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+        [alert show];
+        [self performSegueWithIdentifier:@"showWelcome" sender:self];
+    }
+}
+
 - (NSString *)iCloudQueryLimitedToFileExtension {
     // Returning the type of file we want to query for, if this delegate method is not implemented or returns nil then all files will be queried
     return @"txt";
@@ -129,22 +137,6 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [[iCloud sharedCloud] deleteDocumentWithName:[fileNameList objectAtIndex:indexPath.row] completion:^(NSError *error) {
-            if (error) {
-                NSLog(@"Error deleting document: %@", error);
-            } else {
-                [[iCloud sharedCloud] updateFiles];
-                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            }
-        }];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [[iCloud sharedCloud] retrieveCloudDocumentWithName:[fileNameList objectAtIndex:indexPath.row] completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
         if (!error) {
@@ -159,6 +151,26 @@
             [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
         }
     }];
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        [[iCloud sharedCloud] deleteDocumentWithName:[fileNameList objectAtIndex:indexPath.row] completion:^(NSError *error) {
+            if (error) {
+                NSLog(@"Error deleting document: %@", error);
+            } else {
+                [[iCloud sharedCloud] updateFiles];
+                
+                [fileObjectList removeObjectAtIndex:indexPath.row];
+                [fileNameList removeObjectAtIndex:indexPath.row];
+                
+                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            }
+        }];
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }
 }
 
 #pragma mark - Navigation

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <iCloud/iCloud.h>
 
-@interface WelcomeViewController : UIViewController
+@interface WelcomeViewController : UIViewController <iCloudDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *startCloudButton;
 @property (weak, nonatomic) IBOutlet UIButton *setupCloudButton;
