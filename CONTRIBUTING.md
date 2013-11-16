@@ -6,7 +6,8 @@ Found something that needs to be improved or fixed? Here's the best way to let e
 
 1. Sign up for a GitHub Account  
 2. Star this repository (so you can follow changes and find it easily)  
-3. Create a new issue from the issues tab on the right side of the screen
+3. Look through the [issues](https://github.com/iRareMedia/iCloudDocumentSync/issues) (opened or closed) for iCloud Document Sync to see if your issue has already been fixed, answered, or is being fixed  
+4. Create a [new issue](https://github.com/iRareMedia/iCloudDocumentSync/issues/new) from the issues tab on the right side of the screen
 
 ### How to Contribute - Changes
 Want to make a change to this project? Maybe you have a great idea, a new feature, bug fix, or something else. Here's the best way to contribute changes to the project.
