@@ -300,46 +300,6 @@
 		</Token>
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/iCloud/uploadLocalDocumentToCloudWithName:completion:</TokenIdentifier>
-			<Abstract type="html">UNDER DEVELOPMENT. Upload a document to iCloud</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
-			
-			<Declaration>- (void)uploadLocalDocumentToCloudWithName:(NSString *)name completion:(void ( ^ ) ( NSError *error ))handler</Declaration>
-			<Parameters>
-				<Parameter>
-					<Name>name</Name>
-					<Abstract type="html">The name of the local document (stored in the app&apos;s documents directory) being uploaded to iCloud</Abstract>
-				</Parameter><Parameter>
-					<Name>handler</Name>
-					<Abstract type="html">Code block called when the document changes are recorded. The completion block passes and NSError object which contains any error information if an error occurred, otherwise it will be nil.</Abstract>
-				</Parameter>
-			</Parameters>
-			
-			<Anchor>//api/name/uploadLocalDocumentToCloudWithName:completion:</Anchor>
-            <NodeRef refid="1"/>
-		</Token>
-		
-		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/iCloud/downloadCloudDocumentWithName:completion:</TokenIdentifier>
-			<Abstract type="html">UNDER DEVELOPMENT. Download a document from iCloud</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
-			
-			<Declaration>- (void)downloadCloudDocumentWithName:(NSString *)name completion:(void ( ^ ) ( NSError *error ))handler</Declaration>
-			<Parameters>
-				<Parameter>
-					<Name>name</Name>
-					<Abstract type="html">The name of the iCloud document being downloaded from iCloud to the local documents directory</Abstract>
-				</Parameter><Parameter>
-					<Name>handler</Name>
-					<Abstract type="html">Code block called when the document changes are recorded. The completion block passes and NSError object which contains any error information if an error occurred, otherwise it will be nil.</Abstract>
-				</Parameter>
-			</Parameters>
-			
-			<Anchor>//api/name/downloadCloudDocumentWithName:completion:</Anchor>
-            <NodeRef refid="1"/>
-		</Token>
-		
-		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/saveAndCloseDocumentWithName:withContent:completion:</TokenIdentifier>
 			<Abstract type="html">Create, save, and close a document in iCloud.</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>			
@@ -348,7 +308,7 @@
 			<Parameters>
 				<Parameter>
 					<Name>name</Name>
-					<Abstract type="html">The name of the document being written to iCloud</Abstract>
+					<Abstract type="html">The name of the document being written to iCloud. This value must not be nil.</Abstract>
 				</Parameter><Parameter>
 					<Name>content</Name>
 					<Abstract type="html">The data to write to the document</Abstract>
@@ -363,15 +323,15 @@
 		</Token>
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/iCloud/saveDocumentChangesWithoutClosingWithName:withContent:completion:</TokenIdentifier>
+			<TokenIdentifier>//apple_ref/occ/instm/iCloud/saveChangesToDocumentWithName:withContent:completion:</TokenIdentifier>
 			<Abstract type="html">Record changes made to a document in iCloud. Changes are saved when the document is closed.</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>			
 			
-			<Declaration>- (void)saveDocumentChangesWithoutClosingWithName:(NSString *)name withContent:(NSData *)content completion:(void ( ^ ) ( UIDocument *cloudDocument , NSData *documentData , NSError *error ))handler</Declaration>
+			<Declaration>- (void)saveChangesToDocumentWithName:(NSString *)name withContent:(NSData *)content completion:(void ( ^ ) ( UIDocument *cloudDocument , NSData *documentData , NSError *error ))handler</Declaration>
 			<Parameters>
 				<Parameter>
 					<Name>name</Name>
-					<Abstract type="html">The name of the document being written to iCloud</Abstract>
+					<Abstract type="html">The name of the document being written to iCloud. This value must not be nil.</Abstract>
 				</Parameter><Parameter>
 					<Name>content</Name>
 					<Abstract type="html">The data to write to the document</Abstract>
@@ -381,7 +341,7 @@
 				</Parameter>
 			</Parameters>
 			
-			<Anchor>//api/name/saveDocumentChangesWithoutClosingWithName:withContent:completion:</Anchor>
+			<Anchor>//api/name/saveChangesToDocumentWithName:withContent:completion:</Anchor>
             <NodeRef refid="1"/>
 		</Token>
 		
@@ -406,6 +366,26 @@
 		</Token>
 		
 		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/iCloud/uploadLocalDocumentToCloudWithName:completion:</TokenIdentifier>
+			<Abstract type="html">Upload a local file to iCloud</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>- (void)uploadLocalDocumentToCloudWithName:(NSString *)name completion:(void ( ^ ) ( NSError *error ))handler</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>name</Name>
+					<Abstract type="html">The name of the local file stored in the application&apos;s documents directory. This value must not be nil.</Abstract>
+				</Parameter><Parameter>
+					<Name>handler</Name>
+					<Abstract type="html">Code block called after the file has been uploaded to iCloud</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/uploadLocalDocumentToCloudWithName:completion:</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/shareDocumentWithName:completion:</TokenIdentifier>
 			<Abstract type="html">Share an iCloud document by uploading it to a public URL.</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>			
@@ -414,10 +394,10 @@
 			<Parameters>
 				<Parameter>
 					<Name>name</Name>
-					<Abstract type="html">The name of the iCloud file being uploaded to a public URL</Abstract>
+					<Abstract type="html">The name of the iCloud file being uploaded to a public URL. This value must not be nil.</Abstract>
 				</Parameter><Parameter>
 					<Name>handler</Name>
-					<Abstract type="html">Code block called when the document is successfully uploaded. The completion block passes NSURL, NSDate, and NSError objects. The NSURL object is the public URL where the file is available at. The NSDate object is the date that the URL expires on. The NSError object contains any error information if an error occurred, otherwise it will be nil.</Abstract>
+					<Abstract type="html">Code block called when the document is successfully uploaded. The completion block passes NSURL, NSDate, and NSError objects. The NSURL object is the public URL where the file is available at, could be nil. The NSDate object is the date that the URL expires on, could be nil. The NSError object contains any error information if an error occurred, otherwise it will be nil.</Abstract>
 				</Parameter>
 			</Parameters>
 			<ReturnValue><Abstract type="html">The public URL where the file is available</Abstract></ReturnValue>
@@ -434,7 +414,7 @@
 			<Parameters>
 				<Parameter>
 					<Name>name</Name>
-					<Abstract type="html">The name of the document to delete from iCloud</Abstract>
+					<Abstract type="html">The name of the document to delete from iCloud. This value must not be nil.</Abstract>
 				</Parameter><Parameter>
 					<Name>handler</Name>
 					<Abstract type="html">Code block called when a file is successfully deleted from iCloud. The NSError object contains any error information if an error occurred, otherwise it will be nil.</Abstract>
@@ -442,6 +422,26 @@
 			</Parameters>
 			
 			<Anchor>//api/name/deleteDocumentWithName:completion:</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/iCloud/evictCloudDocumentWithName:completion:</TokenIdentifier>
+			<Abstract type="html">UNDER DEVELOPMENT. Evict a document from iCloud, move it from iCloud to the current application&apos;s local documents directory.</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>- (void)evictCloudDocumentWithName:(NSString *)name completion:(void ( ^ ) ( NSError *error ))handler</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>name</Name>
+					<Abstract type="html">The name of the iCloud document being downloaded from iCloud to the local documents directory. This value must not be nil.</Abstract>
+				</Parameter><Parameter>
+					<Name>handler</Name>
+					<Abstract type="html">Code block called after the file has been uploaded to iCloud.</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/evictCloudDocumentWithName:completion:</Anchor>
             <NodeRef refid="1"/>
 		</Token>
 		
@@ -454,7 +454,7 @@
 			<Parameters>
 				<Parameter>
 					<Name>documentName</Name>
-					<Abstract type="html">The name of the document in iCloud</Abstract>
+					<Abstract type="html">The name of the document in iCloud. This value must not be nil.</Abstract>
 				</Parameter><Parameter>
 					<Name>handler</Name>
 					<Abstract type="html">Code block called when the document is successfully retrieved (opened or downloaded). The completion block passes UIDocument and NSData objects containing the opened document and it&apos;s contents in the form of NSData. If there is an error, the NSError object will have an error message (may be nil if there is no error).</Abstract>
@@ -474,7 +474,7 @@
 			<Parameters>
 				<Parameter>
 					<Name>fileName</Name>
-					<Abstract type="html">The name of the UIDocument in iCloud</Abstract>
+					<Abstract type="html">The name of the UIDocument in iCloud. This value must not be nil.</Abstract>
 				</Parameter>
 			</Parameters>
 			<ReturnValue><Abstract type="html">BOOL value, YES if the file does exist in iCloud, NO if it does not</Abstract></ReturnValue>
@@ -491,7 +491,7 @@
 			<Parameters>
 				<Parameter>
 					<Name>fileName</Name>
-					<Abstract type="html">The name of the file in iCloud</Abstract>
+					<Abstract type="html">The name of the file in iCloud. This value must not be nil.</Abstract>
 				</Parameter>
 			</Parameters>
 			<ReturnValue><Abstract type="html">The number of bytes in an unsigned long long. Returns nil if the file does not exist.</Abstract></ReturnValue>
@@ -508,7 +508,7 @@
 			<Parameters>
 				<Parameter>
 					<Name>fileName</Name>
-					<Abstract type="html">The name of the file in iCloud</Abstract>
+					<Abstract type="html">The name of the file in iCloud. This value must not be nil.</Abstract>
 				</Parameter>
 			</Parameters>
 			<ReturnValue><Abstract type="html">The date that the file was last modified. Returns nil if the file does not exist.</Abstract></ReturnValue>
@@ -525,28 +525,11 @@
 			<Parameters>
 				<Parameter>
 					<Name>fileName</Name>
-					<Abstract type="html">The name of the file in iCloud</Abstract>
+					<Abstract type="html">The name of the file in iCloud. This value must not be nil.</Abstract>
 				</Parameter>
 			</Parameters>
 			<ReturnValue><Abstract type="html">The date that the file was created. Returns nil if the file does not exist.</Abstract></ReturnValue>
 			<Anchor>//api/name/fileCreatedDate:</Anchor>
-            <NodeRef refid="1"/>
-		</Token>
-		
-		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/iCloud/documentStateForFile:</TokenIdentifier>
-			<Abstract type="html">Get the current document state of a file stored in iCloud</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
-			
-			<Declaration>- (UIDocumentState)documentStateForFile:(NSString *)fileName</Declaration>
-			<Parameters>
-				<Parameter>
-					<Name>fileName</Name>
-					<Abstract type="html">The name of the file in iCloud</Abstract>
-				</Parameter>
-			</Parameters>
-			<ReturnValue><Abstract type="html">The document state that the file is currently in. Returns nil if the file does not exist.</Abstract></ReturnValue>
-			<Anchor>//api/name/documentStateForFile:</Anchor>
             <NodeRef refid="1"/>
 		</Token>
 		
@@ -564,17 +547,17 @@
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/renameOriginalDocument:withNewName:completion:</TokenIdentifier>
-			<Abstract type="html">UNDER DEVELOPMENT. Rename a document in iCloud</Abstract>
+			<Abstract type="html">Rename a document in iCloud</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>			
 			
 			<Declaration>- (void)renameOriginalDocument:(NSString *)name withNewName:(NSString *)newName completion:(void ( ^ ) ( NSError *error ))handler</Declaration>
 			<Parameters>
 				<Parameter>
 					<Name>name</Name>
-					<Abstract type="html">The name of the document being renamed in iCloud</Abstract>
+					<Abstract type="html">The name of the document being renamed in iCloud. This value must not be nil.</Abstract>
 				</Parameter><Parameter>
 					<Name>newName</Name>
-					<Abstract type="html">The new name which the document should be renamed with</Abstract>
+					<Abstract type="html">The new name which the document should be renamed with. This value must not be nil.</Abstract>
 				</Parameter><Parameter>
 					<Name>handler</Name>
 					<Abstract type="html">Code block called when the document changes are recorded. The completion block passes and NSError object which contains any error information if an error occurred, otherwise it will be nil.</Abstract>
@@ -605,6 +588,66 @@
 			</Parameters>
 			
 			<Anchor>//api/name/duplicateOriginalDocument:withNewName:completion:</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/iCloud/documentStateForFile:</TokenIdentifier>
+			<Abstract type="html">Get the current document state of a file stored in iCloud</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>- (UIDocumentState)documentStateForFile:(NSString *)fileName</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>fileName</Name>
+					<Abstract type="html">The name of the file in iCloud. This value must not be nil.</Abstract>
+				</Parameter>
+			</Parameters>
+			<ReturnValue><Abstract type="html">The document state that the file is currently in. Returns nil if the file does not exist.</Abstract></ReturnValue>
+			<Anchor>//api/name/documentStateForFile:</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/iCloud/monitorDocumentStateForFile:onTarget:withSelector:</TokenIdentifier>
+			<Abstract type="html">Monitor changes in the state of a document stored in iCloud</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>- (void)monitorDocumentStateForFile:(NSString *)fileName onTarget:(id)sender withSelector:(SEL)selector</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>fileName</Name>
+					<Abstract type="html">The name of the file in iCloud. This value must not be nil.</Abstract>
+				</Parameter><Parameter>
+					<Name>sender</Name>
+					<Abstract type="html">Object registering as an observer. This value must not be nil.</Abstract>
+				</Parameter><Parameter>
+					<Name>selector</Name>
+					<Abstract type="html">Selector to be called when the document state changes. Must only have one argument, an instance of NSNotifcation whose object is an iCloudDocument (UIDocument subclass). This value must not be nil.</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/monitorDocumentStateForFile:onTarget:withSelector:</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/iCloud/stopMonitoringDocumentStateChangesForFile:onTarget:</TokenIdentifier>
+			<Abstract type="html">Stop monitoring changes to the state of a document stored in iCloud</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>- (void)stopMonitoringDocumentStateChangesForFile:(NSString *)fileName onTarget:(id)sender</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>fileName</Name>
+					<Abstract type="html">The name of the file in iCloud. This value must not be nil.</Abstract>
+				</Parameter><Parameter>
+					<Name>sender</Name>
+					<Abstract type="html">Object registered as an observer that will no longer recieve document state updates. This value must not be nil.</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/stopMonitoringDocumentStateChangesForFile:onTarget:</Anchor>
             <NodeRef refid="1"/>
 		</Token>
 		

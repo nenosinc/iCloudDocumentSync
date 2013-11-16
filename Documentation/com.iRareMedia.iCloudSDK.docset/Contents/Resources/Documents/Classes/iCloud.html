@@ -73,9 +73,9 @@
 	
 	<option value="//api/name/doesFileExistInCloud:">&nbsp;&nbsp;&nbsp;&nbsp;- doesFileExistInCloud:</option>
 	
-	<option value="//api/name/downloadCloudDocumentWithName:completion:">&nbsp;&nbsp;&nbsp;&nbsp;- downloadCloudDocumentWithName:completion:</option>
-	
 	<option value="//api/name/duplicateOriginalDocument:withNewName:completion:">&nbsp;&nbsp;&nbsp;&nbsp;- duplicateOriginalDocument:withNewName:completion:</option>
+	
+	<option value="//api/name/evictCloudDocumentWithName:completion:">&nbsp;&nbsp;&nbsp;&nbsp;- evictCloudDocumentWithName:completion:</option>
 	
 	<option value="//api/name/fileCreatedDate:">&nbsp;&nbsp;&nbsp;&nbsp;- fileCreatedDate:</option>
 	
@@ -85,15 +85,19 @@
 	
 	<option value="//api/name/getListOfCloudFiles">&nbsp;&nbsp;&nbsp;&nbsp;- getListOfCloudFiles</option>
 	
+	<option value="//api/name/monitorDocumentStateForFile:onTarget:withSelector:">&nbsp;&nbsp;&nbsp;&nbsp;- monitorDocumentStateForFile:onTarget:withSelector:</option>
+	
 	<option value="//api/name/renameOriginalDocument:withNewName:completion:">&nbsp;&nbsp;&nbsp;&nbsp;- renameOriginalDocument:withNewName:completion:</option>
 	
 	<option value="//api/name/retrieveCloudDocumentWithName:completion:">&nbsp;&nbsp;&nbsp;&nbsp;- retrieveCloudDocumentWithName:completion:</option>
 	
 	<option value="//api/name/saveAndCloseDocumentWithName:withContent:completion:">&nbsp;&nbsp;&nbsp;&nbsp;- saveAndCloseDocumentWithName:withContent:completion:</option>
 	
-	<option value="//api/name/saveDocumentChangesWithoutClosingWithName:withContent:completion:">&nbsp;&nbsp;&nbsp;&nbsp;- saveDocumentChangesWithoutClosingWithName:withContent:completion:</option>
+	<option value="//api/name/saveChangesToDocumentWithName:withContent:completion:">&nbsp;&nbsp;&nbsp;&nbsp;- saveChangesToDocumentWithName:withContent:completion:</option>
 	
 	<option value="//api/name/shareDocumentWithName:completion:">&nbsp;&nbsp;&nbsp;&nbsp;- shareDocumentWithName:completion:</option>
+	
+	<option value="//api/name/stopMonitoringDocumentStateChangesForFile:onTarget:">&nbsp;&nbsp;&nbsp;&nbsp;- stopMonitoringDocumentStateChangesForFile:onTarget:</option>
 	
 	<option value="//api/name/ubiquitousContainerURL">&nbsp;&nbsp;&nbsp;&nbsp;- ubiquitousContainerURL</option>
 	
@@ -139,6 +143,8 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Retrieving iCloud Content and Info">Retrieving iCloud Content and Info</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_iCloud Document State">iCloud Document State</a></span></li>
+	
 </ul></li>
 
 
@@ -183,9 +189,9 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/doesFileExistInCloud:">doesFileExistInCloud:</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/downloadCloudDocumentWithName:completion:">downloadCloudDocumentWithName:completion:</a></span></li>
-	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/duplicateOriginalDocument:withNewName:completion:">duplicateOriginalDocument:withNewName:completion:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/evictCloudDocumentWithName:completion:">evictCloudDocumentWithName:completion:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/fileCreatedDate:">fileCreatedDate:</a></span></li>
 	
@@ -195,15 +201,19 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getListOfCloudFiles">getListOfCloudFiles</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/monitorDocumentStateForFile:onTarget:withSelector:">monitorDocumentStateForFile:onTarget:withSelector:</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/renameOriginalDocument:withNewName:completion:">renameOriginalDocument:withNewName:completion:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/retrieveCloudDocumentWithName:completion:">retrieveCloudDocumentWithName:completion:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/saveAndCloseDocumentWithName:withContent:completion:">saveAndCloseDocumentWithName:withContent:completion:</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/saveDocumentChangesWithoutClosingWithName:withContent:completion:">saveDocumentChangesWithoutClosingWithName:withContent:completion:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/saveChangesToDocumentWithName:withContent:completion:">saveChangesToDocumentWithName:withContent:completion:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/shareDocumentWithName:completion:">shareDocumentWithName:completion:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/stopMonitoringDocumentStateChangesForFile:onTarget:">stopMonitoringDocumentStateChangesForFile:onTarget:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/ubiquitousContainerURL">ubiquitousContainerURL</a></span></li>
 	
@@ -265,8 +275,8 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 <li>Subscribe to the <a href="../Protocols/iCloudDelegate.html"><code>iCloudDelegate</code></a> <a href="#//api/name/delegate">delegate</a>.</li>
 <li><p>Call the following methods to setup iCloud when your app starts:</p>
 
-<pre><code> iCloud *cloud = [iCloud sharedCloud]; // This will help to begin the sync process and register for document updates.
- [cloud setDelegate:self]; // Only set this if you plan to use the delegate
+<pre><code> iCloud *cloud = [[iCloud sharedCloud] init]; // This will help to begin the sync process and register for document updates.
+ [cloud setDelegate:self]; // Set this if you plan to use the delegate
 </code></pre></li>
 </ol>
 <div class="warning"><p><strong>Warning:</strong> Only available on iOS 5.1 and later on apps with valid code signing and entitlements. Requires Xcode 5.0.1 and later. Check the online documentation for more information on setting up iCloud in your app.</p></div>
@@ -401,20 +411,6 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	</span>
 	
 	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/uploadLocalDocumentToCloudWithName:completion:">&ndash;&nbsp;uploadLocalDocumentToCloudWithName:completion:</a></code>
-		<span class="tooltip"><p>UNDER DEVELOPMENT. Upload a document to iCloud</p></span>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/downloadCloudDocumentWithName:completion:">&ndash;&nbsp;downloadCloudDocumentWithName:completion:</a></code>
-		<span class="tooltip"><p>UNDER DEVELOPMENT. Download a document from iCloud</p></span>
-	</span>
-	
-	
 </li>
 						</ul>
 						
@@ -432,7 +428,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/saveDocumentChangesWithoutClosingWithName:withContent:completion:">&ndash;&nbsp;saveDocumentChangesWithoutClosingWithName:withContent:completion:</a></code>
+		<code><a href="#//api/name/saveChangesToDocumentWithName:withContent:completion:">&ndash;&nbsp;saveChangesToDocumentWithName:withContent:completion:</a></code>
 		<span class="tooltip"><p>Record changes made to a document in iCloud. Changes are saved when the document is closed.</p></span>
 	</span>
 	
@@ -441,6 +437,13 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	<span class="tooltip">
 		<code><a href="#//api/name/uploadLocalOfflineDocumentsWithRepeatingHandler:completion:">&ndash;&nbsp;uploadLocalOfflineDocumentsWithRepeatingHandler:completion:</a></code>
 		<span class="tooltip"><p>Upload any local files that weren&rsquo;t created with iCloud</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/uploadLocalDocumentToCloudWithName:completion:">&ndash;&nbsp;uploadLocalDocumentToCloudWithName:completion:</a></code>
+		<span class="tooltip"><p>Upload a local file to iCloud</p></span>
 	</span>
 	
 	
@@ -471,6 +474,13 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	<span class="tooltip">
 		<code><a href="#//api/name/deleteDocumentWithName:completion:">&ndash;&nbsp;deleteDocumentWithName:completion:</a></code>
 		<span class="tooltip"><p>Delete a document from iCloud.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/evictCloudDocumentWithName:completion:">&ndash;&nbsp;evictCloudDocumentWithName:completion:</a></code>
+		<span class="tooltip"><p>UNDER DEVELOPMENT. Evict a document from iCloud, move it from iCloud to the current application&rsquo;s local documents directory.</p></span>
 	</span>
 	
 	
@@ -519,13 +529,6 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/documentStateForFile:">&ndash;&nbsp;documentStateForFile:</a></code>
-		<span class="tooltip"><p>Get the current document state of a file stored in iCloud</p></span>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
 		<code><a href="#//api/name/getListOfCloudFiles">&ndash;&nbsp;getListOfCloudFiles</a></code>
 		<span class="tooltip"><p>Get a list of files stored in iCloud</p></span>
 	</span>
@@ -534,7 +537,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/renameOriginalDocument:withNewName:completion:">&ndash;&nbsp;renameOriginalDocument:withNewName:completion:</a></code>
-		<span class="tooltip"><p>UNDER DEVELOPMENT. Rename a document in iCloud</p></span>
+		<span class="tooltip"><p>Rename a document in iCloud</p></span>
 	</span>
 	
 	
@@ -542,6 +545,35 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	<span class="tooltip">
 		<code><a href="#//api/name/duplicateOriginalDocument:withNewName:completion:">&ndash;&nbsp;duplicateOriginalDocument:withNewName:completion:</a></code>
 		<span class="tooltip"><p>UNDER DEVELOPMENT. Duplicate a document in iCloud</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="iCloud Document State" name="task_iCloud Document State"></a>
+						<h3 class="subsubtitle task-title">iCloud Document State</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/documentStateForFile:">&ndash;&nbsp;documentStateForFile:</a></code>
+		<span class="tooltip"><p>Get the current document state of a file stored in iCloud</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/monitorDocumentStateForFile:onTarget:withSelector:">&ndash;&nbsp;monitorDocumentStateForFile:onTarget:withSelector:</a></code>
+		<span class="tooltip"><p>Monitor changes in the state of a document stored in iCloud</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/stopMonitoringDocumentStateChangesForFile:onTarget:">&ndash;&nbsp;stopMonitoringDocumentStateChangesForFile:onTarget:</a></code>
+		<span class="tooltip"><p>Stop monitoring changes to the state of a document stored in iCloud</p></span>
 	</span>
 	
 	
@@ -952,7 +984,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>name</em></dt>
-			<dd><p>The name of the document to delete from iCloud</p></dd>
+			<dd><p>The name of the document to delete from iCloud. This value must not be nil.</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
@@ -1003,7 +1035,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>fileName</em></dt>
-			<dd><p>The name of the file in iCloud</p></dd>
+			<dd><p>The name of the file in iCloud. This value must not be nil.</p></dd>
 		</dl>
 		
 	</div>
@@ -1054,7 +1086,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>fileName</em></dt>
-			<dd><p>The name of the UIDocument in iCloud</p></dd>
+			<dd><p>The name of the UIDocument in iCloud. This value must not be nil.</p></dd>
 		</dl>
 		
 	</div>
@@ -1069,62 +1101,6 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">iCloud.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/downloadCloudDocumentWithName:completion:" title="downloadCloudDocumentWithName:completion:"></a>
-	<h3 class="subsubtitle method-title">downloadCloudDocumentWithName:completion:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>UNDER DEVELOPMENT. Download a document from iCloud</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (void)downloadCloudDocumentWithName:(NSString *)<em>name</em> completion:(void ( ^ ) ( NSError *error ))<em>handler</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>name</em></dt>
-			<dd><p>The name of the iCloud document being downloaded from iCloud to the local documents directory</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>handler</em></dt>
-			<dd><p>Code block called when the document changes are recorded. The completion block passes and NSError object which contains any error information if an error occurred, otherwise it will be nil.</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<div class="warning"><p><strong>Warning:</strong> This method is under development.</p></div>
-	</div>
 	
 	
 	
@@ -1202,6 +1178,62 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 </div>
 						
 						<div class="section-method">
+	<a name="//api/name/evictCloudDocumentWithName:completion:" title="evictCloudDocumentWithName:completion:"></a>
+	<h3 class="subsubtitle method-title">evictCloudDocumentWithName:completion:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>UNDER DEVELOPMENT. Evict a document from iCloud, move it from iCloud to the current application&rsquo;s local documents directory.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)evictCloudDocumentWithName:(NSString *)<em>name</em> completion:(void ( ^ ) ( NSError *error ))<em>handler</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>name</em></dt>
+			<dd><p>The name of the iCloud document being downloaded from iCloud to the local documents directory. This value must not be nil.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>handler</em></dt>
+			<dd><p>Code block called after the file has been uploaded to iCloud.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<div class="warning"><p><strong>Warning:</strong> This method is under development.</p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">iCloud.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
 	<a name="//api/name/fileCreatedDate:" title="fileCreatedDate:"></a>
 	<h3 class="subsubtitle method-title">fileCreatedDate:</h3>
 	
@@ -1222,7 +1254,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>fileName</em></dt>
-			<dd><p>The name of the file in iCloud</p></dd>
+			<dd><p>The name of the file in iCloud. This value must not be nil.</p></dd>
 		</dl>
 		
 	</div>
@@ -1273,7 +1305,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>fileName</em></dt>
-			<dd><p>The name of the file in iCloud</p></dd>
+			<dd><p>The name of the file in iCloud. This value must not be nil.</p></dd>
 		</dl>
 		
 	</div>
@@ -1324,7 +1356,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>fileName</em></dt>
-			<dd><p>The name of the file in iCloud</p></dd>
+			<dd><p>The name of the file in iCloud. This value must not be nil.</p></dd>
 		</dl>
 		
 	</div>
@@ -1396,13 +1428,69 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 </div>
 						
 						<div class="section-method">
+	<a name="//api/name/monitorDocumentStateForFile:onTarget:withSelector:" title="monitorDocumentStateForFile:onTarget:withSelector:"></a>
+	<h3 class="subsubtitle method-title">monitorDocumentStateForFile:onTarget:withSelector:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Monitor changes in the state of a document stored in iCloud</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)monitorDocumentStateForFile:(NSString *)<em>fileName</em> onTarget:(id)<em>sender</em> withSelector:(SEL)<em>selector</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>fileName</em></dt>
+			<dd><p>The name of the file in iCloud. This value must not be nil.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>sender</em></dt>
+			<dd><p>Object registering as an observer. This value must not be nil.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>selector</em></dt>
+			<dd><p>Selector to be called when the document state changes. Must only have one argument, an instance of NSNotifcation whose object is an <a href="../Classes/iCloudDocument.html">iCloudDocument</a> (UIDocument subclass). This value must not be nil.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">iCloud.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
 	<a name="//api/name/renameOriginalDocument:withNewName:completion:" title="renameOriginalDocument:withNewName:completion:"></a>
 	<h3 class="subsubtitle method-title">renameOriginalDocument:withNewName:completion:</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>UNDER DEVELOPMENT. Rename a document in iCloud</p>
+		<p>Rename a document in iCloud</p>
 	</div>		
 	
     
@@ -1416,12 +1504,12 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>name</em></dt>
-			<dd><p>The name of the document being renamed in iCloud</p></dd>
+			<dd><p>The name of the document being renamed in iCloud. This value must not be nil.</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>newName</em></dt>
-			<dd><p>The new name which the document should be renamed with</p></dd>
+			<dd><p>The new name which the document should be renamed with. This value must not be nil.</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
@@ -1436,11 +1524,6 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	
 	
 	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<div class="warning"><p><strong>Warning:</strong> This method is under development.</p></div>
-	</div>
 	
 	
 	
@@ -1477,7 +1560,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>documentName</em></dt>
-			<dd><p>The name of the document in iCloud</p></dd>
+			<dd><p>The name of the document in iCloud. This value must not be nil.</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
@@ -1497,7 +1580,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 		<h4 class="method-subtitle">Discussion</h4>
 		<p>This method will attempt to open the specified document. If the file does not exist, a blank one will be created. The completion handler is called when the file is opened or created (either successfully or not). The completion handler contains a UIDocument, NSData, and NSError all of which contain information about the opened document.</p>
 
-<pre><code>[iCloud retrieveCloudDocumentWithName:@"docName.ext" completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
+<pre><code>[[iCloud sharedCloud] retrieveCloudDocumentWithName:@"docName.ext" completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
     if (error == nil) {
         NSString *fileName = [cloudDocument.fileURL lastPathComponent];
         NSData *fileData = documentData;
@@ -1541,7 +1624,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>name</em></dt>
-			<dd><p>The name of the document being written to iCloud</p></dd>
+			<dd><p>The name of the document being written to iCloud. This value must not be nil.</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
@@ -1570,7 +1653,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 
 <p>To create a new document or save an existing one (close the document), use this method. Below is a code example of how to use it.</p>
 
-<pre><code>[iCloud saveAndCloseDocumentWithName:@"Name.ext" withContent:[NSData data] completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
+<pre><code>[[iCloud sharedCloud] saveAndCloseDocumentWithName:@"Name.ext" withContent:[NSData data] completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
     if (error == nil) {
         // Code here to use the UIDocument or NSData objects which have been passed with the completion handler
     }
@@ -1595,8 +1678,8 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/saveDocumentChangesWithoutClosingWithName:withContent:completion:" title="saveDocumentChangesWithoutClosingWithName:withContent:completion:"></a>
-	<h3 class="subsubtitle method-title">saveDocumentChangesWithoutClosingWithName:withContent:completion:</h3>
+	<a name="//api/name/saveChangesToDocumentWithName:withContent:completion:" title="saveChangesToDocumentWithName:withContent:completion:"></a>
+	<h3 class="subsubtitle method-title">saveChangesToDocumentWithName:withContent:completion:</h3>
 	
 	
 	
@@ -1606,7 +1689,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (void)saveDocumentChangesWithoutClosingWithName:(NSString *)<em>name</em> withContent:(NSData *)<em>content</em> completion:(void ( ^ ) ( UIDocument *cloudDocument , NSData *documentData , NSError *error ))<em>handler</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (void)saveChangesToDocumentWithName:(NSString *)<em>name</em> withContent:(NSData *)<em>content</em> completion:(void ( ^ ) ( UIDocument *cloudDocument , NSData *documentData , NSError *error ))<em>handler</em></code></div>
 
     
 	
@@ -1615,7 +1698,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>name</em></dt>
-			<dd><p>The name of the document being written to iCloud</p></dd>
+			<dd><p>The name of the document being written to iCloud. This value must not be nil.</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
@@ -1642,7 +1725,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 
 <p>To record changes to a new document or an existing one, use this method. Below is a code example of how to use it.</p>
 
-<pre><code>[iCloud saveDocumentChangesWithoutClosingWithName:@"Name.ext" withContent:[NSData data] completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
+<pre><code>[[iCloud sharedCloud] saveChangesToDocumentWithName:@"Name.ext" withContent:[NSData data] completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
     if (error == nil) {
         // Code here to use the UIDocument or NSData objects which have been passed with the completion handler
     }
@@ -1687,12 +1770,12 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>name</em></dt>
-			<dd><p>The name of the iCloud file being uploaded to a public URL</p></dd>
+			<dd><p>The name of the iCloud file being uploaded to a public URL. This value must not be nil.</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>handler</em></dt>
-			<dd><p>Code block called when the document is successfully uploaded. The completion block passes NSURL, NSDate, and NSError objects. The NSURL object is the public URL where the file is available at. The NSDate object is the date that the URL expires on. The NSError object contains any error information if an error occurred, otherwise it will be nil.</p></dd>
+			<dd><p>Code block called when the document is successfully uploaded. The completion block passes NSURL, NSDate, and NSError objects. The NSURL object is the public URL where the file is available at, could be nil. The NSDate object is the date that the URL expires on, could be nil. The NSError object contains any error information if an error occurred, otherwise it will be nil.</p></dd>
 		</dl>
 		
 	</div>
@@ -1712,6 +1795,57 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 		<h4 class="method-subtitle">Discussion</h4>
 		<p>Upload a document stored in iCloud for a certain amount of time.</p>
 	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">iCloud.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/stopMonitoringDocumentStateChangesForFile:onTarget:" title="stopMonitoringDocumentStateChangesForFile:onTarget:"></a>
+	<h3 class="subsubtitle method-title">stopMonitoringDocumentStateChangesForFile:onTarget:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Stop monitoring changes to the state of a document stored in iCloud</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)stopMonitoringDocumentStateChangesForFile:(NSString *)<em>fileName</em> onTarget:(id)<em>sender</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>fileName</em></dt>
+			<dd><p>The name of the file in iCloud. This value must not be nil.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>sender</em></dt>
+			<dd><p>Object registered as an observer that will no longer recieve document state updates. This value must not be nil.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -1852,7 +1986,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	
 	
 	<div class="method-subsection brief-description">
-		<p>UNDER DEVELOPMENT. Upload a document to iCloud</p>
+		<p>Upload a local file to iCloud</p>
 	</div>		
 	
     
@@ -1866,12 +2000,12 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>name</em></dt>
-			<dd><p>The name of the local document (stored in the app&rsquo;s documents directory) being uploaded to iCloud</p></dd>
+			<dd><p>The name of the local file stored in the application&rsquo;s documents directory. This value must not be nil.</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>handler</em></dt>
-			<dd><p>Code block called when the document changes are recorded. The completion block passes and NSError object which contains any error information if an error occurred, otherwise it will be nil.</p></dd>
+			<dd><p>Code block called after the file has been uploaded to iCloud</p></dd>
 		</dl>
 		
 	</div>
@@ -1881,11 +2015,6 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	
 	
 	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<div class="warning"><p><strong>Warning:</strong> This method is under development.</p></div>
-	</div>
 	
 	
 	
@@ -1942,7 +2071,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 		<h4 class="method-subtitle">Discussion</h4>
 		<p>Files in the local documents directory that do not already exist in iCloud will be <strong>moved</strong> into iCloud one by one. This process involves lots of file manipulation and as a result it may take a long time. This process will be performed on the background thread to avoid any lag or memory problems. When the upload processes end, the completion block is called on the main thread.</p>
 
-<pre><code>[iCloud uploadLocalOfflineDocumentsWithDelegate:self repeatingHandler:^(NSString *fileName, NSError *error) {
+<pre><code>[[iCloud sharedCloud] uploadLocalOfflineDocumentsWithDelegate:self repeatingHandler:^(NSString *fileName, NSError *error) {
     if (error == nil) {
         // This code block is called repeatedly until all files have been uploaded (or an upload has at least been attempted). 
         // Code here to use the NSString (the name of the uploaded file) which have been passed with the repeating handler
@@ -1982,7 +2111,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 iRare Media. All rights reserved. (Last updated: 2013-11-12)</span><br />
+						<p><span class="copyright">&copy; 2013 iRare Media. All rights reserved. (Last updated: 2013-11-16)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 961)</a>.</span></p>
 						

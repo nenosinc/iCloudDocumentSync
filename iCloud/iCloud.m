@@ -292,7 +292,7 @@
     });
 }
 
-- (void)saveDocumentChangesWithoutClosingWithName:(NSString *)name withContent:(NSData *)content completion:(void (^)(UIDocument *cloudDocument, NSData *documentData, NSError *error))handler {
+- (void)saveChangesToDocumentWithName:(NSString *)name withContent:(NSData *)content completion:(void (^)(UIDocument *cloudDocument, NSData *documentData, NSError *error))handler {
     // Log save
     if (verboseLogging == YES) NSLog(@"[iCloud] Beginning document change save");
     
@@ -373,11 +373,11 @@
                     if (verboseLogging == YES) NSLog(@"[iCloud] Uploading %@ to iCloud (%i out of %lu)", [localDocuments objectAtIndex:item], item, (unsigned long)[localDocuments count]);
                     
                     // Move the file to iCloud
-                    NSURL *destinationURL = [[fileManager URLForUbiquityContainerIdentifier:nil] URLByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@",[localDocuments objectAtIndex:item]]];
+                    NSURL *cloudURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:[localDocuments objectAtIndex:item]];
+                    NSURL *localURL = [NSURL fileURLWithPath:[documentsDirectory stringByAppendingPathComponent:[localDocuments objectAtIndex:item]]];
                     NSError *error;
-                    NSURL *directoryURL = [NSURL fileURLWithPath:[documentsDirectory stringByAppendingPathComponent:[localDocuments objectAtIndex:item]]];
                     
-                    BOOL success = [fileManager setUbiquitous:YES itemAtURL:directoryURL destinationURL:destinationURL error:&error];
+                    BOOL success = [fileManager setUbiquitous:YES itemAtURL:localURL destinationURL:cloudURL error:&error];
                     if (success == NO) {
                         NSLog(@"[iCloud] Error while uploading document from local directory: %@",error);
                         dispatch_async(dispatch_get_main_queue(), ^{
@@ -482,17 +482,119 @@
     // Check for iCloud
     if ([self quickCloudCheck] == NO) return;
     
-    NSLog(@"[iCloud] This method, uploadLocalDocumentToCloudWithName:completion:, is not yet available. It should be available soon.");
-}
-
-- (void)downloadCloudDocumentWithName:(NSString *)name completion:(void (^)(NSError *error))handler {
-    // Log download
-    if (verboseLogging == YES) NSLog(@"[iCloud] Attempting to download document, %@", name);
-    
-    // Check for iCloud
-    if ([self quickCloudCheck] == NO) return;
-    
-    NSLog(@"[iCloud] This method, downloadCloudDocumentWithName:completion:, is not yet available. It should be available soon.");
+    // Perform tasks on background thread to avoid problems on the main / UI thread
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
+        // Get the array of files in the documents directory
+        NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *localDocument = [documentsDirectory stringByAppendingPathComponent:name];
+        
+        // If the file does not exist in iCloud, upload it
+        if (![previousQueryResults containsObject:localDocument]) {
+            // Log
+            if (verboseLogging == YES) NSLog(@"[iCloud] Uploading %@ to iCloud", localDocument);
+            
+            // Move the file to iCloud
+            NSURL *cloudURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:name];
+            NSURL *localURL = [NSURL fileURLWithPath:[documentsDirectory stringByAppendingPathComponent:localDocument]];
+            NSError *error;
+            
+            BOOL success = [fileManager setUbiquitous:YES itemAtURL:localURL destinationURL:cloudURL error:&error];
+            if (!success) {
+                NSLog(@"[iCloud] Error while uploading document from local directory: %@", error);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    handler(error);
+                    return;
+                });
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    handler(nil);
+                    return;
+                });
+            }
+            
+        } else {
+            // Check if the local document is newer than the cloud document
+            
+            // Log conflict
+            if (verboseLogging == YES) NSLog(@"[iCloud] Conflict between local file and remote file, attempting to automatically resolve");
+            
+            // Get the file URL for the documents
+            NSURL *cloudURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:name];
+            NSURL *localURL = [NSURL fileURLWithPath:[documentsDirectory stringByAppendingPathComponent:localDocument]];
+            
+            // Create the UIDocument object from the URL
+            iCloudDocument *document = [[iCloudDocument alloc] initWithFileURL:cloudURL];
+            NSDate *cloudModDate = document.fileModificationDate;
+            
+            NSDictionary *fileAttributes = [fileManager attributesOfItemAtPath:[localURL absoluteString] error:nil];
+            NSDate *localModDate = [fileAttributes fileModificationDate];
+            NSData *localFileData = [fileManager contentsAtPath:[localURL absoluteString]];
+            
+            if ([cloudModDate compare:localModDate] == NSOrderedDescending) {
+                NSLog(@"[iCloud] The iCloud file was modified more recently than the local file. The local file will be deleted and the iCloud file will be preserved.");
+                NSError *error;
+                
+                if (![fileManager removeItemAtPath:[localURL absoluteString] error:&error]) {
+                    NSLog(@"[iCloud] Error deleting %@.\n\n%@", [localURL absoluteString], error);
+                    return;
+                }
+            } else if ([cloudModDate compare:localModDate] == NSOrderedAscending) {
+                NSLog(@"[iCloud] The local file was modified more recently than the iCloud file. The iCloud file will be overwritten with the contents of the local file.");
+                // Set the document's new content
+                document.contents = localFileData;
+                
+                // Save and close the document in iCloud
+                [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success) {
+                    if (success) {
+                        // Close the document
+                        [document closeWithCompletionHandler:^(BOOL success) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                handler(nil);
+                                return;
+                            });
+                        }];
+                    } else {
+                        NSLog(@"[iCloud] Error while overwriting old iCloud file: %s", __PRETTY_FUNCTION__);
+                        NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"%s error while saving the document, %@, to iCloud", __PRETTY_FUNCTION__, document.fileURL] code:110 userInfo:[NSDictionary dictionaryWithObject:localDocument forKey:@"FileName"]];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            handler(error);
+                            return;
+                        });
+                    }
+                }];
+            } else {
+                NSLog(@"[iCloud] The local file and iCloud file have the same modification date. Before overwriting or deleting, iCloud Document Sync will check if both files have the same content.");
+                if ([fileManager contentsEqualAtPath:[cloudURL absoluteString] andPath:[localURL absoluteString]] == YES) {
+                    NSLog (@"[iCloud] The contents of the local file and the contents of the iCloud file match. The local file will be deleted.");
+                    NSError *error;
+                    
+                    if (![fileManager removeItemAtPath:[localURL absoluteString] error:&error]) {
+                        NSLog(@"[iCloud] Error deleting %@.\n\n%@", [localURL absoluteString], error);
+                        return;
+                    }
+                } else {
+                    NSLog(@"[iCloud] Both the iCloud file and the local file were last modified at the same time, however their contents do not match. You'll need to handle the conflict using the iCloudFileUploadConflictWithCloudFile:andLocalFile: delegate method.");
+                    NSDictionary *cloudFile = [[NSDictionary alloc] initWithObjects:@[document.contents, cloudURL, cloudModDate]
+                                                                            forKeys:@[@"fileContents", @"fileURL", @"modifiedDate"]];
+                    NSDictionary *localFile = [[NSDictionary alloc] initWithObjects:@[localFileData, localURL, localModDate]
+                                                                            forKeys:@[@"fileContents", @"fileURL", @"modifiedDate"]];;
+                    
+                    if ([delegate respondsToSelector:@selector(iCloudFileUploadConflictWithCloudFile:andLocalFile:)])
+                        [delegate iCloudFileUploadConflictWithCloudFile:cloudFile andLocalFile:localFile];
+                    
+                    return;
+                }
+            }
+        }
+        
+        // Log completion
+        if (verboseLogging == YES) NSLog(@"[iCloud] Finished uploading local file to iCloud");
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            handler(nil);
+            return;
+        });
+    });
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------//
@@ -526,18 +628,60 @@
                             // Log open
                             if (verboseLogging == YES) NSLog(@"[iCloud] Opened document");
                             
+                            // Pass data on to the completion handler on the main thread
                             dispatch_async(dispatch_get_main_queue(), ^{
                                 handler(document, document.contents, nil);
                             });
+                            
+                            return;
                         } else {
                             NSLog(@"[iCloud] Error while retrieving document: %s", __PRETTY_FUNCTION__);
                             NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"%s error while retrieving document, %@, from iCloud", __PRETTY_FUNCTION__, document.fileURL] code:200 userInfo:[NSDictionary dictionaryWithObject:fileURL forKey:@"FileURL"]];
+                            
+                            // Pass data on to the completion handler on the main thread
                             dispatch_async(dispatch_get_main_queue(), ^{
                                 handler(document, document.contents, error);
                             });
+                            
+                            return;
                         }
                     }];
+                } else if (document.documentState & UIDocumentStateNormal) {
+                    // Log open
+                    if (verboseLogging == YES) NSLog(@"[iCloud] Document already opened, retrieving content");
+                    
+                    // Pass data on to the completion handler on the main thread
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        handler(document, document.contents, nil);
+                    });
+                    
+                    return;
+                } else if (document.documentState & UIDocumentStateInConflict) {
+                    // Log open
+                    if (verboseLogging == YES) NSLog(@"[iCloud] Document in conflict. The document may not contain correct data. An error will be returned along with the other parameters in the completion handler.");
+                    
+                    // Create Error
+                    NSLog(@"[iCloud] Error while retrieving document, %@, because the document is in conflict", documentName);
+                    NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"The iCloud document, %@, is in conflict. Please resolve this conflict before editing the document.", documentName] code:200 userInfo:[NSDictionary dictionaryWithObject:fileURL forKey:@"FileURL"]];
+                    
+                    // Pass data on to the completion handler on the main thread
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        handler(document, document.contents, error);
+                    });
+                    
+                    return;
+                } else if (document.documentState & UIDocumentStateEditingDisabled) {
+                    // Log open
+                    if (verboseLogging == YES) NSLog(@"[iCloud] Document editing disabled. The document is not currently editable, use the documentStateForFile: method to determine when the document is available again. The document and its contents will still be passed as parameters in the completion handler.");
+                    
+                    // Pass data on to the completion handler on the main thread
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        handler(document, document.contents, nil);
+                    });
+                    
+                    return;
                 }
+                
             } else {
                 // Log creation
                 if (verboseLogging == YES) NSLog(@"[iCloud] The document, %@, does not exist and will be created as an empty document", documentName);
@@ -563,6 +707,7 @@
 }
 
 - (NSNumber *)fileSize:(NSString *)fileName {
+    // Check for iCloud
     if ([self quickCloudCheck] == NO) return NO;
     
     // Get the URL to get the file from
@@ -574,11 +719,15 @@
         NSNumber *bytes = [NSNumber numberWithUnsignedLongLong:fileSize];
         return bytes;
     } else {
+        // The document could not be found
+        NSLog(@"[iCloud] File not found: %@", fileName);
+        
         return nil;
     }
 }
 
 - (NSDate *)fileModifiedDate:(NSString *)fileName {
+    // Check for iCloud
     if ([self quickCloudCheck] == NO) return NO;
     
     // Get the URL to get the file from
@@ -589,11 +738,15 @@
         NSDate *fileModified = [[fileManager attributesOfItemAtPath:[fileURL path] error:nil] fileModificationDate];
         return fileModified;
     } else {
+        // The document could not be found
+        NSLog(@"[iCloud] File not found: %@", fileName);
+        
         return nil;
     }
 }
 
 - (NSDate *)fileCreatedDate:(NSString *)fileName {
+    // Check for iCloud
     if ([self quickCloudCheck] == NO) return NO;
     
     // Get the URL to get the file from
@@ -609,6 +762,7 @@
 }
 
 - (BOOL)doesFileExistInCloud:(NSString *)fileName {
+    // Check for iCloud
     if ([self quickCloudCheck] == NO) return NO;
     
     // Get the URL to get the file from
@@ -624,6 +778,7 @@
 }
 
 - (UIDocumentState)documentStateForFile:(NSString *)fileName {
+    // Check for iCloud
     if ([self quickCloudCheck] == NO) return NO;
     
     // Get the URL to get the file from
@@ -636,15 +791,85 @@
         UIDocumentState state = document.documentState;
         return state;
     } else {
+        // The document could not be found
+        NSLog(@"[iCloud] File not found: %@", fileName);
+        
         return UIDocumentStateClosed;
     }
 }
 
+- (void)monitorDocumentStateForFile:(NSString *)fileName onTarget:(id)sender withSelector:(SEL)selector {
+    // Log monitoring
+    if (verboseLogging == YES) NSLog(@"[iCloud] Preparing to monitor for changes to %@", fileName);
+    
+    // Check for iCloud
+    if ([self quickCloudCheck] == NO) return;
+    
+    // Log monitoring
+    if (verboseLogging == YES) NSLog(@"[iCloud] Checking for existance of %@", fileName);
+    
+    // Get the URL to get the file from
+	NSURL *fileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:fileName];
+    
+    // Check if the file exists, and return
+    if ([fileManager fileExistsAtPath:[fileURL path]]) {
+        // Create the UIDocument
+        iCloudDocument *document = [[iCloudDocument alloc] initWithFileURL:fileURL];
+        [notificationCenter addObserver:sender selector:selector name:UIDocumentStateChangedNotification object:document];
+        
+        // Log monitoring
+        if (verboseLogging == YES) NSLog(@"[iCloud] Now successfully monitoring for changes to %@ on %@", fileName, sender);
+        
+        return;
+    } else {
+        // The document could not be found
+        NSLog(@"[iCloud] File not found: %@", fileName);
+        
+        return;
+    }
+}
+
+- (void)stopMonitoringDocumentStateChangesForFile:(NSString *)fileName onTarget:(id)sender {
+    // Check for iCloud
+    if ([self quickCloudCheck] == NO) return;
+    
+    // Log monitoring
+    if (verboseLogging == YES) NSLog(@"[iCloud] Checking for existance of %@", fileName);
+    
+    // Get the URL to get the file from
+	NSURL *fileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:fileName];
+    
+    // Check if the file exists, and return
+    if ([fileManager fileExistsAtPath:[fileURL path]]) {
+        // Create the UIDocument
+        iCloudDocument *document = [[iCloudDocument alloc] initWithFileURL:fileURL];
+        
+        [notificationCenter removeObserver:sender name:UIDocumentStateChangedNotification object:document];
+        
+        // Log monitoring
+        if (verboseLogging == YES) NSLog(@"[iCloud] Stopped monitoring document state changes to %@", fileName);
+        
+        return;
+    } else {
+        // The document could not be found
+        NSLog(@"[iCloud] File not found: %@", fileName);
+        
+        return;
+    }
+}
+
 - (NSArray *)getListOfCloudFiles {
+    // Log retrieval
+    if (verboseLogging == YES) NSLog(@"[iCloud] Getting list of iCloud documents");
+    
+    // Check for iCloud
     if ([self quickCloudCheck] == NO) return nil;
     
     // Get the directory contents
     NSArray *directoryContent = [fileManager contentsOfDirectoryAtURL:[self ubiquitousDocumentsDirectoryURL] includingPropertiesForKeys:nil options:0 error:nil];
+    
+    // Log retrieval
+    if (verboseLogging == YES) NSLog(@"[iCloud] Retrieved list of iCloud documents");
     
     // Return the list of files
     return directoryContent;
@@ -659,27 +884,48 @@
     // Log share
     if (verboseLogging == YES) NSLog(@"[iCloud] Attempting to share document");
     
+    // Check for iCloud
     if ([self quickCloudCheck] == NO) return nil;
     
     @try {
         // Get the URL to get the file from
         NSURL *fileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:name];
         
-        // Create the Error Object and the Date Object
-        NSError *error;
-        NSDate *date;
-        
-        // Create the URL
-        NSURL *url = [fileManager URLForPublishingUbiquitousItemAtURL:fileURL expirationDate:&date error:&error];
-        
-        // Log share
-        if (verboseLogging == YES) NSLog(@"[iCloud] Shared iCloud document");
-        
-        // Pass the data to the handler
-        handler(url, date, error);
-        
-        // Return the URL
-        return url;
+        // Check that the file exists
+        if ([fileManager fileExistsAtPath:[fileURL path]]) {
+            
+            // Create the URL to be returned outside of the block
+            __block NSURL *url;
+            
+            // Move to the background thread for safety
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+                // Create the Error Object and the Date Object
+                NSError *error;
+                NSDate *date;
+                
+                // Create the URL
+                url = [fileManager URLForPublishingUbiquitousItemAtURL:fileURL expirationDate:&date error:&error];
+                
+                // Log share
+                if (verboseLogging == YES) NSLog(@"[iCloud] Shared iCloud document");
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    // Pass the data to the handler
+                    handler(url, date, error);
+                });
+            });
+            
+            // Return the URL
+            return url;
+        } else {
+            // The document could not be found
+            NSLog(@"[iCloud] File not found: %@", name);
+            NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"The document, %@, does not exist at path: %@", name, fileURL] code:404 userInfo:[NSDictionary dictionaryWithObject:fileURL forKey:@"FileURL"]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                handler(nil, nil, error);
+                return;
+            });
+        }
     } @catch (NSException *exception) {
         NSLog(@"[iCloud] Caught exception while sharing file: %@\n\n%s", exception, __PRETTY_FUNCTION__);
     }
@@ -716,7 +962,7 @@
                     [fileManager removeItemAtURL:writingURL error:&error];
                     if (error) {
                         // Log failure
-                        if (verboseLogging == YES) NSLog(@"[iCloud] An error occured while deleting the document: %@", error);
+                        if (verboseLogging == YES) NSLog(@"[iCloud] An error occurred while deleting the document: %@", error);
                         
                         dispatch_async(dispatch_get_main_queue(), ^{
                             handler(error);
@@ -746,6 +992,140 @@
     } @catch (NSException *exception) {
         NSLog(@"[iCloud] Caught exception while deleting file: %@\n\n%s", exception, __PRETTY_FUNCTION__);
     }
+}
+
+- (void)evictCloudDocumentWithName:(NSString *)name completion:(void (^)(NSError *error))handler {
+    // Log download
+    if (verboseLogging == YES) NSLog(@"[iCloud] Attempting to evict iCloud document, %@", name);
+    
+    // Check for iCloud
+    if ([self quickCloudCheck] == NO) return;
+    
+    // Perform tasks on background thread to avoid problems on the main / UI thread
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
+        // Get the array of files in the documents directory
+        NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *localDocument = [documentsDirectory stringByAppendingPathComponent:name];
+        
+        // If the file does not exist in iCloud, upload it
+        if (![previousQueryResults containsObject:localDocument]) {
+            // Log
+            if (verboseLogging == YES) NSLog(@"[iCloud] Evicting %@ from iCloud", localDocument);
+            
+            // Move the file to iCloud
+            NSURL *cloudURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:name];
+            NSURL *localURL = [NSURL fileURLWithPath:[documentsDirectory stringByAppendingPathComponent:localDocument]];
+            NSError *error;
+            
+            BOOL success = [fileManager setUbiquitous:NO itemAtURL:cloudURL destinationURL:localURL error:&error];
+            if (!success) {
+                NSLog(@"[iCloud] Error while evicting document from local directory: %@", error);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    handler(error);
+                    return;
+                });
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    handler(nil);
+                    return;
+                });
+            }
+            
+        } else {
+            // Check if the cloud document is newer than the local document
+            
+            // Log conflict
+            if (verboseLogging == YES) NSLog(@"[iCloud] Conflict between local file and remote file, attempting to automatically resolve");
+            
+            // Get the file URL for the documents
+            NSURL *cloudURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:name];
+            NSURL *localURL = [NSURL fileURLWithPath:[documentsDirectory stringByAppendingPathComponent:localDocument]];
+            
+            // Create the UIDocument object from the URL
+            iCloudDocument *document = [[iCloudDocument alloc] initWithFileURL:cloudURL];
+            NSDate *cloudModDate = document.fileModificationDate;
+            
+            NSDictionary *fileAttributes = [fileManager attributesOfItemAtPath:[localURL absoluteString] error:nil];
+            NSDate *localModDate = [fileAttributes fileModificationDate];
+            NSData *localFileData = [fileManager contentsAtPath:[localURL absoluteString]];
+            
+            if ([localModDate compare:cloudModDate] == NSOrderedDescending) {
+                NSLog(@"[iCloud] The local file was modified more recently than the iCloud file. The iCloud file will be deleted and the local file will be preserved.");
+                
+                [self deleteDocumentWithName:name completion:^(NSError *error) {
+                    if (error) {
+                        NSLog(@"[iCloud] Error deleting %@.\n\n%@", [localURL absoluteString], error);
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            handler(error);
+                            return;
+                        });
+                    } else {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            handler(nil);
+                            return;
+                        });
+                    }
+                }];
+                
+            } else if ([localModDate compare:cloudModDate] == NSOrderedAscending) {
+                NSLog(@"[iCloud] The iCloud file was modified more recently than the local file. The local file will be overwritten with the contents of the iCloud file.");
+                
+                BOOL success = [document.contents writeToURL:localURL atomically:YES];
+                if (success) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        handler(nil);
+                        return;
+                    });
+                } else {
+                    NSLog(@"[iCloud] Failed to overwrite file at URL: %@", localURL);
+                    NSError *error = [[NSError alloc] initWithDomain:@"Unknown error occured while writing file to URL." code:100 userInfo:@{@"FileURL": localURL}];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        handler(error);
+                        return;
+                    });
+                }
+            } else {
+                NSLog(@"[iCloud] The iCloud file and local file have the same modification date. Before overwriting or deleting, iCloud Document Sync will check if both files have the same content.");
+                if ([fileManager contentsEqualAtPath:[localURL absoluteString] andPath:[cloudURL absoluteString]] == YES) {
+                    NSLog (@"[iCloud] The contents of the iCloud file and the contents of the local file match. The iCloud file will be deleted.");
+                    
+                    [self deleteDocumentWithName:name completion:^(NSError *error) {
+                        if (error) {
+                            NSLog(@"[iCloud] Error deleting %@.\n\n%@", [localURL absoluteString], error);
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                handler(error);
+                                return;
+                            });
+                        } else {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                handler(nil);
+                                return;
+                            });
+                        }
+                    }];
+                } else {
+                    NSLog(@"[iCloud] Both the local file and the iCloud file were last modified at the same time, however their contents do not match. You'll need to handle the conflict using the iCloudFileUploadConflictWithCloudFile:andLocalFile: delegate method.");
+                    NSDictionary *cloudFile = [[NSDictionary alloc] initWithObjects:@[document.contents, cloudURL, cloudModDate]
+                                                                            forKeys:@[@"fileContents", @"fileURL", @"modifiedDate"]];
+                    NSDictionary *localFile = [[NSDictionary alloc] initWithObjects:@[localFileData, localURL, localModDate]
+                                                                            forKeys:@[@"fileContents", @"fileURL", @"modifiedDate"]];;
+                    
+                    if ([delegate respondsToSelector:@selector(iCloudFileUploadConflictWithCloudFile:andLocalFile:)])
+                        [delegate iCloudFileUploadConflictWithCloudFile:cloudFile andLocalFile:localFile];
+                    
+                    return;
+                }
+            }
+        }
+        
+        // Log completion
+        if (verboseLogging == YES) NSLog(@"[iCloud] Finished evicting iCloud document. Successfully moved to local storage.");
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            handler(nil);
+            return;
+        });
+    });
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------//
@@ -788,8 +1168,8 @@
         return;
     }
     
-    // Log success of existance
-    if (verboseLogging == YES) NSLog(@"[iCloud] Files passed existance check, preparing to rename");
+    // Log success of existence
+    if (verboseLogging == YES) NSLog(@"[iCloud] Files passed existence check, preparing to rename");
     
     // Log rename
     if (verboseLogging == YES) NSLog(@"[iCloud] Renaming Files");
