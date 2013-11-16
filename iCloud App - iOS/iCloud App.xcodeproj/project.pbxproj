@@ -194,7 +194,6 @@
 				99E85AF9182DC9280039FC97 /* Sources */,
 				99E85AFA182DC9280039FC97 /* Frameworks */,
 				99E85AFB182DC9280039FC97 /* Resources */,
-				99B6465A182EA8D400249C57 /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -285,23 +284,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		99B6465A182EA8D400249C57 /* Crashlytics */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = Crashlytics;
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "./Crashlytics.framework/run c92fea94396caf3d64cac6cd0da71911f352c5eb";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		99E85AF9182DC9280039FC97 /* Sources */ = {
@@ -443,11 +425,7 @@
 				CODE_SIGN_ENTITLEMENTS = "iCloud App/iCloud App.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/Spencers/Xcode/Projects/iCloudDocumentSync,
-					"/Users/Spencers/Xcode/iOS/iCloud\\ App/iCloud\\ App",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iCloud App/iCloud App-Prefix.pch";
 				INFOPLIST_FILE = "iCloud App/iCloud App-Info.plist";
@@ -466,11 +444,7 @@
 				CODE_SIGN_ENTITLEMENTS = "iCloud App/iCloud App.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/Spencers/Xcode/Projects/iCloudDocumentSync,
-					"/Users/Spencers/Xcode/iOS/iCloud\\ App/iCloud\\ App",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iCloud App/iCloud App-Prefix.pch";
 				INFOPLIST_FILE = "iCloud App/iCloud App-Info.plist";
