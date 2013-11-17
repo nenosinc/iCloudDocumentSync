@@ -49,16 +49,22 @@
     [refreshControl addTarget:self action:@selector(refreshCloudList) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:refreshControl];
     
-    // Present Welcome Screen
-    if ([self appIsRunningForFirstTime] == YES || [cloud checkCloudAvailability] == NO) {
-        [self performSegueWithIdentifier:@"showWelcome" sender:self];
-    }
+    // Subscribe to iCloud Ready Notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshCloudList) name:@"iCloud Ready" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    // Call Super
+    [super viewWillAppear:YES];
+    
+    // Present Welcome Screen
+    if ([self appIsRunningForFirstTime] == YES || [[iCloud sharedCloud] checkCloudAvailability] == NO || [[NSUserDefaults standardUserDefaults] boolForKey:@"userCloudPref"] == NO) {
+        [self performSegueWithIdentifier:@"showWelcome" sender:self];
+        return;
+    }
+    
     /* --- Force iCloud Update ---
      This is done automatically when changes are made, but we want to make sure the view is always updated when presented */
-    //[iCloud updateFilesWithDelegate:self];
     [[iCloud sharedCloud] updateFiles];
 }
 
