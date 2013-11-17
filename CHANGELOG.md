@@ -7,24 +7,34 @@
         <td>Major changes in favor of stability and security. <b>iCloud Document Sync is now a singleton</b>. This update also fixes numerous bugs and begins preparing for both iOS and OS X sample apps, and OS X compatibility.
             <ul>
                 <li><b>BREAKING CHANGE</b> Converted the iCloud class to a singleton. This approach makes iCloud Document Sync easier to maintain, and it increases stability. All class methods are now instance methods that must be called with the iCloud singleton manager: <tt>sharedCloud</tt>. Now when calling a method instead of doing this: <tt>[iCloud methodName]</tt>, do this instead: <tt>[[iCloud sharedCloud] methodName]</tt>.</li>
-                <li><b>BREAKING CHANGE</b> Removed all deprecated methods and delegate methods from previous versions. Any methods and delegate methods previously marked as deprecated no longer exist. Calling any of those methods will result in a compiler error.</li>
+                <li><b>BREAKING CHANGE</b> Removed all deprecated methods from previous versions. Any methods previously marked as deprecated no longer exist. Calling any of those methods will result in a compiler error (or a crash).</li>
                 <li><b>BREAKING CHANGE</b> Removed the delegate parameter from <tt>uploadLocalOfflineDocumentsWithDelegate:</tt> and <tt>updateFilesWithDelegate:</tt>. These methods have been renamed. Check the documentation for new names.</li>
                 <li><b>BREAKING CHANGE</b> The delegate method, <tt>iCloudFilesDidChange: withNewFileNames:</tt> now passes an NSMetadataItem in the first parameter instead of an NSURL object. This provides much more information about a file, but will cause an error if you try to access it as an NSURL. To get the URL from the NSMetadataItem, just call <tt>[item valueForAttribute:NSMetadataItemURLKey]</tt>.
                 <li>Added document change tracking when saving a file to iCloud. Changes to files are automatically saved when saving a file. You can also explicitly update the change count.</li>
-                <li>Made improvements to document saving, now closes instead of overwriting the document. Allowing UIDocument to handle versions and changes.</li>
+                <li>Added new Document State monitoring methods. You can now subscribe and unsibscribe from document state changes. Check the state of a document at any time too.</li>
+                <li>Added new Rename Document method. Now you can rename documents stored in iCloud.</li>
+                <li>Added new Duplicate Document method. Now you can duplicate documents stored in iCloud.</li>
+                <li>Added new Evict Document method. Evict a document from iCloud storage (download to local app sandbox and then delete from iCloud) by setting it to not be ubiquitous.</li>
+                <li>Added new Promote Document method. Promote a document to iCloud storage (upload from local app sandbox to iCloud) by setting it to be ubiquitous.</li>
                 <li>Added new method to submit changes to a document.</li>
-                <li>Updated functionality of the save method, now closes a document properly with UIDocument instead of overwriting the document.</li>
+                <li>Added new methods for retrieving the current ubiquity directory URL</li>
+                <li>Added new methods for retrieving information about a document stored in iCloud (file modified date, creation date, and size)</li>
                 <li>New delegate method to specify the iCloud query predicate filter: <tt>iCloudQueryLimitedToFileExtension</tt></li>
-                <li>New delegate method to notify you of changes in the availability of iCloud: <tt>iCloudAvailabilityDidChange:</tt></li>
-                <li>New methods for retrieving the current ubiquity directory URL</li>
-                <li>New methods for retrieving the document state of a document in iCloud</li>
-                <li>New property to enable or disable verbose logging of iCloud Document Sync</li>
+                <li>New delegate method to notify you of changes in the availability of iCloud: <tt>iCloudAvailabilityDidChangeToState:withUbiquityToken:withUbiquityContainer:</tt></li>
+                <li>New property to enable or disable verbose logging of iCloud Document Sync. Also added a verboseAvailabilityLogging property to toggle the display of availability changes in the log.</li>
+                <li>Made improvements to document saving, now closes instead of overwriting the document. Allowing UIDocument to handle versions and changes.</li>
+                <li>Made improvements to the <tt>checkCloudAvailability</tt> method. Now checks for ubiquityIdentityToken instead of the ubiquity container (which was intensive and time consuming).</li>
                 <li>All methods check for iCloud availability before executing. A method will return prematurely if iCloud is unavailable. Errors are printed in the console.</li>
-                <li>Fixed crash when updating the iCloud list. Removed the irrelevant timer code and methods.</li>
+                <li>Fixed crash when updating the iCloud list.</li>
                 <li>Fixed crash on <tt>shareDocumentWithName: completion:</tt> method.</li>
+                <li>Fixed issues related to thread-management that may have caused crashes in some cases.</li>
+                <li>Fixed <tt>x86_64</tt> architecture compile issue.</li>
+                <li>Improved error reporting.</li>
+                <li>Improved exception handling with @try / @catch blocks.</li>
+                <li>Improved thread management.</li>
+                <li>Updated Xcode project settings.</li>
+                <li>Removed the irrelevant timer code and methods.</li>
                 <li>Removed iOS Simulator detection. As of Xcode 5.0, the iOS Simulator works with iCloud.</li>
-                <li>Fixes <tt>x86_64</tt> architecture compile issue.</li>
-                <li>Updates Xcode project settings.</li>
             </ul>
         </td>
     </tr>

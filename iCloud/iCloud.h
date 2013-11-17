@@ -84,7 +84,7 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
    - iCloud is turned off by the user
    - The entitlements profile, code signing identity, and/or provisioning profile is invalid
  
- This method uses the ubiquityIdentityToken to check if iCloud is available. The delegate method iCloudAvailabilityDidChangeToState:withUbiquityToken: can be used to automatically detect changes in the availability of iCloud. A ubiquity token is passed in that method which lets you know if the iCloud account has changed.
+ This method uses the ubiquityIdentityToken to check if iCloud is available. The delegate method iCloudAvailabilityDidChangeToState:withUbiquityToken:withUbiquityContainer: can be used to automatically detect changes in the availability of iCloud. A ubiquity token is passed in that method which lets you know if the iCloud account has changed.
  
  @return YES if iCloud is available. NO if iCloud is not available. */
 - (BOOL)checkCloudAvailability;
@@ -210,9 +210,7 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
  @param handler Code block called when a file is successfully deleted from iCloud. The NSError object contains any error information if an error occurred, otherwise it will be nil. */
 - (void)deleteDocumentWithName:(NSString *)name completion:(void (^)(NSError *error))handler;
 
-/** UNDER DEVELOPMENT. Evict a document from iCloud, move it from iCloud to the current application's local documents directory.
- 
- @warning This method is under development.
+/** Evict a document from iCloud, move it from iCloud to the current application's local documents directory.
  
  @param name The name of the iCloud document being downloaded from iCloud to the local documents directory. This value must not be nil.
  @param handler Code block called after the file has been uploaded to iCloud. */
@@ -270,7 +268,7 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
 
 
 
-/** Managing iCloud Content */
+/** @name Managing iCloud Content */
 
 /** Rename a document in iCloud
  
