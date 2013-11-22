@@ -453,7 +453,7 @@
                                                                                     forKeys:@[@"fileContents", @"fileURL", @"modifiedDate"]];;
                             
                             if ([delegate respondsToSelector:@selector(iCloudFileUploadConflictWithCloudFile:andLocalFile:)])
-                                [delegate iCloudFileUploadConflictWithCloudFile:cloudFile andLocalFile:localFile];
+                                [delegate iCloudFileConflictBetweenCloudFile:cloudFile andLocalFile:localFile];
                         }
                     }
                 }
@@ -580,7 +580,7 @@
                                                                             forKeys:@[@"fileContents", @"fileURL", @"modifiedDate"]];;
                     
                     if ([delegate respondsToSelector:@selector(iCloudFileUploadConflictWithCloudFile:andLocalFile:)])
-                        [delegate iCloudFileUploadConflictWithCloudFile:cloudFile andLocalFile:localFile];
+                        [delegate iCloudFileConflictBetweenCloudFile:cloudFile andLocalFile:localFile];
                     
                     return;
                 }
@@ -708,7 +708,7 @@
 
 - (NSNumber *)fileSize:(NSString *)fileName {
     // Check for iCloud
-    if ([self quickCloudCheck] == NO) return NO;
+    if ([self quickCloudCheck] == NO) return nil;
     
     // Get the URL to get the file from
 	NSURL *fileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:fileName];
@@ -728,7 +728,7 @@
 
 - (NSDate *)fileModifiedDate:(NSString *)fileName {
     // Check for iCloud
-    if ([self quickCloudCheck] == NO) return NO;
+    if ([self quickCloudCheck] == NO) return nil;
     
     // Get the URL to get the file from
 	NSURL *fileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:fileName];
@@ -747,7 +747,7 @@
 
 - (NSDate *)fileCreatedDate:(NSString *)fileName {
     // Check for iCloud
-    if ([self quickCloudCheck] == NO) return NO;
+    if ([self quickCloudCheck] == NO) return nil;
     
     // Get the URL to get the file from
 	NSURL *fileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:fileName];
@@ -777,9 +777,9 @@
     
 }
 
-- (UIDocumentState)documentStateForFile:(NSString *)fileName {
+- (void)documentStateForFile:(NSString *)fileName completion:(void (^)(UIDocumentState *documentState, NSError *error))handler {
     // Check for iCloud
-    if ([self quickCloudCheck] == NO) return NO;
+    if ([self quickCloudCheck] == NO) return;
     
     // Get the URL to get the file from
 	NSURL *fileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:fileName];
@@ -789,72 +789,87 @@
         // Create the UIDocument
         iCloudDocument *document = [[iCloudDocument alloc] initWithFileURL:fileURL];
         UIDocumentState state = document.documentState;
-        return state;
+        handler(&state, nil);
     } else {
         // The document could not be found
         NSLog(@"[iCloud] File not found: %@", fileName);
-        
-        return UIDocumentStateClosed;
+        NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"The document, %@, does not exist at path: %@", fileName, fileURL] code:404 userInfo:[NSDictionary dictionaryWithObject:fileURL forKey:@"FileURL"]];
+        handler(nil, error);
+        return;
     }
 }
 
-- (void)monitorDocumentStateForFile:(NSString *)fileName onTarget:(id)sender withSelector:(SEL)selector {
+- (BOOL)monitorDocumentStateForFile:(NSString *)fileName onTarget:(id)sender withSelector:(SEL)selector {
     // Log monitoring
     if (verboseLogging == YES) NSLog(@"[iCloud] Preparing to monitor for changes to %@", fileName);
     
     // Check for iCloud
-    if ([self quickCloudCheck] == NO) return;
+    if ([self quickCloudCheck] == NO) return NO;
     
     // Log monitoring
     if (verboseLogging == YES) NSLog(@"[iCloud] Checking for existance of %@", fileName);
     
-    // Get the URL to get the file from
-	NSURL *fileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:fileName];
-    
-    // Check if the file exists, and return
-    if ([fileManager fileExistsAtPath:[fileURL path]]) {
-        // Create the UIDocument
-        iCloudDocument *document = [[iCloudDocument alloc] initWithFileURL:fileURL];
-        [notificationCenter addObserver:sender selector:selector name:UIDocumentStateChangedNotification object:document];
+    @try {
+        // Get the URL to get the file from
+        NSURL *fileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:fileName];
         
-        // Log monitoring
-        if (verboseLogging == YES) NSLog(@"[iCloud] Now successfully monitoring for changes to %@ on %@", fileName, sender);
+        // Check if the file exists, and return
+        if ([fileManager fileExistsAtPath:[fileURL path]]) {
+            // Create the UIDocument
+            iCloudDocument *document = [[iCloudDocument alloc] initWithFileURL:fileURL];
+            [notificationCenter addObserver:sender selector:selector name:UIDocumentStateChangedNotification object:document];
+            
+            // Log monitoring
+            if (verboseLogging == YES) NSLog(@"[iCloud] Now successfully monitoring for changes to %@ on %@", fileName, sender);
+            
+            return YES;
+        } else {
+            // The document could not be found
+            NSLog(@"[iCloud] File not found: %@", fileName);
+            
+            return NO;
+        }
+    } @catch (NSException *exception) {
+        // Log exception
+        NSLog(@"[iCloud] Exception while attempting to stop monitoring document state changes: %@", exception);
         
-        return;
-    } else {
-        // The document could not be found
-        NSLog(@"[iCloud] File not found: %@", fileName);
-        
-        return;
+        return NO;
     }
 }
 
-- (void)stopMonitoringDocumentStateChangesForFile:(NSString *)fileName onTarget:(id)sender {
+- (BOOL)stopMonitoringDocumentStateChangesForFile:(NSString *)fileName onTarget:(id)sender {
     // Check for iCloud
-    if ([self quickCloudCheck] == NO) return;
+    if ([self quickCloudCheck] == NO) return NO;
     
     // Log monitoring
     if (verboseLogging == YES) NSLog(@"[iCloud] Checking for existance of %@", fileName);
     
-    // Get the URL to get the file from
-	NSURL *fileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:fileName];
-    
-    // Check if the file exists, and return
-    if ([fileManager fileExistsAtPath:[fileURL path]]) {
-        // Create the UIDocument
-        iCloudDocument *document = [[iCloudDocument alloc] initWithFileURL:fileURL];
+    @try {
+        // Get the URL to get the file from
+        NSURL *fileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:fileName];
         
-        [notificationCenter removeObserver:sender name:UIDocumentStateChangedNotification object:document];
+        // Check if the file exists, and return
+        if ([fileManager fileExistsAtPath:[fileURL path]]) {
+            // Create the UIDocument
+            iCloudDocument *document = [[iCloudDocument alloc] initWithFileURL:fileURL];
+            
+            [notificationCenter removeObserver:sender name:UIDocumentStateChangedNotification object:document];
+            
+            // Log monitoring
+            if (verboseLogging == YES) NSLog(@"[iCloud] Stopped monitoring document state changes to %@", fileName);
+            
+            return YES;
+        } else {
+            // The document could not be found
+            NSLog(@"[iCloud] File not found: %@", fileName);
+            
+            return NO;
+        }
+    } @catch (NSException *exception) {
+        // Log exception
+        NSLog(@"[iCloud] Exception while attempting to stop monitoring document state changes: %@", exception);
         
-        // Log monitoring
-        if (verboseLogging == YES) NSLog(@"[iCloud] Stopped monitoring document state changes to %@", fileName);
-        
-        return;
-    } else {
-        // The document could not be found
-        NSLog(@"[iCloud] File not found: %@", fileName);
-        
-        return;
+        return NO;
     }
 }
 
@@ -1111,7 +1126,7 @@
                                                                             forKeys:@[@"fileContents", @"fileURL", @"modifiedDate"]];;
                     
                     if ([delegate respondsToSelector:@selector(iCloudFileUploadConflictWithCloudFile:andLocalFile:)])
-                        [delegate iCloudFileUploadConflictWithCloudFile:cloudFile andLocalFile:localFile];
+                        [delegate iCloudFileConflictBetweenCloudFile:cloudFile andLocalFile:localFile];
                     
                     return;
                 }
@@ -1145,9 +1160,9 @@
     NSURL *newFileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:newName];
     
     // Check if file exists at source URL
-    if (![fileManager fileExistsAtPath:[newFileURL path]]) {
+    if (![fileManager fileExistsAtPath:[sourceFileURL path]]) {
         NSLog(@"[iCloud] File does not exist at path: %@", sourceFileURL);
-        NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"The document, %@, already exists at path: %@", name, sourceFileURL] code:404 userInfo:[NSDictionary dictionaryWithObject:sourceFileURL forKey:@"FileURL"]];
+        NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"The document, %@, does not exist at path: %@", name, sourceFileURL] code:404 userInfo:[NSDictionary dictionaryWithObject:sourceFileURL forKey:@"FileURL"]];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             handler(error);
@@ -1171,9 +1186,6 @@
     // Log success of existence
     if (verboseLogging == YES) NSLog(@"[iCloud] Files passed existence check, preparing to rename");
     
-    // Log rename
-    if (verboseLogging == YES) NSLog(@"[iCloud] Renaming Files");
-    
     // Move to the background thread for safety
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
         // Coordinate renaming safely with a file coordinator
@@ -1182,6 +1194,9 @@
         [coordinator coordinateWritingItemAtURL:sourceFileURL options:NSFileCoordinatorWritingForMoving writingItemAtURL:newFileURL options:NSFileCoordinatorWritingForReplacing error:&coordinatorError byAccessor:^(NSURL *newURL1, NSURL *newURL2) {
             NSError *moveError;
             BOOL moveSuccess;
+            
+            // Log rename
+            if (verboseLogging == YES) NSLog(@"[iCloud] Renaming Files");
             
             // Do the actual renaming
             moveSuccess = [fileManager moveItemAtURL:sourceFileURL toURL:newFileURL error:&moveError];
@@ -1228,7 +1243,69 @@
     // Check for iCloud
     if ([self quickCloudCheck] == NO) return;
     
-    NSLog(@"[iCloud] This method, duplicateOriginalDocument:withNewName:completion:, is not yet available. It should be available soon.");
+    // Create the URLs for the files that are being renamed
+    NSURL *sourceFileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:name];
+    NSURL *newFileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:newName];
+    
+    // Check if file exists at source URL
+    if (![fileManager fileExistsAtPath:[sourceFileURL path]]) {
+        NSLog(@"[iCloud] File does not exist at path: %@", sourceFileURL);
+        NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"The document, %@, does not exist at path: %@", name, sourceFileURL] code:404 userInfo:[NSDictionary dictionaryWithObject:sourceFileURL forKey:@"FileURL"]];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            handler(error);
+        });
+        
+        return;
+    }
+    
+    // Check if file does not exist at new URL
+    if ([fileManager fileExistsAtPath:[newFileURL path]]) {
+        NSLog(@"[iCloud] File already exists at path: %@", newFileURL);
+        NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"The document, %@, already exists at path: %@", newName, newFileURL] code:512 userInfo:[NSDictionary dictionaryWithObject:newFileURL forKey:@"FileURL"]];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            handler(error);
+        });
+        
+        return;
+    }
+    
+    // Log success of existence
+    if (verboseLogging == YES) NSLog(@"[iCloud] Files passed existence check, preparing to duplicate");
+    
+    // Move to the background thread for safety
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+        NSError *moveError;
+        BOOL moveSuccess;
+        
+        // Log duplication
+        if (verboseLogging == YES) NSLog(@"[iCloud] Duplicating Files");
+        
+        // Do the actual duplicating
+        moveSuccess = [fileManager copyItemAtURL:sourceFileURL toURL:newFileURL error:&moveError];
+        
+        if (moveSuccess) {
+            // Log success
+            if (verboseLogging == YES) NSLog(@"[iCloud] Duplicated Files");
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                handler(nil);
+            });
+            return;
+        }
+        
+        if (moveError) {
+            // Log failure
+            NSLog(@"[iCloud] Failed to duplicate file, %@, with new name: %@. Error: %@", name, newName , moveError);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                handler(moveError);
+            });
+            
+            return;
+        }
+    });
 }
 
 @end

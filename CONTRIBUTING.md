@@ -49,11 +49,10 @@ Before submitting any changes, make sure that you've documented those changes. T
 #### Building the Documentation
 Documentation is a fundamental portion of iCloud Document Sync. When you make changes to iCloud Document Sync (especially breaking changes), those changes should be documented (along with any additions or removals). You'll need to document changes in a few places (may vary by case): Readme.md, Changelog.md, and the DocSet bundle within the Documentation folder. This section discusses how to build the documentation through Xcode for the DocSet.
 
-1. Make any changes to the project and build it with the *iCloud* target selected  
-2. When you've finished making changes and testing, select the *Documentation* target from the scheme selector in the upper-left corner of Xcode. Click on Build / Run. Xcode will generate the framework and related documentation.  
-3. To find the documentation, open Finder and then press CMD+SHIFT+G. A prompt will appear and ask for a path to navigate to. Paste the following into the prompt: `~/Library/Developer/Shared/Documentation/DocSets/`. Finder will open to that folder if it exists (it should).  
-4. Find the `com.iRareMedia.iCloudSDK.docset` DocSet bundle (if everything build correctly, it should be there - if not try running `mdfind com.iRareMedia.iCloudSDK.docset` in the terminal).  
-5. Copy the DocSet into the iCloud Document Sync folder titled *Documentation*. Be sure that the old DocSet is completely overwritten / replaced.
+1. Make any changes to the project and build it with the *iCloud* target selected
+2. Download and install the [Appledoc project from GitHub](https://github.com/tomaz/appledoc) to generate documentation.
+3. When you've finished making changes and testing, select the *Documentation* target from the scheme selector in the upper-left corner of Xcode. Click on Build / Run. Xcode will generate the framework and related documentation. Some duplicate files are deleted using a build script.
+4. The updated docset file, a raw html folder, and a publish information folder should be written to the project Documentation Folder.
 
 ## Too Confusing? Too Much Work?
 Building the documentation and framework for submitting changes can be a very tedious process. If you don't have time, can't do it, don't know how to do it, or just want to make a small change - don't worry. Just make your change and don't bother with building the documentation or framework. When you submit a pull request we can fix it up.

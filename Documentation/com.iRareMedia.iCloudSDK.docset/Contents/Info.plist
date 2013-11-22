@@ -20,7 +20,7 @@
 	<key>DocSetFeedName</key>
 	<string>iCloudSDK Documentation</string>
 	<key>DocSetFeedURL</key>
-	<string>https://github.com/iRareMedia/iCloudDocumentSync/iRareMedia.atom</string>
+	<string>https://github.com/iRareMedia/iCloudDocumentSync/publish/iRareMedia.atom</string>
 	<key>DocSetMinimumXcodeVersion</key>
 	<string>3.0</string>
 	<key>DocSetPlatformFamily</key>

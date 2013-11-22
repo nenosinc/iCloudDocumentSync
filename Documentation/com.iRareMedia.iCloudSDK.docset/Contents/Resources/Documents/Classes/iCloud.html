@@ -6,7 +6,7 @@
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.2 (build 961)" />
+		<meta name="generator" content="appledoc 2.2 (build 963)" />
 	</head>
 	<body>
 		<header id="top_header">
@@ -69,7 +69,7 @@
 	
 	<option value="//api/name/deleteDocumentWithName:completion:">&nbsp;&nbsp;&nbsp;&nbsp;- deleteDocumentWithName:completion:</option>
 	
-	<option value="//api/name/documentStateForFile:">&nbsp;&nbsp;&nbsp;&nbsp;- documentStateForFile:</option>
+	<option value="//api/name/documentStateForFile:completion:">&nbsp;&nbsp;&nbsp;&nbsp;- documentStateForFile:completion:</option>
 	
 	<option value="//api/name/doesFileExistInCloud:">&nbsp;&nbsp;&nbsp;&nbsp;- doesFileExistInCloud:</option>
 	
@@ -143,6 +143,8 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Retrieving iCloud Content and Info">Retrieving iCloud Content and Info</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Managing iCloud Content">Managing iCloud Content</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_iCloud Document State">iCloud Document State</a></span></li>
 	
 </ul></li>
@@ -185,7 +187,7 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/deleteDocumentWithName:completion:">deleteDocumentWithName:completion:</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/documentStateForFile:">documentStateForFile:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/documentStateForFile:completion:">documentStateForFile:completion:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/doesFileExistInCloud:">doesFileExistInCloud:</a></span></li>
 	
@@ -480,7 +482,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/evictCloudDocumentWithName:completion:">&ndash;&nbsp;evictCloudDocumentWithName:completion:</a></code>
-		<span class="tooltip"><p>UNDER DEVELOPMENT. Evict a document from iCloud, move it from iCloud to the current application&rsquo;s local documents directory.</p></span>
+		<span class="tooltip"><p>Evict a document from iCloud, move it from iCloud to the current application&rsquo;s local documents directory.</p></span>
 	</span>
 	
 	
@@ -534,7 +536,15 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	</span>
 	
 	
-</li><li>
+</li>
+						</ul>
+						
+						
+						<a title="Managing iCloud Content" name="task_Managing iCloud Content"></a>
+						<h3 class="subsubtitle task-title">Managing iCloud Content</h3>
+
+						<ul class="task-list">
+							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/renameOriginalDocument:withNewName:completion:">&ndash;&nbsp;renameOriginalDocument:withNewName:completion:</a></code>
 		<span class="tooltip"><p>Rename a document in iCloud</p></span>
@@ -544,7 +554,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/duplicateOriginalDocument:withNewName:completion:">&ndash;&nbsp;duplicateOriginalDocument:withNewName:completion:</a></code>
-		<span class="tooltip"><p>UNDER DEVELOPMENT. Duplicate a document in iCloud</p></span>
+		<span class="tooltip"><p>Duplicate a document in iCloud</p></span>
 	</span>
 	
 	
@@ -558,7 +568,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/documentStateForFile:">&ndash;&nbsp;documentStateForFile:</a></code>
+		<code><a href="#//api/name/documentStateForFile:completion:">&ndash;&nbsp;documentStateForFile:completion:</a></code>
 		<span class="tooltip"><p>Get the current document state of a file stored in iCloud</p></span>
 	</span>
 	
@@ -900,7 +910,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 </ul>
 
 
-<p>This method uses the ubiquityIdentityToken to check if iCloud is available. The <a href="#//api/name/delegate">delegate</a> method iCloudAvailabilityDidChangeToState:withUbiquityToken: can be used to automatically detect changes in the availability of iCloud. A ubiquity token is passed in that method which lets you know if the iCloud account has changed.</p>
+<p>This method uses the ubiquityIdentityToken to check if iCloud is available. The <a href="#//api/name/delegate">delegate</a> method iCloudAvailabilityDidChangeToState:withUbiquityToken:withUbiquityContainer: can be used to automatically detect changes in the availability of iCloud. A ubiquity token is passed in that method which lets you know if the iCloud account has changed.</p>
 	</div>
 	
 	
@@ -1000,6 +1010,11 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Permanently delete a document stored in iCloud. This will only affect copies of the specified file stored in iCloud, if there is a copy stored locally it will not be affected.</p>
+	</div>
+	
 	
 	
 	
@@ -1015,8 +1030,8 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/documentStateForFile:" title="documentStateForFile:"></a>
-	<h3 class="subsubtitle method-title">documentStateForFile:</h3>
+	<a name="//api/name/documentStateForFile:completion:" title="documentStateForFile:completion:"></a>
+	<h3 class="subsubtitle method-title">documentStateForFile:completion:</h3>
 	
 	
 	
@@ -1026,7 +1041,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (UIDocumentState)documentStateForFile:(NSString *)<em>fileName</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (void)documentStateForFile:(NSString *)<em>fileName</em> completion:(void ( ^ ) ( UIDocumentState *documentState , NSError *error ))<em>handler</em></code></div>
 
     
 	
@@ -1038,14 +1053,14 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 			<dd><p>The name of the file in iCloud. This value must not be nil.</p></dd>
 		</dl>
 		
+		<dl class="argument-def parameter-def">
+			<dt><em>handler</em></dt>
+			<dd><p>Completion handler that passes two parameters, an NSError and a UIDocumentState. The documentState parameter represents the document state that the specified file is currently in (may be nil if the file does not exist). The NSError parameter will contain a 404 error if the file does not exist.</p></dd>
+		</dl>
+		
 	</div>
 	
 	
-	
-	<div class="method-subsection return">
-		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>The document state that the file is currently in. Returns nil if the file does not exist.</p>
-	</div>
 	
 	
 	
@@ -1095,7 +1110,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	
 	<div class="method-subsection return">
 		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>BOOL value, YES if the file does exist in iCloud, NO if it does not</p>
+		<p>BOOL value, YES if the file does exist in iCloud, NO if it does not. May return NO if iCloud is unavailable.</p>
 	</div>
 	
 	
@@ -1123,7 +1138,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	
 	
 	<div class="method-subsection brief-description">
-		<p>UNDER DEVELOPMENT. Duplicate a document in iCloud</p>
+		<p>Duplicate a document in iCloud</p>
 	</div>		
 	
     
@@ -1137,12 +1152,12 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>name</em></dt>
-			<dd><p>The name of the document being duplicated in iCloud</p></dd>
+			<dd><p>The name of the document being duplicated in iCloud. The file specified should exist, otherwise an error will occur. This value must not be nil.</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>newName</em></dt>
-			<dd><p>The new name which the document should be duplicated to (usually the same name with the word &ldquo;copy&rdquo; appeneded to the end)</p></dd>
+			<dd><p>The new name which the document should be duplicated to (usually the same name with the word &ldquo;copy&rdquo; appeneded to the end). The file specified should not exist, otherwise an error will occur. This value must not be nil.</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
@@ -1157,11 +1172,6 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	
 	
 	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<div class="warning"><p><strong>Warning:</strong> This method is under development.</p></div>
-	</div>
 	
 	
 	
@@ -1184,7 +1194,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	
 	
 	<div class="method-subsection brief-description">
-		<p>UNDER DEVELOPMENT. Evict a document from iCloud, move it from iCloud to the current application&rsquo;s local documents directory.</p>
+		<p>Evict a document from iCloud, move it from iCloud to the current application&rsquo;s local documents directory.</p>
 	</div>		
 	
     
@@ -1216,7 +1226,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<div class="warning"><p><strong>Warning:</strong> This method is under development.</p></div>
+		<p>Remove a document from iCloud storage and move it into the local document&rsquo;s directory. This method may call the iCloudFileConflictBetweenCloudFile:andLocalFile: iCloud Delegate method if there is a file conflict.</p>
 	</div>
 	
 	
@@ -1263,7 +1273,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	
 	<div class="method-subsection return">
 		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>The date that the file was created. Returns nil if the file does not exist.</p>
+		<p>The date that the file was created. Returns nil if the file does not exist. May return a nil value if iCloud is unavailable.</p>
 	</div>
 	
 	
@@ -1314,7 +1324,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	
 	<div class="method-subsection return">
 		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>The date that the file was last modified. Returns nil if the file does not exist.</p>
+		<p>The date that the file was last modified. Returns nil if the file does not exist. May return a nil value if iCloud is unavailable.</p>
 	</div>
 	
 	
@@ -1365,7 +1375,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	
 	<div class="method-subsection return">
 		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>The number of bytes in an unsigned long long. Returns nil if the file does not exist.</p>
+		<p>The number of bytes in an unsigned long long. Returns nil if the file does not exist. May return a nil value if iCloud is unavailable.</p>
 	</div>
 	
 	
@@ -1406,7 +1416,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	
 	<div class="method-subsection return">
 		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>NSArray with a list of all the files currently stored in your app&rsquo;s iCloud Documents directory</p>
+		<p>NSArray with a list of all the files currently stored in your app&rsquo;s iCloud Documents directory. May return a nil value if iCloud is unavailable.</p>
 	</div>
 	
 	
@@ -1439,7 +1449,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (void)monitorDocumentStateForFile:(NSString *)<em>fileName</em> onTarget:(id)<em>sender</em> withSelector:(SEL)<em>selector</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (BOOL)monitorDocumentStateForFile:(NSString *)<em>fileName</em> onTarget:(id)<em>sender</em> withSelector:(SEL)<em>selector</em></code></div>
 
     
 	
@@ -1464,6 +1474,11 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	</div>
 	
 	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>YES if the motioring was successfully setup, NO if there was an issue setting up the monitoring.</p>
+	</div>
 	
 	
 	
@@ -1504,12 +1519,12 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>name</em></dt>
-			<dd><p>The name of the document being renamed in iCloud. This value must not be nil.</p></dd>
+			<dd><p>The name of the document being renamed in iCloud. The file specified should exist, otherwise an error will occur. This value must not be nil.</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>newName</em></dt>
-			<dd><p>The new name which the document should be renamed with. This value must not be nil.</p></dd>
+			<dd><p>The new name which the document should be renamed with. The file specified should not exist, otherwise an error will occur. This value must not be nil.</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
@@ -1723,7 +1738,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 		<h4 class="method-subtitle">Discussion</h4>
 		<p>First, iCloud Document Sync checks if the specified document exists. If the document exists then the changes are recorded. If the document does not exist it will be created and the change will be recorded.</p>
 
-<p>To record changes to a new document or an existing one, use this method. Below is a code example of how to use it.</p>
+<p>To record changes to a new document or an existing one, use this method. This method can be called frequently, for example in a text-editing app you may want to call this method when the user finishes making changes to a text view. Below is a code example of how to use it.</p>
 
 <pre><code>[[iCloud sharedCloud] saveChangesToDocumentWithName:@"Name.ext" withContent:[NSData data] completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
     if (error == nil) {
@@ -1793,7 +1808,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>Upload a document stored in iCloud for a certain amount of time.</p>
+		<p>Upload a document stored in iCloud to a public location on the internet for a limited amount of time.</p>
 	</div>
 	
 	
@@ -1822,7 +1837,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (void)stopMonitoringDocumentStateChangesForFile:(NSString *)<em>fileName</em> onTarget:(id)<em>sender</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (BOOL)stopMonitoringDocumentStateChangesForFile:(NSString *)<em>fileName</em> onTarget:(id)<em>sender</em></code></div>
 
     
 	
@@ -1842,6 +1857,11 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	</div>
 	
 	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>YES if the motioring was successfully setup, NO if there was an issue setting up the monitoring.</p>
+	</div>
 	
 	
 	
@@ -2071,7 +2091,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 		<h4 class="method-subtitle">Discussion</h4>
 		<p>Files in the local documents directory that do not already exist in iCloud will be <strong>moved</strong> into iCloud one by one. This process involves lots of file manipulation and as a result it may take a long time. This process will be performed on the background thread to avoid any lag or memory problems. When the upload processes end, the completion block is called on the main thread.</p>
 
-<pre><code>[[iCloud sharedCloud] uploadLocalOfflineDocumentsWithDelegate:self repeatingHandler:^(NSString *fileName, NSError *error) {
+<pre><code>[[iCloud sharedCloud] uploadLocalOfflineDocumentsWithRepeatingHandler:^(NSString *fileName, NSError *error) {
     if (error == nil) {
         // This code block is called repeatedly until all files have been uploaded (or an upload has at least been attempted). 
         // Code here to use the NSString (the name of the uploaded file) which have been passed with the repeating handler
@@ -2081,7 +2101,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
  }];
 </code></pre>
 
-<p>The iCloudFileUploadConflictWithCloudFile:andLocalFile: <a href="#//api/name/delegate">delegate</a> method is triggered by this method.</p>
+<p>This method may call the iCloudFileConflictBetweenCloudFile:andLocalFile: iCloud Delegate method if there is a file conflict.</p>
 	</div>
 	
 	
@@ -2111,9 +2131,9 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 iRare Media. All rights reserved. (Last updated: 2013-11-16)</span><br />
+						<p><span class="copyright">&copy; 2013 iRare Media. All rights reserved. (Last updated: 2013-11-21)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 961)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
 						
 					</div>
 				</div>

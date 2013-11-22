@@ -24,6 +24,7 @@
 			buildConfigurationList = 99B6465E182EB73200249C57 /* Build configuration list for PBXAggregateTarget "Documentation" */;
 			buildPhases = (
 				99B64663182EB74500249C57 /* Documentation Script */,
+				996E14CD183EDBE900B7ADAE /* Remove Files */,
 			);
 			dependencies = (
 				99B64662182EB73800249C57 /* PBXTargetDependency */,
@@ -286,6 +287,20 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		996E14CD183EDBE900B7ADAE /* Remove Files */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Remove Files";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "find \"${PROJECT_DIR}/Documentation/docset\" -print0 | xargs -0 rm -Rf \\\nfind \"${PROJECT_DIR}/Documentation/docset-installed.txt\" -print0 | xargs -0 rm";
+		};
 		9994D1BA16FE3C5C00AB071B /* Prepare Framework */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -326,7 +341,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Start constants\ncompany=\"iRare Media\";\ncompanyID=\"com.iRareMedia\";\ncompanyURL=\"http://www.iRareMedia.com\";\ngitHubURL=\"https://github.com/iRareMedia/iCloudDocumentSync\";\nversion=\"7.0\";\ntarget=\"iphoneos\";\n#target=\"macosx\";\noutputPath=\"${BUILT_PRODUCTS_DIR}\";#\"~/help\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}SDK\" \\\n--project-company \"${company}\" \\\n--project-version \"${version}\" \\\n--company-id \"${companyID}\" \\\n--docset-atom-filename \"iRareMedia.atom\" \\\n--docset-feed-url \"${gitHubURL}/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${gitHubURL}/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${gitHubURL}\" \\\n--output \"${outputPath}\" \\\n--publish-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--ignore \"*.m\" \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}\"";
+			shellScript = "# Start constants\ncompany=\"iRare Media\";\ncompanyID=\"com.iRareMedia\";\ncompanyURL=\"http://www.iRareMedia.com\";\ngitHubURL=\"https://github.com/iRareMedia/iCloudDocumentSync\";\nversion=\"7.0\";\ntarget=\"iphoneos\";\n#target=\"macosx\";\noutputPath=\"${PROJECT_DIR}/Documentation\"; #\"${BUILT_PRODUCTS_DIR}\" #\"~/help\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}SDK\" \\\n--project-company \"${company}\" \\\n--project-version \"${version}\" \\\n--company-id \"${companyID}\" \\\n--docset-atom-filename \"iRareMedia.atom\" \\\n--docset-feed-url \"${gitHubURL}/publish/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${gitHubURL}/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${gitHubURL}\" \\\n--output \"${outputPath}\" \\\n--publish-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--ignore \"*.m\" \\\n--install-docset \\\n--docset-install-path \"${outputPath}\" \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}/iCloud\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 

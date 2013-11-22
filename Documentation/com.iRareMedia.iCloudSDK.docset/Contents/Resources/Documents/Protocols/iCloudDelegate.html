@@ -6,7 +6,7 @@
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.2 (build 961)" />
+		<meta name="generator" content="appledoc 2.2 (build 963)" />
 	</head>
 	<body>
 		<header id="top_header">
@@ -63,6 +63,8 @@
 	
 	<option value="//api/name/iCloudError:">&nbsp;&nbsp;&nbsp;&nbsp;- iCloudError:</option>
 	
+	<option value="//api/name/iCloudFileConflictBetweenCloudFile:andLocalFile:">&nbsp;&nbsp;&nbsp;&nbsp;- iCloudFileConflictBetweenCloudFile:andLocalFile:</option>
+	
 	<option value="//api/name/iCloudFileUploadConflictWithCloudFile:andLocalFile:">&nbsp;&nbsp;&nbsp;&nbsp;- iCloudFileUploadConflictWithCloudFile:andLocalFile:</option>
 	
 	<option value="//api/name/iCloudFilesDidChange:withNewFileNames:">&nbsp;&nbsp;&nbsp;&nbsp;- iCloudFilesDidChange:withNewFileNames:</option>
@@ -118,6 +120,8 @@
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/iCloudAvailabilityDidChangeToState:withUbiquityToken:withUbiquityContainer:">iCloudAvailabilityDidChangeToState:withUbiquityToken:withUbiquityContainer:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/iCloudError:">iCloudError:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/iCloudFileConflictBetweenCloudFile:andLocalFile:">iCloudFileConflictBetweenCloudFile:andLocalFile:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/iCloudFileUploadConflictWithCloudFile:andLocalFile:">iCloudFileUploadConflictWithCloudFile:andLocalFile:</a></span></li>
 	
@@ -201,7 +205,7 @@
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/iCloudFileUploadConflictWithCloudFile:andLocalFile:">&ndash;&nbsp;iCloudFileUploadConflictWithCloudFile:andLocalFile:</a></code>
+		<code><a href="#//api/name/iCloudFileConflictBetweenCloudFile:andLocalFile:">&ndash;&nbsp;iCloudFileConflictBetweenCloudFile:andLocalFile:</a></code>
 		<span class="tooltip"><p>Sent to the delegate where there is a conflict between a local file and an <a href="../Classes/iCloud.html">iCloud</a> file during an upload</p></span>
 	</span>
 	
@@ -216,8 +220,15 @@
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
+		<code><a href="#//api/name/iCloudFileUploadConflictWithCloudFile:andLocalFile:">&ndash;&nbsp;iCloudFileUploadConflictWithCloudFile:andLocalFile:</a></code>
+		<span class="tooltip"><p>DEPRECATED. Sent to the delegate where there is a conflict between a local file and an <a href="../Classes/iCloud.html">iCloud</a> file during an upload (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 7.0. Use the iCloudFileConflictBetweenCloudFile:andLocalFile: instead.</span>)</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
 		<code><a href="#//api/name/iCloudError:">&ndash;&nbsp;iCloudError:</a></code>
-		<span class="tooltip"><p>DEPRECATED. Called when there is an error while performing an <a href="../Classes/iCloud.html">iCloud</a> process (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 6.1. use the NSError parameter available in corresponding methods' completion handlers.</span>)</p></span>
+		<span class="tooltip"><p>DEPRECATED. Called when there is an error while performing an <a href="../Classes/iCloud.html">iCloud</a> process (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 6.1. Use the NSError parameter available in corresponding methods' completion handlers.</span>)</p></span>
 	</span>
 	
 	
@@ -670,7 +681,7 @@
 	
 	
 	<div class="method-subsection brief-description">
-		<p>DEPRECATED. Called when there is an error while performing an <a href="../Classes/iCloud.html">iCloud</a> process (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 6.1. use the NSError parameter available in corresponding methods' completion handlers.</span>)</p>
+		<p>DEPRECATED. Called when there is an error while performing an <a href="../Classes/iCloud.html">iCloud</a> process (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 6.1. Use the NSError parameter available in corresponding methods' completion handlers.</span>)</p>
 	</div>		
 	
     
@@ -710,8 +721,8 @@
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/iCloudFileUploadConflictWithCloudFile:andLocalFile:" title="iCloudFileUploadConflictWithCloudFile:andLocalFile:"></a>
-	<h3 class="subsubtitle method-title">iCloudFileUploadConflictWithCloudFile:andLocalFile:</h3>
+	<a name="//api/name/iCloudFileConflictBetweenCloudFile:andLocalFile:" title="iCloudFileConflictBetweenCloudFile:andLocalFile:"></a>
+	<h3 class="subsubtitle method-title">iCloudFileConflictBetweenCloudFile:andLocalFile:</h3>
 	
 	
 	
@@ -721,7 +732,7 @@
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (void)iCloudFileUploadConflictWithCloudFile:(NSDictionary *)<em>cloudFile</em> andLocalFile:(NSDictionary *)<em>localFile</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (void)iCloudFileConflictBetweenCloudFile:(NSDictionary *)<em>cloudFile</em> andLocalFile:(NSDictionary *)<em>localFile</em></code></div>
 
     
 	
@@ -750,6 +761,57 @@
 		<h4 class="method-subtitle">Discussion</h4>
 		<p>When both files have the same modification date and file content, <a href="../Classes/iCloud.html">iCloud</a> Document Sync will not be able to automatically determine how to handle the conflict. As a result, this delegate method is called to pass the file information to the delegate which should be able to appropriately handle and resolve the conflict. The delegate should, if needed, present the user with a conflict resolution interface. <a href="../Classes/iCloud.html">iCloud</a> Document Sync does not need to know the result of the attempted resolution, it will continue to upload all files which are not conflicting. It is important to note that <strong>this method may be called more than once in a very short period of time</strong> - be prepared to handle the data appropriately. This delegate method is called on the main thread using GCD.</p>
 	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">iCloud.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/iCloudFileUploadConflictWithCloudFile:andLocalFile:" title="iCloudFileUploadConflictWithCloudFile:andLocalFile:"></a>
+	<h3 class="subsubtitle method-title">iCloudFileUploadConflictWithCloudFile:andLocalFile:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>DEPRECATED. Sent to the delegate where there is a conflict between a local file and an <a href="../Classes/iCloud.html">iCloud</a> file during an upload (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 7.0. Use the iCloudFileConflictBetweenCloudFile:andLocalFile: instead.</span>)</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)iCloudFileUploadConflictWithCloudFile:(NSDictionary *)<em>cloudFile</em> andLocalFile:(NSDictionary *)<em>localFile</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>cloudFile</em></dt>
+			<dd><p>An NSDictionary with the cloud file and various other information. This parameter contains the fileContent as NSData, fileURL as NSURL, and modifiedDate as NSDate.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>localFile</em></dt>
+			<dd><p>An NSDictionary with the local file and various other information. This parameter contains the fileContent as NSData, fileURL as NSURL, and modifiedDate as NSDate.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -875,9 +937,9 @@
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 iRare Media. All rights reserved. (Last updated: 2013-11-16)</span><br />
+						<p><span class="copyright">&copy; 2013 iRare Media. All rights reserved. (Last updated: 2013-11-21)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 961)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
 						
 					</div>
 				</div>
