@@ -437,7 +437,7 @@
 					<Abstract type="html">The name of the iCloud document being downloaded from iCloud to the local documents directory. This value must not be nil.</Abstract>
 				</Parameter><Parameter>
 					<Name>handler</Name>
-					<Abstract type="html">Code block called after the file has been uploaded to iCloud.</Abstract>
+					<Abstract type="html">Code block called after the file has been uploaded to iCloud. This value must not be nil.</Abstract>
 				</Parameter>
 			</Parameters>
 			
@@ -457,7 +457,7 @@
 					<Abstract type="html">The name of the document in iCloud. This value must not be nil.</Abstract>
 				</Parameter><Parameter>
 					<Name>handler</Name>
-					<Abstract type="html">Code block called when the document is successfully retrieved (opened or downloaded). The completion block passes UIDocument and NSData objects containing the opened document and it&apos;s contents in the form of NSData. If there is an error, the NSError object will have an error message (may be nil if there is no error).</Abstract>
+					<Abstract type="html">Code block called when the document is successfully retrieved (opened or downloaded). The completion block passes UIDocument and NSData objects containing the opened document and it&apos;s contents in the form of NSData. If there is an error, the NSError object will have an error message (may be nil if there is no error). This value must not be nil.</Abstract>
 				</Parameter>
 			</Parameters>
 			
@@ -560,7 +560,7 @@
 					<Abstract type="html">The new name which the document should be renamed with. The file specified should not exist, otherwise an error will occur. This value must not be nil.</Abstract>
 				</Parameter><Parameter>
 					<Name>handler</Name>
-					<Abstract type="html">Code block called when the document changes are recorded. The completion block passes and NSError object which contains any error information if an error occurred, otherwise it will be nil.</Abstract>
+					<Abstract type="html">Code block called when the document renaming has completed. The completion block passes and NSError object which contains any error information if an error occurred, otherwise it will be nil.</Abstract>
 				</Parameter>
 			</Parameters>
 			
@@ -583,7 +583,7 @@
 					<Abstract type="html">The new name which the document should be duplicated to (usually the same name with the word &quot;copy&quot; appeneded to the end). The file specified should not exist, otherwise an error will occur. This value must not be nil.</Abstract>
 				</Parameter><Parameter>
 					<Name>handler</Name>
-					<Abstract type="html">Code block called when the document changes are recorded. The completion block passes and NSError object which contains any error information if an error occurred, otherwise it will be nil.</Abstract>
+					<Abstract type="html">Code block called when the document duplication has completed. The completion block passes and NSError object which contains any error information if an error occurred, otherwise it will be nil.</Abstract>
 				</Parameter>
 			</Parameters>
 			

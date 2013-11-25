@@ -27,6 +27,9 @@
 		99E85B3A182DD0DD0039FC97 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99E85B39182DD0DD0039FC97 /* ListViewController.m */; };
 		99E85B3D182DD34C0039FC97 /* DocumentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99E85B3C182DD34C0039FC97 /* DocumentViewController.m */; };
 		99E85B40182DE16E0039FC97 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99E85B3F182DE16E0039FC97 /* WelcomeViewController.m */; };
+		99FB117D1842A34900406254 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99FB117C1842A34900406254 /* ShareViewController.m */; };
+		99FB11811842A6A100406254 /* TLTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 99FB11801842A6A100406254 /* TLTransitionAnimator.m */; };
+		99FB11821842B42000406254 /* iCloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E85B36182DCE1B0039FC97 /* iCloud.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +72,10 @@
 		99E85B3C182DD34C0039FC97 /* DocumentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocumentViewController.m; sourceTree = "<group>"; };
 		99E85B3E182DE16E0039FC97 /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
 		99E85B3F182DE16E0039FC97 /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
+		99FB117B1842A34900406254 /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
+		99FB117C1842A34900406254 /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
+		99FB117F1842A6A100406254 /* TLTransitionAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLTransitionAnimator.h; sourceTree = "<group>"; };
+		99FB11801842A6A100406254 /* TLTransitionAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLTransitionAnimator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99FB11821842B42000406254 /* iCloud.framework in Frameworks */,
 				99E85B20182DC9280039FC97 /* XCTest.framework in Frameworks */,
 				99E85B22182DC9280039FC97 /* UIKit.framework in Frameworks */,
 				99E85B21182DC9280039FC97 /* Foundation.framework in Frameworks */,
@@ -163,6 +171,9 @@
 				99E85B0E182DC9280039FC97 /* iCloud App-Prefix.pch */,
 				99E85B3E182DE16E0039FC97 /* WelcomeViewController.h */,
 				99E85B3F182DE16E0039FC97 /* WelcomeViewController.m */,
+				99FB117B1842A34900406254 /* ShareViewController.h */,
+				99FB117C1842A34900406254 /* ShareViewController.m */,
+				99FB117E1842A6A100406254 /* TLTransitionAnimator */,
 				996B9CA01830073C006A36DA /* MHPrettyDate */,
 				997591511839500900DECF95 /* Settings.bundle */,
 			);
@@ -185,6 +196,15 @@
 				99E85B28182DC9280039FC97 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		99FB117E1842A6A100406254 /* TLTransitionAnimator */ = {
+			isa = PBXGroup;
+			children = (
+				99FB117F1842A6A100406254 /* TLTransitionAnimator.h */,
+				99FB11801842A6A100406254 /* TLTransitionAnimator.m */,
+			);
+			path = TLTransitionAnimator;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -298,8 +318,10 @@
 				99E85B11182DC9280039FC97 /* AppDelegate.m in Sources */,
 				996B9CA31830073C006A36DA /* MHPrettyDate.m in Sources */,
 				99E85B3D182DD34C0039FC97 /* DocumentViewController.m in Sources */,
+				99FB117D1842A34900406254 /* ShareViewController.m in Sources */,
 				99E85B3A182DD0DD0039FC97 /* ListViewController.m in Sources */,
 				99E85B0D182DC9280039FC97 /* main.m in Sources */,
+				99FB11811842A6A100406254 /* TLTransitionAnimator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -468,6 +490,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					/Users/Spencers/Xcode/Projects/iCloudDocumentSync,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iCloud App/iCloud App-Prefix.pch";
@@ -491,6 +514,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					/Users/Spencers/Xcode/Projects/iCloudDocumentSync,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iCloud App/iCloud App-Prefix.pch";

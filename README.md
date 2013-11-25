@@ -1,28 +1,27 @@
-iCloud Document Sync 
-==================
 <img width=725 src="https://raw.github.com/iRareMedia/iCloudDocumentSync/feature/iCloud%20App%20-%20iOS/CloudBanner.png"/>
 
-iCloud Document Sync helps integrate iCloud into iOS (OS X coming soon) Objective-C document projects with one-line code methods. Sync, upload, manage, and remove documents to and from iCloud with only  a few lines of code (compared to the hundreds of lines and hours that it usually takes). Get iCloud up and running in your iOS app in only a few minutes.
+iCloud Document Sync makes it easy for developers to integrate the iCloud document storage APIs into iOS applications. This is how iCloud document-storage and management should've been out of the box from Apple. Integrate iCloud into iOS (OS X coming soon) Objective-C document projects with one-line code methods. Sync, upload, manage, and remove documents to and from iCloud with only  a few lines of code (compared to the hundreds of lines and hours that it usually takes). Get iCloud up and running in your iOS app in only a few minutes.
 
-If you like the project, please [star it](https://github.com/iRareMedia/iCloudDocumentSync) on GitHub!
+If you like the project, please [star it](https://github.com/iRareMedia/iCloudDocumentSync) on GitHub! Watch the project on GitHub for updates. If you use iCloud Document Sync in your app, send an email to contact@iraremedia.com or let us know on Twitter @iRareMedia.
 
-FEATURE BRANCH
------
-This is the feature branch of iCloud Document Sync. A feature branch, like beta / alpha software, is **not** production ready. Many aspects of the project on this branch are incomplete. If you need a stable production-ready build, please use the [master branch](https://github.com/iRareMedia/iCloudDocumentSync/tree/master).
+## FEATURE BRANCH
+This is the feature branch of iCloud Document Sync. A feature branch, like beta / alpha software, is **not** production ready. Many aspects of the project on this branch are incomplete. If you need a stable production-ready build, please use the [master branch](https://github.com/iRareMedia/iCloudDocumentSync/tree/master). The feature branch is expected to be production ready by December 1, 2013.
 
-Setup
------
-Adding iCloud Document Sync to your project is easy. Follow these steps below to get everything up and running.
-  
-  1. Drag the iCloud Framework into your project  
-  2. Add `#import <iCloud/iCloud.h>` to your header file(s)   
-  3. Subscribe to the `<iCloudDelegate>` delegate.  
-  4. Call the following methods to setup iCloud when your app starts:  
+# Project Features
+iCloud Document Sync is a great way to use iCloud document storage in your iOS app. Below are a few key project features and highlights.
+* Sync, Upload, Read, Write, Share, Save, Remove, and Edit any iCloud document in only one line of code.  
+* Just drag and drop the iCloud Framework (`iCloud.framework`) into your project and you can begin using iCloud - no complicated setup  
+* Access in-depth documentation with docsets, code comments, and verbose logging  
+* Useful delegate methods and properties let you access and manage advanced iCloud features
+* Manage any kind of file with iCloud through use of NSData  
+* iOS Sample-app to illustrate how easy it is to use iCloud Document Sync
+* Frequent updates to the project based on user issues and requests  
+* Easily contribute to the project
 
-	    iCloud *cloud = [[iCloud sharedCloud] init]; // This will begin the sync process, register for document updates, setup your ubiquity container, and verify iCloud.
-	    [cloud setDelegate:self];  // Set this if you plan to use the delegate, which is very useful
+# Project Information
+Learn more about the project requirements, licensing, and contributions.
 
-### Supported SDK and iOS Versions
+## Requirements
 Requires Xcode 5.0.1 for use in any iOS Project. Requires a minimum of iOS 5.1.1 as the deployment target.  
 * Supported build target - iOS 7.0  (Xcode 5.0.1, Apple LLVM compiler 5.0)  
 * Earliest supported deployment target - iOS 6.0  
@@ -30,9 +29,28 @@ Requires Xcode 5.0.1 for use in any iOS Project. Requires a minimum of iOS 5.1.1
 
 NOTE: 'Supported' means that the library has been tested with this version. 'Compatible' means that the library should work on this OS version (i.e. it doesn't rely on any unavailable SDK features) but is no longer being tested for compatibility and may require tweaking or bug fixes to run correctly.
 
-Documentation
------
+## License 
+You are free to make changes and use this in either personal or commercial projects. Attribution is not required, but it appreciated. We have spent a lot of time, energy, and resources working on this project - so a little *Thanks!* (or something to that affect) would be much appreciated. If you use iCloud Document Sync in your app, send an email to contact@iraremedia.com or let us know on Twitter @iRareMedia. See the [full iCloud Document Sync license here](https://github.com/iRareMedia/iCloudDocumentSync/blob/master/LICENSE.md).
+
+## Contributions
+Any contribution is more than welcome! You can contribute through pull requests and issues on GitHub. Learn more [about contributing to the project here](https://github.com/iRareMedia/iCloudDocumentSync/blob/master/CONTRIBUTING.md).
+
+# Documentation
 All methods, properties, types, and delegate methods available on the iCloud class are documented below. If you're using [Xcode 5](https://developer.apple.com/technologies/tools/whats-new.html) with iCloud Document Sync, documentation is available directly within Xcode (just Option-Click any method for Quick Help). For more advanced documentation in Xcode 4.0+ please install the docset included with this project. This will allow you to view iCloud Document Sync documentation inside of Xcode's Organizer Window.
+
+## Setup
+Adding iCloud Document Sync to your project is easy. Follow these steps below to get everything up and running.
+  
+  1. Add the iCloud Framework (`iCloud.framework`) into your project
+  2. Import iCloud, `#import <iCloud/iCloud.h>`, to your header file(s)
+  3. Subscribe to the `<iCloudDelegate>` delegate.  
+  4. Setup iCloud when your app starts:
+
+	    iCloud *cloud = [[iCloud sharedCloud] init]; // This will begin the sync process, register for document updates, setup your ubiquity container, and verify iCloud.
+	    [cloud setDelegate:self];  // Set this if you plan to use the delegate, which is very useful
+
+## Methods
+There are many methods available on iCloud Document Sync. The most important / highlight methods are documented below. All other methods are documented in the docset and with in-code comments.
 
 ### Checking for iCloud Availability
 iCloud Document Sync checks for iCloud availability before performing any iCloud-related operations. Any iCloud Document Sync methods may return prematurely and without warning if iCloud is unavailable. Therefore, you should always check if iCloud is available before performing any iCloud operations.
@@ -120,48 +138,58 @@ You can upload an iCloud document to a public URL by using the method below. The
     }];
 
 ### Renaming and Duplicating Documents
-Coming to a future build.
+Rename a document stored in iCloud
 
-Delegates
------
+    [[iCloud sharedCloud] renameOriginalDocument:@"oldName.ext" withNewName:@"newName.ext" completion:^(NSError *error) {
+        // Called when renaming is complete
+    }];
+
+Duplicating a document stored in iCloud
+
+    [[iCloud sharedCloud] duplicateOriginalDocument:@"docName.ext" withNewName:@"docName copy.ext" completion:^(NSError *error) {
+        // Called when duplication is complete
+    }];
+
+### Monitoring Document State
+iCloud tracks the state of a document when stored in iCloud. Document states include: Normal / Open, Closed, In Conflict, Saving Error, and Editing Disabled (learn more about [UIDocumentState](https://developer.apple.com/library/ios/documentation/uikit/reference/UIDocument_Class/UIDocument/UIDocument.html#//apple_ref/doc/c_ref/UIDocumentState)). Get the current document state of a file stored in iCloud with this method:
+
+    [[iCloud sharedCloud] documentStateForFile:@"oldName.ext" completion:^(UIDocumentState *documentState, NSError *error) {
+        // Completion handler that passes two parameters, an NSError and a UIDocumentState. The documentState parameter represents the document state that the specified file is currently in (may be nil if the file does not exist). The NSError parameter will contain a 404 error if the file does not exist.
+    }];
+
+Monitor changes in a document's state by subscribing a specific target / selector / method.
+
+    BOOL success = [[iCloud sharedCloud] monitorDocumentStateForFile:@"docName.ext" onTarget:self withSelector:@selector(methodName:)];
+
+Stop monitoring changes in a document's state by removing notifications for a specific target.
+
+    BOOL success = [[iCloud sharedCloud] stopMonitoringDocumentStateChangesForFile:@"docName.ext" onTarget:self];
+
+
+## Delegates
 iCloud Document Sync delegate methods notify you of the status of iCloud and your documents stored in iCloud. There are no required delegate method for iOS, however it is recommended that you utilize all available delegate methods. 
 
-<table>
-  <tr><th colspan="2" style="text-align:center;">Optional Delegate Methods</th></tr>
-  <tr>
-    <td>iCloud Availability Changed</td>
-    <td>Called (automatically by iOS) when the availability of iCloud changes.  The first parameter, <tt>cloudIsAvailable</tt>, is a boolean value that is YES if iCloud is available and NO if iCloud is not available. The second paramter, <tt>ubiquityToken</tt>, is an iCloud ubiquity token that represents the current iCloud identity. Can be used to determine if iCloud is available and if the iCloud account has been changed (ex. if the user logged out and then logged in with a different iCloud account). This object may be nil if iCloud is not available for any reason. The third paramter, <tt>ubiquityContainer</tt>, is the root URL path to the current application's ubiquity container. This URL may be nil until the ubiquity container is initialized.
-     <br /><br />
-           <tt> - (void)iCloudAvailabilityDidChangeToState:(BOOL)cloudIsAvailable withUbiquityToken:(id)ubiquityToken withUbiquityContainer:(NSURL *)ubiquityContainer</tt></td>
-  </tr>
-  <tr>
-    <td>iCloud Files Changed</td>
-    <td>When the files stored in your app's iCloud Document's directory change, this delegate method is called.  The first parameter, <tt>files</tt>, contains an array of NSMetadataItems which can be used to gather information about a file (ex. URL, Name, Dates, etc). The second paramter, <tt>fileNames</tt>, contains an array of the name of each file as NSStrings.
-     <br /><br />
-           <tt> - (void)iCloudFilesDidChange:(NSMutableArray *)files withNewFileNames:(NSMutableArray *)fileNames</tt></td>
-  </tr>
-  <tr>
-    <td>iCloud File Upload Conflict</td>
-    <td>When uploading multiple files to iCloud there is a possibility that files may exist both locally and in iCloud - causing a conflict. iCloud Document Sync can handle most conflict cases and will report the action taken in the log. When iCloud Document Sync can't figure out how to resolve the file conflict (this happens when both the modified date and contents are the same), it will pass the files and relevant information to you using this delegate method.  The delegate method contains two NSDictionaries, one which contains information about the iCloud file, and the other about the local file. Both dictionaries contain the same keys with the same types of objects stored at each key:
-    <ul>
-   <li><tt>fileContent</tt> contains the NSData of the file. </li>
-    <li><tt>fileURL</tt> contains the NSURL pointing to the file. This could possibly be used to gather more information about the file. </li>
-    <li><tt>modifiedDate</tt> contains the NSDate representing the last modified date of the file. </li>
-    </ul>
-     <br />
-           <tt> - (void)iCloudFileUploadConflictWithCloudFile:(NSDictionary *)cloudFile andLocalFile:(NSDictionary *)localFile;</tt></td>
-  </tr>
-  <tr>
-    <td>iCloud Query Parameter</td>
-    <td>Called before creating an iCloud Query filter. Specify the type of file to be queried. If this delegate method is not implemented or returns nil, all files stored in the documents directory will be queried. Should return a single file extension formatted (as an NSString) like this: <tt>@"txt"</tt>
-     <br /><br />
-           <tt> - (NSString *)iCloudQueryLimitedToFileExtension</tt></td>
-  </tr>
-</table>
+### iCloud Availability Changed</td>
+Called (automatically by iOS) when the availability of iCloud changes.  The first parameter, `cloudIsAvailable`, is a boolean value that is YES if iCloud is available and NO if iCloud is not available. The second parameter, `ubiquityToken`, is an iCloud ubiquity token that represents the current iCloud identity. Can be used to determine if iCloud is available and if the iCloud account has been changed (ex. if the user logged out and then logged in with a different iCloud account). This object may be nil if iCloud is not available for any reason. The third parameter, `ubiquityContainer`, is the root URL path to the current application's ubiquity container. This URL may be nil until the ubiquity container is initialized.
 
-Extra Features
------
-Although this project is a work in progress, we have gone to great lengths to prevent lag, unresponsiveness, unhandled exceptions, and crashes.   
-   -  iCloud Document Sync is properly optimized for thread-management and is (should be) thread safe. 
-   -  Many methods are prepared to continue execution even when the user sends the app into the background.  
-   -  iCloud Document Sync uses `NSLog` , delegate methods, and completion handlers, to show you what is happening.  
+    - (void)iCloudAvailabilityDidChangeToState:(BOOL)cloudIsAvailable withUbiquityToken:(id)ubiquityToken withUbiquityContainer:(NSURL *)ubiquityContainer
+
+### iCloud Files Changed
+When the files stored in your app's iCloud Document's directory change, this delegate method is called.  The first parameter, `files`, contains an array of NSMetadataItems which can be used to gather information about a file (ex. URL, Name, Dates, etc). The second parameter, `fileNames`, contains an array of the name of each file as NSStrings.
+
+    - (void)iCloudFilesDidChange:(NSMutableArray *)files withNewFileNames:(NSMutableArray *)fileNames
+
+### iCloud File Conflict
+When uploading multiple files to iCloud there is a possibility that files may exist both locally and in iCloud - causing a conflict. iCloud Document Sync can handle most conflict cases and will report the action taken in the log. When iCloud Document Sync can't figure out how to resolve the file conflict (this happens when both the modified date and contents are the same), it will pass the files and relevant information to you using this delegate method.  The delegate method contains two NSDictionaries, one which contains information about the iCloud file, and the other about the local file. Both dictionaries contain the same keys with the same types of objects stored at each key:  
+* `fileContent` contains the NSData of the file.
+* `fileURL` contains the NSURL pointing to the file. This could possibly be used to gather more information about the file.
+* `modifiedDate` contains the NSDate representing the last modified date of the file.
+
+Below is the delegate method to be used
+
+    - (void)iCloudFileConflictBetweenCloudFile:(NSDictionary *)cloudFile andLocalFile:(NSDictionary *)localFile;
+
+### iCloud Query Parameter
+Called before creating an iCloud Query filter. Specify the type of file to be queried. If this delegate method is not implemented or returns nil, all files stored in the documents directory will be queried. Should return a single file extension formatted (as an NSString) like this: `@"txt"`
+
+    - (NSString *)iCloudQueryLimitedToFileExtension

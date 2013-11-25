@@ -135,7 +135,7 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
  @param name The name of the document being written to iCloud. This value must not be nil.
  @param content The data to write to the document
  @param handler Code block called when the document is successfully saved. The completion block passes UIDocument and NSData objects containing the saved document and it's contents in the form of NSData. The NSError object contains any error information if an error occurred, otherwise it will be nil. */
-- (void)saveAndCloseDocumentWithName:(NSString *)name withContent:(NSData *)content completion:(void (^)(UIDocument *cloudDocument, NSData *documentData, NSError *error))handler;
+- (void)saveAndCloseDocumentWithName:(NSString *)name withContent:(NSData *)content completion:(void (^)(UIDocument *cloudDocument, NSData *documentData, NSError *error))handler __attribute__((nonnull));
 
 /** Record changes made to a document in iCloud. Changes are saved when the document is closed.
  
@@ -154,7 +154,7 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
  @param name The name of the document being written to iCloud. This value must not be nil.
  @param content The data to write to the document
  @param handler Code block called when the document changes are recorded. The completion block passes UIDocument and NSData objects containing the saved document and it's contents in the form of NSData. The NSError object contains any error information if an error occurred, otherwise it will be nil. */
-- (void)saveChangesToDocumentWithName:(NSString *)name withContent:(NSData *)content completion:(void (^)(UIDocument *cloudDocument, NSData *documentData, NSError *error))handler;
+- (void)saveChangesToDocumentWithName:(NSString *)name withContent:(NSData *)content completion:(void (^)(UIDocument *cloudDocument, NSData *documentData, NSError *error))handler __attribute__((nonnull));
 
 /** Upload any local files that weren't created with iCloud
  
@@ -173,13 +173,13 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
  
  @param repeatingHandler Code block called after each file is uploaded to iCloud. This block is called every-time a local file is uploaded, therefore it may be called multiple times. The NSError object contains any error information if an error occurred, otherwise it will be nil.
  @param completion Code block called after all files have been uploaded to iCloud. This block is only called once at the end of the method, regardless of any successes or failures that may have occurred during the upload(s). */
-- (void)uploadLocalOfflineDocumentsWithRepeatingHandler:(void (^)(NSString *fileName, NSError *error))repeatingHandler completion:(void (^)(void))completion;
+- (void)uploadLocalOfflineDocumentsWithRepeatingHandler:(void (^)(NSString *fileName, NSError *error))repeatingHandler completion:(void (^)(void))completion __attribute__((nonnull (1)));
 
 /** Upload a local file to iCloud
  
  @param name The name of the local file stored in the application's documents directory. This value must not be nil.
  @param handler Code block called after the file has been uploaded to iCloud */
-- (void)uploadLocalDocumentToCloudWithName:(NSString *)name completion:(void (^)(NSError *error))handler;
+- (void)uploadLocalDocumentToCloudWithName:(NSString *)name completion:(void (^)(NSError *error))handler __attribute__((nonnull));
 
 
 
@@ -194,7 +194,7 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
  @param handler Code block called when the document is successfully uploaded. The completion block passes NSURL, NSDate, and NSError objects. The NSURL object is the public URL where the file is available at, could be nil. The NSDate object is the date that the URL expires on, could be nil. The NSError object contains any error information if an error occurred, otherwise it will be nil.
  
  @return The public URL where the file is available */
-- (NSURL *)shareDocumentWithName:(NSString *)name completion:(void (^)(NSURL *sharedURL, NSDate *expirationDate, NSError *error))handler;
+- (NSURL *)shareDocumentWithName:(NSString *)name completion:(void (^)(NSURL *sharedURL, NSDate *expirationDate, NSError *error))handler __attribute__((nonnull));
 
 
 
@@ -207,15 +207,15 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
  
  @param name The name of the document to delete from iCloud. This value must not be nil.
  @param handler Code block called when a file is successfully deleted from iCloud. The NSError object contains any error information if an error occurred, otherwise it will be nil. */
-- (void)deleteDocumentWithName:(NSString *)name completion:(void (^)(NSError *error))handler;
+- (void)deleteDocumentWithName:(NSString *)name completion:(void (^)(NSError *error))handler __attribute__((nonnull (1)));
 
 /** Evict a document from iCloud, move it from iCloud to the current application's local documents directory.
  
  @discussion Remove a document from iCloud storage and move it into the local document's directory. This method may call the iCloudFileConflictBetweenCloudFile:andLocalFile: iCloud Delegate method if there is a file conflict.
  
  @param name The name of the iCloud document being downloaded from iCloud to the local documents directory. This value must not be nil.
- @param handler Code block called after the file has been uploaded to iCloud. */
-- (void)evictCloudDocumentWithName:(NSString *)name completion:(void (^)(NSError *error))handler;
+ @param handler Code block called after the file has been uploaded to iCloud. This value must not be nil. */
+- (void)evictCloudDocumentWithName:(NSString *)name completion:(void (^)(NSError *error))handler __attribute__((nonnull));
 
 
 
@@ -234,32 +234,32 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
      }];
  
  @param documentName The name of the document in iCloud. This value must not be nil.
- @param handler Code block called when the document is successfully retrieved (opened or downloaded). The completion block passes UIDocument and NSData objects containing the opened document and it's contents in the form of NSData. If there is an error, the NSError object will have an error message (may be nil if there is no error). */
-- (void)retrieveCloudDocumentWithName:(NSString *)documentName completion:(void (^)(UIDocument *cloudDocument, NSData *documentData, NSError *error))handler;
+ @param handler Code block called when the document is successfully retrieved (opened or downloaded). The completion block passes UIDocument and NSData objects containing the opened document and it's contents in the form of NSData. If there is an error, the NSError object will have an error message (may be nil if there is no error). This value must not be nil. */
+- (void)retrieveCloudDocumentWithName:(NSString *)documentName completion:(void (^)(UIDocument *cloudDocument, NSData *documentData, NSError *error))handler __attribute__((nonnull));
 
 /** Check if a file exists in iCloud
  
  @param fileName The name of the UIDocument in iCloud. This value must not be nil.
  @return BOOL value, YES if the file does exist in iCloud, NO if it does not. May return NO if iCloud is unavailable. */
-- (BOOL)doesFileExistInCloud:(NSString *)fileName;
+- (BOOL)doesFileExistInCloud:(NSString *)fileName __attribute__((nonnull));
 
 /** Get the size of a file stored in iCloud
  
  @param fileName The name of the file in iCloud. This value must not be nil.
  @return The number of bytes in an unsigned long long. Returns nil if the file does not exist. May return a nil value if iCloud is unavailable. */
-- (NSNumber *)fileSize:(NSString *)fileName;
+- (NSNumber *)fileSize:(NSString *)fileName __attribute__((nonnull));
 
 /** Get the last modified date of a file stored in iCloud
  
  @param fileName The name of the file in iCloud. This value must not be nil.
  @return The date that the file was last modified. Returns nil if the file does not exist. May return a nil value if iCloud is unavailable. */
-- (NSDate *)fileModifiedDate:(NSString *)fileName;
+- (NSDate *)fileModifiedDate:(NSString *)fileName __attribute__((nonnull));
 
 /** Get the creation date of a file stored in iCloud
  
  @param fileName The name of the file in iCloud. This value must not be nil.
  @return The date that the file was created. Returns nil if the file does not exist. May return a nil value if iCloud is unavailable. */
-- (NSDate *)fileCreatedDate:(NSString *)fileName;
+- (NSDate *)fileCreatedDate:(NSString *)fileName __attribute__((nonnull));
 
 /** Get a list of files stored in iCloud
  
@@ -275,14 +275,14 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
  
  @param name The name of the document being renamed in iCloud. The file specified should exist, otherwise an error will occur. This value must not be nil.
  @param newName The new name which the document should be renamed with. The file specified should not exist, otherwise an error will occur. This value must not be nil.
- @param handler Code block called when the document changes are recorded. The completion block passes and NSError object which contains any error information if an error occurred, otherwise it will be nil. */
+ @param handler Code block called when the document renaming has completed. The completion block passes and NSError object which contains any error information if an error occurred, otherwise it will be nil. */
 - (void)renameOriginalDocument:(NSString *)name withNewName:(NSString *)newName completion:(void (^)(NSError *error))handler;
 
 /** Duplicate a document in iCloud
  
  @param name The name of the document being duplicated in iCloud. The file specified should exist, otherwise an error will occur. This value must not be nil.
  @param newName The new name which the document should be duplicated to (usually the same name with the word "copy" appeneded to the end). The file specified should not exist, otherwise an error will occur. This value must not be nil.
- @param handler Code block called when the document changes are recorded. The completion block passes and NSError object which contains any error information if an error occurred, otherwise it will be nil. */
+ @param handler Code block called when the document duplication has completed. The completion block passes and NSError object which contains any error information if an error occurred, otherwise it will be nil. */
 - (void)duplicateOriginalDocument:(NSString *)name withNewName:(NSString *)newName completion:(void (^)(NSError *error))handler;
 
 
@@ -293,8 +293,8 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
 /** Get the current document state of a file stored in iCloud
  
  @param fileName The name of the file in iCloud. This value must not be nil.
- @param handler Completion handler that passes two parameters, an NSError and a UIDocumentState. The documentState parameter represents the document state that the specified file is currently in (may be nil if the file does not exist). The NSError parameter will contain a 404 error if the file does not exist. */
-- (void)documentStateForFile:(NSString *)fileName completion:(void (^)(UIDocumentState *documentState, NSError *error))handler;
+ @param handler Completion handler that passes three parameters, an NSError, NSString and a UIDocumentState. The documentState parameter represents the document state that the specified file is currently in (may be nil if the file does not exist). The userReadableDocumentState parameter is an NSString which succinctly describes the current document state; if the file does not exist, a non-scary error will be displayed. The NSError parameter will contain a 404 error if the file does not exist. */
+- (void)documentStateForFile:(NSString *)fileName completion:(void (^)(UIDocumentState *documentState, NSString *userReadableDocumentState, NSError *error))handler;
 
 /** Monitor changes in the state of a document stored in iCloud
  
@@ -374,13 +374,13 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
  
  @deprecated Deprecated in version 6.1. Use the NSError parameter available in corresponding methods' completion handlers.
  @param error An NSError with a message, error code, and information */
-- (void)iCloudError:(NSError *)error __deprecated;
+- (void)iCloudError:(NSError *)error __deprecated __unavailable;
 
 /** DEPRECATED. Tells the delegate that there was an error while performing a process
  
  @deprecated Deprecated in version 6.0. Use the NSError parameter available in corresponding methods' completion handlers.
  @param error Returns the NSError that occurred */
-- (void)cloudError:(NSError *)error __deprecated;
+- (void)cloudError:(NSError *)error __deprecated __unavailable;
 
 /** DEPRECATED. Tells the delegate that the files in iCloud have been modified
  
@@ -388,31 +388,31 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
  
  @param files Returns a list of the files now in the app's iCloud documents directory - each file in the array contains information such as file version, url, localized name, date, etc.
  @param fileNames Returns a list of the file names now in the app's iCloud documents directory */
-- (void)fileListChangedWithFiles:(NSMutableArray *)files andFileNames:(NSMutableArray *)fileNames __deprecated;
+- (void)fileListChangedWithFiles:(NSMutableArray *)files andFileNames:(NSMutableArray *)fileNames __deprecated __unavailable;
 
 /** DEPRECATED. Tells the delegate that a document was successfully deleted.
  @deprecated Deprecated in version 6.0. Use the completion handlers in deleteDocumentWithName:completion: instead. */
-- (void)documentWasDeleted __deprecated;
+- (void)documentWasDeleted __deprecated __unavailable;
 
 /** DEPRECATED. Tells the delegate that a document was successfully saved
  @deprecated Deprecated in version 6.0. Use the completion handlers in saveDocumentWithName:withContent:completion: instead. */
-- (void)documentWasSaved __deprecated;
+- (void)documentWasSaved __deprecated __unavailable;
 
 /** DEPRECATED. Tells the delegate that a document finished uploading
  @deprecated Deprecated in version 6.0. Use the completion handlers in uploadLocalOfflineDocumentsWithDelegate:repeatingHandler:completion: instead. */
-- (void)documentsFinishedUploading __deprecated;
+- (void)documentsFinishedUploading __deprecated __unavailable;
 
 /** DEPRECATED. Tells the delegate that a document started uploading
  @deprecated Deprecated in version 6.0. Delegate methods are no longer used to report method-specfic conditions and so this method is never called. Completion blocks are now used.  */
-- (void)documentsStartedUploading __deprecated;
+- (void)documentsStartedUploading __deprecated __unavailable;
 
 /** DEPRECATED. Tells the delegate that a document started downloading
  @deprecated Deprecated in version 6.0. Delegate methods are no longer used to report method-specfic conditions and so this method is never called. Completion blocks are now used.  */
-- (void)documentsStartedDownloading __deprecated;
+- (void)documentsStartedDownloading __deprecated __unavailable;
 
 /** DEPRECATED. Tells the delegate that a document finished downloading
  @deprecated Deprecated in version 6.0. Delegate methods are no longer used to report method-specfic conditions and so this method is never called. Completion blocks are now used. */
-- (void)documentsFinishedDownloading __deprecated;
+- (void)documentsFinishedDownloading __deprecated __unavailable;
 
 
 

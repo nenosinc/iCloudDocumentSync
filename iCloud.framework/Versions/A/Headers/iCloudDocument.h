@@ -31,9 +31,19 @@ NSFileVersion *laterVersion(NSFileVersion *first, NSFileVersion *second);
 @property (strong) NSData *contents;
 
 /** Initialize a new UIDocument with the specified file path
-
- 	@param	url	The path to the UIDocument file
- 	@return	UIDocument object at the specified URL */
+ 
+ @param url	The path to the UIDocument file
+ @return UIDocument object at the specified URL */
 - (id)initWithFileURL:(NSURL *)url;
+
+/** Retrieve the localized name of the current document
+ 
+ @return Name of document including file extension, as an NSString */
+- (NSString *)localizedName;
+
+/** Retrieve a user-readable form of the document state
+ 
+ @return Current state of the document as a user-readable NSString */
+- (NSString *)stateDescription;
 
 @end

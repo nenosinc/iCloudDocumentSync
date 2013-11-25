@@ -30,7 +30,7 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    if ([self.title isEqualToString:@"iCloud Document"] || self.fileName == nil || [self.fileName isEqualToString:@""] == YES) {
+    if ([self.title isEqualToString:@"iCloud Document"] || self.fileName == nil || [self.fileName isEqualToString:@""]) {
         NSString *newFileName = [self generateFileNameWithExtension:@"txt"];
         NSData *fileData = [self.textView.text dataUsingEncoding:NSUTF8StringEncoding];
         
@@ -40,6 +40,8 @@
             } else {
                 NSLog(@"iCloud Document save error: %@", error);
             }
+            
+            [super viewWillDisappear:YES];
         }];
     } else {
         NSData *fileData = [self.textView.text dataUsingEncoding:NSUTF8StringEncoding];
@@ -50,6 +52,8 @@
             } else {
                 NSLog(@"iCloud Document save error: %@", error);
             }
+            
+            [super viewWillDisappear:YES];
         }];
     }
 }
@@ -80,6 +84,15 @@
                 [[iCloud sharedCloud] shareDocumentWithName:newFileName completion:^(NSURL *sharedURL, NSDate *expirationDate, NSError *error) {
                     if (!error) {
                         NSLog(@"iCloud Document, %@, shared to public URL: %@ until expiration date: %@", cloudDocument.fileURL.lastPathComponent, sharedURL, expirationDate);
+                        self.fileLink = [sharedURL absoluteString];
+                        
+                        NSString *formatString = [NSDateFormatter dateFormatFromTemplate:@"EdMMM" options:0 locale:[NSLocale currentLocale]];
+                        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                        [dateFormatter setDateFormat:formatString];
+                        NSString *dateString = [dateFormatter stringFromDate:expirationDate];
+                        self.fileExpirationDate = dateString;
+                        
+                        [self performSegueWithIdentifier:@"share" sender:self];
                     } else {
                         NSLog(@"iCloud Document share error: %@", error);
                     }
@@ -89,28 +102,61 @@
             }
         }];
     } else {
-        NSData *fileData = [self.textView.text dataUsingEncoding:NSUTF8StringEncoding];
-        
-        [[iCloud sharedCloud] saveAndCloseDocumentWithName:self.fileName withContent:fileData completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
+        [[iCloud sharedCloud] shareDocumentWithName:self.fileName completion:^(NSURL *sharedURL, NSDate *expirationDate, NSError *error) {
             if (!error) {
-                NSLog(@"iCloud Document, %@, saved with text: %@", cloudDocument.fileURL.lastPathComponent, documentData);
+                NSLog(@"iCloud Document, %@, shared to public URL: %@ until expiration date: %@", self.fileName, sharedURL, expirationDate);
+                self.fileLink = [sharedURL absoluteString];
                 
-                [[iCloud sharedCloud] shareDocumentWithName:self.fileName completion:^(NSURL *sharedURL, NSDate *expirationDate, NSError *error) {
-                    if (!error) {
-                        NSLog(@"iCloud Document, %@, shared to public URL: %@ until expiration date: %@", cloudDocument.fileURL.lastPathComponent, sharedURL, expirationDate);
-                    } else {
-                        NSLog(@"iCloud Document share error: %@", error);
-                    }
-                }];
+                NSString *formatString = [NSDateFormatter dateFormatFromTemplate:@"EdMMM" options:0 locale:[NSLocale currentLocale]];
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                [dateFormatter setDateFormat:formatString];
+                NSString *dateString = [dateFormatter stringFromDate:expirationDate];
+                self.fileExpirationDate = dateString;
+                
+                [self performSegueWithIdentifier:@"share" sender:self];
             } else {
-                NSLog(@"iCloud Document save error: %@", error);
+                NSLog(@"iCloud Document share error: %@", error);
             }
         }];
     }
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
+    [[iCloud sharedCloud] saveChangesToDocumentWithName:self.fileName withContent:[self.textView.text dataUsingEncoding:NSUTF8StringEncoding] completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
+        NSLog(@"Saved changes to %@: %@", [cloudDocument.fileURL lastPathComponent], documentData);
+    }];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"share"]) {
+        [super prepareForSegue:segue sender:sender];
+        
+        // Get reference to the destination view controller
+        ShareViewController *viewController = [segue destinationViewController];
+        
+        NSLog(@"%@ available until %@ at %@", self.fileName, self.fileExpirationDate, self.fileLink);
+        
+        // Pass any objects to the view controller here
+        [viewController setDateText:[NSString stringWithFormat:@"%@ available until %@", self.fileName, self.fileExpirationDate]];
+        [viewController setLinkText:self.fileLink];
     
+        viewController.transitioningDelegate = self;
+        viewController.modalPresentationStyle = UIModalPresentationCustom;
+    }
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    
+    TLTransitionAnimator *animator = [TLTransitionAnimator new];
+    animator.presenting = YES;
+    
+    return animator;
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    TLTransitionAnimator *animator = [TLTransitionAnimator new];
+    
+    return animator;
 }
 
 @end

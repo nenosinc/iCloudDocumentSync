@@ -3,7 +3,7 @@
 //  iCloud Document Sync
 //
 //  Created by iRare Media on June 27, 2013
-//  Copyright (c) 2013 iRareMedia. All rights reserved.
+//  Copyright (c) 2013 iRare Media. All rights reserved.
 //
 //
 
@@ -39,6 +39,7 @@ NSFileVersion *laterVersion (NSFileVersion *first, NSFileVersion *second) {
     if (!self.documentState) return @"Document state is normal";
     
     NSMutableString *string = [NSMutableString string];
+    if ((self.documentState & UIDocumentStateNormal) != 0) [string appendString:@"Document state is normal"];
     if ((self.documentState & UIDocumentStateClosed) != 0) [string appendString:@"Document is closed"];
     if ((self.documentState & UIDocumentStateInConflict) != 0) [string appendString:@"Document is in conflict"];
     if ((self.documentState & UIDocumentStateSavingError) != 0) [string appendString:@"Document is experiencing saving error"];
@@ -62,13 +63,11 @@ NSFileVersion *laterVersion (NSFileVersion *first, NSFileVersion *second) {
 }
 
 - (BOOL)loadFromContents:(id)fileContents ofType:(NSString *)typeName error:(NSError **)outError {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
-        if ([fileContents length] > 0) {
-            self.contents = [[NSData alloc] initWithData:fileContents];
-        } else {
-            self.contents = [[NSData alloc] init];
-        }
-    });
+    if ([fileContents length] > 0) {
+        self.contents = [[NSData alloc] initWithData:fileContents];
+    } else {
+        self.contents = [[NSData alloc] init];
+    }
     
     return YES;
 }
@@ -78,14 +77,12 @@ NSFileVersion *laterVersion (NSFileVersion *first, NSFileVersion *second) {
 }
 
 - (void)setDocumentData:(NSData *)newData {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
-        NSData *oldData = contents;
-        contents = [newData copy];
+    NSData *oldData = contents;
+    contents = [newData copy];
         
-        // Register the undo operation
-        [self.undoManager setActionName:@"Data Change"];
-        [self.undoManager registerUndoWithTarget:self selector:@selector(setDocumentData:) object:oldData];
-    });
+    // Register the undo operation
+    [self.undoManager setActionName:@"Data Change"];
+    [self.undoManager registerUndoWithTarget:self selector:@selector(setDocumentData:) object:oldData];
 }
 
 @end

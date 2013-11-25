@@ -40,7 +40,7 @@
     // Setup File List
     if (fileNameList == nil) fileNameList = [NSMutableArray array];
     if (fileObjectList == nil) fileObjectList = [NSMutableArray array];
- 
+    
     // Display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
@@ -132,13 +132,28 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     NSString *fileName = [fileNameList objectAtIndex:indexPath.row];
+    
     NSNumber *filesize = [[iCloud sharedCloud] fileSize:fileName];
     NSDate *updated = [[iCloud sharedCloud] fileModifiedDate:fileName];
-    NSString *fileDetail = [NSString stringWithFormat:@"%@ bytes, updated %@", filesize, [MHPrettyDate prettyDateFromDate:updated withFormat:MHPrettyDateFormatWithTime]];
+    
+    __block NSString *documentStateString = @"";
+    [[iCloud sharedCloud] documentStateForFile:fileName completion:^(UIDocumentState *documentState, NSString *userReadableDocumentState, NSError *error) {
+        if (!error) {
+            documentStateString = userReadableDocumentState;
+        }
+    }];
+    
+    NSString *fileDetail = [NSString stringWithFormat:@"%@ bytes, updated %@.\n%@", filesize, [MHPrettyDate prettyDateFromDate:updated withFormat:MHPrettyDateFormatWithTime], documentStateString];
     
     // Configure the cell...
     cell.textLabel.text = fileName;
     cell.detailTextLabel.text = fileDetail;
+    cell.detailTextLabel.numberOfLines = 2;
+    cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    
+    if ([documentStateString isEqualToString:@"Document is in conflict"]) {
+        cell.detailTextLabel.textColor = [UIColor redColor];
+    }
     
     return cell;
 }
