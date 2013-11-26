@@ -58,6 +58,10 @@
 	
 	<option value="//api/name/sharedCloud">&nbsp;&nbsp;&nbsp;&nbsp;+ sharedCloud</option>
 	
+	<option value="//api/name/updateFilesWithDelegate:">&nbsp;&nbsp;&nbsp;&nbsp;+ updateFilesWithDelegate:</option>
+	
+	<option value="//api/name/uploadLocalOfflineDocumentsWithDelegate:">&nbsp;&nbsp;&nbsp;&nbsp;+ uploadLocalOfflineDocumentsWithDelegate:</option>
+	
 	
 	
 	
@@ -147,6 +151,8 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_iCloud Document State">iCloud Document State</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Deprecated Methods">Deprecated Methods</a></span></li>
+	
 </ul></li>
 
 
@@ -174,6 +180,10 @@
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/sharedCloud">sharedCloud</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/updateFilesWithDelegate:">updateFilesWithDelegate:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/uploadLocalOfflineDocumentsWithDelegate:">uploadLocalOfflineDocumentsWithDelegate:</a></span></li>
 	
 </ul></li>
 
@@ -590,6 +600,28 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 </li>
 						</ul>
 						
+						
+						<a title="Deprecated Methods" name="task_Deprecated Methods"></a>
+						<h3 class="subsubtitle task-title">Deprecated Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/uploadLocalOfflineDocumentsWithDelegate:">+&nbsp;uploadLocalOfflineDocumentsWithDelegate:</a></code>
+		<span class="tooltip"><p>DEPRECATED. Use uploadLocalOfflineDocuments instead, like so: [[iCloud sharedCloud] uploadLocalOfflineDocuments]; (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 7.0. Use uploadLocalOfflineDocuments instead.</span>)</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/updateFilesWithDelegate:">+&nbsp;updateFilesWithDelegate:</a></code>
+		<span class="tooltip"><p>DEPRECATED. Use updateFiles instead, like so: [[iCloud sharedCloud] updateFiles]; (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 7.0. Use updateFiles instead.</span>)</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
 					</div>
 					
 					
@@ -865,6 +897,98 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	
 </div>
 						
+						<div class="section-method">
+	<a name="//api/name/updateFilesWithDelegate:" title="updateFilesWithDelegate:"></a>
+	<h3 class="subsubtitle method-title">updateFilesWithDelegate:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>DEPRECATED. Use updateFiles instead, like so: [[iCloud sharedCloud] updateFiles]; (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 7.0. Use updateFiles instead.</span>)</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (void)updateFilesWithDelegate:(id&lt;iCloudDelegate&gt;)<em>delegate</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>delegate</em></dt>
+			<dd><p>The <a href="../Protocols/iCloudDelegate.html">iCloudDelegate</a> object to be used for <a href="#//api/name/delegate">delegate</a> notifications</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">iCloud.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/uploadLocalOfflineDocumentsWithDelegate:" title="uploadLocalOfflineDocumentsWithDelegate:"></a>
+	<h3 class="subsubtitle method-title">uploadLocalOfflineDocumentsWithDelegate:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>DEPRECATED. Use uploadLocalOfflineDocuments instead, like so: [[iCloud sharedCloud] uploadLocalOfflineDocuments]; (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 7.0. Use uploadLocalOfflineDocuments instead.</span>)</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (void)uploadLocalOfflineDocumentsWithDelegate:(id&lt;iCloudDelegate&gt;)<em>delegate</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>delegate</em></dt>
+			<dd><p>The <a href="../Protocols/iCloudDelegate.html">iCloudDelegate</a> object to be used for <a href="#//api/name/delegate">delegate</a> notifications</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">iCloud.h</code><br />
+	</div>				
+	
+	
+</div>
+						
 					</div>
 					
 					
@@ -1041,7 +1165,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (void)documentStateForFile:(NSString *)<em>fileName</em> completion:(void ( ^ ) ( UIDocumentState *documentState , NSError *error ))<em>handler</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (void)documentStateForFile:(NSString *)<em>fileName</em> completion:(void ( ^ ) ( UIDocumentState *documentState , NSString *userReadableDocumentState , NSError *error ))<em>handler</em></code></div>
 
     
 	
@@ -1055,7 +1179,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>handler</em></dt>
-			<dd><p>Completion handler that passes two parameters, an NSError and a UIDocumentState. The documentState parameter represents the document state that the specified file is currently in (may be nil if the file does not exist). The NSError parameter will contain a 404 error if the file does not exist.</p></dd>
+			<dd><p>Completion handler that passes three parameters, an NSError, NSString and a UIDocumentState. The documentState parameter represents the document state that the specified file is currently in (may be nil if the file does not exist). The userReadableDocumentState parameter is an NSString which succinctly describes the current document state; if the file does not exist, a non-scary error will be displayed. The NSError parameter will contain a 404 error if the file does not exist.</p></dd>
 		</dl>
 		
 	</div>
@@ -2131,7 +2255,7 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 iRare Media. All rights reserved. (Last updated: 2013-11-24)</span><br />
+						<p><span class="copyright">&copy; 2013 iRare Media. All rights reserved. (Last updated: 2013-11-25)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
 						

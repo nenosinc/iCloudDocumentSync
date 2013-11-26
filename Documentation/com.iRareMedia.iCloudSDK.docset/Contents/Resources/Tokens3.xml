@@ -88,7 +88,7 @@
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/iCloudFileUploadConflictWithCloudFile:andLocalFile:</TokenIdentifier>
-			<Abstract type="html">DEPRECATED. Sent to the delegate where there is a conflict between a local file and an iCloud file during an upload (&lt;b class=&quot;deprecated&quot;&gt;Deprecated:&lt;/b&gt;&lt;span class=&quot;deprecated&quot;&gt; Deprecated in version 7.0. Use the iCloudFileConflictBetweenCloudFile:andLocalFile: instead.&lt;/span&gt;)</Abstract>
+			<Abstract type="html">DEPRECATED. Sent to the delegate where there is a conflict between a local file and an iCloud file during an upload (&lt;b class=&quot;deprecated&quot;&gt;Deprecated:&lt;/b&gt;&lt;span class=&quot;deprecated&quot;&gt; Deprecated in version 7.0. Use iCloudFileConflictBetweenCloudFile:andLocalFile: instead.&lt;/span&gt;)</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>			
 			
 			<Declaration>- (void)iCloudFileUploadConflictWithCloudFile:(NSDictionary *)cloudFile andLocalFile:(NSDictionary *)localFile</Declaration>

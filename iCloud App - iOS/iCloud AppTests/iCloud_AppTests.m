@@ -25,24 +25,4 @@
     [super tearDown];
 }
 
-- (void)testSavingCreatesFile {
-    iCloud *cloud = [iCloud sharedCloud];
-    [cloud setVerboseAvailabilityLogging:YES];
-    [cloud checkCloudUbiquityContainer];
-    [cloud checkCloudAvailability];
-    
-    NSURL *url = [[[iCloud sharedCloud] ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:@"WEASLEEEEEE.txt"];
-    iCloudDocument *objUnderTest = [[iCloudDocument alloc] initWithFileURL:url];
-    
-    // when we call saveToURL:forSaveOperation:completionHandler:
-    __block BOOL blockSuccess = NO;
-    
-    [objUnderTest saveToURL:url forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
-         blockSuccess = success;
-        
-        // then the operation should succeed and a file should be created
-        XCTAssertTrue(blockSuccess, @"Not Successful");
-     }];
-}
-
 @end

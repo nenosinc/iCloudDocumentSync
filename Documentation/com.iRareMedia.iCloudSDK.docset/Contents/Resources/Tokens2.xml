@@ -64,5 +64,29 @@
             <NodeRef refid="2"/>
 		</Token>
 		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/iCloudDocument/localizedName</TokenIdentifier>
+			<Abstract type="html">Retrieve the localized name of the current document</Abstract>
+			<DeclaredIn>iCloudDocument.h</DeclaredIn>			
+			
+			<Declaration>- (NSString *)localizedName</Declaration>
+			
+			<ReturnValue><Abstract type="html">Name of document including file extension, as an NSString</Abstract></ReturnValue>
+			<Anchor>//api/name/localizedName</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/iCloudDocument/stateDescription</TokenIdentifier>
+			<Abstract type="html">Retrieve a user-readable form of the document state</Abstract>
+			<DeclaredIn>iCloudDocument.h</DeclaredIn>			
+			
+			<Declaration>- (NSString *)stateDescription</Declaration>
+			
+			<ReturnValue><Abstract type="html">Current state of the document as a user-readable NSString</Abstract></ReturnValue>
+			<Anchor>//api/name/stateDescription</Anchor>
+            <NodeRef refid="2"/>
+		</Token>
+		
 	</File>
 </Tokens>

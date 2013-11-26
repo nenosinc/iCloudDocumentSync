@@ -1331,4 +1331,17 @@
     });
 }
 
+//---------------------------------------------------------------------------------------------------------------------------------------------//
+//------------ Deprecated Methods -------------------------------------------------------------------------------------------------------------//
+//---------------------------------------------------------------------------------------------------------------------------------------------//
+#pragma mark - Deprecated Methods
+
++ (void)uploadLocalOfflineDocumentsWithDelegate:(id<iCloudDelegate>)delegate {
+    for (int i = 0; i <= 5; i++) NSLog(@"[iCloud] WARNING: uploadLocalOfflineDocumentsWithDelegate: is deprecated and will become unavailable in a future version. Use [- uploadLocalOfflineDocuments] instead.");
+}
+
++ (void)updateFilesWithDelegate:(id<iCloudDelegate>)delegate {
+    for (int i = 0; i <= 5; i++) NSLog(@"[iCloud] WARNING: updateFilesWithDelegate: is deprecated and will become unavailable in a future version. Use [- updateFiles] instead.");
+}
+
 @end

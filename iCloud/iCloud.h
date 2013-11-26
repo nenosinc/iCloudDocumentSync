@@ -112,8 +112,6 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
 - (void)updateFiles;
 
 
-
-
 /** @name Uploading to iCloud */
 
 /** Create, save, and close a document in iCloud.
@@ -312,6 +310,22 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
 - (BOOL)stopMonitoringDocumentStateChangesForFile:(NSString *)fileName onTarget:(id)sender;
 
 
+
+
+/** @name Deprecated Methods */
+
+/** DEPRECATED. Use uploadLocalOfflineDocuments instead, like so: [[iCloud sharedCloud] uploadLocalOfflineDocuments];
+ 
+ @deprecated Deprecated in version 7.0. Use uploadLocalOfflineDocuments instead.
+ @param delegate The iCloudDelegate object to be used for delegate notifications */
++ (void)uploadLocalOfflineDocumentsWithDelegate:(id<iCloudDelegate>)delegate __deprecated;
+
+/** DEPRECATED. Use updateFiles instead, like so: [[iCloud sharedCloud] updateFiles];
+ 
+ @deprecated Deprecated in version 7.0. Use updateFiles instead.
+ @param delegate The iCloudDelegate object to be used for delegate notifications */
++ (void)updateFilesWithDelegate:(id<iCloudDelegate>)delegate __deprecated;
+
 @end
 
 
@@ -363,7 +377,7 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
 
 /** DEPRECATED. Sent to the delegate where there is a conflict between a local file and an iCloud file during an upload
  
- @deprecated Deprecated in version 7.0. Use the iCloudFileConflictBetweenCloudFile:andLocalFile: instead.
+ @deprecated Deprecated in version 7.0. Use iCloudFileConflictBetweenCloudFile:andLocalFile: instead.
  
  @param cloudFile An NSDictionary with the cloud file and various other information. This parameter contains the fileContent as NSData, fileURL as NSURL, and modifiedDate as NSDate.
  @param localFile An NSDictionary with the local file and various other information. This parameter contains the fileContent as NSData, fileURL as NSURL, and modifiedDate as NSDate. */
