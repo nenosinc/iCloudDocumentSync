@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <iCloud/iCloud.h>
 #import "DocumentViewController.h"
+#import "TLTransitionAnimator.h"
 #import "MHPrettyDate.h"
 
-@interface ListViewController : UITableViewController <iCloudDelegate>
+@interface ListViewController : UITableViewController <iCloudDelegate, UIViewControllerTransitioningDelegate>
 
 @end

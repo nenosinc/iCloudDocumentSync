@@ -12,18 +12,6 @@
 		
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/clm/iCloudDocument/sharedCloudDocument</TokenIdentifier>
-			<Abstract type="html">iCloudDocument shared instance object</Abstract>
-			<DeclaredIn>iCloudDocument.h</DeclaredIn>			
-			
-			<Declaration>+ (id)sharedCloudDocument</Declaration>
-			
-			<ReturnValue><Abstract type="html">The shared instance of iCloudDocument</Abstract></ReturnValue>
-			<Anchor>//api/name/sharedCloudDocument</Anchor>
-            <NodeRef refid="2"/>
-		</Token>
-		
-		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloudDocument/initWithFileURL:</TokenIdentifier>
 			<Abstract type="html">Initialize a new UIDocument with the specified file path</Abstract>
 			<DeclaredIn>iCloudDocument.h</DeclaredIn>			

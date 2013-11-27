@@ -15,6 +15,11 @@
     
     NSString *fileText;
     NSString *fileTitle;
+    
+    UIViewController *loadingViewController;
+    NSTimer *timer;
+    int timeout;
+    BOOL didTimeout;
 } @end
 
 @implementation ListViewController
@@ -50,7 +55,10 @@
     [self.tableView addSubview:refreshControl];
     
     // Subscribe to iCloud Ready Notifications
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshCloudList) name:@"iCloud Ready" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshCloudListAfterSetup) name:@"iCloud Ready" object:nil];
+    
+    // Set process timeout
+    timeout = 3.0;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -89,15 +97,10 @@
 
 - (void)iCloudAvailabilityDidChangeToState:(BOOL)cloudIsAvailable withUbiquityToken:(id)ubiquityToken withUbiquityContainer:(NSURL *)ubiquityContainer {
     if (!cloudIsAvailable) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"iCloud Unavailable" message:@"iCloud is no longer available. Manke sure that you are signed into a valid iCloud account." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"iCloud Unavailable" message:@"iCloud is no longer available. Make sure that you are signed into a valid iCloud account." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
         [alert show];
         [self performSegueWithIdentifier:@"showWelcome" sender:self];
     }
-}
-
-- (NSString *)iCloudQueryLimitedToFileExtension {
-    // Returning the type of file we want to query for, if this delegate method is not implemented or returns nil then all files will be queried
-    return @"txt";
 }
 
 - (void)iCloudFilesDidChange:(NSMutableArray *)files withNewFileNames:(NSMutableArray *)fileNames {
@@ -112,6 +115,12 @@
 }
 
 - (void)refreshCloudList {
+    [[iCloud sharedCloud] updateFiles];
+}
+
+- (void)refreshCloudListAfterSetup {
+    // Reclaim delegate and then update files
+    [[iCloud sharedCloud] setDelegate:self];
     [[iCloud sharedCloud] updateFiles];
 }
 
@@ -150,6 +159,7 @@
     cell.detailTextLabel.text = fileDetail;
     cell.detailTextLabel.numberOfLines = 2;
     cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    cell.imageView.image = [self iconForFile:fileName];
     
     if ([documentStateString isEqualToString:@"Document is in conflict"]) {
         cell.detailTextLabel.textColor = [UIColor redColor];
@@ -159,24 +169,40 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(countdown) userInfo:nil repeats:YES];
     [[iCloud sharedCloud] retrieveCloudDocumentWithName:[fileNameList objectAtIndex:indexPath.row] completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
         if (!error) {
             fileText = [[NSString alloc] initWithData:documentData encoding:NSUTF8StringEncoding];
             fileTitle = cloudDocument.fileURL.lastPathComponent;
             
-            [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-            
             [[iCloud sharedCloud] documentStateForFile:fileTitle completion:^(UIDocumentState *documentState, NSString *userReadableDocumentState, NSError *error) {
                 if (!error) {
                     if (*documentState == UIDocumentStateInConflict) {
-                        [self performSegueWithIdentifier:@"showConflict" sender:self];
+                        if (didTimeout == YES) {
+                            [loadingViewController dismissViewControllerAnimated:YES completion:^{
+                                [self performSegueWithIdentifier:@"showConflict" sender:self];
+                                [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+                            }];
+                        } else {
+                            [self performSegueWithIdentifier:@"showConflict" sender:self];
+                            [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+                        }
                     } else {
-                        [self performSegueWithIdentifier:@"documentView" sender:self];
+                        if (didTimeout == YES) {
+                            [loadingViewController dismissViewControllerAnimated:YES completion:^{
+                                [self performSegueWithIdentifier:@"documentView" sender:self];
+                                [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+                            }];
+                        } else {
+                            [self performSegueWithIdentifier:@"documentView" sender:self];
+                            [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+                        }
                     }
                 }
             }];
         } else {
             NSLog(@"Error retrieveing document: %@", error);
+            [loadingViewController dismissViewControllerAnimated:YES completion:nil];
             [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
         }
     }];
@@ -216,7 +242,56 @@
         // Pass any objects to the view controller here, like...
         [viewController setFileText:fileText];
         [viewController setFileName:fileTitle];
+    } else if ([[segue identifier] isEqualToString:@"newDocument"]) {
+        // Get reference to the destination view controller
+        DocumentViewController *viewController = [segue destinationViewController];
+        
+        // Pass any objects to the view controller here, like...
+        [viewController setFileText:@"Document text"];
+        [viewController setFileName:@""];
+    } else if ([[segue identifier] isEqualToString:@"loadingDocument"]) {
+        // Get reference to the destination view controller
+        loadingViewController = [segue destinationViewController];
+        
+        loadingViewController.transitioningDelegate = self;
+        loadingViewController.modalPresentationStyle = UIModalPresentationCustom;
     }
+}
+
+#pragma mark - Goodies
+
+- (UIImage *)iconForFile:(NSString *)documentName {
+    UIDocumentInteractionController *controller = [UIDocumentInteractionController interactionControllerWithURL:[[[iCloud sharedCloud] ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:documentName]];
+    if (controller) {
+        return [controller.icons lastObject]; // arbitrary selection--gives you the largest icon in this case
+    }
+    
+    return nil;
+}
+
+- (void)countdown {
+    timeout -= 0.1;
+    didTimeout = NO;
+    
+    if (timeout <= 0) {
+        [timer invalidate];
+        [self performSegueWithIdentifier:@"loadingDocument" sender:self];
+        didTimeout = YES;
+    }
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    
+    TLTransitionAnimator *animator = [TLTransitionAnimator new];
+    animator.presenting = YES;
+    
+    return animator;
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    TLTransitionAnimator *animator = [TLTransitionAnimator new];
+    
+    return animator;
 }
 
 @end

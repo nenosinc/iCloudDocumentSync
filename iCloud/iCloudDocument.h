@@ -25,16 +25,6 @@
 
 
 
-
-/** @name Singleton */
-
-/** iCloudDocument shared instance object
- @return The shared instance of iCloudDocument */
-+ (id)sharedCloudDocument;
-
-
-
-
 /** @name Methods */
 
 /** Initialize a new UIDocument with the specified file path

@@ -17,16 +17,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
-    if (self.fileName != nil || [self.fileName isEqualToString:@""] == NO) {
-        self.title = self.fileName;
-        self.textView.text = self.fileText;
-    }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    if (self.fileName == nil || [self.fileName isEqualToString:@""]) {
+        NSString *newFileName = [self generateFileNameWithExtension:@"txt"];
+        self.title = newFileName;
+        self.fileName = newFileName;
+        self.textView.text = @"Document text";
+    } else {
+        self.title = self.fileName;
+        self.textView.text = self.fileText;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -122,9 +129,18 @@
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
-    [[iCloud sharedCloud] saveChangesToDocumentWithName:self.fileName withContent:[self.textView.text dataUsingEncoding:NSUTF8StringEncoding] completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
-        NSLog(@"Saved changes to %@: %@", [cloudDocument.fileURL lastPathComponent], documentData);
-    }];
+    if ([self.title isEqualToString:@"iCloud Document"] || self.fileName == nil || [self.fileName isEqualToString:@""]) {
+        NSString *newFileName = [self generateFileNameWithExtension:@"txt"];
+        NSData *fileData = [self.textView.text dataUsingEncoding:NSUTF8StringEncoding];
+        [[iCloud sharedCloud] saveChangesToDocumentWithName:newFileName withContent:fileData completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
+            NSLog(@"Saved changes to %@: %@", [cloudDocument.fileURL lastPathComponent], documentData);
+        }];
+    } else {
+        NSData *fileData = [self.textView.text dataUsingEncoding:NSUTF8StringEncoding];
+        [[iCloud sharedCloud] saveChangesToDocumentWithName:self.fileName withContent:fileData completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
+            NSLog(@"Saved changes to %@: %@", [cloudDocument.fileURL lastPathComponent], documentData);
+        }];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

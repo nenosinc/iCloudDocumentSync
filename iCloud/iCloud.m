@@ -54,7 +54,7 @@
         if (query == nil) query = [[NSMetadataQuery alloc] init];
         
         // Log the setup
-        if (verboseLogging == YES) NSLog(@"[iCloud] Initialized");
+        NSLog(@"[iCloud] Initialized");
         
         // Check the iCloud Ubiquity Container
         [self checkCloudUbiquityContainer];
@@ -88,7 +88,7 @@
         return YES;
     } else {
         if (verboseAvailabilityLogging == YES)
-            NSLog(@"iCloud is not available. iCloud may be unavailable for a number of reasons:\n• The device has not yet been configured with an iCloud account, or the Documents & Data option is disabled\n• Your app, %@, does not have properly configured entitlements\nGo to http://bit.ly/15ECEWj for more information on setting up iCloud", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"]);
+            NSLog(@"iCloud is not available. iCloud may be unavailable for a number of reasons:\n• The device has not yet been configured with an iCloud account, or the Documents & Data option is disabled\n• Your app, %@, does not have properly configured entitlements\nGo to http://bit.ly/18HkxPp for more information on setting up iCloud", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"]);
         else
             NSLog(@"iCloud unavailable");
         
@@ -129,7 +129,30 @@
 }
 
 - (NSURL *)ubiquitousDocumentsDirectoryURL {
-    return [ubiquityContainer URLByAppendingPathComponent:DOCUMENT_DIRECTORY];
+    NSURL *documentsDirectory = [[self ubiquitousContainerURL] URLByAppendingPathComponent:DOCUMENT_DIRECTORY];
+    NSError *error;
+    
+    BOOL isDirectory = NO;
+    BOOL isFile = [fileManager fileExistsAtPath:[documentsDirectory path] isDirectory:&isDirectory];
+    
+    if (isFile) {
+        // It exists, check if it's a directory
+        if (isDirectory == YES) {
+            return documentsDirectory;
+        } else {
+            [fileManager removeItemAtPath:[documentsDirectory path] error:&error];
+            [fileManager createDirectoryAtURL:documentsDirectory withIntermediateDirectories:YES attributes:nil error:&error];
+            return documentsDirectory;
+        }
+    } else {
+        [fileManager createDirectoryAtURL:documentsDirectory withIntermediateDirectories:YES attributes:nil error:&error];
+        return documentsDirectory;
+    }
+    
+    if (error) NSLog(@"[iCloud] POSSIBLY FATAL ERROR - Document directory creation error. This error may be fatal and should be recovered from. If the documents directory is not correctly created, this can cause iCloud to stop functioning properly (including exceptiosn being thrown). Error: %@", error);
+    
+    NSLog(@"Documents URL: %@", documentsDirectory);
+    return documentsDirectory;
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------//
@@ -139,13 +162,16 @@
 
 - (void)enumerateCloudDocuments {
     // Log document enumeration
-    if (verboseLogging == YES) NSLog(@"[iCloud] Creating metadata query and notifications");
+    NSLog(@"[iCloud] Creating metadata query and notifications");
     
     // Request information from the delegate
     if ([delegate respondsToSelector:@selector(iCloudQueryLimitedToFileExtension)]) {
         NSString *fileExt = [delegate iCloudQueryLimitedToFileExtension];
         if (fileExt != nil || ![fileExt isEqualToString:@""]) fileExtension = fileExt;
         else fileExtension = @"*";
+        
+        // Log file extensiom
+        NSLog(@"[iCloud] Document query filter has been set to %@", fileExtension);
     } else {
         fileExtension = @"*";
     }
@@ -160,7 +186,13 @@
     
     // Start the query
     BOOL startedQuery = [query startQuery];
-    if (!startedQuery) NSLog(@"Failed to start query.");
+    if (!startedQuery) {
+        NSLog(@"[iCloud] Failed to start query.");
+        return;
+    } else {
+        // Log file query success
+        NSLog(@"[iCloud] Query initialized successfully");
+    }
 }
 
 - (void)startUpdate:(NSMetadataQuery *)query {
@@ -226,6 +258,17 @@
     // Check for iCloud
     if ([self quickCloudCheck] == NO) return;
     
+    // Check for nil / null document name
+    if (documentName == nil || [documentName isEqualToString:@""]) {
+        // Log error
+        if (verboseLogging == YES) NSLog(@"[iCloud] Specified document name must not be empty");
+        NSError *error = [NSError errorWithDomain:@"The specified document name was empty / blank and could not be saved. Specify a document name next time." code:001 userInfo:nil];
+        
+        handler(nil, nil, error);
+        
+        return;
+    }
+    
     // Get the URL to save the new file to
     NSURL *fileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:documentName];
     
@@ -262,11 +305,18 @@
             if (success) {
                 // Saving implicitly opens the file
                 [document closeWithCompletionHandler:^(BOOL success) {
-                    // Log the save and close
-                    if (verboseLogging == YES) NSLog(@"[iCloud] New document closed and saved successfully");
                     
-                    // Run the completion block and pass the document
-                    handler(document, document.contents, nil);
+                    if (success) {
+                        // Log the save and close
+                        if (verboseLogging == YES) NSLog(@"[iCloud] New document closed and saved successfully");
+                        
+                        handler(document, document.contents, nil);
+                    } else {
+                        NSLog(@"[iCloud] Error while saving and closing document: %s", __PRETTY_FUNCTION__);
+                        NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"%s error while saving the document, %@, to iCloud", __PRETTY_FUNCTION__, document.fileURL] code:110 userInfo:[NSDictionary dictionaryWithObject:fileURL forKey:@"FileURL"]];
+                        
+                        handler(document, document.contents, error);
+                    }
                 }];
                 
                 
@@ -286,6 +336,17 @@
     
     // Check for iCloud
     if ([self quickCloudCheck] == NO) return;
+    
+    // Check for nil / null document name
+    if (documentName == nil || [documentName isEqualToString:@""]) {
+        // Log error
+        if (verboseLogging == YES) NSLog(@"[iCloud] Specified document name must not be empty");
+        NSError *error = [NSError errorWithDomain:@"The specified document name was empty / blank and could not be saved. Specify a document name next time." code:001 userInfo:nil];
+        
+        handler(nil, nil, error);
+        
+        return;
+    }
     
     // Get the URL to save the changes to
     NSURL *fileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:documentName];
@@ -469,6 +530,17 @@
     // Check for iCloud
     if ([self quickCloudCheck] == NO) return;
     
+    // Check for nil / null document name
+    if (documentName == nil || [documentName isEqualToString:@""]) {
+        // Log error
+        if (verboseLogging == YES) NSLog(@"[iCloud] Specified document name must not be empty");
+        NSError *error = [NSError errorWithDomain:@"The specified document name was empty / blank and could not be saved. Specify a document name next time." code:001 userInfo:nil];
+        
+        handler(error);
+        
+        return;
+    }
+    
     // Perform tasks on background thread to avoid problems on the main / UI thread
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
         // Get the array of files in the documents directory
@@ -602,6 +674,17 @@
     // Check for iCloud availability
     if ([self quickCloudCheck] == NO) return;
     
+    // Check for nil / null document name
+    if (documentName == nil || [documentName isEqualToString:@""]) {
+        // Log error
+        if (verboseLogging == YES) NSLog(@"[iCloud] Specified document name must not be empty");
+        NSError *error = [NSError errorWithDomain:@"The specified document name was empty / blank and could not be saved. Specify a document name next time." code:001 userInfo:nil];
+        
+        handler(nil, nil, error);
+        
+        return;
+    }
+    
     @try {
         // Get the URL to get the file from
         NSURL *fileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:documentName];
@@ -706,6 +789,13 @@
     // Check for iCloud availability
     if ([self quickCloudCheck] == NO) return nil;
     
+    // Check for nil / null document name
+    if (documentName == nil || [documentName isEqualToString:@""]) {
+        // Log error
+        if (verboseLogging == YES) NSLog(@"[iCloud] Specified document name must not be empty");
+        return nil;
+    }
+    
     @try {
         // Get the URL to get the file from
         NSURL *fileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:documentName];
@@ -754,6 +844,7 @@
     // Get the URL to get the file from
 	NSURL *fileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:documentName];
     
+    
     // Check if the file exists, and return
     if ([fileManager fileExistsAtPath:[fileURL path]]) {
         NSDate *fileModified = [[fileManager attributesOfItemAtPath:[fileURL path] error:nil] fileModificationDate];
@@ -772,6 +863,7 @@
     
     // Get the URL to get the file from
 	NSURL *fileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:documentName];
+    
     
     // Check if the file exists, and return
     if ([fileManager fileExistsAtPath:[fileURL path]]) {
@@ -824,6 +916,17 @@
     // Check for iCloud
     if ([self quickCloudCheck] == NO) return;
     
+    // Check for nil / null document name
+    if (documentName == nil || [documentName isEqualToString:@""]) {
+        // Log error
+        if (verboseLogging == YES) NSLog(@"[iCloud] Specified document name must not be empty");
+        NSError *error = [NSError errorWithDomain:@"The specified document name was empty / blank and could not be saved. Specify a document name next time." code:001 userInfo:nil];
+        
+        handler(nil, nil, error);
+        
+        return;
+    }
+    
     // Get the URL to get the file from
 	NSURL *fileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:documentName];
     
@@ -850,12 +953,20 @@
     // Check for iCloud
     if ([self quickCloudCheck] == NO) return NO;
     
+    // Check for nil / null document name
+    if (documentName == nil || [documentName isEqualToString:@""]) {
+        // Log error
+        if (verboseLogging == YES) NSLog(@"[iCloud] Specified document name must not be empty");
+        return NO;
+    }
+    
     // Log monitoring
     if (verboseLogging == YES) NSLog(@"[iCloud] Checking for existance of %@", documentName);
     
     @try {
         // Get the URL to get the file from
         NSURL *fileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:documentName];
+        
         
         // Check if the file exists, and return
         if ([fileManager fileExistsAtPath:[fileURL path]]) {
@@ -888,12 +999,20 @@
     // Check for iCloud
     if ([self quickCloudCheck] == NO) return NO;
     
+    // Check for nil / null document name
+    if (documentName == nil || [documentName isEqualToString:@""]) {
+        // Log error
+        if (verboseLogging == YES) NSLog(@"[iCloud] Specified document name must not be empty");
+        return NO;
+    }
+    
     // Log monitoring
     if (verboseLogging == YES) NSLog(@"[iCloud] Checking for existance of %@", documentName);
     
     @try {
         // Get the URL to get the file from
         NSURL *fileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:documentName];
+        
         
         // Check if the file exists, and return
         if ([fileManager fileExistsAtPath:[fileURL path]]) {
@@ -932,12 +1051,20 @@
     // Check for iCloud
     if ([self quickCloudCheck] == NO) return nil;
     
+    // Check for nil / null document name
+    if (documentName == nil || [documentName isEqualToString:@""]) {
+        // Log error
+        if (verboseLogging == YES) NSLog(@"[iCloud] Specified document name must not be empty");
+        return nil;
+    }
+    
     // Log conflict search
     if (verboseLogging == YES) NSLog(@"[iCloud] Checking for existance of %@", documentName);
     
     @try {
         // Get the URL to get the file from
         NSURL *fileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:documentName];
+        
         
         // Check if the file exists, and return
         if ([fileManager fileExistsAtPath:[fileURL path]]) {
@@ -974,12 +1101,20 @@
     // Check for iCloud
     if ([self quickCloudCheck] == NO) return;
     
+    // Check for nil / null document name
+    if (documentName == nil || [documentName isEqualToString:@""]) {
+        // Log error
+        if (verboseLogging == YES) NSLog(@"[iCloud] Specified document name must not be empty");
+        return;
+    }
+    
     // Log resolution
     if (verboseLogging == YES) NSLog(@"[iCloud] Checking for existance of %@", documentName);
     
     @try {
         // Get the URL to get the file from
         NSURL *fileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:documentName];
+        
         
         // Check if the file exists, and return
         if ([fileManager fileExistsAtPath:[fileURL path]]) {
@@ -1033,12 +1168,21 @@
     // Check for iCloud
     if ([self quickCloudCheck] == NO) return nil;
     
+    // Check for nil / null document name
+    if (documentName == nil || [documentName isEqualToString:@""]) {
+        // Log error
+        if (verboseLogging == YES) NSLog(@"[iCloud] Specified document name must not be empty");
+        return nil;
+    }
+    
     @try {
         // Get the URL to get the file from
         NSURL *fileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:documentName];
         
         // Check that the file exists
         if ([fileManager fileExistsAtPath:[fileURL path]]) {
+            // Log share
+            if (verboseLogging == YES) NSLog(@"[iCloud] File exists, preparing to share it");
             
             // Create the URL to be returned outside of the block
             __block NSURL *url;
@@ -1089,12 +1233,21 @@
     // Check for iCloud
     if ([self quickCloudCheck] == NO) return;
     
+    // Check for nil / null document name
+    if (documentName == nil || [documentName isEqualToString:@""]) {
+        // Log error
+        if (verboseLogging == YES) NSLog(@"[iCloud] Specified document name must not be empty");
+        return;
+    }
+    
     @try {
         // Create the URL for the file that is being removed
         NSURL *fileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:documentName];
         
         // Check that the file exists
         if ([fileManager fileExistsAtPath:[fileURL path]]) {
+            // Log share
+            if (verboseLogging == YES) NSLog(@"[iCloud] File exists, attempting to delete it");
             
             // Move to the background thread for safety
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
@@ -1108,7 +1261,7 @@
                     [fileManager removeItemAtURL:writingURL error:&error];
                     if (error) {
                         // Log failure
-                        if (verboseLogging == YES) NSLog(@"[iCloud] An error occurred while deleting the document: %@", error);
+                        NSLog(@"[iCloud] An error occurred while deleting the document: %@", error);
                         
                         dispatch_async(dispatch_get_main_queue(), ^{
                             if (handler)
@@ -1152,6 +1305,13 @@
     
     // Check for iCloud
     if ([self quickCloudCheck] == NO) return;
+    
+    // Check for nil / null document name
+    if (documentName == nil || [documentName isEqualToString:@""]) {
+        // Log error
+        if (verboseLogging == YES) NSLog(@"[iCloud] Specified document name must not be empty");
+        return;
+    }
     
     // Perform tasks on background thread to avoid problems on the main / UI thread
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
@@ -1299,6 +1459,13 @@
     // Check for iCloud
     if ([self quickCloudCheck] == NO) return;
     
+    // Check for nil / null document name
+    if (documentName == nil || [documentName isEqualToString:@""] || newName == nil || [newName isEqualToString:@""]) {
+        // Log error
+        if (verboseLogging == YES) NSLog(@"[iCloud] Specified document name must not be empty");
+        return;
+    }
+    
     // Create the URLs for the files that are being renamed
     NSURL *sourceFileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:documentName];
     NSURL *newFileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:newName];
@@ -1391,6 +1558,13 @@
     
     // Check for iCloud
     if ([self quickCloudCheck] == NO) return;
+    
+    // Check for nil / null document name
+    if (documentName == nil || [documentName isEqualToString:@""] || newName == nil || [newName isEqualToString:@""]) {
+        // Log error
+        if (verboseLogging == YES) NSLog(@"[iCloud] Specified document name must not be empty");
+        return;
+    }
     
     // Create the URLs for the files that are being renamed
     NSURL *sourceFileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:documentName];

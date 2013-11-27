@@ -10,6 +10,7 @@
 		996B9CA31830073C006A36DA /* MHPrettyDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 996B9CA21830073C006A36DA /* MHPrettyDate.m */; };
 		997591521839500900DECF95 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 997591511839500900DECF95 /* Settings.bundle */; };
 		99AD4AC61837C3D3008BBEA4 /* CloudBanner.png in Resources */ = {isa = PBXBuildFile; fileRef = 99AD4AC51837C3D3008BBEA4 /* CloudBanner.png */; };
+		99ADF830184644FD005553A5 /* iPadStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99ADF82F184644FD005553A5 /* iPadStoryboard.storyboard */; };
 		99D6CEFA1845B22400CD77BA /* ConflictViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99D6CEF91845B22400CD77BA /* ConflictViewController.m */; };
 		99E85B01182DC9280039FC97 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E85B00182DC9280039FC97 /* Foundation.framework */; };
 		99E85B03182DC9280039FC97 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E85B02182DC9280039FC97 /* CoreGraphics.framework */; };
@@ -17,7 +18,7 @@
 		99E85B0B182DC9280039FC97 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 99E85B09182DC9280039FC97 /* InfoPlist.strings */; };
 		99E85B0D182DC9280039FC97 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 99E85B0C182DC9280039FC97 /* main.m */; };
 		99E85B11182DC9280039FC97 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 99E85B10182DC9280039FC97 /* AppDelegate.m */; };
-		99E85B14182DC9280039FC97 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99E85B12182DC9280039FC97 /* Main.storyboard */; };
+		99E85B14182DC9280039FC97 /* iPhoneStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99E85B12182DC9280039FC97 /* iPhoneStoryboard.storyboard */; };
 		99E85B19182DC9280039FC97 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99E85B18182DC9280039FC97 /* Images.xcassets */; };
 		99E85B20182DC9280039FC97 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E85B1F182DC9280039FC97 /* XCTest.framework */; };
 		99E85B21182DC9280039FC97 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E85B00182DC9280039FC97 /* Foundation.framework */; };
@@ -48,6 +49,7 @@
 		996B9CA21830073C006A36DA /* MHPrettyDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHPrettyDate.m; sourceTree = "<group>"; };
 		997591511839500900DECF95 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		99AD4AC51837C3D3008BBEA4 /* CloudBanner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloudBanner.png; sourceTree = "<group>"; };
+		99ADF82F184644FD005553A5 /* iPadStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iPadStoryboard.storyboard; sourceTree = "<group>"; };
 		99D6CEF81845B22400CD77BA /* ConflictViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConflictViewController.h; sourceTree = "<group>"; };
 		99D6CEF91845B22400CD77BA /* ConflictViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConflictViewController.m; sourceTree = "<group>"; };
 		99E85AFD182DC9280039FC97 /* iCloud App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iCloud App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,7 +62,7 @@
 		99E85B0E182DC9280039FC97 /* iCloud App-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iCloud App-Prefix.pch"; sourceTree = "<group>"; };
 		99E85B0F182DC9280039FC97 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		99E85B10182DC9280039FC97 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		99E85B13182DC9280039FC97 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		99E85B13182DC9280039FC97 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/iPhoneStoryboard.storyboard; sourceTree = "<group>"; };
 		99E85B18182DC9280039FC97 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		99E85B1E182DC9280039FC97 /* iCloud AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iCloud AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		99E85B1F182DC9280039FC97 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -154,7 +156,8 @@
 				99E85B35182DC9510039FC97 /* iCloud App.entitlements */,
 				99E85B0F182DC9280039FC97 /* AppDelegate.h */,
 				99E85B10182DC9280039FC97 /* AppDelegate.m */,
-				99E85B12182DC9280039FC97 /* Main.storyboard */,
+				99E85B12182DC9280039FC97 /* iPhoneStoryboard.storyboard */,
+				99ADF82F184644FD005553A5 /* iPadStoryboard.storyboard */,
 				99E85B38182DD0DD0039FC97 /* ListViewController.h */,
 				99E85B39182DD0DD0039FC97 /* ListViewController.m */,
 				99E85B3B182DD34C0039FC97 /* DocumentViewController.h */,
@@ -299,8 +302,9 @@
 				99E85B19182DC9280039FC97 /* Images.xcassets in Resources */,
 				99E85B0B182DC9280039FC97 /* InfoPlist.strings in Resources */,
 				997591521839500900DECF95 /* Settings.bundle in Resources */,
-				99E85B14182DC9280039FC97 /* Main.storyboard in Resources */,
+				99E85B14182DC9280039FC97 /* iPhoneStoryboard.storyboard in Resources */,
 				99AD4AC61837C3D3008BBEA4 /* CloudBanner.png in Resources */,
+				99ADF830184644FD005553A5 /* iPadStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,12 +362,12 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		99E85B12182DC9280039FC97 /* Main.storyboard */ = {
+		99E85B12182DC9280039FC97 /* iPhoneStoryboard.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				99E85B13182DC9280039FC97 /* Base */,
 			);
-			name = Main.storyboard;
+			name = iPhoneStoryboard.storyboard;
 			sourceTree = "<group>";
 		};
 		99E85B28182DC9280039FC97 /* InfoPlist.strings */ = {
@@ -461,9 +465,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iCloud App/iCloud App-Prefix.pch";
 				INFOPLIST_FILE = "iCloud App/iCloud App-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -480,9 +486,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iCloud App/iCloud App-Prefix.pch";
 				INFOPLIST_FILE = "iCloud App/iCloud App-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

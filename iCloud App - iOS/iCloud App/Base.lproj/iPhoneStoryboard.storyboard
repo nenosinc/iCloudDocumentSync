@@ -102,7 +102,7 @@
                 <viewController storyboardIdentifier="ShareView" title="Share" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VCd-p7-PFD" customClass="ShareViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KGG-9A-K9m">
                         <rect key="frame" x="0.0" y="0.0" width="250" height="225"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document successfully published to iCloud" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ea3-yx-zpT">
                                 <rect key="frame" x="20" y="20" width="210" height="54"/>
@@ -159,7 +159,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uVl-G8-YdS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1920" y="391"/>
+            <point key="canvasLocation" x="1950" y="524"/>
         </scene>
         <!--List View Controller - iCloud Files-->
         <scene sceneID="rOd-Qb-HgB">
@@ -203,7 +203,7 @@
                     <navigationItem key="navigationItem" title="iCloud Files" id="Udv-xo-v7z">
                         <barButtonItem key="leftBarButtonItem" systemItem="add" id="kKO-EM-UqG">
                             <connections>
-                                <segue destination="vXZ-lx-hvc" kind="push" identifier="documentView" id="d7T-jd-tZf"/>
+                                <segue destination="vXZ-lx-hvc" kind="push" identifier="newDocument" id="d7T-jd-tZf"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -211,6 +211,8 @@
                     <connections>
                         <segue destination="67H-UU-IPo" kind="modal" identifier="showWelcome" id="5CC-Xj-Ax2"/>
                         <segue destination="OkL-IS-kZD" kind="modal" identifier="showConflict" id="277-Nb-nLr"/>
+                        <segue destination="vXZ-lx-hvc" kind="push" identifier="documentView" id="YWc-gK-XYn"/>
+                        <segue destination="cFH-cN-NUG" kind="modal" identifier="loadingDocument" id="Hhz-HM-dXE"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xO2-6y-90r" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -309,6 +311,42 @@ To properly use this project please do the following:
             </objects>
             <point key="canvasLocation" x="372" y="220"/>
         </scene>
+        <!--View Controller - Load-->
+        <scene sceneID="E9g-x2-ROW">
+            <objects>
+                <viewController title="Load" id="cFH-cN-NUG" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IDJ-XT-NDL">
+                        <rect key="frame" x="0.0" y="0.0" width="250" height="151"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading iCloud Document" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="01g-hG-hxh">
+                                <rect key="frame" x="16" y="20" width="218" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="19"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please wait while the content is loaded. This may take a few seconds." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nej-dG-jk1">
+                                <rect key="frame" x="20" y="98" width="210" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" id="HtX-YB-7Mt">
+                                <rect key="frame" x="107" y="57" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.64470146210000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FHj-4E-5Yw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1950" y="258"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Banner" width="280" height="200"/>
@@ -319,4 +357,7 @@ To properly use this project please do the following:
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="YWc-gK-XYn"/>
+    </inferredMetricsTieBreakers>
 </document>
