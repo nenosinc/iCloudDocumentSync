@@ -68,7 +68,7 @@
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/iCloudFileConflictBetweenCloudFile:andLocalFile:</TokenIdentifier>
-			<Abstract type="html">Sent to the delegate where there is a conflict between a local file and an iCloud file during an upload</Abstract>
+			<Abstract type="html">Sent to the delegate where there is a conflict between a local file and an iCloud file during an upload or download</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>			
 			
 			<Declaration>- (void)iCloudFileConflictBetweenCloudFile:(NSDictionary *)cloudFile andLocalFile:(NSDictionary *)localFile</Declaration>

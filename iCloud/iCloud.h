@@ -282,14 +282,14 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
  @param documentName The name of the document being renamed in iCloud. The file specified should exist, otherwise an error will occur. This value must not be nil.
  @param newName The new name which the document should be renamed with. The file specified should not exist, otherwise an error will occur. This value must not be nil.
  @param handler Code block called when the document renaming has completed. The completion block passes and NSError object which contains any error information if an error occurred, otherwise it will be nil. */
-- (void)renameOriginalDocument:(NSString *)documentName withNewName:(NSString *)newName completion:(void (^)(NSError *error))handler;
+- (void)renameOriginalDocument:(NSString *)documentName withNewName:(NSString *)newName completion:(void (^)(NSError *error))handler __attribute__((nonnull));
 
 /** Duplicate a document in iCloud
  
  @param documentName The name of the document being duplicated in iCloud. The file specified should exist, otherwise an error will occur. This value must not be nil.
  @param newName The new name which the document should be duplicated to (usually the same name with the word "copy" appeneded to the end). The file specified should not exist, otherwise an error will occur. This value must not be nil.
  @param handler Code block called when the document duplication has completed. The completion block passes and NSError object which contains any error information if an error occurred, otherwise it will be nil. */
-- (void)duplicateOriginalDocument:(NSString *)documentName withNewName:(NSString *)newName completion:(void (^)(NSError *error))handler;
+- (void)duplicateOriginalDocument:(NSString *)documentName withNewName:(NSString *)newName completion:(void (^)(NSError *error))handler __attribute__((nonnull));
 
 
 
@@ -300,7 +300,7 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
  
  @param documentName The name of the file in iCloud. This value must not be nil.
  @param handler Completion handler that passes three parameters, an NSError, NSString and a UIDocumentState. The documentState parameter represents the document state that the specified file is currently in (may be nil if the file does not exist). The userReadableDocumentState parameter is an NSString which succinctly describes the current document state; if the file does not exist, a non-scary error will be displayed. The NSError parameter will contain a 404 error if the file does not exist. */
-- (void)documentStateForFile:(NSString *)documentName completion:(void (^)(UIDocumentState *documentState, NSString *userReadableDocumentState, NSError *error))handler;
+- (void)documentStateForFile:(NSString *)documentName completion:(void (^)(UIDocumentState *documentState, NSString *userReadableDocumentState, NSError *error))handler __attribute__((nonnull));
 
 /** Monitor changes in the state of a document stored in iCloud
  
@@ -308,15 +308,37 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
  @param sender Object registering as an observer. This value must not be nil.
  @param selector Selector to be called when the document state changes. Must only have one argument, an instance of NSNotifcation whose object is an iCloudDocument (UIDocument subclass). This value must not be nil. 
  @return YES if the motioring was successfully setup, NO if there was an issue setting up the monitoring. */
-- (BOOL)monitorDocumentStateForFile:(NSString *)documentName onTarget:(id)sender withSelector:(SEL)selector;
+- (BOOL)monitorDocumentStateForFile:(NSString *)documentName onTarget:(id)sender withSelector:(SEL)selector __attribute__((nonnull));
 
 /** Stop monitoring changes to the state of a document stored in iCloud
  
  @param documentName The name of the file in iCloud. This value must not be nil.
  @param sender Object registered as an observer that will no longer recieve document state updates. This value must not be nil. 
  @return YES if the motioring was successfully setup, NO if there was an issue setting up the monitoring. */
-- (BOOL)stopMonitoringDocumentStateChangesForFile:(NSString *)documentName onTarget:(id)sender;
+- (BOOL)stopMonitoringDocumentStateChangesForFile:(NSString *)documentName onTarget:(id)sender __attribute__((nonnull));
 
+
+
+
+/** @name Resolving iCloud Conflicts */
+
+/** Find all the conflicting versions of a specified document
+ 
+ @param documentName The name of the file in iCloud. This value must not be nil.
+ @return An array of NSFileVersion objects, or nil if no such version object exists. */
+- (NSArray *)findUnresolvedConflictingVersionsOfFile:(NSString *)documentName __attribute__((nonnull));
+
+/** Resolve a document conflict for a file stored in iCloud
+ 
+ @abstract Your application can follow one of three strategies for resolving document-version conflicts:
+ 
+ * Merge the changes from the conflicting versions.
+ * Choose one of the document versions based on some pertinent factor, such as the version with the latest modification date.
+ * Enable the user to view conflicting versions of a document and select the one to use.
+ 
+ @param documentName The name of the file in iCloud. This value must not be nil.
+ @param documentVersion The version of the document which should be kept and saved. All other conflicting versions will be removed. */
+- (void)resolveConflictForFile:(NSString *)documentName withSelectedFileVersion:(NSFileVersion *)documentVersion __attribute__((nonnull));
 
 
 
@@ -369,9 +391,13 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
 - (void)iCloudFilesDidChange:(NSMutableArray *)files withNewFileNames:(NSMutableArray *)fileNames;
 
 
-/** Sent to the delegate where there is a conflict between a local file and an iCloud file during an upload
+/** Sent to the delegate where there is a conflict between a local file and an iCloud file during an upload or download
  
- @discussion When both files have the same modification date and file content, iCloud Document Sync will not be able to automatically determine how to handle the conflict. As a result, this delegate method is called to pass the file information to the delegate which should be able to appropriately handle and resolve the conflict. The delegate should, if needed, present the user with a conflict resolution interface. iCloud Document Sync does not need to know the result of the attempted resolution, it will continue to upload all files which are not conflicting. It is important to note that **this method may be called more than once in a very short period of time** - be prepared to handle the data appropriately. This delegate method is called on the main thread using GCD.
+ @discussion When both files have the same modification date and file content, iCloud Document Sync will not be able to automatically determine how to handle the conflict. As a result, this delegate method is called to pass the file information to the delegate which should be able to appropriately handle and resolve the conflict. The delegate should, if needed, present the user with a conflict resolution interface. iCloud Document Sync does not need to know the result of the attempted resolution, it will continue to upload all files which are not conflicting. 
+ 
+ It is important to note that **this method may be called more than once in a very short period of time** - be prepared to handle the data appropriately.
+ 
+ The delegate is only notified about conflicts during upload and download prodecures with iCloud. This method does not monitor for document conflicts between documents which already exist in iCloud. There are other methods provided to you to detect document state and state changes / conflicts.
  
  @param cloudFile An NSDictionary with the cloud file and various other information. This parameter contains the fileContent as NSData, fileURL as NSURL, and modifiedDate as NSDate.
  @param localFile An NSDictionary with the local file and various other information. This parameter contains the fileContent as NSData, fileURL as NSURL, and modifiedDate as NSDate. */

@@ -672,6 +672,47 @@
 		</Token>
 		
 		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/iCloud/findUnresolvedConflictingVersionsOfFile:</TokenIdentifier>
+			<Abstract type="html">Find all the conflicting versions of a specified document</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>- (NSArray *)findUnresolvedConflictingVersionsOfFile:(NSString *)documentName</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>documentName</Name>
+					<Abstract type="html">The name of the file in iCloud. This value must not be nil.</Abstract>
+				</Parameter>
+			</Parameters>
+			<ReturnValue><Abstract type="html">An array of NSFileVersion objects, or nil if no such version object exists.</Abstract></ReturnValue>
+			<Anchor>//api/name/findUnresolvedConflictingVersionsOfFile:</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/iCloud/resolveConflictForFile:withSelectedFileVersion:</TokenIdentifier>
+			<Abstract type="html">Your application can follow one of three strategies for resolving document-version conflicts:
+
+* Merge the changes from the conflicting versions.
+* Choose one of the document versions based on some pertinent factor, such as the version with the latest modification date.
+* Enable the user to view conflicting versions of a document and select the one to use.</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>- (void)resolveConflictForFile:(NSString *)documentName withSelectedFileVersion:(NSFileVersion *)documentVersion</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>documentName</Name>
+					<Abstract type="html">The name of the file in iCloud. This value must not be nil.</Abstract>
+				</Parameter><Parameter>
+					<Name>documentVersion</Name>
+					<Abstract type="html">The version of the document which should be kept and saved. All other conflicting versions will be removed.</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/resolveConflictForFile:withSelectedFileVersion:</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
 			<TokenIdentifier>//apple_ref/occ/clm/iCloud/uploadLocalOfflineDocumentsWithDelegate:</TokenIdentifier>
 			<Abstract type="html">DEPRECATED. Use uploadLocalOfflineDocuments instead, like so: [[iCloud sharedCloud] uploadLocalOfflineDocuments]; (&lt;b class=&quot;deprecated&quot;&gt;Deprecated:&lt;/b&gt;&lt;span class=&quot;deprecated&quot;&gt; Deprecated in version 7.0. Use uploadLocalOfflineDocuments instead.&lt;/span&gt;)</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>			

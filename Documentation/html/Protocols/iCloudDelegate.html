@@ -206,7 +206,7 @@
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/iCloudFileConflictBetweenCloudFile:andLocalFile:">&ndash;&nbsp;iCloudFileConflictBetweenCloudFile:andLocalFile:</a></code>
-		<span class="tooltip"><p>Sent to the delegate where there is a conflict between a local file and an <a href="../Classes/iCloud.html">iCloud</a> file during an upload</p></span>
+		<span class="tooltip"><p>Sent to the delegate where there is a conflict between a local file and an <a href="../Classes/iCloud.html">iCloud</a> file during an upload or download</p></span>
 	</span>
 	
 	
@@ -727,7 +727,7 @@
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Sent to the delegate where there is a conflict between a local file and an <a href="../Classes/iCloud.html">iCloud</a> file during an upload</p>
+		<p>Sent to the delegate where there is a conflict between a local file and an <a href="../Classes/iCloud.html">iCloud</a> file during an upload or download</p>
 	</div>		
 	
     
@@ -759,7 +759,11 @@
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>When both files have the same modification date and file content, <a href="../Classes/iCloud.html">iCloud</a> Document Sync will not be able to automatically determine how to handle the conflict. As a result, this delegate method is called to pass the file information to the delegate which should be able to appropriately handle and resolve the conflict. The delegate should, if needed, present the user with a conflict resolution interface. <a href="../Classes/iCloud.html">iCloud</a> Document Sync does not need to know the result of the attempted resolution, it will continue to upload all files which are not conflicting. It is important to note that <strong>this method may be called more than once in a very short period of time</strong> - be prepared to handle the data appropriately. This delegate method is called on the main thread using GCD.</p>
+		<p>When both files have the same modification date and file content, <a href="../Classes/iCloud.html">iCloud</a> Document Sync will not be able to automatically determine how to handle the conflict. As a result, this delegate method is called to pass the file information to the delegate which should be able to appropriately handle and resolve the conflict. The delegate should, if needed, present the user with a conflict resolution interface. <a href="../Classes/iCloud.html">iCloud</a> Document Sync does not need to know the result of the attempted resolution, it will continue to upload all files which are not conflicting.</p>
+
+<p>It is important to note that <strong>this method may be called more than once in a very short period of time</strong> - be prepared to handle the data appropriately.</p>
+
+<p>The delegate is only notified about conflicts during upload and download prodecures with <a href="../Classes/iCloud.html">iCloud</a>. This method does not monitor for document conflicts between documents which already exist in <a href="../Classes/iCloud.html">iCloud</a>. There are other methods provided to you to detect document state and state changes / conflicts.</p>
 	</div>
 	
 	

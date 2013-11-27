@@ -87,11 +87,15 @@
 	
 	<option value="//api/name/fileSize:">&nbsp;&nbsp;&nbsp;&nbsp;- fileSize:</option>
 	
+	<option value="//api/name/findUnresolvedConflictingVersionsOfFile:">&nbsp;&nbsp;&nbsp;&nbsp;- findUnresolvedConflictingVersionsOfFile:</option>
+	
 	<option value="//api/name/getListOfCloudFiles">&nbsp;&nbsp;&nbsp;&nbsp;- getListOfCloudFiles</option>
 	
 	<option value="//api/name/monitorDocumentStateForFile:onTarget:withSelector:">&nbsp;&nbsp;&nbsp;&nbsp;- monitorDocumentStateForFile:onTarget:withSelector:</option>
 	
 	<option value="//api/name/renameOriginalDocument:withNewName:completion:">&nbsp;&nbsp;&nbsp;&nbsp;- renameOriginalDocument:withNewName:completion:</option>
+	
+	<option value="//api/name/resolveConflictForFile:withSelectedFileVersion:">&nbsp;&nbsp;&nbsp;&nbsp;- resolveConflictForFile:withSelectedFileVersion:</option>
 	
 	<option value="//api/name/retrieveCloudDocumentObjectWithName:">&nbsp;&nbsp;&nbsp;&nbsp;- retrieveCloudDocumentObjectWithName:</option>
 	
@@ -153,6 +157,8 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_iCloud Document State">iCloud Document State</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Resolving iCloud Conflicts">Resolving iCloud Conflicts</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Deprecated Methods">Deprecated Methods</a></span></li>
 	
 </ul></li>
@@ -213,11 +219,15 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/fileSize:">fileSize:</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/findUnresolvedConflictingVersionsOfFile:">findUnresolvedConflictingVersionsOfFile:</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getListOfCloudFiles">getListOfCloudFiles</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/monitorDocumentStateForFile:onTarget:withSelector:">monitorDocumentStateForFile:onTarget:withSelector:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/renameOriginalDocument:withNewName:completion:">renameOriginalDocument:withNewName:completion:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/resolveConflictForFile:withSelectedFileVersion:">resolveConflictForFile:withSelectedFileVersion:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/retrieveCloudDocumentObjectWithName:">retrieveCloudDocumentObjectWithName:</a></span></li>
 	
@@ -605,6 +615,35 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 	<span class="tooltip">
 		<code><a href="#//api/name/stopMonitoringDocumentStateChangesForFile:onTarget:">&ndash;&nbsp;stopMonitoringDocumentStateChangesForFile:onTarget:</a></code>
 		<span class="tooltip"><p>Stop monitoring changes to the state of a document stored in iCloud</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Resolving iCloud Conflicts" name="task_Resolving iCloud Conflicts"></a>
+						<h3 class="subsubtitle task-title">Resolving iCloud Conflicts</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/findUnresolvedConflictingVersionsOfFile:">&ndash;&nbsp;findUnresolvedConflictingVersionsOfFile:</a></code>
+		<span class="tooltip"><p>Find all the conflicting versions of a specified document</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/resolveConflictForFile:withSelectedFileVersion:">&ndash;&nbsp;resolveConflictForFile:withSelectedFileVersion:</a></code>
+		<span class="tooltip"><p>Your application can follow one of three strategies for resolving document-version conflicts:</p>
+
+<ul>
+<li>Merge the changes from the conflicting versions.</li>
+<li>Choose one of the document versions based on some pertinent factor, such as the version with the latest modification date.</li>
+<li>Enable the user to view conflicting versions of a document and select the one to use.</li>
+</ul>
+</span>
 	</span>
 	
 	
@@ -1532,6 +1571,57 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 </div>
 						
 						<div class="section-method">
+	<a name="//api/name/findUnresolvedConflictingVersionsOfFile:" title="findUnresolvedConflictingVersionsOfFile:"></a>
+	<h3 class="subsubtitle method-title">findUnresolvedConflictingVersionsOfFile:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Find all the conflicting versions of a specified document</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (NSArray *)findUnresolvedConflictingVersionsOfFile:(NSString *)<em>documentName</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>documentName</em></dt>
+			<dd><p>The name of the file in iCloud. This value must not be nil.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>An array of NSFileVersion objects, or nil if no such version object exists.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">iCloud.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
 	<a name="//api/name/getListOfCloudFiles" title="getListOfCloudFiles"></a>
 	<h3 class="subsubtitle method-title">getListOfCloudFiles</h3>
 	
@@ -1665,6 +1755,64 @@ Adding iCloud Document Sync to your project is easy. Follow these steps below to
 		<dl class="argument-def parameter-def">
 			<dt><em>handler</em></dt>
 			<dd><p>Code block called when the document renaming has completed. The completion block passes and NSError object which contains any error information if an error occurred, otherwise it will be nil.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">iCloud.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/resolveConflictForFile:withSelectedFileVersion:" title="resolveConflictForFile:withSelectedFileVersion:"></a>
+	<h3 class="subsubtitle method-title">resolveConflictForFile:withSelectedFileVersion:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Your application can follow one of three strategies for resolving document-version conflicts:</p>
+
+<ul>
+<li>Merge the changes from the conflicting versions.</li>
+<li>Choose one of the document versions based on some pertinent factor, such as the version with the latest modification date.</li>
+<li>Enable the user to view conflicting versions of a document and select the one to use.</li>
+</ul>
+
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)resolveConflictForFile:(NSString *)<em>documentName</em> withSelectedFileVersion:(NSFileVersion *)<em>documentVersion</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>documentName</em></dt>
+			<dd><p>The name of the file in iCloud. This value must not be nil.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>documentVersion</em></dt>
+			<dd><p>The version of the document which should be kept and saved. All other conflicting versions will be removed.</p></dd>
 		</dl>
 		
 	</div>

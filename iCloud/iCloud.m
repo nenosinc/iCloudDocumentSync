@@ -878,13 +878,16 @@
         }
     } @catch (NSException *exception) {
         // Log exception
-        NSLog(@"[iCloud] Exception while attempting to stop monitoring document state changes: %@", exception);
+        NSLog(@"[iCloud] Exception while attempting to stop monitoring document state changes to %@", exception);
         
         return NO;
     }
 }
 
 - (BOOL)stopMonitoringDocumentStateChangesForFile:(NSString *)documentName onTarget:(id)sender {
+    // Log monitoring
+    if (verboseLogging == YES) NSLog(@"[iCloud] Preparing to stop monitoring document changes to %@", documentName);
+    
     // Check for iCloud
     if ([self quickCloudCheck] == NO) return NO;
     
@@ -914,9 +917,110 @@
         }
     } @catch (NSException *exception) {
         // Log exception
-        NSLog(@"[iCloud] Exception while attempting to stop monitoring document state changes: %@", exception);
+        NSLog(@"[iCloud] Exception while attempting to stop monitoring document state changes to %@", exception);
         
         return NO;
+    }
+}
+
+//---------------------------------------------------------------------------------------------------------------------------------------------//
+//------------ Conflict -----------------------------------------------------------------------------------------------------------------------//
+//---------------------------------------------------------------------------------------------------------------------------------------------//
+#pragma mark - Conflict
+
+- (NSArray *)findUnresolvedConflictingVersionsOfFile:(NSString *)documentName {
+    // Log conflict search
+    if (verboseLogging == YES) NSLog(@"[iCloud] Preparing to find all version conflicts for %@", documentName);
+    
+    // Check for iCloud
+    if ([self quickCloudCheck] == NO) return nil;
+    
+    // Log conflict search
+    if (verboseLogging == YES) NSLog(@"[iCloud] Checking for existance of %@", documentName);
+    
+    @try {
+        // Get the URL to get the file from
+        NSURL *fileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:documentName];
+        
+        // Check if the file exists, and return
+        if ([fileManager fileExistsAtPath:[fileURL path]]) {
+            // Log conflict search
+            if (verboseLogging == YES) NSLog(@"[iCloud] %@ exists at the correct path, proceeding to find the conflicts", documentName);
+        
+            NSMutableArray *fileVersions = [NSMutableArray array];
+            
+            NSFileVersion *currentVersion = [NSFileVersion currentVersionOfItemAtURL:fileURL];
+            [fileVersions addObject:currentVersion];
+            
+            NSArray *otherVersions = [NSFileVersion otherVersionsOfItemAtURL:fileURL];
+            [fileVersions addObjectsFromArray:otherVersions];
+            
+            return fileVersions;
+        } else {
+            // The document could not be found
+            NSLog(@"[iCloud] File not found: %@", documentName);
+            
+            return nil;
+        }
+    } @catch (NSException *exception) {
+        // Log exception
+        NSLog(@"[iCloud] Exception while attempting to stop monitoring document state changes to %@", exception);
+        
+        return nil;
+    }
+}
+
+- (void)resolveConflictForFile:(NSString *)documentName withSelectedFileVersion:(NSFileVersion *)documentVersion {
+    // Log resolution
+    if (verboseLogging == YES) NSLog(@"[iCloud] Preparing to resolve version conflict for %@", documentName);
+    
+    // Check for iCloud
+    if ([self quickCloudCheck] == NO) return;
+    
+    // Log resolution
+    if (verboseLogging == YES) NSLog(@"[iCloud] Checking for existance of %@", documentName);
+    
+    @try {
+        // Get the URL to get the file from
+        NSURL *fileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:documentName];
+        
+        // Check if the file exists, and return
+        if ([fileManager fileExistsAtPath:[fileURL path]]) {
+            // Log resolution
+            if (verboseLogging == YES) NSLog(@"[iCloud] %@ exists at the correct path, proceeding to resolve the conflict", documentName);
+            
+            // Make the current version "win" the conflict if it is selected
+            if (![documentVersion isEqual:[NSFileVersion currentVersionOfItemAtURL:fileURL]]) {
+                // Log resolution
+                if (verboseLogging == YES) NSLog(@"[iCloud] The current version (%@) of %@ matches the selected version. Resolving conflict...", documentVersion, documentName);
+                
+                [documentVersion replaceItemAtURL:fileURL options:0 error:nil];
+            }
+            
+            // Remove other versions of the document
+            [NSFileVersion removeOtherVersionsOfItemAtURL:fileURL error:nil];
+            
+            // Log resolution
+            if (verboseLogging == YES) NSLog(@"[iCloud] Removing all unresolved other versions of %@", documentName);
+            
+            NSArray *conflictVersions = [NSFileVersion unresolvedConflictVersionsOfItemAtURL:fileURL];
+            for (NSFileVersion *fileVersion in conflictVersions) {
+                fileVersion.resolved = YES;
+            }
+            
+            // Log resolution
+            if (verboseLogging == YES) NSLog(@"[iCloud] Finished resolving conflicts for %@", documentName);
+        } else {
+            // The document could not be found
+            NSLog(@"[iCloud] File not found: %@", documentName);
+            
+            return;
+        }
+    } @catch (NSException *exception) {
+        // Log exception
+        NSLog(@"[iCloud] Exception while attempting to stop monitoring document state changes to %@", exception);
+        
+        return;
     }
 }
 
