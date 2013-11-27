@@ -2,9 +2,8 @@
 //  iCloudDocument.h
 //  iCloud Document Sync
 //
-//  Created by iRare Media on June 27, 2013
-//  Copyright (c) 2013 iRare Media. All rights reserved.
-//
+//  Created by iRare Media. Last updated November 2013.
+//  Available on GitHub
 //
 
 #import <UIKit/UIKit.h>

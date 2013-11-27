@@ -4,9 +4,6 @@ iCloud Document Sync makes it easy for developers to integrate the iCloud docume
 
 If you like the project, please [star it](https://github.com/iRareMedia/iCloudDocumentSync) on GitHub! Watch the project on GitHub for updates. If you use iCloud Document Sync in your app, send an email to contact@iraremedia.com or let us know on Twitter @iRareMedia.
 
-## FEATURE BRANCH
-This is the feature branch of iCloud Document Sync. A feature branch, like beta / alpha software, is **not** production ready. Many aspects of the project on this branch are incomplete. If you need a stable production-ready build, please use the [master branch](https://github.com/iRareMedia/iCloudDocumentSync/tree/master). The feature branch is expected to be production ready by December 1, 2013.
-
 # Project Features
 iCloud Document Sync is a great way to use iCloud document storage in your iOS app. Below are a few key project features and highlights.
 * Sync, Upload, Read, Write, Share, Save, Remove, and Edit any iCloud document in only one line of code.  
@@ -164,12 +161,21 @@ Monitor changes in a document's state by subscribing a specific target / selecto
 Stop monitoring changes in a document's state by removing notifications for a specific target.
 
     BOOL success = [[iCloud sharedCloud] stopMonitoringDocumentStateChangesForFile:@"docName.ext" onTarget:self];
+    
+### File Conflict Handling
+When a document's state changes to *in conflict*, your application should take the appropriate action by resolving the conflict or letting the user resolve the conflict. You can monitor for document state changes with the `monitorDocumentStateForFile:onTarget:withSelector:` method. iCloud Document Sync provides two methods that help handle a conflict with a document stored in iCloud. The first method lets you find all conflicting versions of a file:
+
+    NSArray *documentVersions = [[iCloud sharedCloud] findUnresolvedConflictingVersionsOfFile:documentName];
+
+The array returned contains a list of NSFileVersion objects for the specified file. You can then use this list of file versions to either automatically merge changes or have the user select the correct version. Use the following method to resolve the conflict by submitting the "correct" version of the file.
+
+    [[iCloud sharedCloud] resolveConflictForFile:@"docName.ext" withSelectedFileVersion:[NSFileVersion object]];
 
 
 ## Delegates
-iCloud Document Sync delegate methods notify you of the status of iCloud and your documents stored in iCloud. There are no required delegate method for iOS, however it is recommended that you utilize all available delegate methods. 
+iCloud Document Sync delegate methods notify you of the status of iCloud and your documents stored in iCloud. To use the iCloud delegate, subscribe to the `iCloudDelegate` protocol and then set the `delegate` property. To use the iCloudDocument delegate, subscribe to the `iCloudDocumentDelegate` protocol and then set the `delegate` property.
 
-### iCloud Availability Changed</td>
+### iCloud Availability Changed
 Called (automatically by iOS) when the availability of iCloud changes.  The first parameter, `cloudIsAvailable`, is a boolean value that is YES if iCloud is available and NO if iCloud is not available. The second parameter, `ubiquityToken`, is an iCloud ubiquity token that represents the current iCloud identity. Can be used to determine if iCloud is available and if the iCloud account has been changed (ex. if the user logged out and then logged in with a different iCloud account). This object may be nil if iCloud is not available for any reason. The third parameter, `ubiquityContainer`, is the root URL path to the current application's ubiquity container. This URL may be nil until the ubiquity container is initialized.
 
     - (void)iCloudAvailabilityDidChangeToState:(BOOL)cloudIsAvailable withUbiquityToken:(id)ubiquityToken withUbiquityContainer:(NSURL *)ubiquityContainer
@@ -193,3 +199,8 @@ Below is the delegate method to be used
 Called before creating an iCloud Query filter. Specify the type of file to be queried. If this delegate method is not implemented or returns nil, all files stored in the documents directory will be queried. Should return a single file extension formatted (as an NSString) like this: `@"txt"`
 
     - (NSString *)iCloudQueryLimitedToFileExtension
+
+### iCloud Document Error
+Delegate method fired when an error occurs during an attempt to read, save, or revert a document. This delegate method is only available on the `iCloudDocumentDelegate` with the `iCloudDocument` class. If you implement the iCloudDocument delegate, then you *must* implement this method - it is required.
+
+    - (void)iCloudDocumentErrorOccured:(NSError *)error

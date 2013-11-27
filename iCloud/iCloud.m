@@ -2,11 +2,8 @@
 //  iCloud.m
 //  iCloud Document Sync
 //
-//  Some portions of this project are based
-//      off of the iCloudPlayground project
-//
-//  Created by iRare Media on 3/23/13.
-//
+//  Created by iRare Media. Last updated November 2013.
+//  Available on GitHub
 //
 
 #import "iCloud.h"
@@ -1124,6 +1121,7 @@
                         if (verboseLogging == YES) NSLog(@"[iCloud] The document has been deleted");
                         
                         dispatch_async(dispatch_get_main_queue(), ^{
+                            [self updateFiles];
                             if (handler)
                                 handler(nil);
                         });
