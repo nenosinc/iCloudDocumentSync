@@ -24,6 +24,7 @@
 					<Path>index.html</Path>
 					<Subnodes>
 						<NodeRef refid="3"/>
+						<NodeRef refid="4"/>
 						
 					</Subnodes>
 				</Node>
@@ -46,6 +47,10 @@
 		<Node id="3" type="file">
 			<Name>iCloudDelegate</Name>
 			<Path>Protocols/iCloudDelegate.html</Path>
+		</Node>
+		<Node id="4" type="file">
+			<Name>iCloudDocumentDelegate</Name>
+			<Path>Protocols/iCloudDocumentDelegate.html</Path>
 		</Node>
 		
 	</Library>

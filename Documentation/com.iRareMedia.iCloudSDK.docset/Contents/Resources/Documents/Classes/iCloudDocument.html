@@ -41,7 +41,14 @@
 	
 	<option value="//api/name/contents">&nbsp;&nbsp;&nbsp;&nbsp;contents</option>
 	
+	<option value="//api/name/delegate">&nbsp;&nbsp;&nbsp;&nbsp;delegate</option>
 	
+	
+	
+	
+	<option value="class_methods">Class Methods</option>
+	
+	<option value="//api/name/sharedCloudDocument">&nbsp;&nbsp;&nbsp;&nbsp;+ sharedCloudDocument</option>
 	
 	
 	
@@ -70,6 +77,12 @@
 
 <li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Singleton">Singleton</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Methods">Methods</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Delegate">Delegate</a></span></li>
+	
 </ul></li>
 
 
@@ -80,9 +93,17 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/contents">contents</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/delegate">delegate</a></span></li>
+	
 </ul></li>
 
 
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/sharedCloudDocument">sharedCloudDocument</a></span></li>
+	
+</ul></li>
 
 
 
@@ -131,9 +152,7 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>Use the <code>iCloudDocument</code> class (a subclass of UIDocument) to read and write documents managed by the <a href="../Classes/iCloud.html">iCloud</a> class. You should never directly interact with iCloudDocument. The <a href="../Classes/iCloud.html">iCloud</a> class manages all interactions with iCloudDocument.</p>
-
-<p>Most iCloudDocument methods are encapsulated in GCD thread management blocks. By using GCD, most operations are performed on a background thread to avoid clogging-up the UI.</p>
+						<p>Use the iCloudDocument class (a subclass of UIDocument) to read and write documents managed by the <a href="../Classes/iCloud.html">iCloud</a> class. You should rarely interact directly with iCloudDocument. The <a href="../Classes/iCloud.html">iCloud</a> class manages all interactions with iCloudDocument. You can however retieve an iCloudDocument object by specifying its URL in the <a href="../Classes/iCloud.html">iCloud</a> class.</p>
 
 <p>iCloudDocument can read and write any files with the following exceptions:</p>
 
@@ -144,7 +163,9 @@
 </ul>
 
 
-<p>If you&rsquo;d like support for the above faux files then please consider <a href="https://github.com/iRareMedia/iCloudDocumentSync/issues/new">filing an Issue on GitHub</a> or <a href="https://github.com/iRareMedia/iCloudDocumentSync/pulls">submitting a Pull Request</a> if you&rsquo;ve figured out how.</p>
+<p>If you&rsquo;d like support for the above faux files then please consider <a href="https://github.com/iRareMedia/iCloudDocumentSync/issues/new">filing an Issue on GitHub</a> or <a href="https://github.com/iRareMedia/iCloudDocumentSync/pulls">submitting a Pull Request</a> if you&rsquo;ve figured out how. This can be done using an NSFileWrapper.</p>
+
+<p>You may want to consider subclassing iCloudDocument for custom implementations of many features.</p>
 					</div>
 					
 					
@@ -156,23 +177,53 @@
 						<h2 class="subtitle subtitle-tasks">Tasks</h2>
 						
 						
-						
-						
+						<a title="Singleton" name="task_Singleton"></a>
+						<h3 class="subsubtitle task-title">Singleton</h3>
 
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/contents">&nbsp;&nbsp;contents</a></code>
-		<span class="tooltip"><p>The data to read or write to a UIDocument</p></span>
+		<code><a href="#//api/name/sharedCloudDocument">+&nbsp;sharedCloudDocument</a></code>
+		<span class="tooltip"><p>iCloudDocument shared instance object</p></span>
 	</span>
-	<span class="task-item-suffix">property</span>
 	
-</li><li>
+	
+</li>
+						</ul>
+						
+						
+						<a title="Methods" name="task_Methods"></a>
+						<h3 class="subsubtitle task-title">Methods</h3>
+
+						<ul class="task-list">
+							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/initWithFileURL:">&ndash;&nbsp;initWithFileURL:</a></code>
 		<span class="tooltip"><p>Initialize a new UIDocument with the specified file path</p></span>
 	</span>
 	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Delegate" name="task_Delegate"></a>
+						<h3 class="subsubtitle task-title">Delegate</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/delegate">&nbsp;&nbsp;delegate</a></code>
+		<span class="tooltip"><p><a href="../Classes/iCloud.html">iCloud</a> Delegate helps call methods when document processes begin or end</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/contents">&nbsp;&nbsp;contents</a></code>
+		<span class="tooltip"><p>The data to read or write to a UIDocument</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
@@ -237,9 +288,92 @@
 	
 </div>
 						
+						<div class="section-method">
+	<a name="//api/name/delegate" title="delegate"></a>
+	<h3 class="subsubtitle method-title">delegate</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p><a href="../Classes/iCloud.html">iCloud</a> Delegate helps call methods when document processes begin or end</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (weak, nonatomic) id&lt;iCloudDocumentDelegate&gt; delegate</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">iCloudDocument.h</code><br />
+	</div>				
+	
+	
+</div>
+						
 					</div>
 					
 					
+					
+					<div class="section section-methods">
+						<a title="Class Methods" name="class_methods"></a>
+						<h2 class="subtitle subtitle-methods">Class Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/sharedCloudDocument" title="sharedCloudDocument"></a>
+	<h3 class="subsubtitle method-title">sharedCloudDocument</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>iCloudDocument shared instance object</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (id)sharedCloudDocument</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The shared instance of iCloudDocument</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">iCloudDocument.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
 					
 					
 					
@@ -393,7 +527,7 @@
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 iRare Media. All rights reserved. (Last updated: 2013-11-25)</span><br />
+						<p><span class="copyright">&copy; 2013 iRare Media. All rights reserved. (Last updated: 2013-11-26)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
 						

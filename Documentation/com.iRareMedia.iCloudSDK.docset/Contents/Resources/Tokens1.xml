@@ -304,10 +304,10 @@
 			<Abstract type="html">Create, save, and close a document in iCloud.</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>			
 			
-			<Declaration>- (void)saveAndCloseDocumentWithName:(NSString *)name withContent:(NSData *)content completion:(void ( ^ ) ( UIDocument *cloudDocument , NSData *documentData , NSError *error ))handler</Declaration>
+			<Declaration>- (void)saveAndCloseDocumentWithName:(NSString *)documentName withContent:(NSData *)content completion:(void ( ^ ) ( UIDocument *cloudDocument , NSData *documentData , NSError *error ))handler</Declaration>
 			<Parameters>
 				<Parameter>
-					<Name>name</Name>
+					<Name>documentName</Name>
 					<Abstract type="html">The name of the document being written to iCloud. This value must not be nil.</Abstract>
 				</Parameter><Parameter>
 					<Name>content</Name>
@@ -327,10 +327,10 @@
 			<Abstract type="html">Record changes made to a document in iCloud. Changes are saved when the document is closed.</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>			
 			
-			<Declaration>- (void)saveChangesToDocumentWithName:(NSString *)name withContent:(NSData *)content completion:(void ( ^ ) ( UIDocument *cloudDocument , NSData *documentData , NSError *error ))handler</Declaration>
+			<Declaration>- (void)saveChangesToDocumentWithName:(NSString *)documentName withContent:(NSData *)content completion:(void ( ^ ) ( UIDocument *cloudDocument , NSData *documentData , NSError *error ))handler</Declaration>
 			<Parameters>
 				<Parameter>
-					<Name>name</Name>
+					<Name>documentName</Name>
 					<Abstract type="html">The name of the document being written to iCloud. This value must not be nil.</Abstract>
 				</Parameter><Parameter>
 					<Name>content</Name>
@@ -350,7 +350,7 @@
 			<Abstract type="html">Upload any local files that weren&apos;t created with iCloud</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>			
 			
-			<Declaration>- (void)uploadLocalOfflineDocumentsWithRepeatingHandler:(void ( ^ ) ( NSString *fileName , NSError *error ))repeatingHandler completion:(void ( ^ ) ( void ))completion</Declaration>
+			<Declaration>- (void)uploadLocalOfflineDocumentsWithRepeatingHandler:(void ( ^ ) ( NSString *documentName , NSError *error ))repeatingHandler completion:(void ( ^ ) ( void ))completion</Declaration>
 			<Parameters>
 				<Parameter>
 					<Name>repeatingHandler</Name>
@@ -370,10 +370,10 @@
 			<Abstract type="html">Upload a local file to iCloud</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>			
 			
-			<Declaration>- (void)uploadLocalDocumentToCloudWithName:(NSString *)name completion:(void ( ^ ) ( NSError *error ))handler</Declaration>
+			<Declaration>- (void)uploadLocalDocumentToCloudWithName:(NSString *)documentName completion:(void ( ^ ) ( NSError *error ))handler</Declaration>
 			<Parameters>
 				<Parameter>
-					<Name>name</Name>
+					<Name>documentName</Name>
 					<Abstract type="html">The name of the local file stored in the application&apos;s documents directory. This value must not be nil.</Abstract>
 				</Parameter><Parameter>
 					<Name>handler</Name>
@@ -390,10 +390,10 @@
 			<Abstract type="html">Share an iCloud document by uploading it to a public URL.</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>			
 			
-			<Declaration>- (NSURL *)shareDocumentWithName:(NSString *)name completion:(void ( ^ ) ( NSURL *sharedURL , NSDate *expirationDate , NSError *error ))handler</Declaration>
+			<Declaration>- (NSURL *)shareDocumentWithName:(NSString *)documentName completion:(void ( ^ ) ( NSURL *sharedURL , NSDate *expirationDate , NSError *error ))handler</Declaration>
 			<Parameters>
 				<Parameter>
-					<Name>name</Name>
+					<Name>documentName</Name>
 					<Abstract type="html">The name of the iCloud file being uploaded to a public URL. This value must not be nil.</Abstract>
 				</Parameter><Parameter>
 					<Name>handler</Name>
@@ -410,10 +410,10 @@
 			<Abstract type="html">Delete a document from iCloud.</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>			
 			
-			<Declaration>- (void)deleteDocumentWithName:(NSString *)name completion:(void ( ^ ) ( NSError *error ))handler</Declaration>
+			<Declaration>- (void)deleteDocumentWithName:(NSString *)documentName completion:(void ( ^ ) ( NSError *error ))handler</Declaration>
 			<Parameters>
 				<Parameter>
-					<Name>name</Name>
+					<Name>documentName</Name>
 					<Abstract type="html">The name of the document to delete from iCloud. This value must not be nil.</Abstract>
 				</Parameter><Parameter>
 					<Name>handler</Name>
@@ -430,10 +430,10 @@
 			<Abstract type="html">Evict a document from iCloud, move it from iCloud to the current application&apos;s local documents directory.</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>			
 			
-			<Declaration>- (void)evictCloudDocumentWithName:(NSString *)name completion:(void ( ^ ) ( NSError *error ))handler</Declaration>
+			<Declaration>- (void)evictCloudDocumentWithName:(NSString *)documentName completion:(void ( ^ ) ( NSError *error ))handler</Declaration>
 			<Parameters>
 				<Parameter>
-					<Name>name</Name>
+					<Name>documentName</Name>
 					<Abstract type="html">The name of the iCloud document being downloaded from iCloud to the local documents directory. This value must not be nil.</Abstract>
 				</Parameter><Parameter>
 					<Name>handler</Name>
@@ -466,14 +466,31 @@
 		</Token>
 		
 		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/iCloud/retrieveCloudDocumentObjectWithName:</TokenIdentifier>
+			<Abstract type="html">Get the relevant iCloudDocument object for the specified file</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>- (iCloudDocument *)retrieveCloudDocumentObjectWithName:(NSString *)documentName</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>documentName</Name>
+					<Abstract type="html">The name of the UIDocument stored in iCloud. This value must not be nil.</Abstract>
+				</Parameter>
+			</Parameters>
+			<ReturnValue><Abstract type="html">An iCloudDocument (UIDocument subclass) object. May return nil if iCloud is unavailable or if an error occured</Abstract></ReturnValue>
+			<Anchor>//api/name/retrieveCloudDocumentObjectWithName:</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/doesFileExistInCloud:</TokenIdentifier>
 			<Abstract type="html">Check if a file exists in iCloud</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>			
 			
-			<Declaration>- (BOOL)doesFileExistInCloud:(NSString *)fileName</Declaration>
+			<Declaration>- (BOOL)doesFileExistInCloud:(NSString *)documentName</Declaration>
 			<Parameters>
 				<Parameter>
-					<Name>fileName</Name>
+					<Name>documentName</Name>
 					<Abstract type="html">The name of the UIDocument in iCloud. This value must not be nil.</Abstract>
 				</Parameter>
 			</Parameters>
@@ -487,10 +504,10 @@
 			<Abstract type="html">Get the size of a file stored in iCloud</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>			
 			
-			<Declaration>- (NSNumber *)fileSize:(NSString *)fileName</Declaration>
+			<Declaration>- (NSNumber *)fileSize:(NSString *)documentName</Declaration>
 			<Parameters>
 				<Parameter>
-					<Name>fileName</Name>
+					<Name>documentName</Name>
 					<Abstract type="html">The name of the file in iCloud. This value must not be nil.</Abstract>
 				</Parameter>
 			</Parameters>
@@ -504,10 +521,10 @@
 			<Abstract type="html">Get the last modified date of a file stored in iCloud</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>			
 			
-			<Declaration>- (NSDate *)fileModifiedDate:(NSString *)fileName</Declaration>
+			<Declaration>- (NSDate *)fileModifiedDate:(NSString *)documentName</Declaration>
 			<Parameters>
 				<Parameter>
-					<Name>fileName</Name>
+					<Name>documentName</Name>
 					<Abstract type="html">The name of the file in iCloud. This value must not be nil.</Abstract>
 				</Parameter>
 			</Parameters>
@@ -521,10 +538,10 @@
 			<Abstract type="html">Get the creation date of a file stored in iCloud</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>			
 			
-			<Declaration>- (NSDate *)fileCreatedDate:(NSString *)fileName</Declaration>
+			<Declaration>- (NSDate *)fileCreatedDate:(NSString *)documentName</Declaration>
 			<Parameters>
 				<Parameter>
-					<Name>fileName</Name>
+					<Name>documentName</Name>
 					<Abstract type="html">The name of the file in iCloud. This value must not be nil.</Abstract>
 				</Parameter>
 			</Parameters>
@@ -550,10 +567,10 @@
 			<Abstract type="html">Rename a document in iCloud</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>			
 			
-			<Declaration>- (void)renameOriginalDocument:(NSString *)name withNewName:(NSString *)newName completion:(void ( ^ ) ( NSError *error ))handler</Declaration>
+			<Declaration>- (void)renameOriginalDocument:(NSString *)documentName withNewName:(NSString *)newName completion:(void ( ^ ) ( NSError *error ))handler</Declaration>
 			<Parameters>
 				<Parameter>
-					<Name>name</Name>
+					<Name>documentName</Name>
 					<Abstract type="html">The name of the document being renamed in iCloud. The file specified should exist, otherwise an error will occur. This value must not be nil.</Abstract>
 				</Parameter><Parameter>
 					<Name>newName</Name>
@@ -573,10 +590,10 @@
 			<Abstract type="html">Duplicate a document in iCloud</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>			
 			
-			<Declaration>- (void)duplicateOriginalDocument:(NSString *)name withNewName:(NSString *)newName completion:(void ( ^ ) ( NSError *error ))handler</Declaration>
+			<Declaration>- (void)duplicateOriginalDocument:(NSString *)documentName withNewName:(NSString *)newName completion:(void ( ^ ) ( NSError *error ))handler</Declaration>
 			<Parameters>
 				<Parameter>
-					<Name>name</Name>
+					<Name>documentName</Name>
 					<Abstract type="html">The name of the document being duplicated in iCloud. The file specified should exist, otherwise an error will occur. This value must not be nil.</Abstract>
 				</Parameter><Parameter>
 					<Name>newName</Name>
@@ -596,10 +613,10 @@
 			<Abstract type="html">Get the current document state of a file stored in iCloud</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>			
 			
-			<Declaration>- (void)documentStateForFile:(NSString *)fileName completion:(void ( ^ ) ( UIDocumentState *documentState , NSString *userReadableDocumentState , NSError *error ))handler</Declaration>
+			<Declaration>- (void)documentStateForFile:(NSString *)documentName completion:(void ( ^ ) ( UIDocumentState *documentState , NSString *userReadableDocumentState , NSError *error ))handler</Declaration>
 			<Parameters>
 				<Parameter>
-					<Name>fileName</Name>
+					<Name>documentName</Name>
 					<Abstract type="html">The name of the file in iCloud. This value must not be nil.</Abstract>
 				</Parameter><Parameter>
 					<Name>handler</Name>
@@ -616,10 +633,10 @@
 			<Abstract type="html">Monitor changes in the state of a document stored in iCloud</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>			
 			
-			<Declaration>- (BOOL)monitorDocumentStateForFile:(NSString *)fileName onTarget:(id)sender withSelector:(SEL)selector</Declaration>
+			<Declaration>- (BOOL)monitorDocumentStateForFile:(NSString *)documentName onTarget:(id)sender withSelector:(SEL)selector</Declaration>
 			<Parameters>
 				<Parameter>
-					<Name>fileName</Name>
+					<Name>documentName</Name>
 					<Abstract type="html">The name of the file in iCloud. This value must not be nil.</Abstract>
 				</Parameter><Parameter>
 					<Name>sender</Name>
@@ -639,10 +656,10 @@
 			<Abstract type="html">Stop monitoring changes to the state of a document stored in iCloud</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>			
 			
-			<Declaration>- (BOOL)stopMonitoringDocumentStateChangesForFile:(NSString *)fileName onTarget:(id)sender</Declaration>
+			<Declaration>- (BOOL)stopMonitoringDocumentStateChangesForFile:(NSString *)documentName onTarget:(id)sender</Declaration>
 			<Parameters>
 				<Parameter>
-					<Name>fileName</Name>
+					<Name>documentName</Name>
 					<Abstract type="html">The name of the file in iCloud. This value must not be nil.</Abstract>
 				</Parameter><Parameter>
 					<Name>sender</Name>

@@ -1,18 +1,18 @@
 <?xml version="1.0" standalone="no"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:docset="http://developer.apple.com/rss/docset_extensions" xml:lang="en">
-    <id>https://github.com/iRareMedia/iCloudDocumentSync/publish/iRareMedia.atom/20131125175024</id>
+    <id>https://github.com/iRareMedia/iCloudDocumentSync/publish/iRareMedia.atom/20131126221955</id>
     <title type="text">iCloudSDK Documentation</title>
     <rights>Copyright © 2013 iRare Media. All rights reserved.</rights>
     <link rel="self" href="https://github.com/iRareMedia/iCloudDocumentSync/publish/iRareMedia.atom"></link>
     <docset:publisherName>iRare Media</docset:publisherName>
     <docset:publisherID>com.iRareMedia.documentation</docset:publisherID>
-    <updated>2013-11-25T17:50:24-05:00</updated>
+    <updated>2013-11-26T22:19:55-05:00</updated>
     <entry>
-        <id>tag:github.com,2013-11-25:com.iRareMedia.iCloudSDK/7.0.0</id>
+        <id>tag:github.com,2013-11-26:com.iRareMedia.iCloudSDK/7.0.0</id>
         <title type="text">iCloudSDK Documentation</title>
-        <updated>2013-11-25T17:50:24-05:00</updated>
+        <updated>2013-11-26T22:19:55-05:00</updated>
         <content type="text">iCloudSDK Documentation (v7.0.0)</content>
-        <link rel="enclosure" type="application/octet-stream" href="https:/github.com/iRareMedia/iCloudDocumentSync/com.iRareMedia.iCloudSDK-7.0.xar" length="88784"></link>
+        <link rel="enclosure" type="application/octet-stream" href="https:/github.com/iRareMedia/iCloudDocumentSync/com.iRareMedia.iCloudSDK-7.0.xar" length="104728"></link>
         <docset:identifier>com.iRareMedia.iCloudSDK</docset:identifier>
         <docset:version>7.0.0</docset:version>
         <docset:minimumXcodeVersion>3.0.0</docset:minimumXcodeVersion>
