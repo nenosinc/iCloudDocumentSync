@@ -166,7 +166,15 @@
             
             [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
             
-            [self performSegueWithIdentifier:@"documentView" sender:nil];
+            [[iCloud sharedCloud] documentStateForFile:fileTitle completion:^(UIDocumentState *documentState, NSString *userReadableDocumentState, NSError *error) {
+                if (!error) {
+                    if (*documentState == UIDocumentStateInConflict) {
+                        [self performSegueWithIdentifier:@"showConflict" sender:self];
+                    } else {
+                        [self performSegueWithIdentifier:@"documentView" sender:self];
+                    }
+                }
+            }];
         } else {
             NSLog(@"Error retrieveing document: %@", error);
             [self.tableView deselectRowAtIndexPath:indexPath animated:YES];

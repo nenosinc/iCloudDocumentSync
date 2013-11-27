@@ -2,7 +2,7 @@
 //  ShareViewController.m
 //  iCloud App
 //
-//  Created by The Spencer Family on 11/24/13.
+//  Created by iRare Media on 11/24/13.
 //  Copyright (c) 2013 iRare Media. All rights reserved.
 //
 

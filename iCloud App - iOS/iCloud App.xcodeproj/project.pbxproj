@@ -10,6 +10,7 @@
 		996B9CA31830073C006A36DA /* MHPrettyDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 996B9CA21830073C006A36DA /* MHPrettyDate.m */; };
 		997591521839500900DECF95 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 997591511839500900DECF95 /* Settings.bundle */; };
 		99AD4AC61837C3D3008BBEA4 /* CloudBanner.png in Resources */ = {isa = PBXBuildFile; fileRef = 99AD4AC51837C3D3008BBEA4 /* CloudBanner.png */; };
+		99D6CEFA1845B22400CD77BA /* ConflictViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99D6CEF91845B22400CD77BA /* ConflictViewController.m */; };
 		99E85B01182DC9280039FC97 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E85B00182DC9280039FC97 /* Foundation.framework */; };
 		99E85B03182DC9280039FC97 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E85B02182DC9280039FC97 /* CoreGraphics.framework */; };
 		99E85B05182DC9280039FC97 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E85B04182DC9280039FC97 /* UIKit.framework */; };
@@ -47,6 +48,8 @@
 		996B9CA21830073C006A36DA /* MHPrettyDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHPrettyDate.m; sourceTree = "<group>"; };
 		997591511839500900DECF95 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		99AD4AC51837C3D3008BBEA4 /* CloudBanner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloudBanner.png; sourceTree = "<group>"; };
+		99D6CEF81845B22400CD77BA /* ConflictViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConflictViewController.h; sourceTree = "<group>"; };
+		99D6CEF91845B22400CD77BA /* ConflictViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConflictViewController.m; sourceTree = "<group>"; };
 		99E85AFD182DC9280039FC97 /* iCloud App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iCloud App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		99E85B00182DC9280039FC97 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		99E85B02182DC9280039FC97 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -156,6 +159,8 @@
 				99E85B39182DD0DD0039FC97 /* ListViewController.m */,
 				99E85B3B182DD34C0039FC97 /* DocumentViewController.h */,
 				99E85B3C182DD34C0039FC97 /* DocumentViewController.m */,
+				99D6CEF81845B22400CD77BA /* ConflictViewController.h */,
+				99D6CEF91845B22400CD77BA /* ConflictViewController.m */,
 				99E85B18182DC9280039FC97 /* Images.xcassets */,
 				99E85B07182DC9280039FC97 /* Supporting Files */,
 			);
@@ -319,6 +324,7 @@
 				996B9CA31830073C006A36DA /* MHPrettyDate.m in Sources */,
 				99E85B3D182DD34C0039FC97 /* DocumentViewController.m in Sources */,
 				99FB117D1842A34900406254 /* ShareViewController.m in Sources */,
+				99D6CEFA1845B22400CD77BA /* ConflictViewController.m in Sources */,
 				99E85B3A182DD0DD0039FC97 /* ListViewController.m in Sources */,
 				99E85B0D182DC9280039FC97 /* main.m in Sources */,
 				99FB11811842A6A100406254 /* TLTransitionAnimator.m in Sources */,
