@@ -477,7 +477,7 @@
 					<Abstract type="html">The name of the UIDocument stored in iCloud. This value must not be nil.</Abstract>
 				</Parameter>
 			</Parameters>
-			<ReturnValue><Abstract type="html">An iCloudDocument (UIDocument subclass) object. May return nil if iCloud is unavailable or if an error occured</Abstract></ReturnValue>
+			<ReturnValue><Abstract type="html">An iCloudDocument (UIDocument subclass) object. May return nil if iCloud is unavailable or if an error occurred</Abstract></ReturnValue>
 			<Anchor>//api/name/retrieveCloudDocumentObjectWithName:</Anchor>
             <NodeRef refid="1"/>
 		</Token>
@@ -597,7 +597,7 @@
 					<Abstract type="html">The name of the document being duplicated in iCloud. The file specified should exist, otherwise an error will occur. This value must not be nil.</Abstract>
 				</Parameter><Parameter>
 					<Name>newName</Name>
-					<Abstract type="html">The new name which the document should be duplicated to (usually the same name with the word &quot;copy&quot; appeneded to the end). The file specified should not exist, otherwise an error will occur. This value must not be nil.</Abstract>
+					<Abstract type="html">The new name which the document should be duplicated to (usually the same name with the word &quot;copy&quot; appended to the end). The file specified should not exist, otherwise an error will occur. This value must not be nil.</Abstract>
 				</Parameter><Parameter>
 					<Name>handler</Name>
 					<Abstract type="html">Code block called when the document duplication has completed. The completion block passes and NSError object which contains any error information if an error occurred, otherwise it will be nil.</Abstract>
@@ -646,7 +646,7 @@
 					<Abstract type="html">Selector to be called when the document state changes. Must only have one argument, an instance of NSNotifcation whose object is an iCloudDocument (UIDocument subclass). This value must not be nil.</Abstract>
 				</Parameter>
 			</Parameters>
-			<ReturnValue><Abstract type="html">YES if the motioring was successfully setup, NO if there was an issue setting up the monitoring.</Abstract></ReturnValue>
+			<ReturnValue><Abstract type="html">YES if the monitoring was successfully setup, NO if there was an issue setting up the monitoring.</Abstract></ReturnValue>
 			<Anchor>//api/name/monitorDocumentStateForFile:onTarget:withSelector:</Anchor>
             <NodeRef refid="1"/>
 		</Token>
@@ -663,10 +663,10 @@
 					<Abstract type="html">The name of the file in iCloud. This value must not be nil.</Abstract>
 				</Parameter><Parameter>
 					<Name>sender</Name>
-					<Abstract type="html">Object registered as an observer that will no longer recieve document state updates. This value must not be nil.</Abstract>
+					<Abstract type="html">Object registered as an observer that will no longer receive document state updates. This value must not be nil.</Abstract>
 				</Parameter>
 			</Parameters>
-			<ReturnValue><Abstract type="html">YES if the motioring was successfully setup, NO if there was an issue setting up the monitoring.</Abstract></ReturnValue>
+			<ReturnValue><Abstract type="html">YES if the monitoring was successfully setup, NO if there was an issue setting up the monitoring.</Abstract></ReturnValue>
 			<Anchor>//api/name/stopMonitoringDocumentStateChangesForFile:onTarget:</Anchor>
             <NodeRef refid="1"/>
 		</Token>

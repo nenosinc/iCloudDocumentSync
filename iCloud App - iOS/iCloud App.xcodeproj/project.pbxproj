@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9935A8E01846E5B4007C5628 /* AppBanner.png in Resources */ = {isa = PBXBuildFile; fileRef = 9935A8DF1846E5B4007C5628 /* AppBanner.png */; };
 		996B9CA31830073C006A36DA /* MHPrettyDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 996B9CA21830073C006A36DA /* MHPrettyDate.m */; };
 		997591521839500900DECF95 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 997591511839500900DECF95 /* Settings.bundle */; };
 		99AD4AC61837C3D3008BBEA4 /* CloudBanner.png in Resources */ = {isa = PBXBuildFile; fileRef = 99AD4AC51837C3D3008BBEA4 /* CloudBanner.png */; };
@@ -45,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9935A8DF1846E5B4007C5628 /* AppBanner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppBanner.png; sourceTree = "<group>"; };
 		996B9CA11830073C006A36DA /* MHPrettyDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHPrettyDate.h; sourceTree = "<group>"; };
 		996B9CA21830073C006A36DA /* MHPrettyDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHPrettyDate.m; sourceTree = "<group>"; };
 		997591511839500900DECF95 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				99AD4AC51837C3D3008BBEA4 /* CloudBanner.png */,
+				9935A8DF1846E5B4007C5628 /* AppBanner.png */,
 				99E85B06182DC9280039FC97 /* iCloud App */,
 				99E85B25182DC9280039FC97 /* iCloud AppTests */,
 				99E85AFF182DC9280039FC97 /* Frameworks */,
@@ -303,6 +306,7 @@
 				99E85B0B182DC9280039FC97 /* InfoPlist.strings in Resources */,
 				997591521839500900DECF95 /* Settings.bundle in Resources */,
 				99E85B14182DC9280039FC97 /* iPhoneStoryboard.storyboard in Resources */,
+				9935A8E01846E5B4007C5628 /* AppBanner.png in Resources */,
 				99AD4AC61837C3D3008BBEA4 /* CloudBanner.png in Resources */,
 				99ADF830184644FD005553A5 /* iPadStoryboard.storyboard in Resources */,
 			);

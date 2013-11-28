@@ -12,6 +12,6 @@
 #import "TLTransitionAnimator.h"
 #import "MHPrettyDate.h"
 
-@interface ListViewController : UITableViewController <iCloudDelegate, UIViewControllerTransitioningDelegate>
+@interface ListViewController : UITableViewController <iCloudDelegate>
 
 @end

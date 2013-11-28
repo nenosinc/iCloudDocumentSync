@@ -20,7 +20,7 @@
     UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     
     // Set our ending frame. We'll modify this later if we have to
-    CGRect endFrame = CGRectMake(35, 82, 250, toViewController.view.frame.size.height);
+    CGRect endFrame = CGRectMake(32, 82, 250, 225);
     
     if (self.presenting) {
         fromViewController.view.userInteractionEnabled = NO;

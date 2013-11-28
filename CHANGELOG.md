@@ -1,5 +1,5 @@
 ## Change Log
-**iCloud Document Sync is a work in progress**. If you have an issue, please submit an issue on GitHub. If you have a fix, enhancment, feature, etc. then please fork this on GitHub and submit a pull request. We believe that this project will help many developers by easing the burden of iCloud. Below are the changes for each major commit.
+The following details changes made to iCloud Document Sync with each version. For more detailed information, see the Releases and Commits section of the GitHub project.
 
 <table>
     <tr><th colspan="2" style="text-align:center;"><b>Version 7.0</b></th></tr>

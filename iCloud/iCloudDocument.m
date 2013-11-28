@@ -3,7 +3,7 @@
 //  iCloud Document Sync
 //
 //  Created by iRare Media. Last updated November 2013.
-//  Available on GitHub
+//  Available on GitHub. Licensed under MIT with Attribution.
 //
 
 #import "iCloudDocument.h"

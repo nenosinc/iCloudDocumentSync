@@ -3,7 +3,7 @@
 //  iCloud Document Sync
 //
 //  Created by iRare Media. Last updated November 2013.
-//  Available on GitHub
+//  Available on GitHub. Licensed under MIT with Attribution.
 //
 
 #import <Foundation/Foundation.h>
@@ -240,7 +240,7 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
  @discussion This method serves a very different purpose from the retrieveCloudDocumentWithName:completion: method. Understand the differences between both methods and ensure that you are using the correct one. This method does not open, create, or save any UIDocuments - it simply returns the iCloudDocument object which you can then use for various purposes.
  
  @param documentName The name of the UIDocument stored in iCloud. This value must not be nil.
- @return An iCloudDocument (UIDocument subclass) object. May return nil if iCloud is unavailable or if an error occured */
+ @return An iCloudDocument (UIDocument subclass) object. May return nil if iCloud is unavailable or if an error occurred */
 - (iCloudDocument *)retrieveCloudDocumentObjectWithName:(NSString *)documentName __attribute__((nonnull));
 
 /** Check if a file exists in iCloud
@@ -287,7 +287,7 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
 /** Duplicate a document in iCloud
  
  @param documentName The name of the document being duplicated in iCloud. The file specified should exist, otherwise an error will occur. This value must not be nil.
- @param newName The new name which the document should be duplicated to (usually the same name with the word "copy" appeneded to the end). The file specified should not exist, otherwise an error will occur. This value must not be nil.
+ @param newName The new name which the document should be duplicated to (usually the same name with the word "copy" appended to the end). The file specified should not exist, otherwise an error will occur. This value must not be nil.
  @param handler Code block called when the document duplication has completed. The completion block passes and NSError object which contains any error information if an error occurred, otherwise it will be nil. */
 - (void)duplicateOriginalDocument:(NSString *)documentName withNewName:(NSString *)newName completion:(void (^)(NSError *error))handler __attribute__((nonnull));
 
@@ -307,14 +307,14 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
  @param documentName The name of the file in iCloud. This value must not be nil.
  @param sender Object registering as an observer. This value must not be nil.
  @param selector Selector to be called when the document state changes. Must only have one argument, an instance of NSNotifcation whose object is an iCloudDocument (UIDocument subclass). This value must not be nil. 
- @return YES if the motioring was successfully setup, NO if there was an issue setting up the monitoring. */
+ @return YES if the monitoring was successfully setup, NO if there was an issue setting up the monitoring. */
 - (BOOL)monitorDocumentStateForFile:(NSString *)documentName onTarget:(id)sender withSelector:(SEL)selector __attribute__((nonnull));
 
 /** Stop monitoring changes to the state of a document stored in iCloud
  
  @param documentName The name of the file in iCloud. This value must not be nil.
- @param sender Object registered as an observer that will no longer recieve document state updates. This value must not be nil. 
- @return YES if the motioring was successfully setup, NO if there was an issue setting up the monitoring. */
+ @param sender Object registered as an observer that will no longer receive document state updates. This value must not be nil.
+ @return YES if the monitoring was successfully setup, NO if there was an issue setting up the monitoring. */
 - (BOOL)stopMonitoringDocumentStateChangesForFile:(NSString *)documentName onTarget:(id)sender __attribute__((nonnull));
 
 
@@ -397,7 +397,7 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
  
  It is important to note that **this method may be called more than once in a very short period of time** - be prepared to handle the data appropriately.
  
- The delegate is only notified about conflicts during upload and download prodecures with iCloud. This method does not monitor for document conflicts between documents which already exist in iCloud. There are other methods provided to you to detect document state and state changes / conflicts.
+ The delegate is only notified about conflicts during upload and download procedures with iCloud. This method does not monitor for document conflicts between documents which already exist in iCloud. There are other methods provided to you to detect document state and state changes / conflicts.
  
  @param cloudFile An NSDictionary with the cloud file and various other information. This parameter contains the fileContent as NSData, fileURL as NSURL, and modifiedDate as NSDate.
  @param localFile An NSDictionary with the local file and various other information. This parameter contains the fileContent as NSData, fileURL as NSURL, and modifiedDate as NSDate. */
