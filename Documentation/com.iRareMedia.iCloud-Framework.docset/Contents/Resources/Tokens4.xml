@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Protocols/iCloudDocumentDelegate.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intf/iCloudDocumentDelegate</TokenIdentifier>
+			<Abstract type="html">The iCloudDocumentDelegate protocol defines the methods used to receive error notifications and allow for deeper control of document handling and management.</Abstract>
+			<DeclaredIn>iCloudDocument.h</DeclaredIn>
+			
+			<NodeRef refid="4"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDocumentDelegate/iCloudDocumentErrorOccured:</TokenIdentifier>
+			<Abstract type="html">Delegate method fired when an error occurs during an attempt to read, save, or revert a document.</Abstract>
+			<DeclaredIn>iCloudDocument.h</DeclaredIn>			
+			
+			<Declaration>- (void)iCloudDocumentErrorOccured:(NSError *)error</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>error</Name>
+					<Abstract type="html">The error that occured during an attempt to read, save, or revert a document.</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/iCloudDocumentErrorOccured:</Anchor>
+            <NodeRef refid="4"/>
+		</Token>
+		
+	</File>
+</Tokens>

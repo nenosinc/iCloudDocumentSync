@@ -2,9 +2,8 @@
 //  iCloudDocument.m
 //  iCloud Document Sync
 //
-//  Created by iRare Media on June 27, 2013
-//  Copyright (c) 2013 iRareMedia. All rights reserved.
-//
+//  Created by iRare Media. Last updated November 2013.
+//  Available on GitHub. Licensed under MIT with Attribution.
 //
 
 #import "iCloudDocument.h"
@@ -16,10 +15,10 @@ NSFileVersion *laterVersion (NSFileVersion *first, NSFileVersion *second) {
 }
 
 @implementation iCloudDocument
-@synthesize contents;
+@synthesize contents, delegate;
 
 //----------------------------------------------------------------------------------------------------------------//
-// Document Life Cycle -------------------------------------------------------------------------------------------//
+//------------  Document Life Cycle ------------------------------------------------------------------------------//
 //----------------------------------------------------------------------------------------------------------------//
 #pragma mark - Document Life Cycle
 
@@ -39,16 +38,17 @@ NSFileVersion *laterVersion (NSFileVersion *first, NSFileVersion *second) {
     if (!self.documentState) return @"Document state is normal";
     
     NSMutableString *string = [NSMutableString string];
+    if ((self.documentState & UIDocumentStateNormal) != 0) [string appendString:@"Document state is normal"];
     if ((self.documentState & UIDocumentStateClosed) != 0) [string appendString:@"Document is closed"];
     if ((self.documentState & UIDocumentStateInConflict) != 0) [string appendString:@"Document is in conflict"];
     if ((self.documentState & UIDocumentStateSavingError) != 0) [string appendString:@"Document is experiencing saving error"];
-    if ((self.documentState & UIDocumentStateEditingDisabled) != 0) [string appendString:@"Document editing is disbled" ];
+    if ((self.documentState & UIDocumentStateEditingDisabled) != 0) [string appendString:@"Document editing is disbled"];
     
     return string;
 }
 
 //----------------------------------------------------------------------------------------------------------------//
-// Loading and Saving --------------------------------------------------------------------------------------------//
+//------------  Loading and Saving -------------------------------------------------------------------------------//
 //----------------------------------------------------------------------------------------------------------------//
 #pragma mark - Loading and Saving
 
@@ -62,30 +62,34 @@ NSFileVersion *laterVersion (NSFileVersion *first, NSFileVersion *second) {
 }
 
 - (BOOL)loadFromContents:(id)fileContents ofType:(NSString *)typeName error:(NSError **)outError {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
-        if ([fileContents length] > 0) {
-            self.contents = [[NSData alloc] initWithData:fileContents];
-        } else {
-            self.contents = [[NSData alloc] init];
-        }
-    });
+    if ([fileContents length] > 0) {
+        self.contents = [[NSData alloc] initWithData:fileContents];
+    } else {
+        self.contents = [[NSData alloc] init];
+    }
     
     return YES;
 }
 
-- (void)handleError:(NSError *)error userInteractionPermitted:(BOOL)userInteractionPermitted {
-	NSLog(@"%s %@", __PRETTY_FUNCTION__, error);
+- (void)setDocumentData:(NSData *)newData {
+    NSData *oldData = contents;
+    contents = [newData copy];
+        
+    // Register the undo operation
+    [self.undoManager setActionName:@"Data Change"];
+    [self.undoManager registerUndoWithTarget:self selector:@selector(setDocumentData:) object:oldData];
 }
 
-- (void)setDocumentData:(NSData *)newData {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
-        NSData *oldData = contents;
-        contents = [newData copy];
-        
-        // Register the undo operation
-        [self.undoManager setActionName:@"Data Change"];
-        [self.undoManager registerUndoWithTarget:self selector:@selector(setDocumentData:) object:oldData];
-    });
+//----------------------------------------------------------------------------------------------------------------//
+//------------  Error Handling ----------------------------------------------------------------------------------//
+//----------------------------------------------------------------------------------------------------------------//
+#pragma mark - Loading and Saving
+
+- (void)handleError:(NSError *)error userInteractionPermitted:(BOOL)userInteractionPermitted {
+    [super handleError:error userInteractionPermitted:userInteractionPermitted];
+	NSLog(@"[iCloudDocument] %@", error);
+    
+    if ([delegate respondsToSelector:@selector(iCloudDocumentErrorOccured:)]) [delegate iCloudDocumentErrorOccured:error];
 }
 
 @end
