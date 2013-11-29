@@ -308,7 +308,7 @@ To properly use this project please do the following:
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L6q-tO-VVf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="372" y="220"/>
+            <point key="canvasLocation" x="367" y="220"/>
         </scene>
     </scenes>
     <resources>

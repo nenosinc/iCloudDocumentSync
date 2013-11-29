@@ -31,15 +31,15 @@ Building the Framework for iCloud is easy, just follow these simple steps:
 2. When you've finished making changes and testing, select the *Framework* target from the scheme selector in the upper-left corner of Xcode. Click on Build / Run. Xcode will generate the framework and write it to the project folder.
 
 #### Documentation Guidelines
-Before submitting any changes, make sure that you've documented those changes. The changes you make should be noted in the Changelog.md file. If necessary, make the appropriate updates in the Readme.md file. You should also write appropriate documentation in the code (using comments). You can use documentation comments to create and modfy documentation. Always write the documentation comments in the header, above the related method, property, etc. Write regular comments with your code in the implementation too. Here's an example of a documentation comment:
+Before submitting any changes, make sure that you've documented those changes. The changes you make should be noted in the Changelog.md file. If necessary, make the appropriate updates in the Readme.md file. You should also write appropriate documentation in the code (using comments). You can use documentation comments to create and modify documentation. Always write the documentation comments in the header, above the related method, property, etc. Write regular comments with your code in the implementation too. Here's an example of a documentation comment:
 
     /// One line documentation comments can use the triple forward slash
     @property (strong) NSObject *object;
 
-    /** Multi-line documentation comments can use the forward slash with a double asterik at the beginning and a single asterick at the end.
+    /** Multi-line documentation comments can use the forward slash with a double asterisk at the beginning and a single asterisk at the end.
         @description Use different keys inside of a multi-line documentation comment to specify various aspects of a method. There are many available keys that Xcode recognizes: @description, @param, @return, @deprecated, @warning, etc. The documentation system also recognizes standard markdown formatting within comments. When building the documentation, this information will be appropriately formatted in Xcode and the Document Browser.
 
-        @param parameterName Paramater Description. The @param key should be used for each parameter in a method. Make sure to describe exactly what the parameter does and if it can be nil or not.
+        @param parameterName Parameter Description. The @param key should be used for each parameter in a method. Make sure to describe exactly what the parameter does and if it can be nil or not.
         @return Return value. Use the @return key to specify a return value of a method. */
     - (BOOL)alwaysWriteDocumentCommentsAboveMethods:(NSObject *)paramName;
 
@@ -52,4 +52,4 @@ Documentation is a fundamental portion of iCloud Document Sync. When you make ch
 4. The updated docset file, a raw html folder, and a publish information folder should be written to the project Documentation Folder.
 
 ## What to Contribute
-Contribute anything, we're open to ideas! Although if you're looking for a little more structure, you can go through the [open issues on GitHub](https://github.com/iRareMedia/iCloudDocumentSync/issues?status=open) or look at the known issues in the [Releases documentation](https://github.com/iRareMedia/iCloudDocumentSync/releases). And if you're feeling adventerous, we're still working on adding OS X Compatibility (wink wink, nudge nudge).
+Contribute anything, we're open to ideas! Although if you're looking for a little more structure, you can go through the [open issues on GitHub](https://github.com/iRareMedia/iCloudDocumentSync/issues?status=open) or look at the known issues in the [Releases documentation](https://github.com/iRareMedia/iCloudDocumentSync/releases). And if you're feeling adventurous, we're still working on adding OS X Compatibility (wink wink, nudge nudge).

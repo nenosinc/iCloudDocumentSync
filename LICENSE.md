@@ -1,5 +1,5 @@
 ## License
-In addition to complying with the MIT License (below) you are required to attribute this software in any commercial projects. It is also appreciated if you let the original developers know if you're using this in a commercial project.
+iCloud Document Sync is available for you with the MIT License. In addition to complying with the MIT License (below) you are required to attribute this software in any commercial projects. It is also appreciated if you let the original developers know if you're using this in a commercial project.
 
 The MIT License (MIT)
 

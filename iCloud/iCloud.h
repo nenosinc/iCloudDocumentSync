@@ -15,7 +15,6 @@
  
  The `iCloud` class provides methods to integrate iCloud into document projects.
  
- <br />
  Adding iCloud Document Sync to your project is easy. Follow these steps below to get everything up and running.
  
  1. Drag the iCloud Framework into your project

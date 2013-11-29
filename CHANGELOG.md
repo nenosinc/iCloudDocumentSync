@@ -4,9 +4,10 @@ The following details changes made to iCloud Document Sync with each version. Fo
 <table>
     <tr><th colspan="2" style="text-align:center;"><b>Version 7.0</b></th></tr>
     <tr>
-        <td>Major changes in favor of stability and security. <b>iCloud Document Sync is now a singleton</b>. This update also fixes numerous bugs and begins preparing for both iOS and OS X sample apps, and OS X compatibility.
+        <td>Major changes in favor of stability and security. iCloud Document Sync is now a <b>singleton</b>. There are numerous new and updated methods. New delegate methods and protocols. New iCloudDocument features. Automated documentation and framework builds for easier contribution. Plus it fixes numerous bugs and adds an iOS Sample app.
             <ul>
                 <li><b>BREAKING CHANGE</b> Converted the iCloud class to a singleton. This approach makes iCloud Document Sync easier to maintain, and it increases stability. All class methods are now instance methods that must be called with the iCloud singleton manager: <tt>sharedCloud</tt>. Now when calling a method instead of doing this: <tt>[iCloud methodName]</tt>, do this instead: <tt>[[iCloud sharedCloud] methodName]</tt>.</li>
+                <li><b>BREAKING CHANGE</b> All class methods have been converted to instance methods. With the exception of a few deprecated methods, there are no longer any class methods in iCloud or iCloudDocument.</li>
                 <li><b>BREAKING CHANGE</b> Removed all deprecated methods from previous versions. Any methods previously marked as deprecated no longer exist. Calling any of those methods will result in a compiler error (or a crash).</li>
                 <li><b>BREAKING CHANGE</b> Removed the delegate parameter from <tt>uploadLocalOfflineDocumentsWithDelegate:</tt> and <tt>updateFilesWithDelegate:</tt>. These methods have been renamed. Check the documentation for new names.</li>
                 <li><b>BREAKING CHANGE</b> The delegate method, <tt>iCloudFilesDidChange: withNewFileNames:</tt> now passes an NSMetadataItem in the first parameter instead of an NSURL object. This provides much more information about a file, but will cause an error if you try to access it as an NSURL. To get the URL from the NSMetadataItem, just call <tt>[item valueForAttribute:NSMetadataItemURLKey]</tt>.</li>
@@ -14,7 +15,7 @@ The following details changes made to iCloud Document Sync with each version. Fo
                 <li>Created iOS Sample app to demonstrate how to properly use many features of iCloud Document Sync. Also beneficial for testing purposes.</li>
                 <li>Added file conflict handling methods. Retrieve a list of conflicting versions of a document, select the correct one, and then submit it for resolution.</li>
                 <li>Added document change tracking when saving a file to iCloud. Changes to files are automatically saved when saving a file. You can also explicitly update the change count.</li>
-                <li>Added document state monitoring methods. You can now subscribe and unsibscribe from document state changes. Check the state of a document at any time too.</li>
+                <li>Added document state monitoring methods. You can now subscribe and unsubscribe from document state changes. Check the state of a document at any time too.</li>
                 <li>Added rename document method. Now you can rename documents stored in iCloud.</li>
                 <li>Added duplicate document method. Now you can duplicate documents stored in iCloud.</li>
                 <li>Added evict document method. Evict a document from iCloud storage (download to local app sandbox and then delete from iCloud) by setting it to not be ubiquitous.</li>
@@ -82,7 +83,7 @@ The following details changes made to iCloud Document Sync with each version. Fo
                 <li>A new delegate method has been added to handle file conflicts.</li>
                 <li>Three methods have been deprecated in favor of newer methods that provide more information using completion handlers rather than delegates.</li>
                 <li>The new method, uploadLocalOfflineDocumentsWithDelegate, has undergone numerous improvements. File conflict handling during upload is now supported - conflicts are automatically delt with. If a conflict cannot be resolved, the new <tt>iCloudFileUploadConflictWithCloudFile:andLocalFile:</tt> delegate method is called. This method no longer prevents <tt>sqlite</tt> files from being uploaded - now only hidden files aren't uploaded.</li>
-                <li>Major documentation improvements to both the DocSet and the Readme.</li>
+                <li>Major documentation improvements to both the DocSet and the Readme.md</li>
             </ul>
         </td>
     </tr>
