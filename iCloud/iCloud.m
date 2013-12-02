@@ -41,6 +41,9 @@
 - (id)init {
     // Setup Starter Sync
     self = [super init];
+	
+	NSLog(@"cloud init ...");
+	
     if (self) {
         // Setup the File Manager
         if (fileManager == nil) fileManager = [NSFileManager defaultManager];
@@ -57,16 +60,29 @@
         NSLog(@"[iCloud] Initialized");
         
         // Check the iCloud Ubiquity Container
-        [self checkCloudUbiquityContainer];
-        
-        // Check iCloud Availability
-        [self checkCloudAvailability];
-        
-        // Subscribe to changes in iCloud availability
-        [notificationCenter addObserver:self selector:@selector(checkCloudAvailability) name:NSUbiquityIdentityDidChangeNotification object:nil];
-        
-        // Sync and Update Documents List
-        [self enumerateCloudDocuments];
+        dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+			ubiquityContainer = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier: nil];
+			if (ubiquityContainer != nil) {
+				// We can write to the ubiquity container
+				
+				dispatch_async (dispatch_get_main_queue (), ^(void) {
+					// On the main thread, update UI and state as appropriate
+					
+					// Check iCloud Availability
+					id cloudToken = [fileManager ubiquityIdentityToken];
+					
+					// Sync and Update Documents List
+					[self enumerateCloudDocuments];
+					
+					// Subscribe to changes in iCloud availability (should run on main thread)
+					[notificationCenter addObserver:self selector:@selector(checkCloudAvailability) name:NSUbiquityIdentityDidChangeNotification object:nil];
+					
+					if ([delegate respondsToSelector:@selector(iCloudDidFinishInitializingWitUbiquityToken: withUbiquityContainer:)])
+						[delegate iCloudDidFinishInitializingWitUbiquityToken:cloudToken withUbiquityContainer:ubiquityContainer];
+				});
+			}
+		});
+		
     }
     
     return self;
@@ -99,18 +115,17 @@
     }
 }
 
-- (BOOL)checkCloudUbiquityContainer {
-    dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
-        // Check for iCloud Availability by finishing the Ubiquity URL of the app
-        ubiquityContainer = [fileManager URLForUbiquityContainerIdentifier:nil];
-    });
-    
-    if (ubiquityContainer){
-        return YES;
-    } else {
-        return NO;
-    }
+- (BOOL)checkCloudUbiquityContainer
+{
+	// No need to start the whole thing again - we did get it when initializing
+	if (ubiquityContainer){
+		return YES;
+	} else {
+		return NO;
+	}
 }
+
+
 
 - (BOOL)quickCloudCheck {
     if ([fileManager ubiquityIdentityToken]) {
@@ -121,15 +136,13 @@
 }
 
 - (NSURL *)ubiquitousContainerURL {
-    dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
-        ubiquityContainer = [fileManager URLForUbiquityContainerIdentifier:nil];
-    });
-    
+	// No need to start the whole thing again - we did get it when initializing
     return ubiquityContainer;
 }
 
 - (NSURL *)ubiquitousDocumentsDirectoryURL {
-    NSURL *documentsDirectory = [[self ubiquitousContainerURL] URLByAppendingPathComponent:DOCUMENT_DIRECTORY];
+	// we're using the instance variable here - no need to start the retrieval process again
+    NSURL *documentsDirectory = [ubiquityContainer URLByAppendingPathComponent:DOCUMENT_DIRECTORY];
     NSError *error;
     
     BOOL isDirectory = NO;
