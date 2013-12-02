@@ -290,27 +290,32 @@
     document.contents = content;
     [document updateChangeCount:UIDocumentChangeDone];
     
-    // If the file exists and is open, close it; otherwise, create it.
-    if ([fileManager fileExistsAtPath:[fileURL path]] && document.documentState == UIDocumentStateNormal) {
+	// If the file exists, close it; otherwise, create it.
+    if ([fileManager fileExistsAtPath:[fileURL path]]) {
         // Log closing
         if (verboseLogging == YES) NSLog(@"[iCloud] Document exists, saving and closing");
-        
-        // Save and close the document
-        [document closeWithCompletionHandler:^(BOOL success) {
+        // Save and create the new document, then close it
+        [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success) {
             if (success) {
-                // Log
-                if (verboseLogging == YES) NSLog(@"[iCloud] Saved and closed document");
-                
-                handler(document, document.contents, nil);
-            } else {
-                NSLog(@"[iCloud] Error while saving document: %s", __PRETTY_FUNCTION__);
-                NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"%s error while saving the document, %@, to iCloud", __PRETTY_FUNCTION__, document.fileURL] code:110 userInfo:[NSDictionary dictionaryWithObject:fileURL forKey:@"FileURL"]];
-                
-                handler(document, document.contents, error);
-            }
-        }];
-    } else {
-        // Log saving
+				
+				// Save and close the document
+				[document closeWithCompletionHandler:^(BOOL success) {
+					if (success) {
+						// Log
+						if (verboseLogging == YES) NSLog(@"[iCloud] Saved and closed document");
+						
+						handler(document, document.contents, nil);
+					} else {
+						NSLog(@"[iCloud] Error while saving document: %s", __PRETTY_FUNCTION__);
+						NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"%s error while saving the document, %@, to iCloud", __PRETTY_FUNCTION__, document.fileURL] code:110 userInfo:[NSDictionary dictionaryWithObject:fileURL forKey:@"FileURL"]];
+						
+						handler(document, document.contents, error);
+					}
+				}];
+				
+			}
+		}];
+    } else {        // Log saving
         if (verboseLogging == YES) NSLog(@"[iCloud] Document is new or closed, saving and then closing");
         
         // Save and create the new document, then close it
