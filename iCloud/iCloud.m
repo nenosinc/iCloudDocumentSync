@@ -290,8 +290,8 @@
     document.contents = content;
     [document updateChangeCount:UIDocumentChangeDone];
     
-    // If the file exists, close it; otherwise, create it.
-    if ([fileManager fileExistsAtPath:[fileURL path]]) {
+    // If the file exists and is open, close it; otherwise, create it.
+    if ([fileManager fileExistsAtPath:[fileURL path]] && document.documentState == UIDocumentStateNormal) {
         // Log closing
         if (verboseLogging == YES) NSLog(@"[iCloud] Document exists, saving and closing");
         
@@ -311,7 +311,7 @@
         }];
     } else {
         // Log saving
-        if (verboseLogging == YES) NSLog(@"[iCloud] Document is new, saving and then closing");
+        if (verboseLogging == YES) NSLog(@"[iCloud] Document is new or closed, saving and then closing");
         
         // Save and create the new document, then close it
         [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
