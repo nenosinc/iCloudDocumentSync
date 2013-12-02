@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>49A9DB87-24B9-4914-86EA-3FCBDD936568</string>
+	<string>182DEAD5-5724-4DCC-A7C8-5BBF5542629C</string>
 	<key>IDESourceControlProjectName</key>
 	<string>iCloud</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>9F101C36-B21C-4C16-8C44-7A7FC8C0C15E</key>
-		<string>https://github.com/iRareMedia/iCloudDocumentSync.git</string>
+		<key>D0B5A4AE-15EA-4FB8-80B1-7314B70EFD57</key>
+		<string>https://github.com/JackJackBauer/iCloudDocumentSync.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>iCloud.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>9F101C36-B21C-4C16-8C44-7A7FC8C0C15E</key>
+		<key>D0B5A4AE-15EA-4FB8-80B1-7314B70EFD57</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/iRareMedia/iCloudDocumentSync.git</string>
+	<string>https://github.com/JackJackBauer/iCloudDocumentSync.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>9F101C36-B21C-4C16-8C44-7A7FC8C0C15E</string>
+	<string>D0B5A4AE-15EA-4FB8-80B1-7314B70EFD57</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>9F101C36-B21C-4C16-8C44-7A7FC8C0C15E</string>
+			<string>D0B5A4AE-15EA-4FB8-80B1-7314B70EFD57</string>
 			<key>IDESourceControlWCCName</key>
 			<string>iCloudDocumentSync</string>
 		</dict>
