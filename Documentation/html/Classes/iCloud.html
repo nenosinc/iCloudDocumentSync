@@ -103,8 +103,6 @@
 	
 	<option value="//api/name/saveAndCloseDocumentWithName:withContent:completion:">&nbsp;&nbsp;&nbsp;&nbsp;- saveAndCloseDocumentWithName:withContent:completion:</option>
 	
-	<option value="//api/name/saveChangesToDocumentWithName:withContent:completion:">&nbsp;&nbsp;&nbsp;&nbsp;- saveChangesToDocumentWithName:withContent:completion:</option>
-	
 	<option value="//api/name/shareDocumentWithName:completion:">&nbsp;&nbsp;&nbsp;&nbsp;- shareDocumentWithName:completion:</option>
 	
 	<option value="//api/name/stopMonitoringDocumentStateChangesForFile:onTarget:">&nbsp;&nbsp;&nbsp;&nbsp;- stopMonitoringDocumentStateChangesForFile:onTarget:</option>
@@ -234,8 +232,6 @@
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/retrieveCloudDocumentWithName:completion:">retrieveCloudDocumentWithName:completion:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/saveAndCloseDocumentWithName:withContent:completion:">saveAndCloseDocumentWithName:withContent:completion:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/saveChangesToDocumentWithName:withContent:completion:">saveChangesToDocumentWithName:withContent:completion:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/shareDocumentWithName:completion:">shareDocumentWithName:completion:</a></span></li>
 	
@@ -448,13 +444,6 @@
 	<span class="tooltip">
 		<code><a href="#//api/name/saveAndCloseDocumentWithName:withContent:completion:">&ndash;&nbsp;saveAndCloseDocumentWithName:withContent:completion:</a></code>
 		<span class="tooltip"><p>Create, save, and close a document in iCloud.</p></span>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/saveChangesToDocumentWithName:withContent:completion:">&ndash;&nbsp;saveChangesToDocumentWithName:withContent:completion:</a></code>
-		<span class="tooltip"><p>Record changes made to a document in iCloud. Changes are saved when the document is closed.</p></span>
 	</span>
 	
 	
@@ -2014,78 +2003,6 @@
 </code></pre>
 
 <p>Documents can be created even if the user is not connected to the internet. The only case in which a document will not be created is when the user has disabled iCloud or if the current application is not setup for iCloud.</p>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">iCloud.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/saveChangesToDocumentWithName:withContent:completion:" title="saveChangesToDocumentWithName:withContent:completion:"></a>
-	<h3 class="subsubtitle method-title">saveChangesToDocumentWithName:withContent:completion:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Record changes made to a document in iCloud. Changes are saved when the document is closed.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (void)saveChangesToDocumentWithName:(NSString *)<em>documentName</em> withContent:(NSData *)<em>content</em> completion:(void ( ^ ) ( UIDocument *cloudDocument , NSData *documentData , NSError *error ))<em>handler</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>documentName</em></dt>
-			<dd><p>The name of the document being written to iCloud. This value must not be nil.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>content</em></dt>
-			<dd><p>The data to write to the document</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>handler</em></dt>
-			<dd><p>Code block called when the document changes are recorded. The completion block passes UIDocument and NSData objects containing the saved document and it&rsquo;s contents in the form of NSData. The NSError object contains any error information if an error occurred, otherwise it will be nil.</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>First, iCloud Document Sync checks if the specified document exists. If the document exists then the changes are recorded. If the document does not exist it will be created and the change will be recorded.</p>
-
-<p>To record changes to a new document or an existing one, use this method. This method can be called frequently, for example in a text-editing app you may want to call this method when the user finishes making changes to a text view. Below is a code example of how to use it.</p>
-
-<pre><code>[[iCloud sharedCloud] saveChangesToDocumentWithName:@"Name.ext" withContent:[NSData data] completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
-    if (error == nil) {
-        // Code here to use the UIDocument or NSData objects which have been passed with the completion handler
-    }
-}];
-</code></pre>
-
-<p>Documents changes can be recorded even if the user is not connected to the internet. The only case in which a document will not be created is when the user has disabled iCloud or if the current application is not setup for iCloud.</p>
 	</div>
 	
 	

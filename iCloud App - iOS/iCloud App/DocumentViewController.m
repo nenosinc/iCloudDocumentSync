@@ -132,12 +132,12 @@
     if ([self.title isEqualToString:@"iCloud Document"] || self.fileName == nil || [self.fileName isEqualToString:@""]) {
         NSString *newFileName = [self generateFileNameWithExtension:@"txt"];
         NSData *fileData = [self.textView.text dataUsingEncoding:NSUTF8StringEncoding];
-        [[iCloud sharedCloud] saveChangesToDocumentWithName:newFileName withContent:fileData completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
+        [[iCloud sharedCloud] saveAndCloseDocumentWithName:newFileName withContent:fileData completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
             NSLog(@"Saved changes to %@: %@", [cloudDocument.fileURL lastPathComponent], documentData);
         }];
     } else {
         NSData *fileData = [self.textView.text dataUsingEncoding:NSUTF8StringEncoding];
-        [[iCloud sharedCloud] saveChangesToDocumentWithName:self.fileName withContent:fileData completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
+        [[iCloud sharedCloud] saveAndCloseDocumentWithName:self.fileName withContent:fileData completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
             NSLog(@"Saved changes to %@: %@", [cloudDocument.fileURL lastPathComponent], documentData);
         }];
     }
