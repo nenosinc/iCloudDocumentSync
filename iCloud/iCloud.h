@@ -134,6 +134,15 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
  @param handler Code block called when the document is successfully saved. The completion block passes UIDocument and NSData objects containing the saved document and it's contents in the form of NSData. The NSError object contains any error information if an error occurred, otherwise it will be nil. */
 - (void)saveAndCloseDocumentWithName:(NSString *)documentName withContent:(NSData *)content completion:(void (^)(UIDocument *cloudDocument, NSData *documentData, NSError *error))handler __attribute__((nonnull));
 
+/** DEPRECATED. Use saveAndCloseDocumentWithName: instead. Record changes made to a document in iCloud. Changes are saved when the document is closed.
+ 
+ @deprecated This method is deprecated starting in version 7.1. Use methodNameHere: instead. This method may become unavailable in a future version.
+ 
+ @param documentName The name of the document being written to iCloud. This value must not be nil.
+ @param content The data to write to the document
+ @param handler Code block called when the document changes are recorded. The completion block passes UIDocument and NSData objects containing the saved document and it's contents in the form of NSData. The NSError object contains any error information if an error occurred, otherwise it will be nil. */
+- (void)saveChangesToDocumentWithName:(NSString *)documentName withContent:(NSData *)content completion:(void (^)(UIDocument *cloudDocument, NSData *documentData, NSError *error))handler __attribute__((nonnull)) __deprecated;
+
 /** Upload any local files that weren't created with iCloud
  
  @discussion Files in the local documents directory that do not already exist in iCloud will be **moved** into iCloud one by one. This process involves lots of file manipulation and as a result it may take a long time. This process will be performed on the background thread to avoid any lag or memory problems. When the upload processes end, the completion block is called on the main thread.
