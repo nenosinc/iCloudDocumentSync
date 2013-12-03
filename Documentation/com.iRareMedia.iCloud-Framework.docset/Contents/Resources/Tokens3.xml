@@ -6,6 +6,7 @@
 			<TokenIdentifier>//apple_ref/occ/intf/iCloudDelegate</TokenIdentifier>
 			<Abstract type="html">The iCloudDelegate protocol defines the methods used to receive event notifications and allow for deeper control of the iCloud Class.</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>
+            
 			
 			<NodeRef refid="3"/>
 		</Token>
@@ -14,7 +15,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/iCloudAvailabilityDidChangeToState:withUbiquityToken:withUbiquityContainer:</TokenIdentifier>
 			<Abstract type="html">Called when the availability of iCloud changes</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (void)iCloudAvailabilityDidChangeToState:(BOOL)cloudIsAvailable withUbiquityToken:(id)ubiquityToken withUbiquityContainer:(NSURL *)ubiquityContainer</Declaration>
 			<Parameters>
@@ -35,9 +36,29 @@
 		</Token>
 		
 		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/iCloudDidFinishInitializingWitUbiquityToken:withUbiquityContainer:</TokenIdentifier>
+			<Abstract type="html">Called when the iCloud initiaization process is finished and the iCloud is available</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>
+			
+			<Declaration>- (void)iCloudDidFinishInitializingWitUbiquityToken:(id)cloudToken withUbiquityContainer:(NSURL *)ubiquityContainer</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>cloudToken</Name>
+					<Abstract type="html">An iCloud ubiquity token that represents the current iCloud identity. Can be used to determine if iCloud is available and if the iCloud account has been changed (ex. if the user logged out and then logged in with a different iCloud account). This object may be nil if iCloud is not available for any reason.</Abstract>
+				</Parameter><Parameter>
+					<Name>ubiquityContainer</Name>
+					<Abstract type="html">The root URL path to the current application&apos;s ubiquity container. This URL may be nil until the ubiquity container is initialized.</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/iCloudDidFinishInitializingWitUbiquityToken:withUbiquityContainer:</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
 			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/iCloudQueryLimitedToFileExtension</TokenIdentifier>
 			<Abstract type="html">Called before creating an iCloud Query filter. Specify the type of file to be queried.</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (NSString *)iCloudQueryLimitedToFileExtension</Declaration>
 			
@@ -49,7 +70,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/iCloudFilesDidChange:withNewFileNames:</TokenIdentifier>
 			<Abstract type="html">Tells the delegate that the files in iCloud have been modified</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (void)iCloudFilesDidChange:(NSMutableArray *)files withNewFileNames:(NSMutableArray *)fileNames</Declaration>
 			<Parameters>
@@ -69,7 +90,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/iCloudFileConflictBetweenCloudFile:andLocalFile:</TokenIdentifier>
 			<Abstract type="html">Sent to the delegate where there is a conflict between a local file and an iCloud file during an upload or download</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (void)iCloudFileConflictBetweenCloudFile:(NSDictionary *)cloudFile andLocalFile:(NSDictionary *)localFile</Declaration>
 			<Parameters>
@@ -89,7 +110,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/iCloudFileUploadConflictWithCloudFile:andLocalFile:</TokenIdentifier>
 			<Abstract type="html">DEPRECATED. Sent to the delegate where there is a conflict between a local file and an iCloud file during an upload (&lt;b class=&quot;deprecated&quot;&gt;Deprecated:&lt;/b&gt;&lt;span class=&quot;deprecated&quot;&gt; Deprecated in version 7.0. Use iCloudFileConflictBetweenCloudFile:andLocalFile: instead.&lt;/span&gt;)</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (void)iCloudFileUploadConflictWithCloudFile:(NSDictionary *)cloudFile andLocalFile:(NSDictionary *)localFile</Declaration>
 			<Parameters>
@@ -109,7 +130,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/iCloudError:</TokenIdentifier>
 			<Abstract type="html">DEPRECATED. Called when there is an error while performing an iCloud process (&lt;b class=&quot;deprecated&quot;&gt;Deprecated:&lt;/b&gt;&lt;span class=&quot;deprecated&quot;&gt; Deprecated in version 6.1. Use the NSError parameter available in corresponding methods&apos; completion handlers.&lt;/span&gt;)</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (void)iCloudError:(NSError *)error</Declaration>
 			<Parameters>
@@ -126,7 +147,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/cloudError:</TokenIdentifier>
 			<Abstract type="html">DEPRECATED. Tells the delegate that there was an error while performing a process (&lt;b class=&quot;deprecated&quot;&gt;Deprecated:&lt;/b&gt;&lt;span class=&quot;deprecated&quot;&gt; Deprecated in version 6.0. Use the NSError parameter available in corresponding methods&apos; completion handlers.&lt;/span&gt;)</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (void)cloudError:(NSError *)error</Declaration>
 			<Parameters>
@@ -143,7 +164,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/fileListChangedWithFiles:andFileNames:</TokenIdentifier>
 			<Abstract type="html">DEPRECATED. Tells the delegate that the files in iCloud have been modified (&lt;b class=&quot;deprecated&quot;&gt;Deprecated:&lt;/b&gt;&lt;span class=&quot;deprecated&quot;&gt; Deprecated in version 6.0. Use iCloudFilesDidChange:withNewFileNames: instead.&lt;/span&gt;)</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (void)fileListChangedWithFiles:(NSMutableArray *)files andFileNames:(NSMutableArray *)fileNames</Declaration>
 			<Parameters>
@@ -163,7 +184,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/documentWasDeleted</TokenIdentifier>
 			<Abstract type="html">DEPRECATED. Tells the delegate that a document was successfully deleted. (&lt;b class=&quot;deprecated&quot;&gt;Deprecated:&lt;/b&gt;&lt;span class=&quot;deprecated&quot;&gt; Deprecated in version 6.0. Use the completion handlers in deleteDocumentWithName:completion: instead.&lt;/span&gt;)</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (void)documentWasDeleted</Declaration>
 			
@@ -175,7 +196,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/documentWasSaved</TokenIdentifier>
 			<Abstract type="html">DEPRECATED. Tells the delegate that a document was successfully saved (&lt;b class=&quot;deprecated&quot;&gt;Deprecated:&lt;/b&gt;&lt;span class=&quot;deprecated&quot;&gt; Deprecated in version 6.0. Use the completion handlers in saveDocumentWithName:withContent:completion: instead.&lt;/span&gt;)</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (void)documentWasSaved</Declaration>
 			
@@ -187,7 +208,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/documentsFinishedUploading</TokenIdentifier>
 			<Abstract type="html">DEPRECATED. Tells the delegate that a document finished uploading (&lt;b class=&quot;deprecated&quot;&gt;Deprecated:&lt;/b&gt;&lt;span class=&quot;deprecated&quot;&gt; Deprecated in version 6.0. Use the completion handlers in uploadLocalOfflineDocumentsWithDelegate:repeatingHandler:completion: instead.&lt;/span&gt;)</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (void)documentsFinishedUploading</Declaration>
 			
@@ -199,7 +220,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/documentsStartedUploading</TokenIdentifier>
 			<Abstract type="html">DEPRECATED. Tells the delegate that a document started uploading (&lt;b class=&quot;deprecated&quot;&gt;Deprecated:&lt;/b&gt;&lt;span class=&quot;deprecated&quot;&gt; Deprecated in version 6.0. Delegate methods are no longer used to report method-specfic conditions and so this method is never called. Completion blocks are now used.&lt;/span&gt;)</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (void)documentsStartedUploading</Declaration>
 			
@@ -211,7 +232,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/documentsStartedDownloading</TokenIdentifier>
 			<Abstract type="html">DEPRECATED. Tells the delegate that a document started downloading (&lt;b class=&quot;deprecated&quot;&gt;Deprecated:&lt;/b&gt;&lt;span class=&quot;deprecated&quot;&gt; Deprecated in version 6.0. Delegate methods are no longer used to report method-specfic conditions and so this method is never called. Completion blocks are now used.&lt;/span&gt;)</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (void)documentsStartedDownloading</Declaration>
 			
@@ -223,7 +244,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/intfm/iCloudDelegate/documentsFinishedDownloading</TokenIdentifier>
 			<Abstract type="html">DEPRECATED. Tells the delegate that a document finished downloading (&lt;b class=&quot;deprecated&quot;&gt;Deprecated:&lt;/b&gt;&lt;span class=&quot;deprecated&quot;&gt; Deprecated in version 6.0. Delegate methods are no longer used to report method-specfic conditions and so this method is never called. Completion blocks are now used.&lt;/span&gt;)</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (void)documentsFinishedDownloading</Declaration>
 			
@@ -232,5 +253,6 @@
             <NodeRef refid="3"/>
 		</Token>
 		
+        
 	</File>
 </Tokens>

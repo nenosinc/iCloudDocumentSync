@@ -6,6 +6,7 @@
 			<TokenIdentifier>//apple_ref/occ/cl/iCloud</TokenIdentifier>
 			<Abstract type="html">iCloud Document Sync helps integrate iCloud into iOS (OS X coming soon) Objective-C document projects with one-line code methods. Sync, upload, manage, and remove documents to and from iCloud with only a few lines of code (compared to the hundreds of lines and hours that it usually takes). Updates and more details on this project can be found on GitHub. If you like the project, please star it on GitHub!</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>
+            
 			
 			<NodeRef refid="1"/>
 		</Token>
@@ -14,7 +15,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/clm/iCloud/sharedCloud</TokenIdentifier>
 			<Abstract type="html">iCloud shared instance object</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>+ (id)sharedCloud</Declaration>
 			
@@ -26,7 +27,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/setDelegate:</TokenIdentifier>
 			<Abstract type="html">iCloud Delegate helps call methods when document processes begin or end</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>@property (weak, nonatomic) id&lt;iCloudDelegate&gt; delegate</Declaration>
 			
@@ -38,7 +39,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/delegate</TokenIdentifier>
 			<Abstract type="html">iCloud Delegate helps call methods when document processes begin or end</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>@property (weak, nonatomic) id&lt;iCloudDelegate&gt; delegate</Declaration>
 			
@@ -50,7 +51,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instp/iCloud/delegate</TokenIdentifier>
 			<Abstract type="html">iCloud Delegate helps call methods when document processes begin or end</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>@property (weak, nonatomic) id&lt;iCloudDelegate&gt; delegate</Declaration>
 			
@@ -62,7 +63,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/setQuery:</TokenIdentifier>
 			<Abstract type="html">The current NSMetadataQuery object</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>@property (strong) NSMetadataQuery *query</Declaration>
 			
@@ -74,7 +75,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/query</TokenIdentifier>
 			<Abstract type="html">The current NSMetadataQuery object</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>@property (strong) NSMetadataQuery *query</Declaration>
 			
@@ -86,7 +87,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instp/iCloud/query</TokenIdentifier>
 			<Abstract type="html">The current NSMetadataQuery object</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>@property (strong) NSMetadataQuery *query</Declaration>
 			
@@ -98,7 +99,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/setFileList:</TokenIdentifier>
 			<Abstract type="html">A list of iCloud files from the current query</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>@property (strong) NSMutableArray *fileList</Declaration>
 			
@@ -110,7 +111,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/fileList</TokenIdentifier>
 			<Abstract type="html">A list of iCloud files from the current query</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>@property (strong) NSMutableArray *fileList</Declaration>
 			
@@ -122,7 +123,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instp/iCloud/fileList</TokenIdentifier>
 			<Abstract type="html">A list of iCloud files from the current query</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>@property (strong) NSMutableArray *fileList</Declaration>
 			
@@ -134,7 +135,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/setPreviousQueryResults:</TokenIdentifier>
 			<Abstract type="html">A list of iCloud files from the previous query</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>@property (strong) NSMutableArray *previousQueryResults</Declaration>
 			
@@ -146,7 +147,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/previousQueryResults</TokenIdentifier>
 			<Abstract type="html">A list of iCloud files from the previous query</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>@property (strong) NSMutableArray *previousQueryResults</Declaration>
 			
@@ -158,7 +159,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instp/iCloud/previousQueryResults</TokenIdentifier>
 			<Abstract type="html">A list of iCloud files from the previous query</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>@property (strong) NSMutableArray *previousQueryResults</Declaration>
 			
@@ -170,7 +171,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/setVerboseLogging:</TokenIdentifier>
 			<Abstract type="html">Enable verbose logging for detailed feedback in the log. Turning this off only prints crucial log notes such as errors.</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>@property BOOL verboseLogging</Declaration>
 			
@@ -182,7 +183,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/verboseLogging</TokenIdentifier>
 			<Abstract type="html">Enable verbose logging for detailed feedback in the log. Turning this off only prints crucial log notes such as errors.</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>@property BOOL verboseLogging</Declaration>
 			
@@ -194,7 +195,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instp/iCloud/verboseLogging</TokenIdentifier>
 			<Abstract type="html">Enable verbose logging for detailed feedback in the log. Turning this off only prints crucial log notes such as errors.</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>@property BOOL verboseLogging</Declaration>
 			
@@ -206,7 +207,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/setVerboseAvailabilityLogging:</TokenIdentifier>
 			<Abstract type="html">Enable verbose availability logging for repeated feedback about iCloud availability in the log. Turning this off will prevent availability-related messages from being printed in the log. This property does not relate to the verboseLogging property.</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>@property BOOL verboseAvailabilityLogging</Declaration>
 			
@@ -218,7 +219,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/verboseAvailabilityLogging</TokenIdentifier>
 			<Abstract type="html">Enable verbose availability logging for repeated feedback about iCloud availability in the log. Turning this off will prevent availability-related messages from being printed in the log. This property does not relate to the verboseLogging property.</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>@property BOOL verboseAvailabilityLogging</Declaration>
 			
@@ -230,7 +231,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instp/iCloud/verboseAvailabilityLogging</TokenIdentifier>
 			<Abstract type="html">Enable verbose availability logging for repeated feedback about iCloud availability in the log. Turning this off will prevent availability-related messages from being printed in the log. This property does not relate to the verboseLogging property.</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>@property BOOL verboseAvailabilityLogging</Declaration>
 			
@@ -242,7 +243,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/checkCloudAvailability</TokenIdentifier>
 			<Abstract type="html">Check whether or not iCloud is available and that it can be accessed. Returns a boolean value.</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (BOOL)checkCloudAvailability</Declaration>
 			
@@ -254,7 +255,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/checkCloudUbiquityContainer</TokenIdentifier>
 			<Abstract type="html">Check that the current application&apos;s iCloud Ubiquity Container is available. Returns a boolean value.</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (BOOL)checkCloudUbiquityContainer</Declaration>
 			
@@ -266,7 +267,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/ubiquitousContainerURL</TokenIdentifier>
 			<Abstract type="html">Retrieve the current application&apos;s ubiquitous root URL</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (NSURL *)ubiquitousContainerURL</Declaration>
 			
@@ -278,7 +279,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/ubiquitousDocumentsDirectoryURL</TokenIdentifier>
 			<Abstract type="html">Retrieve the current application&apos;s ubiquitous documents directory URL</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (NSURL *)ubiquitousDocumentsDirectoryURL</Declaration>
 			
@@ -290,7 +291,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/updateFiles</TokenIdentifier>
 			<Abstract type="html">Check for and update the list of files stored in your app&apos;s iCloud Documents Folder. This method is automatically called by iOS when there are changes to files in the iCloud Directory. The iCloudFilesDidChange:withNewFileNames: delegate method is triggered by this method.</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (void)updateFiles</Declaration>
 			
@@ -302,7 +303,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/saveAndCloseDocumentWithName:withContent:completion:</TokenIdentifier>
 			<Abstract type="html">Create, save, and close a document in iCloud.</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (void)saveAndCloseDocumentWithName:(NSString *)documentName withContent:(NSData *)content completion:(void ( ^ ) ( UIDocument *cloudDocument , NSData *documentData , NSError *error ))handler</Declaration>
 			<Parameters>
@@ -324,8 +325,8 @@
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/saveChangesToDocumentWithName:withContent:completion:</TokenIdentifier>
-			<Abstract type="html">Record changes made to a document in iCloud. Changes are saved when the document is closed.</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<Abstract type="html">DEPRECATED. Use saveAndCloseDocumentWithName: instead. Record changes made to a document in iCloud. Changes are saved when the document is closed. (&lt;b class=&quot;deprecated&quot;&gt;Deprecated:&lt;/b&gt;&lt;span class=&quot;deprecated&quot;&gt; This method is deprecated starting in version 7.1. Use methodNameHere: instead. This method may become unavailable in a future version.&lt;/span&gt;)</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (void)saveChangesToDocumentWithName:(NSString *)documentName withContent:(NSData *)content completion:(void ( ^ ) ( UIDocument *cloudDocument , NSData *documentData , NSError *error ))handler</Declaration>
 			<Parameters>
@@ -348,7 +349,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/uploadLocalOfflineDocumentsWithRepeatingHandler:completion:</TokenIdentifier>
 			<Abstract type="html">Upload any local files that weren&apos;t created with iCloud</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (void)uploadLocalOfflineDocumentsWithRepeatingHandler:(void ( ^ ) ( NSString *documentName , NSError *error ))repeatingHandler completion:(void ( ^ ) ( void ))completion</Declaration>
 			<Parameters>
@@ -368,7 +369,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/uploadLocalDocumentToCloudWithName:completion:</TokenIdentifier>
 			<Abstract type="html">Upload a local file to iCloud</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (void)uploadLocalDocumentToCloudWithName:(NSString *)documentName completion:(void ( ^ ) ( NSError *error ))handler</Declaration>
 			<Parameters>
@@ -388,7 +389,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/shareDocumentWithName:completion:</TokenIdentifier>
 			<Abstract type="html">Share an iCloud document by uploading it to a public URL.</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (NSURL *)shareDocumentWithName:(NSString *)documentName completion:(void ( ^ ) ( NSURL *sharedURL , NSDate *expirationDate , NSError *error ))handler</Declaration>
 			<Parameters>
@@ -408,7 +409,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/deleteDocumentWithName:completion:</TokenIdentifier>
 			<Abstract type="html">Delete a document from iCloud.</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (void)deleteDocumentWithName:(NSString *)documentName completion:(void ( ^ ) ( NSError *error ))handler</Declaration>
 			<Parameters>
@@ -428,7 +429,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/evictCloudDocumentWithName:completion:</TokenIdentifier>
 			<Abstract type="html">Evict a document from iCloud, move it from iCloud to the current application&apos;s local documents directory.</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (void)evictCloudDocumentWithName:(NSString *)documentName completion:(void ( ^ ) ( NSError *error ))handler</Declaration>
 			<Parameters>
@@ -448,7 +449,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/retrieveCloudDocumentWithName:completion:</TokenIdentifier>
 			<Abstract type="html">Open a UIDocument stored in iCloud. If the document does not exist, a new blank document will be created using the documentName provided. You can use the doesFileExistInCloud: method to check if a file exists before calling this method.</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (void)retrieveCloudDocumentWithName:(NSString *)documentName completion:(void ( ^ ) ( UIDocument *cloudDocument , NSData *documentData , NSError *error ))handler</Declaration>
 			<Parameters>
@@ -468,7 +469,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/retrieveCloudDocumentObjectWithName:</TokenIdentifier>
 			<Abstract type="html">Get the relevant iCloudDocument object for the specified file</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (iCloudDocument *)retrieveCloudDocumentObjectWithName:(NSString *)documentName</Declaration>
 			<Parameters>
@@ -485,7 +486,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/doesFileExistInCloud:</TokenIdentifier>
 			<Abstract type="html">Check if a file exists in iCloud</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (BOOL)doesFileExistInCloud:(NSString *)documentName</Declaration>
 			<Parameters>
@@ -502,7 +503,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/fileSize:</TokenIdentifier>
 			<Abstract type="html">Get the size of a file stored in iCloud</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (NSNumber *)fileSize:(NSString *)documentName</Declaration>
 			<Parameters>
@@ -519,7 +520,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/fileModifiedDate:</TokenIdentifier>
 			<Abstract type="html">Get the last modified date of a file stored in iCloud</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (NSDate *)fileModifiedDate:(NSString *)documentName</Declaration>
 			<Parameters>
@@ -536,7 +537,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/fileCreatedDate:</TokenIdentifier>
 			<Abstract type="html">Get the creation date of a file stored in iCloud</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (NSDate *)fileCreatedDate:(NSString *)documentName</Declaration>
 			<Parameters>
@@ -553,7 +554,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/getListOfCloudFiles</TokenIdentifier>
 			<Abstract type="html">Get a list of files stored in iCloud</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (NSArray *)getListOfCloudFiles</Declaration>
 			
@@ -565,7 +566,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/renameOriginalDocument:withNewName:completion:</TokenIdentifier>
 			<Abstract type="html">Rename a document in iCloud</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (void)renameOriginalDocument:(NSString *)documentName withNewName:(NSString *)newName completion:(void ( ^ ) ( NSError *error ))handler</Declaration>
 			<Parameters>
@@ -588,7 +589,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/duplicateOriginalDocument:withNewName:completion:</TokenIdentifier>
 			<Abstract type="html">Duplicate a document in iCloud</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (void)duplicateOriginalDocument:(NSString *)documentName withNewName:(NSString *)newName completion:(void ( ^ ) ( NSError *error ))handler</Declaration>
 			<Parameters>
@@ -611,7 +612,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/documentStateForFile:completion:</TokenIdentifier>
 			<Abstract type="html">Get the current document state of a file stored in iCloud</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (void)documentStateForFile:(NSString *)documentName completion:(void ( ^ ) ( UIDocumentState *documentState , NSString *userReadableDocumentState , NSError *error ))handler</Declaration>
 			<Parameters>
@@ -631,7 +632,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/monitorDocumentStateForFile:onTarget:withSelector:</TokenIdentifier>
 			<Abstract type="html">Monitor changes in the state of a document stored in iCloud</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (BOOL)monitorDocumentStateForFile:(NSString *)documentName onTarget:(id)sender withSelector:(SEL)selector</Declaration>
 			<Parameters>
@@ -654,7 +655,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/stopMonitoringDocumentStateChangesForFile:onTarget:</TokenIdentifier>
 			<Abstract type="html">Stop monitoring changes to the state of a document stored in iCloud</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (BOOL)stopMonitoringDocumentStateChangesForFile:(NSString *)documentName onTarget:(id)sender</Declaration>
 			<Parameters>
@@ -674,7 +675,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloud/findUnresolvedConflictingVersionsOfFile:</TokenIdentifier>
 			<Abstract type="html">Find all the conflicting versions of a specified document</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (NSArray *)findUnresolvedConflictingVersionsOfFile:(NSString *)documentName</Declaration>
 			<Parameters>
@@ -695,7 +696,7 @@
 * Merge the changes from the conflicting versions.
 * Choose one of the document versions based on some pertinent factor, such as the version with the latest modification date.
 * Enable the user to view conflicting versions of a document and select the one to use.</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>- (void)resolveConflictForFile:(NSString *)documentName withSelectedFileVersion:(NSFileVersion *)documentVersion</Declaration>
 			<Parameters>
@@ -715,7 +716,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/clm/iCloud/uploadLocalOfflineDocumentsWithDelegate:</TokenIdentifier>
 			<Abstract type="html">DEPRECATED. Use uploadLocalOfflineDocuments instead, like so: [[iCloud sharedCloud] uploadLocalOfflineDocuments]; (&lt;b class=&quot;deprecated&quot;&gt;Deprecated:&lt;/b&gt;&lt;span class=&quot;deprecated&quot;&gt; Deprecated in version 7.0. Use uploadLocalOfflineDocuments instead.&lt;/span&gt;)</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>+ (void)uploadLocalOfflineDocumentsWithDelegate:(id&lt;iCloudDelegate&gt;)delegate</Declaration>
 			<Parameters>
@@ -732,7 +733,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/clm/iCloud/updateFilesWithDelegate:</TokenIdentifier>
 			<Abstract type="html">DEPRECATED. Use updateFiles instead, like so: [[iCloud sharedCloud] updateFiles]; (&lt;b class=&quot;deprecated&quot;&gt;Deprecated:&lt;/b&gt;&lt;span class=&quot;deprecated&quot;&gt; Deprecated in version 7.0. Use updateFiles instead.&lt;/span&gt;)</Abstract>
-			<DeclaredIn>iCloud.h</DeclaredIn>			
+			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<Declaration>+ (void)updateFilesWithDelegate:(id&lt;iCloudDelegate&gt;)delegate</Declaration>
 			<Parameters>
@@ -746,5 +747,6 @@
             <NodeRef refid="1"/>
 		</Token>
 		
+        
 	</File>
 </Tokens>
