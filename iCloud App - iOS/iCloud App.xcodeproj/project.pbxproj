@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04EBBBFD184C9402009022D1 /* iCloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EBBBFC184C9402009022D1 /* iCloud.framework */; };
+		04EBBBFE184C9402009022D1 /* iCloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EBBBFC184C9402009022D1 /* iCloud.framework */; };
 		9935A8E01846E5B4007C5628 /* AppBanner.png in Resources */ = {isa = PBXBuildFile; fileRef = 9935A8DF1846E5B4007C5628 /* AppBanner.png */; };
 		996B9CA31830073C006A36DA /* MHPrettyDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 996B9CA21830073C006A36DA /* MHPrettyDate.m */; };
 		997591521839500900DECF95 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 997591511839500900DECF95 /* Settings.bundle */; };
@@ -26,13 +28,11 @@
 		99E85B22182DC9280039FC97 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E85B04182DC9280039FC97 /* UIKit.framework */; };
 		99E85B2A182DC9280039FC97 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 99E85B28182DC9280039FC97 /* InfoPlist.strings */; };
 		99E85B2C182DC9280039FC97 /* iCloud_AppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 99E85B2B182DC9280039FC97 /* iCloud_AppTests.m */; };
-		99E85B37182DCE1B0039FC97 /* iCloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E85B36182DCE1B0039FC97 /* iCloud.framework */; };
 		99E85B3A182DD0DD0039FC97 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99E85B39182DD0DD0039FC97 /* ListViewController.m */; };
 		99E85B3D182DD34C0039FC97 /* DocumentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99E85B3C182DD34C0039FC97 /* DocumentViewController.m */; };
 		99E85B40182DE16E0039FC97 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99E85B3F182DE16E0039FC97 /* WelcomeViewController.m */; };
 		99FB117D1842A34900406254 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99FB117C1842A34900406254 /* ShareViewController.m */; };
 		99FB11811842A6A100406254 /* TLTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 99FB11801842A6A100406254 /* TLTransitionAnimator.m */; };
-		99FB11821842B42000406254 /* iCloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E85B36182DCE1B0039FC97 /* iCloud.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04EBBBFC184C9402009022D1 /* iCloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iCloud.framework; path = ../iCloud.framework; sourceTree = "<group>"; };
 		9935A8DF1846E5B4007C5628 /* AppBanner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppBanner.png; sourceTree = "<group>"; };
 		996B9CA11830073C006A36DA /* MHPrettyDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHPrettyDate.h; sourceTree = "<group>"; };
 		996B9CA21830073C006A36DA /* MHPrettyDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHPrettyDate.m; sourceTree = "<group>"; };
@@ -72,7 +73,6 @@
 		99E85B29182DC9280039FC97 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		99E85B2B182DC9280039FC97 /* iCloud_AppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iCloud_AppTests.m; sourceTree = "<group>"; };
 		99E85B35182DC9510039FC97 /* iCloud App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "iCloud App.entitlements"; sourceTree = "<group>"; };
-		99E85B36182DCE1B0039FC97 /* iCloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iCloud.framework; path = ../../../Projects/iCloudDocumentSync/iCloud.framework; sourceTree = "<group>"; };
 		99E85B38182DD0DD0039FC97 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
 		99E85B39182DD0DD0039FC97 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		99E85B3B182DD34C0039FC97 /* DocumentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocumentViewController.h; sourceTree = "<group>"; };
@@ -90,8 +90,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				99E85B37182DCE1B0039FC97 /* iCloud.framework in Frameworks */,
 				99E85B03182DC9280039FC97 /* CoreGraphics.framework in Frameworks */,
+				04EBBBFD184C9402009022D1 /* iCloud.framework in Frameworks */,
 				99E85B05182DC9280039FC97 /* UIKit.framework in Frameworks */,
 				99E85B01182DC9280039FC97 /* Foundation.framework in Frameworks */,
 			);
@@ -101,8 +101,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				99FB11821842B42000406254 /* iCloud.framework in Frameworks */,
 				99E85B20182DC9280039FC97 /* XCTest.framework in Frameworks */,
+				04EBBBFE184C9402009022D1 /* iCloud.framework in Frameworks */,
 				99E85B22182DC9280039FC97 /* UIKit.framework in Frameworks */,
 				99E85B21182DC9280039FC97 /* Foundation.framework in Frameworks */,
 			);
@@ -144,7 +144,7 @@
 		99E85AFF182DC9280039FC97 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				99E85B36182DCE1B0039FC97 /* iCloud.framework */,
+				04EBBBFC184C9402009022D1 /* iCloud.framework */,
 				99E85B00182DC9280039FC97 /* Foundation.framework */,
 				99E85B02182DC9280039FC97 /* CoreGraphics.framework */,
 				99E85B04182DC9280039FC97 /* UIKit.framework */,
@@ -266,7 +266,7 @@
 				ORGANIZATIONNAME = "iRare Media";
 				TargetAttributes = {
 					99E85AFC182DC9280039FC97 = {
-						DevelopmentTeam = 243F4RK8Z3;
+						DevelopmentTeam = J2SQNW7388;
 						SystemCapabilities = {
 							com.apple.iCloud = {
 								enabled = 1;
@@ -402,7 +402,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Karina Geideck (J2SQNW7388)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -441,7 +442,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Karina Geideck (J2SQNW7388)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -465,7 +467,10 @@
 				CODE_SIGN_ENTITLEMENTS = "iCloud App/iCloud App.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/jack/Dropbox/Developer/iCloudDocumentSync\\ Repro/iCloudDocumentSync",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iCloud App/iCloud App-Prefix.pch";
 				INFOPLIST_FILE = "iCloud App/iCloud App-Info.plist";
@@ -486,7 +491,10 @@
 				CODE_SIGN_ENTITLEMENTS = "iCloud App/iCloud App.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/jack/Dropbox/Developer/iCloudDocumentSync\\ Repro/iCloudDocumentSync",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iCloud App/iCloud App-Prefix.pch";
 				INFOPLIST_FILE = "iCloud App/iCloud App-Info.plist";
@@ -509,6 +517,7 @@
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					/Users/Spencers/Xcode/Projects/iCloudDocumentSync,
+					"/Users/jack/Dropbox/Developer/iCloudDocumentSync\\ Repro/iCloudDocumentSync",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iCloud App/iCloud App-Prefix.pch";
@@ -533,6 +542,7 @@
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					/Users/Spencers/Xcode/Projects/iCloudDocumentSync,
+					"/Users/jack/Dropbox/Developer/iCloudDocumentSync\\ Repro/iCloudDocumentSync",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iCloud App/iCloud App-Prefix.pch";

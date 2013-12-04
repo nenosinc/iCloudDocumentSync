@@ -41,6 +41,9 @@
 - (id)init {
     // Setup Starter Sync
     self = [super init];
+	
+	NSLog(@"cloud init ...");
+	
     if (self) {
         // Setup the File Manager
         if (fileManager == nil) fileManager = [NSFileManager defaultManager];
@@ -57,16 +60,29 @@
         NSLog(@"[iCloud] Initialized");
         
         // Check the iCloud Ubiquity Container
-        [self checkCloudUbiquityContainer];
-        
-        // Check iCloud Availability
-        [self checkCloudAvailability];
-        
-        // Subscribe to changes in iCloud availability
-        [notificationCenter addObserver:self selector:@selector(checkCloudAvailability) name:NSUbiquityIdentityDidChangeNotification object:nil];
-        
-        // Sync and Update Documents List
-        [self enumerateCloudDocuments];
+        dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+			ubiquityContainer = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier: nil];
+			if (ubiquityContainer != nil) {
+				// We can write to the ubiquity container
+				
+				dispatch_async (dispatch_get_main_queue (), ^(void) {
+					// On the main thread, update UI and state as appropriate
+					
+					// Check iCloud Availability
+					id cloudToken = [fileManager ubiquityIdentityToken];
+					
+					// Sync and Update Documents List
+					[self enumerateCloudDocuments];
+					
+					// Subscribe to changes in iCloud availability (should run on main thread)
+					[notificationCenter addObserver:self selector:@selector(checkCloudAvailability) name:NSUbiquityIdentityDidChangeNotification object:nil];
+					
+					if ([delegate respondsToSelector:@selector(iCloudDidFinishInitializingWitUbiquityToken: withUbiquityContainer:)])
+						[delegate iCloudDidFinishInitializingWitUbiquityToken:cloudToken withUbiquityContainer:ubiquityContainer];
+				});
+			}
+		});
+		
     }
     
     return self;
@@ -99,18 +115,17 @@
     }
 }
 
-- (BOOL)checkCloudUbiquityContainer {
-    dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
-        // Check for iCloud Availability by finishing the Ubiquity URL of the app
-        ubiquityContainer = [fileManager URLForUbiquityContainerIdentifier:nil];
-    });
-    
-    if (ubiquityContainer){
-        return YES;
-    } else {
-        return NO;
-    }
+- (BOOL)checkCloudUbiquityContainer
+{
+	// No need to start the whole thing again - we did get it when initializing
+	if (ubiquityContainer){
+		return YES;
+	} else {
+		return NO;
+	}
 }
+
+
 
 - (BOOL)quickCloudCheck {
     if ([fileManager ubiquityIdentityToken]) {
@@ -121,15 +136,13 @@
 }
 
 - (NSURL *)ubiquitousContainerURL {
-    dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
-        ubiquityContainer = [fileManager URLForUbiquityContainerIdentifier:nil];
-    });
-    
+	// No need to start the whole thing again - we did get it when initializing
     return ubiquityContainer;
 }
 
 - (NSURL *)ubiquitousDocumentsDirectoryURL {
-    NSURL *documentsDirectory = [[self ubiquitousContainerURL] URLByAppendingPathComponent:DOCUMENT_DIRECTORY];
+	// we're using the instance variable here - no need to start the retrieval process again
+    NSURL *documentsDirectory = [ubiquityContainer URLByAppendingPathComponent:DOCUMENT_DIRECTORY];
     NSError *error;
     
     BOOL isDirectory = NO;
@@ -277,38 +290,46 @@
     document.contents = content;
     [document updateChangeCount:UIDocumentChangeDone];
     
-    // If the file exists, close it; otherwise, create it.
     if ([fileManager fileExistsAtPath:[fileURL path]]) {
-        // Log closing
-        if (verboseLogging == YES) NSLog(@"[iCloud] Document exists, saving and closing");
-        
-        // Save and close the document
-        [document closeWithCompletionHandler:^(BOOL success) {
+		// The document did not exist and is being saved for the first time.
+		
+        if (verboseLogging == YES) NSLog(@"[iCloud] Document exists; overwriting, saving and closing");
+        // Save and create the new document, then close it
+        [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success) {
             if (success) {
-                // Log
-                if (verboseLogging == YES) NSLog(@"[iCloud] Saved and closed document");
-                
-                handler(document, document.contents, nil);
-            } else {
-                NSLog(@"[iCloud] Error while saving document: %s", __PRETTY_FUNCTION__);
-                NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"%s error while saving the document, %@, to iCloud", __PRETTY_FUNCTION__, document.fileURL] code:110 userInfo:[NSDictionary dictionaryWithObject:fileURL forKey:@"FileURL"]];
+				// Save and close the document
+				[document closeWithCompletionHandler:^(BOOL success) {
+					if (success) {
+						// Log
+						if (verboseLogging == YES) NSLog(@"[iCloud] Written, saved and closed document");
+						
+						handler(document, document.contents, nil);
+					} else {
+						NSLog(@"[iCloud] Error while saving document: %s", __PRETTY_FUNCTION__);
+						NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"%s error while saving the document, %@, to iCloud", __PRETTY_FUNCTION__, document.fileURL] code:110 userInfo:[NSDictionary dictionaryWithObject:fileURL forKey:@"FileURL"]];
+						
+						handler(document, document.contents, error);
+					}
+				}];
+				
+			} else {
+                NSLog(@"[iCloud] Error while writing to the document: %s", __PRETTY_FUNCTION__);
+                NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"%s error while writing to the document, %@, in iCloud", __PRETTY_FUNCTION__, document.fileURL] code:100 userInfo:[NSDictionary dictionaryWithObject:fileURL forKey:@"FileURL"]];
                 
                 handler(document, document.contents, error);
             }
-        }];
+		}];
     } else {
-        // Log saving
-        if (verboseLogging == YES) NSLog(@"[iCloud] Document is new, saving and then closing");
+        if (verboseLogging == YES) NSLog(@"[iCloud] Document is new; creating, saving and then closing");
         
-        // Save and create the new document, then close it
+        // The document is being saved by overwriting the current version, then closed.
         [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
             if (success) {
                 // Saving implicitly opens the file
                 [document closeWithCompletionHandler:^(BOOL success) {
-                    
                     if (success) {
                         // Log the save and close
-                        if (verboseLogging == YES) NSLog(@"[iCloud] New document closed and saved successfully");
+                        if (verboseLogging == YES) NSLog(@"[iCloud] New document created, saved and closed successfully");
                         
                         handler(document, document.contents, nil);
                     } else {
@@ -330,7 +351,16 @@
     }
 }
 
+/*
+ This method is deprecated: Due to the fact, that the document is recreated in closed state on every call, it just is s copy of the saveAndCloseDocumentWithName-method above
+ */
+ 
 - (void)saveChangesToDocumentWithName:(NSString *)documentName withContent:(NSData *)content completion:(void (^)(UIDocument *cloudDocument, NSData *documentData, NSError *error))handler {
+	
+	[self saveAndCloseDocumentWithName:documentName withContent:content completion:handler];
+
+	/*
+	
     // Log save
     if (verboseLogging == YES) NSLog(@"[iCloud] Beginning document change save");
     
@@ -384,6 +414,7 @@
             }
         }];
     }
+	 */
 }
 
 - (void)uploadLocalOfflineDocumentsWithRepeatingHandler:(void (^)(NSString *documentName, NSError *error))repeatingHandler completion:(void (^)(void))completion {

@@ -134,24 +134,14 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
  @param handler Code block called when the document is successfully saved. The completion block passes UIDocument and NSData objects containing the saved document and it's contents in the form of NSData. The NSError object contains any error information if an error occurred, otherwise it will be nil. */
 - (void)saveAndCloseDocumentWithName:(NSString *)documentName withContent:(NSData *)content completion:(void (^)(UIDocument *cloudDocument, NSData *documentData, NSError *error))handler __attribute__((nonnull));
 
-/** Record changes made to a document in iCloud. Changes are saved when the document is closed.
+/** DEPRECATED. Use saveAndCloseDocumentWithName: instead. Record changes made to a document in iCloud. Changes are saved when the document is closed.
  
- @discussion First, iCloud Document Sync checks if the specified document exists. If the document exists then the changes are recorded. If the document does not exist it will be created and the change will be recorded.
- 
- To record changes to a new document or an existing one, use this method. This method can be called frequently, for example in a text-editing app you may want to call this method when the user finishes making changes to a text view. Below is a code example of how to use it.
- 
-    [[iCloud sharedCloud] saveChangesToDocumentWithName:@"Name.ext" withContent:[NSData data] completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
-        if (error == nil) {
-            // Code here to use the UIDocument or NSData objects which have been passed with the completion handler
-        }
-    }];
- 
- Documents changes can be recorded even if the user is not connected to the internet. The only case in which a document will not be created is when the user has disabled iCloud or if the current application is not setup for iCloud.
+ @deprecated This method is deprecated starting in version 7.1. Use methodNameHere: instead. This method may become unavailable in a future version.
  
  @param documentName The name of the document being written to iCloud. This value must not be nil.
  @param content The data to write to the document
  @param handler Code block called when the document changes are recorded. The completion block passes UIDocument and NSData objects containing the saved document and it's contents in the form of NSData. The NSError object contains any error information if an error occurred, otherwise it will be nil. */
-- (void)saveChangesToDocumentWithName:(NSString *)documentName withContent:(NSData *)content completion:(void (^)(UIDocument *cloudDocument, NSData *documentData, NSError *error))handler __attribute__((nonnull));
+- (void)saveChangesToDocumentWithName:(NSString *)documentName withContent:(NSData *)content completion:(void (^)(UIDocument *cloudDocument, NSData *documentData, NSError *error))handler __attribute__((nonnull)) __deprecated;
 
 /** Upload any local files that weren't created with iCloud
  
@@ -373,6 +363,14 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
  @param ubiquityToken An iCloud ubiquity token that represents the current iCloud identity. Can be used to determine if iCloud is available and if the iCloud account has been changed (ex. if the user logged out and then logged in with a different iCloud account). This object may be nil if iCloud is not available for any reason.
  @param ubiquityContainer The root URL path to the current application's ubiquity container. This URL may be nil until the ubiquity container is initialized. */
 - (void)iCloudAvailabilityDidChangeToState:(BOOL)cloudIsAvailable withUbiquityToken:(id)ubiquityToken withUbiquityContainer:(NSURL *)ubiquityContainer;
+
+
+/** Called when the iCloud initiaization process is finished and the iCloud is available
+ 
+ @param cloudToken An iCloud ubiquity token that represents the current iCloud identity. Can be used to determine if iCloud is available and if the iCloud account has been changed (ex. if the user logged out and then logged in with a different iCloud account). This object may be nil if iCloud is not available for any reason.
+ @param ubiquityContainer The root URL path to the current application's ubiquity container. This URL may be nil until the ubiquity container is initialized. */
+- (void)iCloudDidFinishInitializingWitUbiquityToken:(id)cloudToken withUbiquityContainer:(NSURL *)ubiquityContainer;
+
 
 
 /** Called before creating an iCloud Query filter. Specify the type of file to be queried. 

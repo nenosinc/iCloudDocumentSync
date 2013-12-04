@@ -282,8 +282,8 @@
 </tr>
 						</tbody></table></div>
 					
-					
-					
+                    
+                    
 					
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
@@ -323,7 +323,6 @@
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/sharedCloud">+&nbsp;sharedCloud</a></code>
-		<span class="tooltip"><p>iCloud shared instance object</p></span>
 	</span>
 	
 	
@@ -338,7 +337,6 @@
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/delegate">&nbsp;&nbsp;delegate</a></code>
-		<span class="tooltip"><p>iCloud Delegate helps call methods when document processes begin or end</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
@@ -353,35 +351,30 @@
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/query">&nbsp;&nbsp;query</a></code>
-		<span class="tooltip"><p>The current NSMetadataQuery object</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/fileList">&nbsp;&nbsp;fileList</a></code>
-		<span class="tooltip"><p>A list of iCloud files from the current <a href="#//api/name/query">query</a></p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/previousQueryResults">&nbsp;&nbsp;previousQueryResults</a></code>
-		<span class="tooltip"><p>A list of iCloud files from the previous <a href="#//api/name/query">query</a></p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/verboseLogging">&nbsp;&nbsp;verboseLogging</a></code>
-		<span class="tooltip"><p>Enable verbose logging for detailed feedback in the log. Turning this off only prints crucial log notes such as errors.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/verboseAvailabilityLogging">&nbsp;&nbsp;verboseAvailabilityLogging</a></code>
-		<span class="tooltip"><p>Enable verbose availability logging for repeated feedback about iCloud availability in the log. Turning this off will prevent availability-related messages from being printed in the log. This property does not relate to the <a href="#//api/name/verboseLogging">verboseLogging</a> property.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
@@ -396,28 +389,24 @@
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/checkCloudAvailability">&ndash;&nbsp;checkCloudAvailability</a></code>
-		<span class="tooltip"><p>Check whether or not iCloud is available and that it can be accessed. Returns a boolean value.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/checkCloudUbiquityContainer">&ndash;&nbsp;checkCloudUbiquityContainer</a></code>
-		<span class="tooltip"><p>Check that the current application&rsquo;s iCloud Ubiquity Container is available. Returns a boolean value.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/ubiquitousContainerURL">&ndash;&nbsp;ubiquitousContainerURL</a></code>
-		<span class="tooltip"><p>Retrieve the current application&rsquo;s ubiquitous root URL</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/ubiquitousDocumentsDirectoryURL">&ndash;&nbsp;ubiquitousDocumentsDirectoryURL</a></code>
-		<span class="tooltip"><p>Retrieve the current application&rsquo;s ubiquitous documents directory URL</p></span>
 	</span>
 	
 	
@@ -432,7 +421,6 @@
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/updateFiles">&ndash;&nbsp;updateFiles</a></code>
-		<span class="tooltip"><p>Check for and update the list of files stored in your app&rsquo;s iCloud Documents Folder. This method is automatically called by iOS when there are changes to files in the iCloud Directory. The iCloudFilesDidChange:withNewFileNames: <a href="#//api/name/delegate">delegate</a> method is triggered by this method.</p></span>
 	</span>
 	
 	
@@ -447,28 +435,24 @@
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/saveAndCloseDocumentWithName:withContent:completion:">&ndash;&nbsp;saveAndCloseDocumentWithName:withContent:completion:</a></code>
-		<span class="tooltip"><p>Create, save, and close a document in iCloud.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/saveChangesToDocumentWithName:withContent:completion:">&ndash;&nbsp;saveChangesToDocumentWithName:withContent:completion:</a></code>
-		<span class="tooltip"><p>Record changes made to a document in iCloud. Changes are saved when the document is closed.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/uploadLocalOfflineDocumentsWithRepeatingHandler:completion:">&ndash;&nbsp;uploadLocalOfflineDocumentsWithRepeatingHandler:completion:</a></code>
-		<span class="tooltip"><p>Upload any local files that weren&rsquo;t created with iCloud</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/uploadLocalDocumentToCloudWithName:completion:">&ndash;&nbsp;uploadLocalDocumentToCloudWithName:completion:</a></code>
-		<span class="tooltip"><p>Upload a local file to iCloud</p></span>
 	</span>
 	
 	
@@ -483,7 +467,6 @@
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/shareDocumentWithName:completion:">&ndash;&nbsp;shareDocumentWithName:completion:</a></code>
-		<span class="tooltip"><p>Share an iCloud document by uploading it to a public URL.</p></span>
 	</span>
 	
 	
@@ -498,14 +481,12 @@
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/deleteDocumentWithName:completion:">&ndash;&nbsp;deleteDocumentWithName:completion:</a></code>
-		<span class="tooltip"><p>Delete a document from iCloud.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/evictCloudDocumentWithName:completion:">&ndash;&nbsp;evictCloudDocumentWithName:completion:</a></code>
-		<span class="tooltip"><p>Evict a document from iCloud, move it from iCloud to the current application&rsquo;s local documents directory.</p></span>
 	</span>
 	
 	
@@ -520,49 +501,42 @@
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/retrieveCloudDocumentWithName:completion:">&ndash;&nbsp;retrieveCloudDocumentWithName:completion:</a></code>
-		<span class="tooltip"><p>Open a UIDocument stored in iCloud. If the document does not exist, a new blank document will be created using the documentName provided. You can use the <a href="#//api/name/doesFileExistInCloud:">doesFileExistInCloud:</a> method to check if a file exists before calling this method.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/retrieveCloudDocumentObjectWithName:">&ndash;&nbsp;retrieveCloudDocumentObjectWithName:</a></code>
-		<span class="tooltip"><p>Get the relevant <a href="../Classes/iCloudDocument.html">iCloudDocument</a> object for the specified file</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/doesFileExistInCloud:">&ndash;&nbsp;doesFileExistInCloud:</a></code>
-		<span class="tooltip"><p>Check if a file exists in iCloud</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/fileSize:">&ndash;&nbsp;fileSize:</a></code>
-		<span class="tooltip"><p>Get the size of a file stored in iCloud</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/fileModifiedDate:">&ndash;&nbsp;fileModifiedDate:</a></code>
-		<span class="tooltip"><p>Get the last modified date of a file stored in iCloud</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/fileCreatedDate:">&ndash;&nbsp;fileCreatedDate:</a></code>
-		<span class="tooltip"><p>Get the creation date of a file stored in iCloud</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/getListOfCloudFiles">&ndash;&nbsp;getListOfCloudFiles</a></code>
-		<span class="tooltip"><p>Get a list of files stored in iCloud</p></span>
 	</span>
 	
 	
@@ -577,14 +551,12 @@
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/renameOriginalDocument:withNewName:completion:">&ndash;&nbsp;renameOriginalDocument:withNewName:completion:</a></code>
-		<span class="tooltip"><p>Rename a document in iCloud</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/duplicateOriginalDocument:withNewName:completion:">&ndash;&nbsp;duplicateOriginalDocument:withNewName:completion:</a></code>
-		<span class="tooltip"><p>Duplicate a document in iCloud</p></span>
 	</span>
 	
 	
@@ -599,21 +571,18 @@
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/documentStateForFile:completion:">&ndash;&nbsp;documentStateForFile:completion:</a></code>
-		<span class="tooltip"><p>Get the current document state of a file stored in iCloud</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/monitorDocumentStateForFile:onTarget:withSelector:">&ndash;&nbsp;monitorDocumentStateForFile:onTarget:withSelector:</a></code>
-		<span class="tooltip"><p>Monitor changes in the state of a document stored in iCloud</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/stopMonitoringDocumentStateChangesForFile:onTarget:">&ndash;&nbsp;stopMonitoringDocumentStateChangesForFile:onTarget:</a></code>
-		<span class="tooltip"><p>Stop monitoring changes to the state of a document stored in iCloud</p></span>
 	</span>
 	
 	
@@ -628,21 +597,12 @@
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/findUnresolvedConflictingVersionsOfFile:">&ndash;&nbsp;findUnresolvedConflictingVersionsOfFile:</a></code>
-		<span class="tooltip"><p>Find all the conflicting versions of a specified document</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/resolveConflictForFile:withSelectedFileVersion:">&ndash;&nbsp;resolveConflictForFile:withSelectedFileVersion:</a></code>
-		<span class="tooltip"><p>Your application can follow one of three strategies for resolving document-version conflicts:</p>
-
-<ul>
-<li>Merge the changes from the conflicting versions.</li>
-<li>Choose one of the document versions based on some pertinent factor, such as the version with the latest modification date.</li>
-<li>Enable the user to view conflicting versions of a document and select the one to use.</li>
-</ul>
-</span>
 	</span>
 	
 	
@@ -657,14 +617,12 @@
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/uploadLocalOfflineDocumentsWithDelegate:">+&nbsp;uploadLocalOfflineDocumentsWithDelegate:</a></code>
-		<span class="tooltip"><p>DEPRECATED. Use uploadLocalOfflineDocuments instead, like so: [[iCloud sharedCloud] uploadLocalOfflineDocuments]; (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 7.0. Use uploadLocalOfflineDocuments instead.</span>)</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/updateFilesWithDelegate:">+&nbsp;updateFilesWithDelegate:</a></code>
-		<span class="tooltip"><p>DEPRECATED. Use updateFiles instead, like so: [[iCloud sharedCloud] updateFiles]; (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 7.0. Use updateFiles instead.</span>)</p></span>
 	</span>
 	
 	
@@ -2037,7 +1995,7 @@
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Record changes made to a document in iCloud. Changes are saved when the document is closed.</p>
+		<p>DEPRECATED. Use saveAndCloseDocumentWithName: instead. Record changes made to a document in iCloud. Changes are saved when the document is closed. (<b class="deprecated">Deprecated:</b><span class="deprecated"> This method is deprecated starting in version 7.1. Use methodNameHere: instead. This method may become unavailable in a future version.</span>)</p>
 	</div>		
 	
     
@@ -2071,22 +2029,6 @@
 	
 	
 	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>First, iCloud Document Sync checks if the specified document exists. If the document exists then the changes are recorded. If the document does not exist it will be created and the change will be recorded.</p>
-
-<p>To record changes to a new document or an existing one, use this method. This method can be called frequently, for example in a text-editing app you may want to call this method when the user finishes making changes to a text view. Below is a code example of how to use it.</p>
-
-<pre><code>[[iCloud sharedCloud] saveChangesToDocumentWithName:@"Name.ext" withContent:[NSData data] completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
-    if (error == nil) {
-        // Code here to use the UIDocument or NSData objects which have been passed with the completion handler
-    }
-}];
-</code></pre>
-
-<p>Documents changes can be recorded even if the user is not connected to the internet. The only case in which a document will not be created is when the user has disabled iCloud or if the current application is not setup for iCloud.</p>
-	</div>
 	
 	
 	
@@ -2459,6 +2401,8 @@
 					</div>
 					
 					
+                    
+                    
 				</div>
 				<div class="main-navigation navigation-bottom">
 					<ul>
@@ -2469,7 +2413,7 @@
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 iRare Media. All rights reserved. (Last updated: 2013-11-29)</span><br />
+						<p><span class="copyright">&copy; 2013 iRare Media. All rights reserved. (Last updated: 2013-12-03)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
 						

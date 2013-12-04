@@ -6,6 +6,7 @@
 			<TokenIdentifier>//apple_ref/occ/cl/iCloudDocument</TokenIdentifier>
 			<Abstract type="html">Use the iCloudDocument class (a subclass of UIDocument) to read and write documents managed by the iCloud class. You should rarely interact directly with iCloudDocument. The iCloud class manages all interactions with iCloudDocument. You can however retieve an iCloudDocument object by specifying its URL in the iCloud class.</Abstract>
 			<DeclaredIn>iCloudDocument.h</DeclaredIn>
+            
 			
 			<NodeRef refid="2"/>
 		</Token>
@@ -14,7 +15,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloudDocument/initWithFileURL:</TokenIdentifier>
 			<Abstract type="html">Initialize a new UIDocument with the specified file path</Abstract>
-			<DeclaredIn>iCloudDocument.h</DeclaredIn>			
+			<DeclaredIn>iCloudDocument.h</DeclaredIn>
 			
 			<Declaration>- (id)initWithFileURL:(NSURL *)url</Declaration>
 			<Parameters>
@@ -31,7 +32,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloudDocument/setDelegate:</TokenIdentifier>
 			<Abstract type="html">iCloud Delegate helps call methods when document processes begin or end</Abstract>
-			<DeclaredIn>iCloudDocument.h</DeclaredIn>			
+			<DeclaredIn>iCloudDocument.h</DeclaredIn>
 			
 			<Declaration>@property (weak, nonatomic) id&lt;iCloudDocumentDelegate&gt; delegate</Declaration>
 			
@@ -43,7 +44,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloudDocument/delegate</TokenIdentifier>
 			<Abstract type="html">iCloud Delegate helps call methods when document processes begin or end</Abstract>
-			<DeclaredIn>iCloudDocument.h</DeclaredIn>			
+			<DeclaredIn>iCloudDocument.h</DeclaredIn>
 			
 			<Declaration>@property (weak, nonatomic) id&lt;iCloudDocumentDelegate&gt; delegate</Declaration>
 			
@@ -55,7 +56,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instp/iCloudDocument/delegate</TokenIdentifier>
 			<Abstract type="html">iCloud Delegate helps call methods when document processes begin or end</Abstract>
-			<DeclaredIn>iCloudDocument.h</DeclaredIn>			
+			<DeclaredIn>iCloudDocument.h</DeclaredIn>
 			
 			<Declaration>@property (weak, nonatomic) id&lt;iCloudDocumentDelegate&gt; delegate</Declaration>
 			
@@ -67,7 +68,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloudDocument/setContents:</TokenIdentifier>
 			<Abstract type="html">The data to read or write to a UIDocument</Abstract>
-			<DeclaredIn>iCloudDocument.h</DeclaredIn>			
+			<DeclaredIn>iCloudDocument.h</DeclaredIn>
 			
 			<Declaration>@property (strong) NSData *contents</Declaration>
 			
@@ -79,7 +80,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloudDocument/contents</TokenIdentifier>
 			<Abstract type="html">The data to read or write to a UIDocument</Abstract>
-			<DeclaredIn>iCloudDocument.h</DeclaredIn>			
+			<DeclaredIn>iCloudDocument.h</DeclaredIn>
 			
 			<Declaration>@property (strong) NSData *contents</Declaration>
 			
@@ -91,7 +92,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instp/iCloudDocument/contents</TokenIdentifier>
 			<Abstract type="html">The data to read or write to a UIDocument</Abstract>
-			<DeclaredIn>iCloudDocument.h</DeclaredIn>			
+			<DeclaredIn>iCloudDocument.h</DeclaredIn>
 			
 			<Declaration>@property (strong) NSData *contents</Declaration>
 			
@@ -103,7 +104,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloudDocument/localizedName</TokenIdentifier>
 			<Abstract type="html">Retrieve the localized name of the current document</Abstract>
-			<DeclaredIn>iCloudDocument.h</DeclaredIn>			
+			<DeclaredIn>iCloudDocument.h</DeclaredIn>
 			
 			<Declaration>- (NSString *)localizedName</Declaration>
 			
@@ -115,7 +116,7 @@
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/iCloudDocument/stateDescription</TokenIdentifier>
 			<Abstract type="html">Retrieve a user-readable form of the document state</Abstract>
-			<DeclaredIn>iCloudDocument.h</DeclaredIn>			
+			<DeclaredIn>iCloudDocument.h</DeclaredIn>
 			
 			<Declaration>- (NSString *)stateDescription</Declaration>
 			
@@ -124,5 +125,6 @@
             <NodeRef refid="2"/>
 		</Token>
 		
+        
 	</File>
 </Tokens>

@@ -18,8 +18,8 @@
 				</Node>
 				
 				
-				
-				<Node type="folder">
+                
+				<Node>
 					<Name>Protocols</Name>
 					<Path>index.html</Path>
 					<Subnodes>
@@ -29,29 +29,141 @@
 					</Subnodes>
 				</Node>
 				
+                
 			</Subnodes>
         </Node>
     </TOC>
 	<Library>
 		
-		<Node id="1" type="file">
-			<Name>iCloud</Name>
-			<Path>Classes/iCloud.html</Path>
-		</Node>
-		<Node id="2" type="file">
-			<Name>iCloudDocument</Name>
-			<Path>Classes/iCloudDocument.html</Path>
-		</Node>
+		<Node id="1" type="file" documentType="reference">
+            <Name>iCloud</Name>
+            <Path>Classes/iCloud.html</Path>
+            
+                <Subnodes>
+                <Node type="section">
+                    <Path>Classes/iCloud.html</Path>
+                    <Name>Overview</Name>
+                    <Anchor>overview</Anchor>
+                </Node>
+                <Node type="section">
+                    <Path>Classes/iCloud.html</Path>
+                    <Name>Tasks</Name>
+                    <Anchor>tasks</Anchor>
+                </Node>
+                
+                <Node type="section">
+                    <Path>Classes/iCloud.html</Path>
+                    <Name>Properties</Name>
+                    <Anchor>properties</Anchor>
+                </Node>
+                
+                
+                <Node type="section">
+                    <Path>Classes/iCloud.html</Path>
+                    <Name>Class Methods</Name>
+                    <Anchor>class_methods</Anchor>
+                </Node>
+                
+                
+                <Node type="section">
+                    <Path>Classes/iCloud.html</Path>
+                    <Name>Instance Methods</Name>
+                    <Anchor>instance_methods</Anchor>
+                </Node>
+                
+            </Subnodes>
+            
+        </Node>
+		<Node id="2" type="file" documentType="reference">
+            <Name>iCloudDocument</Name>
+            <Path>Classes/iCloudDocument.html</Path>
+            
+                <Subnodes>
+                <Node type="section">
+                    <Path>Classes/iCloudDocument.html</Path>
+                    <Name>Overview</Name>
+                    <Anchor>overview</Anchor>
+                </Node>
+                <Node type="section">
+                    <Path>Classes/iCloudDocument.html</Path>
+                    <Name>Tasks</Name>
+                    <Anchor>tasks</Anchor>
+                </Node>
+                
+                <Node type="section">
+                    <Path>Classes/iCloudDocument.html</Path>
+                    <Name>Properties</Name>
+                    <Anchor>properties</Anchor>
+                </Node>
+                
+                
+                
+                <Node type="section">
+                    <Path>Classes/iCloudDocument.html</Path>
+                    <Name>Instance Methods</Name>
+                    <Anchor>instance_methods</Anchor>
+                </Node>
+                
+            </Subnodes>
+            
+        </Node>
 		
 		
-		<Node id="3" type="file">
-			<Name>iCloudDelegate</Name>
-			<Path>Protocols/iCloudDelegate.html</Path>
-		</Node>
-		<Node id="4" type="file">
-			<Name>iCloudDocumentDelegate</Name>
-			<Path>Protocols/iCloudDocumentDelegate.html</Path>
-		</Node>
+        <Node id="3" type="file" documentType="reference">
+            <Name>iCloudDelegate</Name>
+            <Path>Protocols/iCloudDelegate.html</Path>
+            
+                <Subnodes>
+                <Node type="section">
+                    <Path>Protocols/iCloudDelegate.html</Path>
+                    <Name>Overview</Name>
+                    <Anchor>overview</Anchor>
+                </Node>
+                <Node type="section">
+                    <Path>Protocols/iCloudDelegate.html</Path>
+                    <Name>Tasks</Name>
+                    <Anchor>tasks</Anchor>
+                </Node>
+                
+                
+                
+                <Node type="section">
+                    <Path>Protocols/iCloudDelegate.html</Path>
+                    <Name>Instance Methods</Name>
+                    <Anchor>instance_methods</Anchor>
+                </Node>
+                
+            </Subnodes>
+            
+        </Node>
+		<Node id="4" type="file" documentType="reference">
+            <Name>iCloudDocumentDelegate</Name>
+            <Path>Protocols/iCloudDocumentDelegate.html</Path>
+            
+                <Subnodes>
+                <Node type="section">
+                    <Path>Protocols/iCloudDocumentDelegate.html</Path>
+                    <Name>Overview</Name>
+                    <Anchor>overview</Anchor>
+                </Node>
+                <Node type="section">
+                    <Path>Protocols/iCloudDocumentDelegate.html</Path>
+                    <Name>Tasks</Name>
+                    <Anchor>tasks</Anchor>
+                </Node>
+                
+                
+                
+                <Node type="section">
+                    <Path>Protocols/iCloudDocumentDelegate.html</Path>
+                    <Name>Instance Methods</Name>
+                    <Anchor>instance_methods</Anchor>
+                </Node>
+                
+            </Subnodes>
+            
+        </Node>
 		
+        
 	</Library>
 </DocSetNodes>
