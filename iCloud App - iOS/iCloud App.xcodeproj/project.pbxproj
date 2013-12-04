@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		04EBBBFD184C9402009022D1 /* iCloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EBBBFC184C9402009022D1 /* iCloud.framework */; };
 		04EBBBFE184C9402009022D1 /* iCloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EBBBFC184C9402009022D1 /* iCloud.framework */; };
 		9935A8E01846E5B4007C5628 /* AppBanner.png in Resources */ = {isa = PBXBuildFile; fileRef = 9935A8DF1846E5B4007C5628 /* AppBanner.png */; };
 		996B9CA31830073C006A36DA /* MHPrettyDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 996B9CA21830073C006A36DA /* MHPrettyDate.m */; };
 		997591521839500900DECF95 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 997591511839500900DECF95 /* Settings.bundle */; };
 		99AD4AC61837C3D3008BBEA4 /* CloudBanner.png in Resources */ = {isa = PBXBuildFile; fileRef = 99AD4AC51837C3D3008BBEA4 /* CloudBanner.png */; };
 		99ADF830184644FD005553A5 /* iPadStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99ADF82F184644FD005553A5 /* iPadStoryboard.storyboard */; };
+		99BAB4F5184EC664008C62C9 /* iCloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EBBBFC184C9402009022D1 /* iCloud.framework */; };
 		99D6CEFA1845B22400CD77BA /* ConflictViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99D6CEF91845B22400CD77BA /* ConflictViewController.m */; };
 		99E85B01182DC9280039FC97 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E85B00182DC9280039FC97 /* Foundation.framework */; };
 		99E85B03182DC9280039FC97 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E85B02182DC9280039FC97 /* CoreGraphics.framework */; };
@@ -90,8 +90,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99BAB4F5184EC664008C62C9 /* iCloud.framework in Frameworks */,
 				99E85B03182DC9280039FC97 /* CoreGraphics.framework in Frameworks */,
-				04EBBBFD184C9402009022D1 /* iCloud.framework in Frameworks */,
 				99E85B05182DC9280039FC97 /* UIKit.framework in Frameworks */,
 				99E85B01182DC9280039FC97 /* Foundation.framework in Frameworks */,
 			);
@@ -266,7 +266,7 @@
 				ORGANIZATIONNAME = "iRare Media";
 				TargetAttributes = {
 					99E85AFC182DC9280039FC97 = {
-						DevelopmentTeam = J2SQNW7388;
+						DevelopmentTeam = 243F4RK8Z3;
 						SystemCapabilities = {
 							com.apple.iCloud = {
 								enabled = 1;
@@ -469,7 +469,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/jack/Dropbox/Developer/iCloudDocumentSync\\ Repro/iCloudDocumentSync",
+					"${GROUP_DIR}/",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iCloud App/iCloud App-Prefix.pch";
@@ -493,7 +493,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/jack/Dropbox/Developer/iCloudDocumentSync\\ Repro/iCloudDocumentSync",
+					"${GROUP_DIR}/",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iCloud App/iCloud App-Prefix.pch";

@@ -128,7 +128,7 @@
     }
 }
 
-- (void)textViewDidChange:(UITextView *)textView {
+- (void)textViewDidEndEditing:(UITextView *)textView {
     if ([self.title isEqualToString:@"iCloud Document"] || self.fileName == nil || [self.fileName isEqualToString:@""]) {
         NSString *newFileName = [self generateFileNameWithExtension:@"txt"];
         NSData *fileData = [self.textView.text dataUsingEncoding:NSUTF8StringEncoding];
