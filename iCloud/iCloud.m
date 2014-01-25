@@ -188,7 +188,7 @@
     
     // Setup iCloud Metadata Query
 	[query setSearchScopes:@[NSMetadataQueryUbiquitousDocumentsScope]];
-	[query setPredicate:[NSPredicate predicateWithFormat:[NSString stringWithFormat:@"%%K like '*.%@'", fileExtension], NSMetadataItemFSNameKey]];
+	[query setPredicate:[NSPredicate predicateWithFormat:[NSString stringWithFormat:@"%%K.pathExtension LIKE '%@'", fileExtension], NSMetadataItemFSNameKey]];
     
 	// Pull a list of all the documents in the cloud
 	[notificationCenter addObserver:self selector:@selector(startUpdate:) name:NSMetadataQueryDidFinishGatheringNotification object:query];
