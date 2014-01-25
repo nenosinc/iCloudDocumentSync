@@ -2,11 +2,19 @@
 //  iCloudDocument.h
 //  iCloud Document Sync
 //
-//  Created by iRare Media. Last updated November 2013.
+//  Created by iRare Media. Last updated January 2014.
 //  Available on GitHub. Licensed under MIT with Attribution.
 //
 
-#import <UIKit/UIKit.h>
+// Check for Objective-C Modules
+#if __has_feature(objc_modules)
+    // We recommend enabling Objective-C Modules in your project Build Settings for numerous benefits over regular #imports. Read more from the Modules documentation: http://clang.llvm.org/docs/Modules.html
+    @import Foundation;
+    @import UIKit;
+#else
+    #import <Foundation/Foundation.h>
+    #import <UIKit/UIKit.h>
+#endif
 
 /** Use the iCloudDocument class (a subclass of UIDocument) to read and write documents managed by the iCloud class. You should rarely interact directly with iCloudDocument. The iCloud class manages all interactions with iCloudDocument. You can however retieve an iCloudDocument object by specifying its URL in the iCloud class.
  

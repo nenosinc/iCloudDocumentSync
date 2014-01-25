@@ -2,16 +2,39 @@
 //  iCloud.h
 //  iCloud Document Sync
 //
-//  Created by iRare Media. Last updated November 2013.
+//  Created by iRare Media. Last updated January 2014.
 //  Available on GitHub. Licensed under MIT with Attribution.
 //
 
-#import <Foundation/Foundation.h>
+// Check for Objective-C Modules
+#if __has_feature(objc_modules)
+    // We recommend enabling Objective-C Modules in your project Build Settings for numerous benefits over regular #imports. Read more from the Modules documentation: http://clang.llvm.org/docs/Modules.html
+    @import Foundation;
+    @import UIKit;
+#else
+    #import <Foundation/Foundation.h>
+    #import <UIKit/UIKit.h>
+#endif
+
+// Import iCloudDocument
 #import <iCloud/iCloudDocument.h>
 
+// Check for ARC
+#if !__has_feature(objc_arc)
+    // Add the -fobjc-arc flag to enable ARC for only these files, as described in the ARC documentation: http://clang.llvm.org/docs/AutomaticReferenceCounting.html
+    #error iCloudDocumentSync is built with Objective-C ARC. You must enable ARC for iCloudDocumentSync.
+#endif
+
+// Ensure that the build is for iOS 5.1 or higher
+#ifndef __IPHONE_5_1
+    #error iCloudDocumentSync is built with features only available is iOS SDK 5.1 and later.
+#endif
+
+// Create a constant for accessing the documents directory
 #define DOCUMENT_DIRECTORY @"Documents"
 
-/** iCloud Document Sync helps integrate iCloud into iOS (OS X coming soon) Objective-C document projects with one-line code methods. Sync, upload, manage, and remove documents to and from iCloud with only a few lines of code (compared to the hundreds of lines and hours that it usually takes). Updates and more details on this project can be found on [GitHub](http://www.github.com/iRareMedia/iCloudDocumentSync). If you like the project, please [star it](https://github.com/iRareMedia/iCloudDocumentSync) on GitHub!
+
+/** iCloud Document Sync makes it easy for developers to integrate the iCloud document storage APIs into iOS applications. This is how iCloud document-storage and management should've been out of the box from Apple. Integrate iCloud into iOS (OS X coming soon) Objective-C document projects with one-line code methods. Sync, upload, manage, and remove documents to and from iCloud with only a few lines of code (compared to the hundreds of lines and hours that it usually takes). Get iCloud up and running in your iOS app in only a few minutes. Updates and more details on this project can be found on [GitHub](http://www.github.com/iRareMedia/iCloudDocumentSync). If you like the project, please star it on GitHub!
  
  The `iCloud` class provides methods to integrate iCloud into document projects.
  
@@ -22,8 +45,9 @@
  3. Subscribe to the `<iCloudDelegate>` delegate.
  4. Call the following methods to setup iCloud when your app starts:
  
-        iCloud *cloud = [[iCloud sharedCloud] init]; // This will help to begin the sync process and register for document updates.
-        [cloud setDelegate:self]; // Set this if you plan to use the delegate
+    [[iCloud sharedCloud] setDelegate:self]; // Set this if you plan to use the delegate
+    [[iCloud sharedCloud] setVerboseLogging:YES]; // We want detailed feedback about what's going on with iCloud, this is OFF by default
+    [[iCloud sharedCloud] updateFiles]; // Force iCloud Update: This is done automatically when changes are made, but we want to make sure the view is always updated when presented
  
  
  @warning Only available on iOS 5.1 and later on apps with valid code signing and entitlements. Requires Xcode 5.0.1 and later. Check the online documentation for more information on setting up iCloud in your app. */

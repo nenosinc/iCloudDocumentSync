@@ -3,11 +3,12 @@
 //  iCloud App
 //
 //  Created by iRare Media on 11/8/13.
-//  Copyright (c) 2013 iRare Media. All rights reserved.
+//  Copyright (c) 2014 iRare Media. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 #import <iCloud/iCloud.h>
+
 #import "DocumentViewController.h"
 #import "TLTransitionAnimator.h"
 #import "MHPrettyDate.h"

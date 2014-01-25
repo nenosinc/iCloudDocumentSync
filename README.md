@@ -38,7 +38,7 @@ The iOS Sample App included with this project demonstrates how to use many of th
 <img width=700 src="https://raw.github.com/iRareMedia/iCloudDocumentSync/feature/iCloud%20App%20-%20iOS/AppBanner.png"/>
 
 # Documentation
-All methods, properties, types, and delegate methods available on the iCloud class are documented below. If you're using [Xcode 5](https://developer.apple.com/technologies/tools/whats-new.html) with iCloud Document Sync, documentation is available directly within Xcode (just Option-Click any method for Quick Help). For more advanced documentation in Xcode 4.0+ please install the docset included with this project. This will allow you to view iCloud Document Sync documentation inside of Xcode's Organizer Window.
+Key methods, properties, types, and delegate methods available on the iCloud class are documented below. If you're using [Xcode 5](https://developer.apple.com/technologies/tools/whats-new.html) with iCloud Document Sync, documentation is available directly within Xcode (just Option-Click any method for Quick Help). For more advanced documentation in Xcode 4.0+ please install the docset included with this project. This will allow you to view iCloud Document Sync documentation inside of Xcode's Organizer Window. Additional documentation can also be found on the Wiki page (including how to register your app for iCloud, iCloud fundamentals, etc.).
 
 ## Setup
 Adding iCloud Document Sync to your project is easy. Follow these steps below to get everything up and running.

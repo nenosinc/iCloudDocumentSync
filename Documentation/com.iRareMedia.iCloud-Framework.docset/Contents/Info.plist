@@ -9,9 +9,9 @@
 	<key>CFBundleName</key>
 	<string>iCloud Framework Documentation</string>
 	<key>CFBundleShortVersionString</key>
-	<string>7.0</string>
+	<string>7.2</string>
 	<key>CFBundleVersion</key>
-	<string>7.0</string>
+	<string>7.2</string>
 	
 	
 	
@@ -32,6 +32,6 @@
 	<key>DocSetPublisherName</key>
 	<string>iRare Media</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2013 iRare Media. All rights reserved.</string>
+	<string>Copyright © 2014 iRare Media. All rights reserved.</string>
 </dict>
 </plist>

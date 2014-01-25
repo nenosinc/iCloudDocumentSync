@@ -4,7 +4,7 @@
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/cl/iCloud</TokenIdentifier>
-			<Abstract type="html">iCloud Document Sync helps integrate iCloud into iOS (OS X coming soon) Objective-C document projects with one-line code methods. Sync, upload, manage, and remove documents to and from iCloud with only a few lines of code (compared to the hundreds of lines and hours that it usually takes). Updates and more details on this project can be found on GitHub. If you like the project, please star it on GitHub!</Abstract>
+			<Abstract type="html">iCloud Document Sync makes it easy for developers to integrate the iCloud document storage APIs into iOS applications. This is how iCloud document-storage and management should&apos;ve been out of the box from Apple. Integrate iCloud into iOS (OS X coming soon) Objective-C document projects with one-line code methods. Sync, upload, manage, and remove documents to and from iCloud with only a few lines of code (compared to the hundreds of lines and hours that it usually takes). Get iCloud up and running in your iOS app in only a few minutes. Updates and more details on this project can be found on GitHub. If you like the project, please star it on GitHub!</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>
 			
 			<NodeRef refid="1"/>

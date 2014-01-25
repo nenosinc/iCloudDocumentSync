@@ -2,6 +2,16 @@
 The following details changes made to iCloud Document Sync with each version. For more detailed information, see the Releases and Commits section of the GitHub project.
 
 <table>
+    <tr><th colspan="2" style="text-align:center;"><b>Version 7.2</b></th></tr>
+    <tr>
+        <td>Fixed NSMetadataQuery predicate filter for files without extensions, fixed ubiquity container bug, migrated to auto-synthesized @properties, enabled modules (new compiler checks for modules), new compiler checks for ARC, new compiler checks for SDK version.
+        </td>
+    </tr>
+    <tr><th colspan="2" style="text-align:center;"><b>Version 7.1</b></th></tr>
+    <tr>
+        <td>Updated init method, fixed double-init of singleton, fixed bug when saving documents, new delegate method, fixed ubiquity URL bugs.
+        </td>
+    </tr>
     <tr><th colspan="2" style="text-align:center;"><b>Version 7.0</b></th></tr>
     <tr>
         <td>Major changes in favor of stability and security. iCloud Document Sync is now a <b>singleton</b>. There are numerous new and updated methods. New delegate methods and protocols. New iCloudDocument features. Automated documentation and framework builds for easier contribution. Plus it fixes numerous bugs and adds an iOS Sample app.

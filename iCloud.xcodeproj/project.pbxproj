@@ -42,6 +42,7 @@
 		9994D1B816FE3B7E00AB071B /* iCloudDocument.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9994D1B516FE3B3B00AB071B /* iCloudDocument.h */; };
 		9994D1C316FE3CF600AB071B /* iCloud.h in Headers */ = {isa = PBXBuildFile; fileRef = 9994D1AC16FE3ABF00AB071B /* iCloud.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9994D1C416FE3CF600AB071B /* iCloudDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = 9994D1B516FE3B3B00AB071B /* iCloudDocument.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		99AF6A711893837600D4BCB7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 996A9B7F177C8DCA0030039A /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,8 +105,8 @@
 		9994D1B516FE3B3B00AB071B /* iCloudDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCloudDocument.h; sourceTree = "<group>"; };
 		9994D1B616FE3B3B00AB071B /* iCloudDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCloudDocument.m; sourceTree = "<group>"; };
 		99AD4ABC1837C392008BBEA4 /* iCloud App.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "iCloud App.xcodeproj"; path = "iCloud App - iOS/iCloud App.xcodeproj"; sourceTree = "<group>"; };
+		99AF6A6718937E6A00D4BCB7 /* com.iRareMedia.iCloud-Framework-7.2.xar */ = {isa = PBXFileReference; lastKnownFileType = file; path = "com.iRareMedia.iCloud-Framework-7.2.xar"; sourceTree = "<group>"; };
 		99B41B2018490C3A0096FD9D /* iCloudDocumentDelegate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html.documentation; path = iCloudDocumentDelegate.html; sourceTree = "<group>"; };
-		99B41B23184938A60096FD9D /* com.iRareMedia.iCloud-Framework-7.0.xar */ = {isa = PBXFileReference; lastKnownFileType = file; path = "com.iRareMedia.iCloud-Framework-7.0.xar"; sourceTree = "<group>"; };
 		99B41B24184938AB0096FD9D /* com.iRareMedia.iCloud-Framework.docset */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "com.iRareMedia.iCloud-Framework.docset"; sourceTree = "<group>"; };
 		99FB11851842F0BC00406254 /* iCloud.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = iCloud.html; sourceTree = "<group>"; };
 		99FB11861842F0BC00406254 /* iCloudDocument.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = iCloudDocument.html; sourceTree = "<group>"; };
@@ -128,6 +129,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9994D1A816FE3ABF00AB071B /* Foundation.framework in Frameworks */,
+				99AF6A711893837600D4BCB7 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,7 +272,7 @@
 		99FB11941842F0BC00406254 /* publish */ = {
 			isa = PBXGroup;
 			children = (
-				99B41B23184938A60096FD9D /* com.iRareMedia.iCloud-Framework-7.0.xar */,
+				99AF6A6718937E6A00D4BCB7 /* com.iRareMedia.iCloud-Framework-7.2.xar */,
 				99FB11961842F0BC00406254 /* iRareMedia.atom */,
 			);
 			path = publish;
@@ -417,7 +419,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Start constants\ncompany=\"iRare Media\";\ncompanyID=\"com.iRareMedia\";\ncompanyURL=\"http://www.iRareMedia.com\";\ngitHubURL=\"https://github.com/iRareMedia/iCloudDocumentSync/tree/master/Documentation/\";\nversion=\"7.0\";\ntarget=\"iphoneos\";\n#target=\"macosx\";\noutputPath=\"${PROJECT_DIR}/Documentation\"; #\"${BUILT_PRODUCTS_DIR}\" #\"~/help\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME} Framework\" \\\n--project-company \"${company}\" \\\n--project-version \"${version}\" \\\n--company-id \"${companyID}\" \\\n--docset-atom-filename \"iRareMedia.atom\" \\\n--docset-feed-url \"${gitHubURL}/publish/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${gitHubURL}/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${gitHubURL}\" \\\n--output \"${outputPath}\" \\\n--publish-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--ignore \"*.m\" \\\n--install-docset \\\n--docset-install-path \"${outputPath}\" \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}/iCloud\"";
+			shellScript = "# Start constants\ncompany=\"iRare Media\";\ncompanyID=\"com.iRareMedia\";\ncompanyURL=\"http://www.iRareMedia.com\";\ngitHubURL=\"https://github.com/iRareMedia/iCloudDocumentSync/tree/master/Documentation/\";\nversion=\"7.2\";\ntarget=\"iphoneos\";\n#target=\"macosx\";\noutputPath=\"${PROJECT_DIR}/Documentation\"; #\"${BUILT_PRODUCTS_DIR}\" #\"~/help\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME} Framework\" \\\n--project-company \"${company}\" \\\n--project-version \"${version}\" \\\n--company-id \"${companyID}\" \\\n--docset-atom-filename \"iRareMedia.atom\" \\\n--docset-feed-url \"${gitHubURL}/publish/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${gitHubURL}/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${gitHubURL}\" \\\n--output \"${outputPath}\" \\\n--publish-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--ignore \"*.m\" \\\n--install-docset \\\n--docset-install-path \"${outputPath}\" \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}/iCloud\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -508,6 +510,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_ENABLE_MODULES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/iCloud.dst;
@@ -528,6 +531,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_ENABLE_MODULES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/iCloud.dst;
