@@ -8,6 +8,12 @@
 
 #import "iCloud.h"
 
+// Check for ARC
+#if !__has_feature(objc_arc)
+// Add the -fobjc-arc flag to enable ARC for only these files, as described in the ARC documentation: http://clang.llvm.org/docs/AutomaticReferenceCounting.html
+#error iCloudDocumentSync is built with Objective-C ARC. You must enable ARC for iCloudDocumentSync.
+#endif
+
 @interface iCloud () {
     UIBackgroundTaskIdentifier backgroundProcess;
     NSFileManager *fileManager;

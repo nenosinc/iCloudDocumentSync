@@ -19,12 +19,6 @@
 // Import iCloudDocument
 #import <iCloud/iCloudDocument.h>
 
-// Check for ARC
-#if !__has_feature(objc_arc)
-    // Add the -fobjc-arc flag to enable ARC for only these files, as described in the ARC documentation: http://clang.llvm.org/docs/AutomaticReferenceCounting.html
-    #error iCloudDocumentSync is built with Objective-C ARC. You must enable ARC for iCloudDocumentSync.
-#endif
-
 // Ensure that the build is for iOS 5.1 or higher
 #ifndef __IPHONE_5_1
     #error iCloudDocumentSync is built with features only available is iOS SDK 5.1 and later.
