@@ -156,7 +156,7 @@ Duplicating a document stored in iCloud
 ### Monitoring Document State
 iCloud tracks the state of a document when stored in iCloud. Document states include: Normal / Open, Closed, In Conflict, Saving Error, and Editing Disabled (learn more about [UIDocumentState](https://developer.apple.com/library/ios/documentation/uikit/reference/UIDocument_Class/UIDocument/UIDocument.html#//apple_ref/doc/c_ref/UIDocumentState)). Get the current document state of a file stored in iCloud with this method:
 
-    [[iCloud sharedCloud] documentStateForFile:@"oldName.ext" completion:^(UIDocumentState *documentState, NSError *error) {
+    [[iCloud sharedCloud] documentStateForFile:@"oldName.ext" completion:^(UIDocumentState *documentState, NSString *userReadableDocumentState, NSError *error) {
         // Completion handler that passes two parameters, an NSError and a UIDocumentState. The documentState parameter represents the document state that the specified file is currently in (may be nil if the file does not exist). The NSError parameter will contain a 404 error if the file does not exist.
     }];
 
