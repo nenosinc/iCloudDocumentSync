@@ -106,6 +106,14 @@
     [self.tableView reloadData];
 }
 
+- (void)iCloudFileUpdateDidBegin {
+    NSLog(@"Files Began Updating");
+}
+
+- (void)iCloudFileUpdateDidEnd {
+    NSLog(@"Files Finished Updating");
+}
+
 - (void)refreshCloudList {
     [[iCloud sharedCloud] updateFiles];
 }

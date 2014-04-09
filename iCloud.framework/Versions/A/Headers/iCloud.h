@@ -19,12 +19,6 @@
 // Import iCloudDocument
 #import <iCloud/iCloudDocument.h>
 
-// Check for ARC
-#if !__has_feature(objc_arc)
-    // Add the -fobjc-arc flag to enable ARC for only these files, as described in the ARC documentation: http://clang.llvm.org/docs/AutomaticReferenceCounting.html
-    #error iCloudDocumentSync is built with Objective-C ARC. You must enable ARC for iCloudDocumentSync.
-#endif
-
 // Ensure that the build is for iOS 5.1 or higher
 #ifndef __IPHONE_5_1
     #error iCloudDocumentSync is built with features only available is iOS SDK 5.1 and later.
@@ -62,7 +56,7 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
 
 /** iCloud shared instance object
  @return The shared instance of iCloud */
-+ (id)sharedCloud;
++ (instancetype)sharedCloud;
 
 
 
@@ -396,13 +390,22 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
 - (void)iCloudDidFinishInitializingWitUbiquityToken:(id)cloudToken withUbiquityContainer:(NSURL *)ubiquityContainer;
 
 
-
 /** Called before creating an iCloud Query filter. Specify the type of file to be queried. 
  
  @discussion If this delegate is not implemented or returns nil, all files stored in the documents directory will be queried.
  
  @return An NSString with one file extension formatted like this: @"txt" */
 - (NSString *)iCloudQueryLimitedToFileExtension;
+
+
+/** Called before an iCloud Query begins.
+ @discussion This may be useful to display interface updates. */
+- (void)iCloudFileUpdateDidBegin;
+
+
+/** Called when an iCloud Query ends.
+ @discussion This may be useful to display interface updates. */
+- (void)iCloudFileUpdateDidEnd;
 
 
 /** Tells the delegate that the files in iCloud have been modified

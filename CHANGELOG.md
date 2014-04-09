@@ -2,6 +2,10 @@
 The following details changes made to iCloud Document Sync with each version. For more detailed information, see the Releases and Commits section of the GitHub project.
 
 <table>
+    <tr><th colspan="2" style="text-align:center;"><b>Version 7.3</b></th></tr>
+    <tr>
+        <td>Major NSMetadataQuery improvements, two new delegates, improvements to iCloudFilesUpdated: delegate method, new iOS 7 file query procedure, improved 64-bit support, and completely switched to auth-synthesized properties.</td>
+    </tr>
     <tr><th colspan="2" style="text-align:center;"><b>Version 7.2</b></th></tr>
     <tr>
         <td>Fixed NSMetadataQuery predicate filter for files without extensions, fixed ubiquity container bug, migrated to auto-synthesized @properties, enabled modules (new compiler checks for modules), new compiler checks for ARC, new compiler checks for SDK version.

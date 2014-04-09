@@ -15,14 +15,13 @@ NSFileVersion *laterVersion (NSFileVersion *first, NSFileVersion *second) {
 }
 
 @implementation iCloudDocument
-@synthesize contents, delegate;
 
 //----------------------------------------------------------------------------------------------------------------//
 //------------  Document Life Cycle ------------------------------------------------------------------------------//
 //----------------------------------------------------------------------------------------------------------------//
 #pragma mark - Document Life Cycle
 
-- (id)initWithFileURL:(NSURL *)url {
+- (instancetype)initWithFileURL:(NSURL *)url {
 	self = [super initWithFileURL:url];
 	if (self) {
 		self.contents = [[NSData alloc] init];
@@ -72,8 +71,8 @@ NSFileVersion *laterVersion (NSFileVersion *first, NSFileVersion *second) {
 }
 
 - (void)setDocumentData:(NSData *)newData {
-    NSData *oldData = contents;
-    contents = [newData copy];
+    NSData *oldData = self.contents;
+    self.contents = [newData copy];
         
     // Register the undo operation
     [self.undoManager setActionName:@"Data Change"];
@@ -89,7 +88,7 @@ NSFileVersion *laterVersion (NSFileVersion *first, NSFileVersion *second) {
     [super handleError:error userInteractionPermitted:userInteractionPermitted];
 	NSLog(@"[iCloudDocument] %@", error);
     
-    if ([delegate respondsToSelector:@selector(iCloudDocumentErrorOccured:)]) [delegate iCloudDocumentErrorOccured:error];
+    if ([self.delegate respondsToSelector:@selector(iCloudDocumentErrorOccured:)]) [self.delegate iCloudDocumentErrorOccured:error];
 }
 
 @end
