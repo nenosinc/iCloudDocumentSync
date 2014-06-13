@@ -19,12 +19,16 @@ iCloud Document Sync is a great way to use iCloud document storage in your iOS a
 Learn more about the project requirements, licensing, and contributions.
 
 ## Requirements
-Requires Xcode 5.0.1 for use in any iOS Project. Requires a minimum of iOS 5.1.1 as the deployment target.  
-* Supported build target - iOS 7.0  (Xcode 5.0.1, Apple LLVM compiler 5.0)  
-* Earliest supported deployment target - iOS 6.0  
-* Earliest compatible deployment target - iOS 5.1.1  
+Requires Xcode 5.0.1+ for use in any iOS Project. Requires a minimum of iOS 6.0 as the deployment target. 
 
-NOTE: 'Supported' means that the library has been tested with this version. 'Compatible' means that the library should work on this OS version (i.e. it doesn't rely on any unavailable SDK features) but is no longer being tested for compatibility and may require tweaking or bug fixes to run correctly.
+| Current Build Target 	| Earliest Supported Build Target 	| Earliest Compatible Build Target 	|
+|:--------------------:	|:-------------------------------:	|:--------------------------------:	|
+|       iOS 7.1        	|            iOS 7.0              	|             iOS 6.0              	|
+|     Xcode 5.1.1      	|          Xcode 5.1.1            	|           Xcode 5.0.1            	|
+|      LLVM 5.0        	|             LLVM 5.0            	|             LLVM 5.0             	|
+
+> REQUIREMENTS NOTE  
+*Supported* means that the library has been tested with this version. *Compatible* means that the library should work on this OS version (i.e. it doesn't rely on any unavailable SDK features) but is no longer being tested for compatibility and may require tweaking or bug fixes to run correctly.
 
 ## License 
 You are free to make changes and use this in either personal or commercial projects. Attribution is not required, but it appreciated. We have spent a lot of time, energy, and resources working on this project - so a little *Thanks!* (or something to that affect) would be much appreciated. If you use iCloud Document Sync in your app, send an email to contact@iraremedia.com or let us know on Twitter @iRareMedia. See the [full iCloud Document Sync license here](https://github.com/iRareMedia/iCloudDocumentSync/blob/master/LICENSE.md).
