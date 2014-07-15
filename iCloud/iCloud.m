@@ -1211,59 +1211,65 @@
 - (void)deleteDocumentWithName:(NSString *)documentName completion:(void (^)(NSError *error))handler {
     // Log delete
     if (self.verboseLogging == YES) NSLog(@"[iCloud] Attempting to delete document");
-    
+
     // Check for iCloud
     if ([self quickCloudCheck] == NO) return;
-    
+
     // Check for nil / null document name
     if (documentName == nil || [documentName isEqualToString:@""]) {
         // Log error
         if (self.verboseLogging == YES) NSLog(@"[iCloud] Specified document name must not be empty");
         return;
     }
-    
+
     @try {
         // Create the URL for the file that is being removed
         NSURL *fileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:documentName];
-        
+
         // Check that the file exists
         if ([fileManager fileExistsAtPath:[fileURL path]]) {
             // Log share
             if (self.verboseLogging == YES) NSLog(@"[iCloud] File exists, attempting to delete it");
-            
+
             // Move to the background thread for safety
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
-                
+
                 // Use a file coordinator to safely delete the file
                 NSFileCoordinator *fileCoordinator = [[NSFileCoordinator alloc] initWithFilePresenter:nil];
                 [fileCoordinator coordinateWritingItemAtURL:fileURL options:NSFileCoordinatorWritingForDeleting error:nil byAccessor:^(NSURL *writingURL) {
-                    // Create the error handler
-                    NSError *error;
-                    
-                    [fileManager removeItemAtURL:writingURL error:&error];
-                    if (error) {
-                        // Log failure
-                        NSLog(@"[iCloud] An error occurred while deleting the document: %@", error);
-                        
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            if (handler)
-                                handler(error);
-                        });
-                        
-                        return;
-                    } else {
-                        // Log success
-                        if (self.verboseLogging == YES) NSLog(@"[iCloud] The document has been deleted");
-                        
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [self updateFiles];
-                            if (handler)
-                                handler(nil);
-                        });
-                        
-                        return;
-                    }
-                    
+
+                    iCloudDocument *document = [[iCloudDocument alloc] initWithFileURL:writingURL];
+
+                    // Close the document before removing it
+                    [document closeWithCompletionHandler:^(BOOL success) {
+                        // Create the error handler
+                        NSError *error;
+                        [fileManager removeItemAtURL:writingURL error:&error];
+                        if (error) {
+                            // Log failure
+                            NSLog(@"[iCloud] An error occurred while deleting the document: %@", error);
+
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                if (handler)
+                                    handler(error);
+                            });
+
+                            return;
+                        } else {
+                            // Log success
+                            if (self.verboseLogging == YES) NSLog(@"[iCloud] The document has been deleted");
+
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [self updateFiles];
+                                if (handler)
+                                    handler(nil);
+                            });
+
+                            return;
+                        }
+
+                    }];
+
                 }];
             });
         } else {
