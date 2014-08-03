@@ -205,6 +205,9 @@
     // Notify the responder that an update has begun
 	[self.notificationCenter addObserver:self selector:@selector(startUpdate:) name:NSMetadataQueryDidStartGatheringNotification object:self.query];
     
+    // Notify the responder that an update has been pushed
+	[self.notificationCenter addObserver:self selector:@selector(recievedUpdate:) name:NSMetadataQueryDidUpdateNotification object:self.query];
+    
     // Notify the responder that the update has completed
 	[self.notificationCenter addObserver:self selector:@selector(endUpdate:) name:NSMetadataQueryDidFinishGatheringNotification object:self.query];
     
@@ -229,9 +232,23 @@
     });
 }
 
+- (void)recievedUpdate:(NSMetadataQuery *)query {
+    // Log file update
+    if (self.verboseLogging == YES) NSLog(@"[iCloud] An update has been pushed from iCloud with NSMetadataQuery");
+    
+    // Get the updated files
+    [self updateFiles];
+}
+
 - (void)endUpdate:(NSMetadataQuery *)query {
     // Get the updated files
     [self updateFiles];
+    
+    // Notify the delegate of the results on the main thread
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(iCloudFileUpdateDidEnd)])
+            [self.delegate iCloudFileUpdateDidEnd];
+    });
     
     // Log query completion
     if (self.verboseLogging == YES) NSLog(@"[iCloud] Finished file update with NSMetadataQuery");
@@ -313,12 +330,6 @@
         // Reenable Updates
         [self.query enableUpdates];
     #endif
-    
-    // Notify the delegate of the results on the main thread
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if ([self.delegate respondsToSelector:@selector(iCloudFileUpdateDidEnd)])
-            [self.delegate iCloudFileUpdateDidEnd];
-    });
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------//
