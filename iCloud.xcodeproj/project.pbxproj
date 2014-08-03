@@ -105,7 +105,6 @@
 		9994D1B516FE3B3B00AB071B /* iCloudDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCloudDocument.h; sourceTree = "<group>"; };
 		9994D1B616FE3B3B00AB071B /* iCloudDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCloudDocument.m; sourceTree = "<group>"; };
 		99AD4ABC1837C392008BBEA4 /* iCloud App.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "iCloud App.xcodeproj"; path = "iCloud App - iOS/iCloud App.xcodeproj"; sourceTree = "<group>"; };
-		99AF6A6718937E6A00D4BCB7 /* com.iRareMedia.iCloud-Framework-7.2.xar */ = {isa = PBXFileReference; lastKnownFileType = file; path = "com.iRareMedia.iCloud-Framework-7.2.xar"; sourceTree = "<group>"; };
 		99B41B2018490C3A0096FD9D /* iCloudDocumentDelegate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html.documentation; path = iCloudDocumentDelegate.html; sourceTree = "<group>"; };
 		99B41B24184938AB0096FD9D /* com.iRareMedia.iCloud-Framework.docset */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "com.iRareMedia.iCloud-Framework.docset"; sourceTree = "<group>"; };
 		99FB11851842F0BC00406254 /* iCloud.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = iCloud.html; sourceTree = "<group>"; };
@@ -272,7 +271,6 @@
 		99FB11941842F0BC00406254 /* publish */ = {
 			isa = PBXGroup;
 			children = (
-				99AF6A6718937E6A00D4BCB7 /* com.iRareMedia.iCloud-Framework-7.2.xar */,
 				99FB11961842F0BC00406254 /* iRareMedia.atom */,
 			);
 			path = publish;
@@ -318,7 +316,7 @@
 		9994D19C16FE3ABF00AB071B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "iRare Media";
 			};
 			buildConfigurationList = 9994D19F16FE3ABF00AB071B /* Build configuration list for PBXProject "iCloud" */;
@@ -474,7 +472,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "arm64 armv7 armv7s i386";
@@ -499,7 +497,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "arm64 armv7 armv7s i386";
@@ -509,7 +507,6 @@
 		9994D1B316FE3ABF00AB071B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_ENABLE_MODULES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
@@ -530,7 +527,6 @@
 		9994D1B416FE3ABF00AB071B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_ENABLE_MODULES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
@@ -550,7 +546,6 @@
 		9994D1BD16FE3C8400AB071B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -561,7 +556,6 @@
 		9994D1BE16FE3C8400AB071B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64";
@@ -571,7 +565,6 @@
 		99B6465F182EB73200249C57 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64";
@@ -581,7 +574,6 @@
 		99B64660182EB73200249C57 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64";
 			};

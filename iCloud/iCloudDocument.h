@@ -39,7 +39,7 @@
  
  @param url	The path to the UIDocument file
  @return UIDocument object at the specified URL */
-- (id)initWithFileURL:(NSURL *)url;
+- (instancetype)initWithFileURL:(NSURL *)url __attribute__((objc_designated_initializer));
 
 
 
