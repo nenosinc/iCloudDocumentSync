@@ -58,7 +58,7 @@
 NSFileVersion *laterVersion(NSFileVersion *first, NSFileVersion *second);
 
 /** The data to read or write to a UIDocument */
-@property (strong) NSData *contents;
+@property (copy) NSData *contents;
 
 /** Retrieve the localized name of the current document
  

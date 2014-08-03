@@ -19,7 +19,7 @@
 @property (nonatomic, assign) UIBackgroundTaskIdentifier backgroundProcess;
 @property (nonatomic, strong) NSFileManager *fileManager;
 @property (nonatomic, strong) NSNotificationCenter *notificationCenter;
-@property (nonatomic, strong) NSString *fileExtension;
+@property (nonatomic, copy) NSString *fileExtension;
 @property (nonatomic, strong) NSURL *ubiquityContainer;
 
 /// Setup and start the metadata query and related notifications
@@ -102,6 +102,10 @@
     return self;
 }
 
+- (void)dealloc {
+    [self.notificationCenter removeObserver:self];
+}
+
 //---------------------------------------------------------------------------------------------------------------------------------------------//
 //------------ Basic --------------------------------------------------------------------------------------------------------------------------//
 //---------------------------------------------------------------------------------------------------------------------------------------------//
@@ -155,9 +159,8 @@
         
         if (isFile) {
             // It exists, check if it's a directory
-            if (isDirectory == YES) {
-                return documentsDirectory;
-            } else {
+            if (isDirectory == YES) return documentsDirectory;
+            else {
                 [self.fileManager removeItemAtPath:[documentsDirectory path] error:&error];
                 [self.fileManager createDirectoryAtURL:documentsDirectory withIntermediateDirectories:YES attributes:nil error:&error];
                 return documentsDirectory;
@@ -441,7 +444,7 @@
         if (self.verboseLogging == YES) NSLog(@"[iCloud] Files stored locally available for uploading: %@", localDocuments);
         
         // Compare the arrays then upload documents not already existent in iCloud
-        for (int item = 0; item < [localDocuments count]; item++) {
+        for (NSUInteger item = 0; item < [localDocuments count]; item++) {
             
             // Check to make sure the documents aren't hidden
             if (![localDocuments[item] hasPrefix:@"."]) {
@@ -449,7 +452,7 @@
                 // If the file does not exist in iCloud, upload it
                 if (![self.previousQueryResults containsObject:localDocuments[item]]) {
                     // Log
-                    if (self.verboseLogging == YES) NSLog(@"[iCloud] Uploading %@ to iCloud (%i out of %lu)", localDocuments[item], item, (unsigned long)[localDocuments count]);
+                    if (self.verboseLogging == YES) NSLog(@"[iCloud] Uploading %@ to iCloud (%lu out of %lu)", localDocuments[item], (unsigned long)item, (unsigned long)[localDocuments count]);
                     
                     // Move the file to iCloud
                     NSURL *cloudURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:localDocuments[item]];
@@ -920,7 +923,7 @@
     else return NO;
 }
 
-- (NSArray *)getListOfCloudFiles {
+- (NSArray *)listCloudFiles {
     // Log retrieval
     if (self.verboseLogging == YES) NSLog(@"[iCloud] Getting list of iCloud documents");
     
@@ -1294,8 +1297,7 @@
                         NSLog(@"[iCloud] An error occurred while deleting the document: %@", error);
                         
                         dispatch_async(dispatch_get_main_queue(), ^{
-                            if (handler)
-                                handler(error);
+                            if (handler) handler(error);
                         });
                         
                         return;
@@ -1305,13 +1307,11 @@
                         
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [self updateFiles];
-                            if (handler)
-                                handler(nil);
+                            if (handler) handler(nil);
                         });
                         
                         return;
                     }
-                    
                 }];
             });
         } else {
@@ -1319,8 +1319,7 @@
             NSLog(@"[iCloud] File not found: %@", documentName);
             NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"The document, %@, does not exist at path: %@", documentName, fileURL] code:404 userInfo:@{@"FileURL": fileURL}];
             dispatch_async(dispatch_get_main_queue(), ^{
-                if (handler)
-                    handler(error);
+                if (handler) handler(error);
                 return;
             });
         }
@@ -1674,6 +1673,11 @@
 
 + (void)updateFilesWithDelegate:(id<iCloudDelegate>)delegate {
     for (int i = 0; i <= 5; i++) NSLog(@"[iCloud] WARNING: updateFilesWithDelegate: is deprecated and will become unavailable in version 8.0. Use [- updateFiles] instead.");
+}
+
+- (NSArray *)getListOfCloudFiles {
+    for (int i = 0; i <= 5; i++) NSLog(@"[iCloud] WARNING: getListOfCloudFiles is deprecated and will become unavailable in a future version. Use [- listCloudFiles] instead. This method will return nil.");
+    return nil;
 }
 
 - (void)saveChangesToDocumentWithName:(NSString *)documentName withContent:(NSData *)content completion:(void (^)(UIDocument *cloudDocument, NSData *documentData, NSError *error))handler {

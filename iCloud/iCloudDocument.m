@@ -24,7 +24,7 @@ NSFileVersion *laterVersion (NSFileVersion *first, NSFileVersion *second) {
 - (instancetype)initWithFileURL:(NSURL *)url {
 	self = [super initWithFileURL:url];
 	if (self) {
-		self.contents = [[NSData alloc] init];
+		_contents = [[NSData alloc] init];
 	}
 	return self;
 }

@@ -521,6 +521,11 @@
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = "non-global";
 				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64";
+				WARNING_CFLAGS = (
+					"-Wdeprecated-implementations",
+					"-Wsign-compare",
+					"-Wundef",
+				);
 			};
 			name = Debug;
 		};
@@ -540,6 +545,11 @@
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = "non-global";
 				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64";
+				WARNING_CFLAGS = (
+					"-Wdeprecated-implementations",
+					"-Wsign-compare",
+					"-Wundef",
+				);
 			};
 			name = Release;
 		};

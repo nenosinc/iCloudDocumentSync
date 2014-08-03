@@ -16,7 +16,7 @@
 			<Abstract type="html">iCloud shared instance object</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>			
 			
-			<Declaration>+ (id)sharedCloud</Declaration>
+			<Declaration>+ (instancetype)sharedCloud</Declaration>
 			
 			<ReturnValue><Abstract type="html">The shared instance of iCloud</Abstract></ReturnValue>
 			<Anchor>//api/name/sharedCloud</Anchor>
@@ -528,14 +528,14 @@
 		</Token>
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/iCloud/getListOfCloudFiles</TokenIdentifier>
+			<TokenIdentifier>//apple_ref/occ/instm/iCloud/listCloudFiles</TokenIdentifier>
 			<Abstract type="html">Get a list of files stored in iCloud</Abstract>
 			<DeclaredIn>iCloud.h</DeclaredIn>			
 			
-			<Declaration>- (NSArray *)getListOfCloudFiles</Declaration>
+			<Declaration>- (NSArray *)listCloudFiles</Declaration>
 			
 			<ReturnValue><Abstract type="html">NSArray with a list of all the files currently stored in your app&apos;s iCloud Documents directory. May return a nil value if iCloud is unavailable.</Abstract></ReturnValue>
-			<Anchor>//api/name/getListOfCloudFiles</Anchor>
+			<Anchor>//api/name/listCloudFiles</Anchor>
             <NodeRef refid="1"/>
 		</Token>
 		
@@ -686,6 +686,18 @@
 			</Parameters>
 			
 			<Anchor>//api/name/resolveConflictForFile:withSelectedFileVersion:</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/iCloud/getListOfCloudFiles</TokenIdentifier>
+			<Abstract type="html">DEPRECATED. Use listCloudFiles instead. Get a list of files stored in iCloud (&lt;b class=&quot;deprecated&quot;&gt;Deprecated:&lt;/b&gt;&lt;span class=&quot;deprecated&quot;&gt; Deprecated in version 7.3. Use listCloudFiles instead.&lt;/span&gt;)</Abstract>
+			<DeclaredIn>iCloud.h</DeclaredIn>			
+			
+			<Declaration>- (NSArray *)getListOfCloudFiles</Declaration>
+			
+			<ReturnValue><Abstract type="html">NSArray with a list of all the files currently stored in your app&apos;s iCloud Documents directory. May return a nil value if iCloud is unavailable.</Abstract></ReturnValue>
+			<Anchor>//api/name/getListOfCloudFiles</Anchor>
             <NodeRef refid="1"/>
 		</Token>
 		

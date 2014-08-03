@@ -513,8 +513,6 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					/Users/Spencers/Xcode/Projects/iCloudDocumentSync,
-					"/Users/jack/Dropbox/Developer/iCloudDocumentSync\\ Repro/iCloudDocumentSync",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iCloud App/iCloud App-Prefix.pch";
@@ -537,8 +535,6 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					/Users/Spencers/Xcode/Projects/iCloudDocumentSync,
-					"/Users/jack/Dropbox/Developer/iCloudDocumentSync\\ Repro/iCloudDocumentSync",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iCloud App/iCloud App-Prefix.pch";

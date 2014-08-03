@@ -47,7 +47,7 @@
  @warning Only available on iOS 6.0 and later on apps with valid code signing and entitlements. Requires Xcode 5.0.1 and later. Check the online documentation for more information on setting up iCloud in your app. */
 @class iCloud;
 @protocol iCloudDelegate;
-NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
+NS_CLASS_AVAILABLE_IOS(6_0) @interface iCloud : NSObject
 
 
 
@@ -260,7 +260,7 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
 /** Get a list of files stored in iCloud
  
  @return NSArray with a list of all the files currently stored in your app's iCloud Documents directory. May return a nil value if iCloud is unavailable. */
-- (NSArray *)getListOfCloudFiles;
+- (NSArray *)listCloudFiles;
 
 
 
@@ -330,6 +330,12 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
 
 
 /** @name Deprecated Methods */
+
+/** DEPRECATED. Use listCloudFiles instead. Get a list of files stored in iCloud
+ 
+ @deprecated Deprecated in version 7.3. Use listCloudFiles instead.
+ @return NSArray with a list of all the files currently stored in your app's iCloud Documents directory. May return a nil value if iCloud is unavailable. */
+- (NSArray *)getListOfCloudFiles __attribute((deprecated(" use listCloudFiles instead.")));
 
 /** DEPRECATED. Use saveAndCloseDocumentWithName:withContent:completion: instead. Record changes made to a document in iCloud. Changes are saved when the document is closed.
  
@@ -453,27 +459,27 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface iCloud : NSObject
 - (void)fileListChangedWithFiles:(NSMutableArray *)files andFileNames:(NSMutableArray *)fileNames __deprecated __unavailable;
 
 /** DEPRECATED. Tells the delegate that a document was successfully deleted.
- @deprecated Deprecated in version 6.0. Use the completion handlers in deleteDocumentWithName:completion: instead. */
+ @deprecated Deprecated in version 6.0. To be removed in version 8.0. Use the completion handlers in deleteDocumentWithName:completion: instead. */
 - (void)documentWasDeleted __deprecated __unavailable;
 
 /** DEPRECATED. Tells the delegate that a document was successfully saved
- @deprecated Deprecated in version 6.0. Use the completion handlers in saveDocumentWithName:withContent:completion: instead. */
+ @deprecated Deprecated in version 6.0. To be removed in version 8.0. Use the completion handlers in saveDocumentWithName:withContent:completion: instead. */
 - (void)documentWasSaved __deprecated __unavailable;
 
 /** DEPRECATED. Tells the delegate that a document finished uploading
- @deprecated Deprecated in version 6.0. Use the completion handlers in uploadLocalOfflineDocumentsWithDelegate:repeatingHandler:completion: instead. */
+ @deprecated Deprecated in version 6.0. To be removed in version 8.0. Use the completion handlers in uploadLocalOfflineDocumentsWithDelegate:repeatingHandler:completion: instead. */
 - (void)documentsFinishedUploading __deprecated __unavailable;
 
 /** DEPRECATED. Tells the delegate that a document started uploading
- @deprecated Deprecated in version 6.0. Delegate methods are no longer used to report method-specfic conditions and so this method is never called. Completion blocks are now used.  */
+ @deprecated Deprecated in version 6.0. To be removed in version 8.0. Delegate methods are no longer used to report method-specfic conditions and so this method is never called. Completion blocks are now used.  */
 - (void)documentsStartedUploading __deprecated __unavailable;
 
 /** DEPRECATED. Tells the delegate that a document started downloading
- @deprecated Deprecated in version 6.0. Delegate methods are no longer used to report method-specfic conditions and so this method is never called. Completion blocks are now used.  */
+ @deprecated Deprecated in version 6.0. To be removed in version 8.0. Delegate methods are no longer used to report method-specfic conditions and so this method is never called. Completion blocks are now used.  */
 - (void)documentsStartedDownloading __deprecated __unavailable;
 
 /** DEPRECATED. Tells the delegate that a document finished downloading
- @deprecated Deprecated in version 6.0. Delegate methods are no longer used to report method-specfic conditions and so this method is never called. Completion blocks are now used. */
+ @deprecated Deprecated in version 6.0. To be removed in version 8.0. Delegate methods are no longer used to report method-specfic conditions and so this method is never called. Completion blocks are now used. */
 - (void)documentsFinishedDownloading __deprecated __unavailable;
 
 

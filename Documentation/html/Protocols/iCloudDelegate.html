@@ -67,6 +67,10 @@
 	
 	<option value="//api/name/iCloudFileConflictBetweenCloudFile:andLocalFile:">&nbsp;&nbsp;&nbsp;&nbsp;- iCloudFileConflictBetweenCloudFile:andLocalFile:</option>
 	
+	<option value="//api/name/iCloudFileUpdateDidBegin">&nbsp;&nbsp;&nbsp;&nbsp;- iCloudFileUpdateDidBegin</option>
+	
+	<option value="//api/name/iCloudFileUpdateDidEnd">&nbsp;&nbsp;&nbsp;&nbsp;- iCloudFileUpdateDidEnd</option>
+	
 	<option value="//api/name/iCloudFileUploadConflictWithCloudFile:andLocalFile:">&nbsp;&nbsp;&nbsp;&nbsp;- iCloudFileUploadConflictWithCloudFile:andLocalFile:</option>
 	
 	<option value="//api/name/iCloudFilesDidChange:withNewFileNames:">&nbsp;&nbsp;&nbsp;&nbsp;- iCloudFilesDidChange:withNewFileNames:</option>
@@ -126,6 +130,10 @@
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/iCloudError:">iCloudError:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/iCloudFileConflictBetweenCloudFile:andLocalFile:">iCloudFileConflictBetweenCloudFile:andLocalFile:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/iCloudFileUpdateDidBegin">iCloudFileUpdateDidBegin</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/iCloudFileUpdateDidEnd">iCloudFileUpdateDidEnd</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/iCloudFileUploadConflictWithCloudFile:andLocalFile:">iCloudFileUploadConflictWithCloudFile:andLocalFile:</a></span></li>
 	
@@ -209,6 +217,20 @@
 	
 </li><li>
 	<span class="tooltip">
+		<code><a href="#//api/name/iCloudFileUpdateDidBegin">&ndash;&nbsp;iCloudFileUpdateDidBegin</a></code>
+		<span class="tooltip"><p>Called before an <a href="../Classes/iCloud.html">iCloud</a> Query begins.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/iCloudFileUpdateDidEnd">&ndash;&nbsp;iCloudFileUpdateDidEnd</a></code>
+		<span class="tooltip"><p>Called when an <a href="../Classes/iCloud.html">iCloud</a> Query ends.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
 		<code><a href="#//api/name/iCloudFilesDidChange:withNewFileNames:">&ndash;&nbsp;iCloudFilesDidChange:withNewFileNames:</a></code>
 		<span class="tooltip"><p>Tells the delegate that the files in <a href="../Classes/iCloud.html">iCloud</a> have been modified</p></span>
 	</span>
@@ -260,42 +282,42 @@
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/documentWasDeleted">&ndash;&nbsp;documentWasDeleted</a></code>
-		<span class="tooltip"><p>DEPRECATED. Tells the delegate that a document was successfully deleted. (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 6.0. Use the completion handlers in deleteDocumentWithName:completion: instead.</span>)</p></span>
+		<span class="tooltip"><p>DEPRECATED. Tells the delegate that a document was successfully deleted. (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 6.0. To be removed in version 8.0. Use the completion handlers in deleteDocumentWithName:completion: instead.</span>)</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/documentWasSaved">&ndash;&nbsp;documentWasSaved</a></code>
-		<span class="tooltip"><p>DEPRECATED. Tells the delegate that a document was successfully saved (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 6.0. Use the completion handlers in saveDocumentWithName:withContent:completion: instead.</span>)</p></span>
+		<span class="tooltip"><p>DEPRECATED. Tells the delegate that a document was successfully saved (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 6.0. To be removed in version 8.0. Use the completion handlers in saveDocumentWithName:withContent:completion: instead.</span>)</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/documentsFinishedUploading">&ndash;&nbsp;documentsFinishedUploading</a></code>
-		<span class="tooltip"><p>DEPRECATED. Tells the delegate that a document finished uploading (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 6.0. Use the completion handlers in uploadLocalOfflineDocumentsWithDelegate:repeatingHandler:completion: instead.</span>)</p></span>
+		<span class="tooltip"><p>DEPRECATED. Tells the delegate that a document finished uploading (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 6.0. To be removed in version 8.0. Use the completion handlers in uploadLocalOfflineDocumentsWithDelegate:repeatingHandler:completion: instead.</span>)</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/documentsStartedUploading">&ndash;&nbsp;documentsStartedUploading</a></code>
-		<span class="tooltip"><p>DEPRECATED. Tells the delegate that a document started uploading (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 6.0. Delegate methods are no longer used to report method-specfic conditions and so this method is never called. Completion blocks are now used.</span>)</p></span>
+		<span class="tooltip"><p>DEPRECATED. Tells the delegate that a document started uploading (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 6.0. To be removed in version 8.0. Delegate methods are no longer used to report method-specfic conditions and so this method is never called. Completion blocks are now used.</span>)</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/documentsStartedDownloading">&ndash;&nbsp;documentsStartedDownloading</a></code>
-		<span class="tooltip"><p>DEPRECATED. Tells the delegate that a document started downloading (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 6.0. Delegate methods are no longer used to report method-specfic conditions and so this method is never called. Completion blocks are now used.</span>)</p></span>
+		<span class="tooltip"><p>DEPRECATED. Tells the delegate that a document started downloading (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 6.0. To be removed in version 8.0. Delegate methods are no longer used to report method-specfic conditions and so this method is never called. Completion blocks are now used.</span>)</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/documentsFinishedDownloading">&ndash;&nbsp;documentsFinishedDownloading</a></code>
-		<span class="tooltip"><p>DEPRECATED. Tells the delegate that a document finished downloading (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 6.0. Delegate methods are no longer used to report method-specfic conditions and so this method is never called. Completion blocks are now used.</span>)</p></span>
+		<span class="tooltip"><p>DEPRECATED. Tells the delegate that a document finished downloading (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 6.0. To be removed in version 8.0. Delegate methods are no longer used to report method-specfic conditions and so this method is never called. Completion blocks are now used.</span>)</p></span>
 	</span>
 	
 	
@@ -369,7 +391,7 @@
 	
 	
 	<div class="method-subsection brief-description">
-		<p>DEPRECATED. Tells the delegate that a document was successfully deleted. (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 6.0. Use the completion handlers in deleteDocumentWithName:completion: instead.</span>)</p>
+		<p>DEPRECATED. Tells the delegate that a document was successfully deleted. (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 6.0. To be removed in version 8.0. Use the completion handlers in deleteDocumentWithName:completion: instead.</span>)</p>
 	</div>		
 	
     
@@ -405,7 +427,7 @@
 	
 	
 	<div class="method-subsection brief-description">
-		<p>DEPRECATED. Tells the delegate that a document was successfully saved (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 6.0. Use the completion handlers in saveDocumentWithName:withContent:completion: instead.</span>)</p>
+		<p>DEPRECATED. Tells the delegate that a document was successfully saved (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 6.0. To be removed in version 8.0. Use the completion handlers in saveDocumentWithName:withContent:completion: instead.</span>)</p>
 	</div>		
 	
     
@@ -441,7 +463,7 @@
 	
 	
 	<div class="method-subsection brief-description">
-		<p>DEPRECATED. Tells the delegate that a document finished downloading (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 6.0. Delegate methods are no longer used to report method-specfic conditions and so this method is never called. Completion blocks are now used.</span>)</p>
+		<p>DEPRECATED. Tells the delegate that a document finished downloading (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 6.0. To be removed in version 8.0. Delegate methods are no longer used to report method-specfic conditions and so this method is never called. Completion blocks are now used.</span>)</p>
 	</div>		
 	
     
@@ -477,7 +499,7 @@
 	
 	
 	<div class="method-subsection brief-description">
-		<p>DEPRECATED. Tells the delegate that a document finished uploading (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 6.0. Use the completion handlers in uploadLocalOfflineDocumentsWithDelegate:repeatingHandler:completion: instead.</span>)</p>
+		<p>DEPRECATED. Tells the delegate that a document finished uploading (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 6.0. To be removed in version 8.0. Use the completion handlers in uploadLocalOfflineDocumentsWithDelegate:repeatingHandler:completion: instead.</span>)</p>
 	</div>		
 	
     
@@ -513,7 +535,7 @@
 	
 	
 	<div class="method-subsection brief-description">
-		<p>DEPRECATED. Tells the delegate that a document started downloading (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 6.0. Delegate methods are no longer used to report method-specfic conditions and so this method is never called. Completion blocks are now used.</span>)</p>
+		<p>DEPRECATED. Tells the delegate that a document started downloading (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 6.0. To be removed in version 8.0. Delegate methods are no longer used to report method-specfic conditions and so this method is never called. Completion blocks are now used.</span>)</p>
 	</div>		
 	
     
@@ -549,7 +571,7 @@
 	
 	
 	<div class="method-subsection brief-description">
-		<p>DEPRECATED. Tells the delegate that a document started uploading (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 6.0. Delegate methods are no longer used to report method-specfic conditions and so this method is never called. Completion blocks are now used.</span>)</p>
+		<p>DEPRECATED. Tells the delegate that a document started uploading (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 6.0. To be removed in version 8.0. Delegate methods are no longer used to report method-specfic conditions and so this method is never called. Completion blocks are now used.</span>)</p>
 	</div>		
 	
     
@@ -843,6 +865,88 @@
 </div>
 						
 						<div class="section-method">
+	<a name="//api/name/iCloudFileUpdateDidBegin" title="iCloudFileUpdateDidBegin"></a>
+	<h3 class="subsubtitle method-title">iCloudFileUpdateDidBegin</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Called before an <a href="../Classes/iCloud.html">iCloud</a> Query begins.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)iCloudFileUpdateDidBegin</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This may be useful to display interface updates.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">iCloud.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/iCloudFileUpdateDidEnd" title="iCloudFileUpdateDidEnd"></a>
+	<h3 class="subsubtitle method-title">iCloudFileUpdateDidEnd</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Called when an <a href="../Classes/iCloud.html">iCloud</a> Query ends.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)iCloudFileUpdateDidEnd</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This may be useful to display interface updates.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">iCloud.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
 	<a name="//api/name/iCloudFileUploadConflictWithCloudFile:andLocalFile:" title="iCloudFileUploadConflictWithCloudFile:andLocalFile:"></a>
 	<h3 class="subsubtitle method-title">iCloudFileUploadConflictWithCloudFile:andLocalFile:</h3>
 	
@@ -1003,7 +1107,7 @@
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2014 iRare Media. All rights reserved. (Last updated: 2014-01-25)</span><br />
+						<p><span class="copyright">&copy; 2014 iRare Media. All rights reserved. (Last updated: 2014-08-03)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
 						
