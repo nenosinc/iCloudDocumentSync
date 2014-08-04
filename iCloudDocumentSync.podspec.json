@@ -16,7 +16,7 @@
   },
   "source": {
     "git": "https://github.com/iRareMedia/iCloudDocumentSync.git",
-    "tag": "v7.3"
+    "tag": "v7.3.0"
   },
   "source_files": "iCloud/*{h,m}",
   "frameworks": [
