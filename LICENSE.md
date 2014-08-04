@@ -1,9 +1,9 @@
 ## License
-iCloud Document Sync is available for you with the MIT License. In addition to complying with the MIT License (below) you are required to attribute this software in any commercial projects. It is also appreciated if you let the original developers know if you're using this in a commercial project.
+It is also appreciated if you let the original developers know if you're using this in a commercial project. Please tweet @iRareMedia, or send us an email (contact[at]iraremedia.com).
 
 The MIT License (MIT)
 
-Copyright (c) 2013 iRare Media
+Copyright (c) 2014 iRare Media
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
