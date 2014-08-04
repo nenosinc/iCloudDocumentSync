@@ -39,7 +39,7 @@
  
  @param url	The path to the UIDocument file
  @return UIDocument object at the specified URL */
-- (id)initWithFileURL:(NSURL *)url;
+- (instancetype)initWithFileURL:(NSURL *)url __attribute__((objc_designated_initializer));
 
 
 
@@ -58,7 +58,7 @@
 NSFileVersion *laterVersion(NSFileVersion *first, NSFileVersion *second);
 
 /** The data to read or write to a UIDocument */
-@property (strong) NSData *contents;
+@property (copy) NSData *contents;
 
 /** Retrieve the localized name of the current document
  

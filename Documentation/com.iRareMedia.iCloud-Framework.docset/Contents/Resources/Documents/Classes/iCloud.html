@@ -91,6 +91,8 @@
 	
 	<option value="//api/name/getListOfCloudFiles">&nbsp;&nbsp;&nbsp;&nbsp;- getListOfCloudFiles</option>
 	
+	<option value="//api/name/listCloudFiles">&nbsp;&nbsp;&nbsp;&nbsp;- listCloudFiles</option>
+	
 	<option value="//api/name/monitorDocumentStateForFile:onTarget:withSelector:">&nbsp;&nbsp;&nbsp;&nbsp;- monitorDocumentStateForFile:onTarget:withSelector:</option>
 	
 	<option value="//api/name/renameOriginalDocument:withNewName:completion:">&nbsp;&nbsp;&nbsp;&nbsp;- renameOriginalDocument:withNewName:completion:</option>
@@ -223,6 +225,8 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getListOfCloudFiles">getListOfCloudFiles</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/listCloudFiles">listCloudFiles</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/monitorDocumentStateForFile:onTarget:withSelector:">monitorDocumentStateForFile:onTarget:withSelector:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/renameOriginalDocument:withNewName:completion:">renameOriginalDocument:withNewName:completion:</a></span></li>
@@ -304,7 +308,7 @@
  [[iCloud sharedCloud] setVerboseLogging:YES]; // We want detailed feedback about what&rsquo;s going on with iCloud, this is OFF by default
  [[iCloud sharedCloud] updateFiles]; // Force iCloud Update: This is done automatically when changes are made, but we want to make sure the view is always updated when presented</p></li>
 </ol>
-<div class="warning"><p><strong>Warning:</strong> Only available on iOS 5.1 and later on apps with valid code signing and entitlements. Requires Xcode 5.0.1 and later. Check the online documentation for more information on setting up iCloud in your app.</p></div>
+<div class="warning"><p><strong>Warning:</strong> Only available on iOS 6.0 and later on apps with valid code signing and entitlements. Requires Xcode 5.0.1 and later. Check the online documentation for more information on setting up iCloud in your app.</p></div>
 					</div>
 					
 					
@@ -554,7 +558,7 @@
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/getListOfCloudFiles">&ndash;&nbsp;getListOfCloudFiles</a></code>
+		<code><a href="#//api/name/listCloudFiles">&ndash;&nbsp;listCloudFiles</a></code>
 		<span class="tooltip"><p>Get a list of files stored in iCloud</p></span>
 	</span>
 	
@@ -648,6 +652,13 @@
 
 						<ul class="task-list">
 							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/getListOfCloudFiles">&ndash;&nbsp;getListOfCloudFiles</a></code>
+		<span class="tooltip"><p>DEPRECATED. Use <a href="#//api/name/listCloudFiles">listCloudFiles</a> instead. Get a list of files stored in iCloud (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 7.3. Use listCloudFiles instead.</span>)</p></span>
+	</span>
+	
+	
+</li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/saveChangesToDocumentWithName:withContent:completion:">&ndash;&nbsp;saveChangesToDocumentWithName:withContent:completion:</a></code>
 		<span class="tooltip"><p>DEPRECATED. Use <a href="#//api/name/saveAndCloseDocumentWithName:withContent:completion:">saveAndCloseDocumentWithName:withContent:completion:</a> instead. Record changes made to a document in iCloud. Changes are saved when the document is closed. (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated beginning in version 7.1. Use saveAndCloseDocumentWithName:withContent:completion: instead. This method may become unavailable in a future version.</span>)</p></span>
@@ -917,7 +928,7 @@
 	
     
 
-	<div class="method-subsection method-declaration"><code>+ (id)sharedCloud</code></div>
+	<div class="method-subsection method-declaration"><code>+ (instancetype)sharedCloud</code></div>
 
     
 	
@@ -1627,12 +1638,53 @@
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Get a list of files stored in iCloud</p>
+		<p>DEPRECATED. Use <a href="#//api/name/listCloudFiles">listCloudFiles</a> instead. Get a list of files stored in iCloud (<b class="deprecated">Deprecated:</b><span class="deprecated"> Deprecated in version 7.3. Use listCloudFiles instead.</span>)</p>
 	</div>		
 	
     
 
 	<div class="method-subsection method-declaration"><code>- (NSArray *)getListOfCloudFiles</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>NSArray with a list of all the files currently stored in your app&rsquo;s iCloud Documents directory. May return a nil value if iCloud is unavailable.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">iCloud.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/listCloudFiles" title="listCloudFiles"></a>
+	<h3 class="subsubtitle method-title">listCloudFiles</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Get a list of files stored in iCloud</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (NSArray *)listCloudFiles</code></div>
 
     
 	
@@ -2453,7 +2505,7 @@
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2014 iRare Media. All rights reserved. (Last updated: 2014-01-25)</span><br />
+						<p><span class="copyright">&copy; 2014 iRare Media. All rights reserved. (Last updated: 2014-08-03)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
 						
