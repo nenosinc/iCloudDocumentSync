@@ -41,7 +41,7 @@ Any contribution is more than welcome! You can contribute through pull requests 
 ## Sample App
 The iOS Sample App included with this project demonstrates how to use many of the features in iCloud Document Sync. You can refer to the sample app for an understanding of how to use and setup iCloud Document Sync. The app should work with iCloud as-is (you may need to provide your own Bundle ID though).
 
-<img width=700 src="https://raw.github.com/iRareMedia/iCloudDocumentSync/feature/iCloud%20App%20-%20iOS/AppBanner.png"/>
+<img width=700 src="https://raw.github.com/iRareMedia/iCloudDocumentSync/master/iCloud%20App%20-%20iOS/AppBanner.png"/>
 
 # Documentation
 Key methods, properties, types, and delegate methods available on the iCloud class are documented below. If you're using [Xcode 5](https://developer.apple.com/technologies/tools/whats-new.html) with iCloud Document Sync, documentation is available directly within Xcode (just Option-Click any method for Quick Help). For more advanced documentation please install the docset included with this project. This will allow you to view iCloud Document Sync documentation inside of Xcode's Organizer Window. Additional documentation can also be found on the Wiki page (including how to register your app for iCloud, iCloud fundamentals, etc.).
@@ -56,8 +56,8 @@ The easiest way to install iCloud Document Sync is to use CocoaPods. To do so, s
 
 ### Framework Setup
 The iCloud.framework can be retrieved in two different ways:  
- 1. Clone the project to your computer and build the *Framework* target. The `iCloud.framework` file will be copied to the project directory. Drag and drop the `.framework` file into your project.   
-  2. Download your preferred iCloud Document Sync Framework release from the [Project Releases](https://github.com/iRareMedia/iCloudDocumentSync/releases) section. Frameworks are available as far back as version 7.0. Unzip then drag and drop the `.framework` file into your project.   
+ 1. Clone the project to your computer and build the *Framework* target. The `iCloud.framework` file will be copied to the project directory. Drag and drop the `.framework` file into your project.  
+ 2. Download your preferred iCloud Document Sync Framework release from the [Project Releases](https://github.com/iRareMedia/iCloudDocumentSync/releases) section. Frameworks are available as far back as version 7.0. Unzip then drag and drop the `.framework` file into your project.   
 
 ### Traditional Setup
 Drag and drop the *iCloud* folder into your Xcode project. When you do so, check the "Copy items into destination group's folder" box. Delete the `iCloud-Prefix.pch` file. 
