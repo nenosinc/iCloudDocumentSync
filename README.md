@@ -15,6 +15,23 @@ iCloud Document Sync is a great way to use iCloud document storage in your iOS a
 * Frequent updates to the project based on user issues and requests  
 * Easily contribute to the project
 
+## Table of Contents
+
+* [**Project Information**](#project-information)
+  * [Requirements](#requirements)
+  * [License](#license)
+  * [Contributions](#contributions)
+  * [Sample App](#sample-app)
+* [**Installation**](#installation)
+  * [Cocoapods](#cocoapods-setup)
+  * [Framework](#frameworks-setup)
+  * [Traditional](#traditional-setup)
+  * [Swift Projects](#swift-projects-setup)
+* [**Setup**](#setup)
+* [**Documentation**](#documentation)
+  * [Methods](#methods)
+  * [Delegate](#delegate)
+
 # Project Information
 Learn more about the project requirements, licensing, and contributions.
 
@@ -43,10 +60,7 @@ The iOS Sample App included with this project demonstrates how to use many of th
 
 <img width=700 src="https://raw.github.com/iRareMedia/iCloudDocumentSync/master/iCloud%20App%20-%20iOS/AppBanner.png"/>
 
-# Documentation
-Key methods, properties, types, and delegate methods available on the iCloud class are documented below. If you're using [Xcode 5](https://developer.apple.com/technologies/tools/whats-new.html) with iCloud Document Sync, documentation is available directly within Xcode (just Option-Click any method for Quick Help). For more advanced documentation please install the docset included with this project. This will allow you to view iCloud Document Sync documentation inside of Xcode's Organizer Window. Additional documentation can also be found on the Wiki page (including how to register your app for iCloud, iCloud fundamentals, etc.).
-
-## Installation
+# Installation
 Adding iCloud Document Sync to your project is easy. There are multiple ways to add iCloud Document Sync to your project. Choose the process below which best suits your needs. Follow the steps to get everything up and running in only a few minutes.
 
 ### Cocoapods Setup
@@ -69,16 +83,19 @@ If you already have a bridging header, simply import `iCloud.h` (use the `#impor
 
 If you do not already have a bridging header, install iCloud Document Sync into your project using any of the above processes. When adding the files to Xcode, you will be prompted to create a bridging header - create one. Then, import iCloud Document Sync (see paragraph above).
 
-## Setup
-After installing iCloud Document Sync, it only takes a few lines of code to get it up an running.
+# Setup
+After installing iCloud Document Sync, it only takes a few lines of code to get it up an running.  
   1. Import iCloud (see relevant install instructions above) to your header file(s).  
   2. Subscribe to the `<iCloudDelegate>` delegate.  
   3. Setup iCloud when your app starts:  
 
         [[iCloud sharedCloud] setDelegate:self]; // Set this if you plan to use the delegate
-        [[iCloud sharedCloud] setVerboseLogging:YES]; // We want detailed feedback about what's going on with iCloud, this is OFF by default
+        [[iCloud sharedCloud] setVerboseLogging:YES]; // We want detailed feedback about what's going on with iCloud, this is OFF by default  
   4. The first call to `iCloud` will trigger a file sync, therefore it is crucial that the first operation is a call to `setDelegate:`.
-        
+
+# Documentation
+Key methods, properties, types, and delegate methods available on the iCloud class are documented below. If you're using [Xcode 5](https://developer.apple.com/technologies/tools/whats-new.html) with iCloud Document Sync, documentation is available directly within Xcode (just Option-Click any method for Quick Help). For more advanced documentation please install the docset included with this project. This will allow you to view iCloud Document Sync documentation inside of Xcode's Organizer Window. Additional documentation can also be found on the Wiki page (including how to register your app for iCloud, iCloud fundamentals, etc.).   
+
 ## Methods
 There are many methods available on iCloud Document Sync. The most important / highlight methods are documented below. All other methods are documented in the docset and with in-code comments.
 
