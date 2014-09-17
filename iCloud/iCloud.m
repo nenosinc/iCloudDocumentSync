@@ -268,13 +268,21 @@
     NSMutableArray *discoveredFiles = [NSMutableArray array];
     NSMutableArray *names = [NSMutableArray array];
     
-    #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
-        // Code for iOS 7.0 and later
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
+    // Code for iOS 7.0 and later
     
-        // Enumerate through the results
-        [self.query enumerateResultsUsingBlock:^(id result, NSUInteger idx, BOOL *stop) {
-            // Grab the file URL
-            NSURL *fileURL = [result valueForAttribute:NSMetadataItemURLKey];
+    // Enumerate through the results
+    [self.query enumerateResultsUsingBlock:^(id result, NSUInteger idx, BOOL *stop) {
+        // Grab the file URL
+        NSURL *fileURL = [result valueForAttribute:NSMetadataItemURLKey];
+        NSString *fileStatus;
+        [fileURL getResourceValue:&fileStatus forKey:NSURLUbiquitousItemDownloadingStatusKey error:nil];
+        
+        if ([fileStatus isEqualToString:NSURLUbiquitousItemDownloadingStatusDownloaded]) {
+            // File will be updated soon
+        }
+        
+        if ([fileStatus isEqualToString:NSURLUbiquitousItemDownloadingStatusCurrent]) {
             NSNumber *aBool = nil;
             
             // Exclude hidden files
@@ -292,48 +300,58 @@
                         [self.delegate iCloudFilesDidChange:discoveredFiles withNewFileNames:names];
                 });
             }
-        }];
-    #else
-        // Code for iOS 6.1 and earlier
-    
-        // Disable updates to iCloud while we update to avoid errors
-        [self.query disableUpdates];
-    
-        // The query reports all files found, every time
-        NSArray *queryResults = self.query.results;
-    
-        // Log the query results
-        if (self.verboseLogging == YES) NSLog(@"Query Results: %@", self.query.results);
-    
-        // Gather the query results
-        for (NSMetadataItem *result in queryResults) {
-            NSURL *fileURL = [result valueForAttribute:NSMetadataItemURLKey];
-            NSNumber *aBool = nil;
-            
-            // Don't include hidden files
-            [fileURL getResourceValue:&aBool forKey:NSURLIsHiddenKey error:nil];
-            if (aBool && ![aBool boolValue]) [discoveredFiles addObject:result];
         }
-        
-        // Get file names in from the query
-        NSMutableArray *names = [NSMutableArray array];
-        for (NSMetadataItem *item in self.query.results) {
-            [names addObject:[item valueForAttribute:NSMetadataItemFSNameKey]];
+        else if ([fileStatus isEqualToString:NSURLUbiquitousItemDownloadingStatusNotDownloaded]) {
+            NSError *err;
+            BOOL downloading = [[NSFileManager defaultManager] startDownloadingUbiquitousItemAtURL:fileURL error:&err];
+            if (self.verboseLogging == YES) NSLog(@"[iCloud] %@ started downloading locally, successful? %@", [fileURL lastPathComponent], downloading ? @"YES" : @"NO");
+            if (err) {
+                if (self.verboseLogging == YES) NSLog(@"[iCloud] Ubiquitous item failed to start downloading with error: %@", err);
+            }
         }
+    }];
+#else
+    // Code for iOS 6.1 and earlier
+    
+    // Disable updates to iCloud while we update to avoid errors
+    [self.query disableUpdates];
+    
+    // The query reports all files found, every time
+    NSArray *queryResults = self.query.results;
+    
+    // Log the query results
+    if (self.verboseLogging == YES) NSLog(@"Query Results: %@", self.query.results);
+    
+    // Gather the query results
+    for (NSMetadataItem *result in queryResults) {
+        NSURL *fileURL = [result valueForAttribute:NSMetadataItemURLKey];
+        NSNumber *aBool = nil;
         
-        // Log query completion
-        if (self.verboseLogging == YES) NSLog(@"[iCloud] Finished file update with NSMetadataQuery");
-        
-        // Notify the delegate of the results on the main thread
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if ([self.delegate respondsToSelector:@selector(iCloudFilesDidChange:withNewFileNames:)])
-                [self.delegate iCloudFilesDidChange:discoveredFiles withNewFileNames:names];
-        });
-        
-        // Reenable Updates
-        [self.query enableUpdates];
-    #endif
+        // Don't include hidden files
+        [fileURL getResourceValue:&aBool forKey:NSURLIsHiddenKey error:nil];
+        if (aBool && ![aBool boolValue]) [discoveredFiles addObject:result];
+    }
+    
+    // Get file names in from the query
+    NSMutableArray *names = [NSMutableArray array];
+    for (NSMetadataItem *item in self.query.results) {
+        [names addObject:[item valueForAttribute:NSMetadataItemFSNameKey]];
+    }
+    
+    // Log query completion
+    if (self.verboseLogging == YES) NSLog(@"[iCloud] Finished file update with NSMetadataQuery");
+    
+    // Notify the delegate of the results on the main thread
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(iCloudFilesDidChange:withNewFileNames:)])
+            [self.delegate iCloudFilesDidChange:discoveredFiles withNewFileNames:names];
+    });
+    
+    // Reenable Updates
+    [self.query enableUpdates];
+#endif
 }
+
 
 //---------------------------------------------------------------------------------------------------------------------------------------------//
 //------------ Write --------------------------------------------------------------------------------------------------------------------------//
