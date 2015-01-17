@@ -40,9 +40,9 @@ Requires Xcode 5.0.1+ for use in any iOS Project. Requires a minimum of iOS 6.0 
 
 | Current Build Target 	| Earliest Supported Build Target 	| Earliest Compatible Build Target 	|
 |:--------------------:	|:-------------------------------:	|:--------------------------------:	|
-|       iOS 7.1        	|            iOS 7.0              	|             iOS 6.0              	|
-|     Xcode 5.1.1      	|          Xcode 5.1.1            	|           Xcode 5.0.1            	|
-|      LLVM 5.0        	|             LLVM 5.0            	|             LLVM 5.0             	|
+|       iOS 8.1        	|            iOS 7.0              	|             iOS 6.0              	|
+|     Xcode 6.1.1      	|          Xcode 5.1.1            	|           Xcode 5.0.1            	|
+|      LLVM 6.0        	|             LLVM 5.0            	|             LLVM 5.0             	|
 
 > REQUIREMENTS NOTE  
 *Supported* means that the library has been tested with this version. *Compatible* means that the library should work on this OS version (i.e. it doesn't rely on any unavailable SDK features) but is no longer being tested for compatibility and may require tweaking or bug fixes to run correctly.
@@ -87,11 +87,14 @@ If you do not already have a bridging header, install iCloud Document Sync into 
 After installing iCloud Document Sync, it only takes a few lines of code to get it up an running.  
   1. Import iCloud (see relevant install instructions above) to your header file(s).  
   2. Subscribe to the `<iCloudDelegate>` delegate.  
-  3. Setup iCloud when your app starts:  
-
+  3. Set the delegate and optionally enable verbose logging:  
+   
         [[iCloud sharedCloud] setDelegate:self]; // Set this if you plan to use the delegate
-        [[iCloud sharedCloud] setVerboseLogging:YES]; // We want detailed feedback about what's going on with iCloud, this is OFF by default  
-  4. The first call to `iCloud` will trigger a file sync, therefore it is crucial that the first operation is a call to `setDelegate:`.
+        [[iCloud sharedCloud] setVerboseLogging:YES]; // We want detailed feedback about what's going on with iCloud, this is OFF by default
+  4. Setup iCloud when your app starts. It is crucial that you call this method before doing any document handling operations. You can either pass a specific Ubiquity Container ID (see your entitlements file) or `nil` to use the first Ubiquity Container ID in your entitlements.  
+
+        [[iCloud sharedCloud] setupiCloudDocumentSyncWithUbiquityContainer:nil];   
+  5. It is recommended that the first call to `iCloud` is `setDelegate`, this way all subsequent operations and method calls can interact with the delegate and provide appropriate information.
 
 # Documentation
 Key methods, properties, types, and delegate methods available on the iCloud class are documented below. If you're using [Xcode 5](https://developer.apple.com/technologies/tools/whats-new.html) with iCloud Document Sync, documentation is available directly within Xcode (just Option-Click any method for Quick Help). For more advanced documentation please install the docset included with this project. This will allow you to view iCloud Document Sync documentation inside of Xcode's Organizer Window. Additional documentation can also be found on the Wiki page (including how to register your app for iCloud, iCloud fundamentals, etc.).   

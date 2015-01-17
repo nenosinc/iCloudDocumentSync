@@ -2,7 +2,7 @@
 //  iCloud.h
 //  iCloud Document Sync
 //
-//  Created by iRare Media. Last updated January 2014.
+//  Created by iRare Media. Last updated January 2015.
 //  Available on GitHub. Licensed under MIT with Attribution.
 //
 
@@ -56,6 +56,15 @@ NS_CLASS_AVAILABLE_IOS(6_0) @interface iCloud : NSObject
 /** iCloud shared instance object
  @return The shared instance of iCloud */
 + (instancetype)sharedCloud;
+
+/** Setup iCloud Document Sync and begin the initial document syncing process.
+ 
+ @discussion You \b must call this method before using iCloud Document Sync to avoid potential issues with syncing. This setup process ensures that all variables are initialized. A preliminary file sync will be performed when this method is called.
+ 
+ @param containerID The fully-qualified container identifier for an iCloud container directory. The string you specify must not contain wildcards and must be of the form <TEAMID>.<CONTAINER>, where <TEAMID> is your development team ID and <CONTAINER> is the bundle identifier of the container you want to access.
+ The container identifiers for your app must be declared in the com.apple.developer.ubiquity-container-identifiers array of the .entitlements property list file in your Xcode project.
+ If you specify nil for this parameter, this method uses the first container listed in the com.apple.developer.ubiquity-container-identifiers entitlement array. */
+- (void)setupiCloudDocumentSyncWithUbiquityContainer:(NSString *)containerID;
 
 
 
@@ -113,7 +122,9 @@ NS_CLASS_AVAILABLE_IOS(6_0) @interface iCloud : NSObject
 
 /** Retrieve the current application's ubiquitous documents directory URL
  
- @return An NSURL with the iCloud ubiquitous documents directory URL for the current app. May return nil if iCloud is not properly setup or available. */
+ @warning If iCloud is not properly setup, this method will return the local (non-ubiquitous) documents directory. This may cause other document handling methods to return nil values. Ensure that iCloud is properly setup \b before calling any document handling methods.
+ 
+ @return An NSURL with the iCloud ubiquitous documents directory URL for the current app. Returns the local documents directory if iCloud is not properly setup or available. */
 - (NSURL *)ubiquitousDocumentsDirectoryURL;
 
 

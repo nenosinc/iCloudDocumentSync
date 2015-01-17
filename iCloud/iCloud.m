@@ -2,7 +2,7 @@
 //  iCloud.m
 //  iCloud Document Sync
 //
-//  Created by iRare Media. Last updated January 2014.
+//  Created by iRare Media. Last updated January 2015.
 //  Available on GitHub. Licensed under MIT with Attribution.
 //
 
@@ -50,60 +50,64 @@
 }
 
 - (instancetype)init {
-    // Setup Starter Sync
     self = [super init];
-	
-	NSLog(@"[iCloud] Beginning Initialization");
-	
-    if (self) {
-        // Setup the File Manager
-        if (_fileManager == nil) _fileManager = [NSFileManager defaultManager];
-        
-        // Setup the Notification Center
-        if (_notificationCenter == nil) _notificationCenter = [NSNotificationCenter defaultCenter];
-        
-        // Initialize file lists, results, and queries
-        if (_fileList == nil) _fileList = [NSMutableArray array];
-        if (_previousQueryResults == nil) _previousQueryResults = [NSMutableArray array];
-        if (_query == nil) _query = [[NSMetadataQuery alloc] init];
-        
-        // Check the iCloud Ubiquity Container
-        dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
-			_ubiquityContainer = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil];
-			if (_ubiquityContainer != nil) {
-				// We can write to the ubiquity container
-				
-				dispatch_async (dispatch_get_main_queue (), ^(void) {
-					// On the main thread, update UI and state as appropriate
-					
-					// Check iCloud Availability
-					id cloudToken = [_fileManager ubiquityIdentityToken];
-					
-					// Sync and Update Documents List
-					[self enumerateCloudDocuments];
-					
-					// Subscribe to changes in iCloud availability (should run on main thread)
-					[_notificationCenter addObserver:self selector:@selector(checkCloudAvailability) name:NSUbiquityIdentityDidChangeNotification object:nil];
-					
-					if ([_delegate respondsToSelector:@selector(iCloudDidFinishInitializingWitUbiquityToken: withUbiquityContainer:)])
-						[_delegate iCloudDidFinishInitializingWitUbiquityToken:cloudToken withUbiquityContainer:_ubiquityContainer];
-				});
-                
-                // Log the setup
-                NSLog(@"[iCloud] Ubiquity Container created and ready");
-			}
-		});
-		
-    }
-    
-    // Log the setup
-    NSLog(@"[iCloud] Initialized");
-    
     return self;
 }
 
 - (void)dealloc {
     [self.notificationCenter removeObserver:self];
+}
+
+- (void)setupiCloudDocumentSyncWithUbiquityContainer:(NSString *)containerID {
+    // Setup the File Manager
+    if (_fileManager == nil) _fileManager = [NSFileManager defaultManager];
+    
+    // Setup the Notification Center
+    if (_notificationCenter == nil) _notificationCenter = [NSNotificationCenter defaultCenter];
+    
+    // Initialize file lists, results, and queries
+    if (_fileList == nil) _fileList = [NSMutableArray array];
+    if (_previousQueryResults == nil) _previousQueryResults = [NSMutableArray array];
+    if (_query == nil) _query = [[NSMetadataQuery alloc] init];
+    
+    // Check the iCloud Ubiquity Container
+    dispatch_async(dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+        NSLog(@"[iCloud] Initializing Ubiquity Container");
+        
+        _ubiquityContainer = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:containerID];
+        if (_ubiquityContainer) {
+            // We can write to the ubiquity container
+            
+            dispatch_async(dispatch_get_main_queue (), ^(void) {
+                // On the main thread, update UI and state as appropriate
+                NSLog(@"[iCloud] Initializing Document Enumeration");
+                
+                // Check iCloud Availability
+                id cloudToken = [_fileManager ubiquityIdentityToken];
+                
+                // Sync and Update Documents List
+                [self enumerateCloudDocuments];
+                
+                // Subscribe to changes in iCloud availability (should run on main thread)
+                [_notificationCenter addObserver:self selector:@selector(checkCloudAvailability) name:NSUbiquityIdentityDidChangeNotification object:nil];
+                
+                if ([_delegate respondsToSelector:@selector(iCloudDidFinishInitializingWitUbiquityToken: withUbiquityContainer:)])
+                    [_delegate iCloudDidFinishInitializingWitUbiquityToken:cloudToken withUbiquityContainer:_ubiquityContainer];
+            });
+            
+            // Log the setup
+            NSLog(@"[iCloud] Ubiquity Container Created and Ready");
+        } else {
+            NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+            NSLog(@"[iCloud] The systemt could not retrieve a valid iCloud container URL. iCloud is not available. iCloud may be unavailable for a number of reasons:\n• The device has not yet been configured with an iCloud account, or the Documents & Data option is disabled\n• Your app, %@, does not have properly configured entitlements\n• Your app, %@, has a provisioning profile which does not support iCloud.\nGo to http://bit.ly/18HkxPp for more information on setting up iCloud", appName, appName);
+            
+            if ([self.delegate respondsToSelector:@selector(iCloudAvailabilityDidChangeToState:withUbiquityToken:withUbiquityContainer:)])
+                [self.delegate iCloudAvailabilityDidChangeToState:NO withUbiquityToken:nil withUbiquityContainer:self.ubiquityContainer];
+        }
+    });
+    
+    // Log the setup
+    NSLog(@"[iCloud] Initialized");
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------//
@@ -114,7 +118,7 @@
 - (BOOL)checkCloudAvailability {
     id cloudToken = [self.fileManager ubiquityIdentityToken];
     if (cloudToken) {
-        if (self.verboseAvailabilityLogging == YES) NSLog(@"iCloud is available. Ubiquity URL: %@\nUbiquity Token: %@", self.ubiquityContainer, cloudToken);
+        if (self.verboseAvailabilityLogging == YES) NSLog(@"[iCloud] iCloud is available. Ubiquity URL: %@\nUbiquity Token: %@", self.ubiquityContainer, cloudToken);
         
         if ([self.delegate respondsToSelector:@selector(iCloudAvailabilityDidChangeToState:withUbiquityToken:withUbiquityContainer:)])
             [self.delegate iCloudAvailabilityDidChangeToState:YES withUbiquityToken:cloudToken withUbiquityContainer:self.ubiquityContainer];
@@ -122,9 +126,9 @@
         return YES;
     } else {
         if (self.verboseAvailabilityLogging == YES)
-            NSLog(@"iCloud is not available. iCloud may be unavailable for a number of reasons:\n• The device has not yet been configured with an iCloud account, or the Documents & Data option is disabled\n• Your app, %@, does not have properly configured entitlements\nGo to http://bit.ly/18HkxPp for more information on setting up iCloud", [[NSBundle mainBundle] infoDictionary][@"CFBundleName"]);
+            NSLog(@"[iCloud] iCloud is not available. iCloud may be unavailable for a number of reasons:\n• The device has not yet been configured with an iCloud account, or the Documents & Data option is disabled\n• Your app, %@, does not have properly configured entitlements\nGo to http://bit.ly/18HkxPp for more information on setting up iCloud", [[NSBundle mainBundle] infoDictionary][@"CFBundleName"]);
         else
-            NSLog(@"iCloud unavailable");
+            NSLog(@"[iCloud] iCloud unavailable");
         
         if ([self.delegate respondsToSelector:@selector(iCloudAvailabilityDidChangeToState:withUbiquityToken:withUbiquityContainer:)])
             [self.delegate iCloudAvailabilityDidChangeToState:NO withUbiquityToken:nil withUbiquityContainer:self.ubiquityContainer];
@@ -148,38 +152,43 @@
 }
 
 - (NSURL *)ubiquitousDocumentsDirectoryURL {
-    @try {
-        // Use the instance variable here - no need to start the retrieval process again
-        if (self.ubiquityContainer == nil) self.ubiquityContainer = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil];
-        NSURL *documentsDirectory = [self.ubiquityContainer URLByAppendingPathComponent:DOCUMENT_DIRECTORY];
-        NSError *error;
+    // Use the instance variable here - no need to start the retrieval process again
+    if (self.ubiquityContainer == nil) self.ubiquityContainer = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil];
+    NSURL *documentsDirectory = [self.ubiquityContainer URLByAppendingPathComponent:DOCUMENT_DIRECTORY];
+    NSError *error;
+    
+    // Ensure that the documents directory is not nil, if it is return the local path
+    if (documentsDirectory == nil) {
+        NSURL *nonUbiquitousDocumentsDirectory = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
         
-        BOOL isDirectory = NO;
-        BOOL isFile = [self.fileManager fileExistsAtPath:[documentsDirectory path] isDirectory:&isDirectory];
+        NSLog(@"[iCloud] iCloud is not available. iCloud may be unavailable for a number of reasons:\n• The device has not yet been configured with an iCloud account, or the Documents & Data option is disabled\n• Your app, %@, does not have properly configured entitlements\nGo to http://bit.ly/18HkxPp for more information on setting up iCloud", [[NSBundle mainBundle] infoDictionary][@"CFBundleName"]);
         
-        if (isFile) {
-            // It exists, check if it's a directory
-            if (isDirectory == YES) return documentsDirectory;
-            else {
-                [self.fileManager removeItemAtPath:[documentsDirectory path] error:&error];
-                [self.fileManager createDirectoryAtURL:documentsDirectory withIntermediateDirectories:YES attributes:nil error:&error];
-                return documentsDirectory;
-            }
-        } else {
+        NSLog(@"[iCloud] WARNING: Using local documents directory until iCloud is available.");
+        
+        if ([self.delegate respondsToSelector:@selector(iCloudAvailabilityDidChangeToState:withUbiquityToken:withUbiquityContainer:)])
+            [self.delegate iCloudAvailabilityDidChangeToState:NO withUbiquityToken:nil withUbiquityContainer:self.ubiquityContainer];
+        
+        return nonUbiquitousDocumentsDirectory;
+    }
+    
+    BOOL isDirectory = NO;
+    BOOL isFile = [self.fileManager fileExistsAtPath:[documentsDirectory path] isDirectory:&isDirectory];
+    
+    if (isFile) {
+        // It exists, check if it's a directory
+        if (isDirectory == YES) return documentsDirectory;
+        else {
+            [self.fileManager removeItemAtPath:[documentsDirectory path] error:&error];
             [self.fileManager createDirectoryAtURL:documentsDirectory withIntermediateDirectories:YES attributes:nil error:&error];
             return documentsDirectory;
         }
-        
-        if (error) NSLog(@"[iCloud] POSSIBLY FATAL ERROR - Document directory creation error. This error may be fatal and should be recovered from. If the documents directory is not correctly created, this can cause iCloud to stop functioning properly (including exceptiosn being thrown). Error: %@", error);
-        
-        NSLog(@"Documents URL: %@", documentsDirectory);
+    } else {
+        [self.fileManager createDirectoryAtURL:documentsDirectory withIntermediateDirectories:YES attributes:nil error:&error];
         return documentsDirectory;
-        
-    } @catch (NSException *exception) {
-        // This method seems to be a common spot for exceptions. In an effort to reduce crashes here, try / catch code has been added (until the bug is squashed).
-        // The most common exception is on this line: [NSFileManager createDirectoryAtURL:withIntermediateDirectories:attributes:error:]: URL is nil
-        NSLog(@"[iCloud] Caught fatal exception (see below). Exception in ubiquitousDocumentsDirectoryURL method of the iCloud Framework. You may need to create the Document directory manually. This may be a known issue, but please report it on GitHub anyway.\n%@", exception);
     }
+    
+    NSLog(@"Documents URL: %@", documentsDirectory);
+    return documentsDirectory;
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------//
@@ -189,7 +198,7 @@
 
 - (void)enumerateCloudDocuments {
     // Log document enumeration
-    NSLog(@"[iCloud] Creating metadata query and notifications");
+    if (self.verboseLogging == YES) NSLog(@"[iCloud] Creating metadata query and notifications");
     
     // Request information from the delegate
     if ([self.delegate respondsToSelector:@selector(iCloudQueryLimitedToFileExtension)]) {
@@ -220,7 +229,9 @@
         if (!startedQuery) {
             NSLog(@"[iCloud] Failed to start query.");
             return;
-        } else NSLog(@"[iCloud] Query initialized successfully"); // Log file query success
+        } else {
+            if (self.verboseLogging == YES) NSLog(@"[iCloud] Query initialized successfully"); // Log file query success
+        }
     });
 }
 

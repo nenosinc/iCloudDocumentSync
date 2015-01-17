@@ -83,6 +83,7 @@
 		99FB117C1842A34900406254 /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
 		99FB117F1842A6A100406254 /* TLTransitionAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLTransitionAnimator.h; sourceTree = "<group>"; };
 		99FB11801842A6A100406254 /* TLTransitionAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLTransitionAnimator.m; sourceTree = "<group>"; };
+		A6BACC6C1A6AEB6000EAABCF /* libiCloud.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libiCloud.a; path = "../../../../../Library/Developer/Xcode/DerivedData/iCloud-czvouwccqemjyoaohcvbhcgaovtb/Build/Products/Debug-iphoneos/libiCloud.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +145,7 @@
 		99E85AFF182DC9280039FC97 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A6BACC6C1A6AEB6000EAABCF /* libiCloud.a */,
 				04EBBBFC184C9402009022D1 /* iCloud.framework */,
 				99E85B00182DC9280039FC97 /* Foundation.framework */,
 				99E85B02182DC9280039FC97 /* CoreGraphics.framework */,
@@ -463,8 +465,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "iCloud App/iCloud App.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iOS Development: iRare Media (4N75L7CCKZ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iOS Development: iRare Media (4N75L7CCKZ)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"${GROUP_DIR}/",
@@ -473,9 +475,12 @@
 				GCC_PREFIX_HEADER = "iCloud App/iCloud App-Prefix.pch";
 				INFOPLIST_FILE = "iCloud App/iCloud App-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/iCloud-czvouwccqemjyoaohcvbhcgaovtb/Build/Products/Debug-iphoneos",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "c256d79e-a01e-4748-8d7f-cbb9cc4fc838";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -487,8 +492,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "iCloud App/iCloud App.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iOS Development: iRare Media (4N75L7CCKZ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iOS Development: iRare Media (4N75L7CCKZ)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"${GROUP_DIR}/",
@@ -497,9 +502,12 @@
 				GCC_PREFIX_HEADER = "iCloud App/iCloud App-Prefix.pch";
 				INFOPLIST_FILE = "iCloud App/iCloud App-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/iCloud-czvouwccqemjyoaohcvbhcgaovtb/Build/Products/Debug-iphoneos",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "c256d79e-a01e-4748-8d7f-cbb9cc4fc838";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

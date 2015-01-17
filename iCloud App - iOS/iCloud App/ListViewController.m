@@ -33,9 +33,9 @@
     [super viewDidLoad];
     
     // Setup iCloud
-    iCloud *cloud = [iCloud sharedCloud]; // This will help to begin the sync process and register for document updates
-    [cloud setDelegate:self]; // Set this if you plan to use the delegate
-    [cloud setVerboseLogging:YES]; // We want detailed feedback about what's going on with iCloud, this is OFF by default
+    [[iCloud sharedCloud] setDelegate:self]; // Set this if you plan to use the delegate
+    [[iCloud sharedCloud] setVerboseLogging:YES]; // We want detailed feedback about what's going on with iCloud, this is OFF by default
+    [[iCloud sharedCloud] setupiCloudDocumentSyncWithUbiquityContainer:nil]; // You must call this setup method before performing any document operations
     
     // Setup File List
     if (fileNameList == nil) fileNameList = [NSMutableArray array];
@@ -73,6 +73,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
 - (BOOL)appIsRunningForFirstTime {
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"]) {
         // App already launched
@@ -86,6 +90,10 @@
 }
 
 #pragma mark - iCloud Methods
+
+- (void)iCloudDidFinishInitializingWitUbiquityToken:(id)cloudToken withUbiquityContainer:(NSURL *)ubiquityContainer {
+    NSLog(@"Ubiquity container initialized. You may proceed to perform document operations.");
+}
 
 - (void)iCloudAvailabilityDidChangeToState:(BOOL)cloudIsAvailable withUbiquityToken:(id)ubiquityToken withUbiquityContainer:(NSURL *)ubiquityContainer {
     if (!cloudIsAvailable) {
