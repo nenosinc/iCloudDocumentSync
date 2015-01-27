@@ -291,15 +291,9 @@
         }
         
         if ([fileStatus isEqualToString:NSURLUbiquitousItemDownloadingStatusCurrent]) {
-            NSNumber *aBool = nil;
-            
-            // Exclude hidden files
-            [fileURL getResourceValue:&aBool forKey:NSURLIsHiddenKey error:nil];
-            if (aBool && ![aBool boolValue]) {
-                // Add the file metadata and file names to arrays
-                [discoveredFiles addObject:result];
-                [names addObject:[result valueForAttribute:NSMetadataItemFSNameKey]];
-            }
+            // Add the file metadata and file names to arrays
+            [discoveredFiles addObject:result];
+            [names addObject:[result valueForAttribute:NSMetadataItemFSNameKey]];
             
             if (self.query.resultCount-1 >= idx) {
                 // Notify the delegate of the results on the main thread
@@ -333,11 +327,7 @@
     // Gather the query results
     for (NSMetadataItem *result in queryResults) {
         NSURL *fileURL = [result valueForAttribute:NSMetadataItemURLKey];
-        NSNumber *aBool = nil;
-        
-        // Don't include hidden files
-        [fileURL getResourceValue:&aBool forKey:NSURLIsHiddenKey error:nil];
-        if (aBool && ![aBool boolValue]) [discoveredFiles addObject:result];
+        [discoveredFiles addObject:result];
     }
     
     // Get file names in from the query
