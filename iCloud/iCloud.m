@@ -186,9 +186,6 @@
         [self.fileManager createDirectoryAtURL:documentsDirectory withIntermediateDirectories:YES attributes:nil error:&error];
         return documentsDirectory;
     }
-    
-    NSLog(@"Documents URL: %@", documentsDirectory);
-    return documentsDirectory;
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------//
@@ -203,10 +200,10 @@
     // Request information from the delegate
     if ([self.delegate respondsToSelector:@selector(iCloudQueryLimitedToFileExtension)]) {
         NSString *fileExt = [self.delegate iCloudQueryLimitedToFileExtension];
-        if (fileExt != nil || ![fileExt isEqualToString:@""]) self.fileExtension = fileExt;
+        if (fileExt != nil && ![fileExt isEqualToString:@""]) self.fileExtension = fileExt;
         else self.fileExtension = @"*";
         
-        // Log file extensiom
+        // Log file extension
         NSLog(@"[iCloud] Document query filter has been set to %@", self.fileExtension);
     } else self.fileExtension = @"*";
     
@@ -403,8 +400,8 @@
         [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success) {
             if (success) {
 				// Save and close the document
-				[document closeWithCompletionHandler:^(BOOL success) {
-					if (success) {
+				[document closeWithCompletionHandler:^(BOOL closeSuccess) {
+					if (closeSuccess) {
 						// Log
 						if (self.verboseLogging == YES) NSLog(@"[iCloud] Written, saved and closed document");
 						
@@ -431,8 +428,8 @@
         [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
             if (success) {
                 // Saving implicitly opens the file
-                [document closeWithCompletionHandler:^(BOOL success) {
-                    if (success) {
+                [document closeWithCompletionHandler:^(BOOL closeSuccess) {
+                    if (closeSuccess) {
                         // Log the save and close
                         if (self.verboseLogging == YES) NSLog(@"[iCloud] New document created, saved and closed successfully");
                         
@@ -535,7 +532,7 @@
                             [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success) {
                                 if (success) {
                                     // Close the document
-                                    [document closeWithCompletionHandler:^(BOOL success) {
+                                    [document closeWithCompletionHandler:^(BOOL closeSuccess) {
                                         repeatingHandler(localDocuments[item], nil);
                                     }];
                                 } else {
@@ -675,7 +672,7 @@
                     [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success) {
                         if (success) {
                             // Close the document
-                            [document closeWithCompletionHandler:^(BOOL success) {
+                            [document closeWithCompletionHandler:^(BOOL closeSuccess) {
                                 handler(nil);
                                 return;
                             }];
@@ -880,6 +877,7 @@
         
     } @catch (NSException *exception) {
         NSLog(@"[iCloud] Caught exception while retrieving document: %@\n\n%s", exception, __PRETTY_FUNCTION__);
+        return nil;
     }
 }
 
@@ -1281,6 +1279,7 @@
     } @catch (NSException *exception) {
         NSLog(@"[iCloud] Caught exception while sharing file: %@\n\n%s", exception, __PRETTY_FUNCTION__);
     }
+    return nil;
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------//
