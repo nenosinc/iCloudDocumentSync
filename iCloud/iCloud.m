@@ -232,7 +232,7 @@
     });
 }
 
-- (void)startUpdate:(NSMetadataQuery *)query {
+- (void)startUpdate:(NSNotification *)notification {
     // Log file update
     if (self.verboseLogging == YES) NSLog(@"[iCloud] Beginning file update with NSMetadataQuery");
     
@@ -243,7 +243,7 @@
     });
 }
 
-- (void)recievedUpdate:(NSMetadataQuery *)query {
+- (void)recievedUpdate:(NSNotification *)notification {
     // Log file update
     if (self.verboseLogging == YES) NSLog(@"[iCloud] An update has been pushed from iCloud with NSMetadataQuery");
     
@@ -251,7 +251,7 @@
     [self updateFiles];
 }
 
-- (void)endUpdate:(NSMetadataQuery *)query {
+- (void)endUpdate:(NSNotification *)notification {
     // Get the updated files
     [self updateFiles];
     
@@ -302,13 +302,12 @@
                         [self.delegate iCloudFilesDidChange:discoveredFiles withNewFileNames:names];
                 });
             }
-        }
-        else if ([fileStatus isEqualToString:NSURLUbiquitousItemDownloadingStatusNotDownloaded]) {
-            NSError *err;
-            BOOL downloading = [[NSFileManager defaultManager] startDownloadingUbiquitousItemAtURL:fileURL error:&err];
+        } else if ([fileStatus isEqualToString:NSURLUbiquitousItemDownloadingStatusNotDownloaded]) {
+            NSError *error;
+            BOOL downloading = [[NSFileManager defaultManager] startDownloadingUbiquitousItemAtURL:fileURL error:&error];
             if (self.verboseLogging == YES) NSLog(@"[iCloud] %@ started downloading locally, successful? %@", [fileURL lastPathComponent], downloading ? @"YES" : @"NO");
-            if (err) {
-                if (self.verboseLogging == YES) NSLog(@"[iCloud] Ubiquitous item failed to start downloading with error: %@", err);
+            if (error) {
+                if (self.verboseLogging == YES) NSLog(@"[iCloud] Ubiquitous item failed to start downloading with error: %@", error);
             }
         }
     }];
