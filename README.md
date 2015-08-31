@@ -66,7 +66,7 @@ Adding iCloud Document Sync to your project is easy. There are multiple ways to 
 ### Cocoapods Setup
 The easiest way to install iCloud Document Sync is to use CocoaPods. To do so, simply add the following line to your Podfile:
 
-    pod iCloudDocumentSync
+    pod 'iCloudDocumentSync'
 
 ### Framework Setup
 The iCloud.framework can be retrieved in two different ways:  
