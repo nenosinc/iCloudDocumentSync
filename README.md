@@ -23,7 +23,7 @@ iCloud Document Sync is a great way to use iCloud document storage in your iOS a
   * [Contributions](#contributions)
   * [Sample App](#sample-app)
 * [**Installation**](#installation)
-  * [Cocoapods](#cocoapods-setup)
+  * [CocoaPods](#cocoapods-setup)
   * [Framework](#frameworks-setup)
   * [Traditional](#traditional-setup)
   * [Swift Projects](#swift-projects-setup)
@@ -63,7 +63,7 @@ The iOS Sample App included with this project demonstrates how to use many of th
 # Installation
 Adding iCloud Document Sync to your project is easy. There are multiple ways to add iCloud Document Sync to your project. Choose the process below which best suits your needs. Follow the steps to get everything up and running in only a few minutes.
 
-### Cocoapods Setup
+### CocoaPods Setup
 The easiest way to install iCloud Document Sync is to use CocoaPods. To do so, simply add the following line to your Podfile:
 
     pod 'iCloudDocumentSync'
