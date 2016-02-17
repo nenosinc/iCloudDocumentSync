@@ -359,8 +359,9 @@
     // Log save
     if (self.verboseLogging == YES) NSLog(@"[iCloud] Beginning document save");
     
-    // Check for iCloud
-    if ([self quickCloudCheck] == NO) return;
+    // Don't Check for iCloud... we need to save the file
+    // regardless of being connected so that the saved file
+    // can be pushed to the cloud later on.
     
     // Check for nil / null document name
     if (documentName == nil || [documentName isEqualToString:@""]) {
