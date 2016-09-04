@@ -216,6 +216,11 @@
         [self.query setPredicate:[NSPredicate predicateWithFormat:[NSString stringWithFormat:@"%%K.pathExtension IN { %@ }", self.fileExtension], NSMetadataItemFSNameKey]];
     }
     
+    // Setup iCloud Metadata Query : order by (could be not working on some iOS release)
+    NSSortDescriptor *FileNameSortDescriptor = [[NSSortDescriptor alloc] initWithKey:NSMetadataItemFSNameKey ascending:FALSE];
+    NSArray *sortDescriptors = [NSArray arrayWithObjects:FileNameSortDescriptor, nil];
+    [self.query setSortDescriptors:sortDescriptors];
+    
     // Notify the responder that an update has begun
 	[self.notificationCenter addObserver:self selector:@selector(startUpdate:) name:NSMetadataQueryDidStartGatheringNotification object:self.query];
     
