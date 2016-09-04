@@ -336,12 +336,10 @@
     }
     
     // Notify the delegate of the results on the main thread
-    if ([discoveredFiles count] > 0) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if ([self.delegate respondsToSelector:@selector(iCloudFilesDidChange:withNewFileNames:)])
-                [self.delegate iCloudFilesDidChange:discoveredFiles withNewFileNames:names];
-        });
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(iCloudFilesDidChange:withNewFileNames:)])
+            [self.delegate iCloudFilesDidChange:discoveredFiles withNewFileNames:names];
+    });
 }
 
 
