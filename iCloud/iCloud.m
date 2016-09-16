@@ -294,14 +294,6 @@
                 // Add the file metadata and file names to arrays
                 [discoveredFiles addObject:result];
                 [names addObject:[result valueForAttribute:NSMetadataItemFSNameKey]];
-                
-                if (self.query.resultCount-1 >= idx) {
-                    // Notify the delegate of the results on the main thread
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        if ([self.delegate respondsToSelector:@selector(iCloudFilesDidChange:withNewFileNames:)])
-                            [self.delegate iCloudFilesDidChange:discoveredFiles withNewFileNames:names];
-                    });
-                }
             } else if ([fileStatus isEqualToString:NSURLUbiquitousItemDownloadingStatusNotDownloaded]) {
                 NSError *error;
                 BOOL downloading = [[NSFileManager defaultManager] startDownloadingUbiquitousItemAtURL:fileURL error:&error];
@@ -311,6 +303,12 @@
                 }
             }
         }];
+        
+        // Notify the delegate of the results on the main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([self.delegate respondsToSelector:@selector(iCloudFilesDidChange:withNewFileNames:)])
+                [self.delegate iCloudFilesDidChange:discoveredFiles withNewFileNames:names];
+        });
     } else {
         // Code for iOS 6.1 and earlier
         
