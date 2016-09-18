@@ -279,12 +279,22 @@
     if ([self.query respondsToSelector:@selector(enumerateResultsUsingBlock:)]) {
         // Code for iOS 7.0 and later
         
+        __block BOOL needNotify = NO;
+        
         // Enumerate through the results
         [self.query enumerateResultsUsingBlock:^(id result, NSUInteger idx, BOOL *stop) {
             // Grab the file URL
             NSURL *fileURL = [result valueForAttribute:NSMetadataItemURLKey];
             NSString *fileStatus;
             [fileURL getResourceValue:&fileStatus forKey:NSURLUbiquitousItemDownloadingStatusKey error:nil];
+
+            
+            double percentUploaded = [[result valueForAttribute:NSMetadataUbiquitousItemPercentUploadedKey] doubleValue];
+            double percentDownloaded = [[result valueForAttribute:NSMetadataUbiquitousItemPercentDownloadedKey] doubleValue];
+            
+            if (percentUploaded == 100 || percentDownloaded == 100) {
+                needNotify = YES;
+            }
             
             if ([fileStatus isEqualToString:NSURLUbiquitousItemDownloadingStatusDownloaded]) {
                 // File will be updated soon
@@ -305,10 +315,12 @@
         }];
         
         // Notify the delegate of the results on the main thread
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if ([self.delegate respondsToSelector:@selector(iCloudFilesDidChange:withNewFileNames:)])
-                [self.delegate iCloudFilesDidChange:discoveredFiles withNewFileNames:names];
-        });
+        if (needNotify) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if ([self.delegate respondsToSelector:@selector(iCloudFilesDidChange:withNewFileNames:)])
+                    [self.delegate iCloudFilesDidChange:discoveredFiles withNewFileNames:names];
+            });
+        }
     } else {
         // Code for iOS 6.1 and earlier
         
