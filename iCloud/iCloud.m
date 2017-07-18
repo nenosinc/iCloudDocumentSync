@@ -1467,7 +1467,7 @@
                     NSDictionary *cloudFile = @{@"fileContents": document.contents, @"fileURL": cloudURL, @"modifiedDate": cloudModDate};
                     NSDictionary *localFile = @{@"fileContents": localFileData, @"fileURL": localURL, @"modifiedDate": localModDate};;
                     
-                    if ([self.delegate respondsToSelector:@selector(iCloudFileUploadConflictWithCloudFile:andLocalFile:)]) {
+                    if ([self.delegate respondsToSelector:@selector(iCloudFileConflictBetweenCloudFile:andLocalFile:)]) {
                         [self.delegate iCloudFileConflictBetweenCloudFile:cloudFile andLocalFile:localFile];
                     } else if ([self.delegate respondsToSelector:@selector(iCloudFileUploadConflictWithCloudFile:andLocalFile:)]) {
                         NSLog(@"[iCloud] WARNING: iCloudFileUploadConflictWithCloudFile:andLocalFile is deprecated and will become unavailable in a future version. Use iCloudFileConflictBetweenCloudFile:andLocalFile instead.");
