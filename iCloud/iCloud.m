@@ -1481,14 +1481,6 @@
                 }
             }
         }
-        
-        // Log completion
-        if (self.verboseLogging == YES) NSLog(@"[iCloud] Finished evicting iCloud document. Successfully moved to local storage.");
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            handler(nil);
-            return;
-        });
     });
 }
 
