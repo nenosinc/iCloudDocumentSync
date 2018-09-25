@@ -92,7 +92,8 @@ NS_CLASS_AVAILABLE_IOS(6_0) @interface iCloud : NSObject
 /** Enable verbose availability logging for repeated feedback about iCloud availability in the log. Turning this off will prevent availability-related messages from being printed in the log. This property does not relate to the verboseLogging property. */
 @property BOOL verboseAvailabilityLogging;
 
-
+/** The current NSMetadataQuery object */
+@property BOOL ignoreUpdates;
 
 /** @name Checking for iCloud */
 

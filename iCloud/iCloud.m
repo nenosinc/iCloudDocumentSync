@@ -233,6 +233,9 @@
 }
 
 - (void)startUpdate:(NSNotification *)notification {
+    
+    if(self.ignoreUpdates) return;
+    
     // Log file update
     if (self.verboseLogging == YES) NSLog(@"[iCloud] Beginning file update with NSMetadataQuery");
     
@@ -244,6 +247,9 @@
 }
 
 - (void)recievedUpdate:(NSNotification *)notification {
+    
+    if(self.ignoreUpdates) return;
+    
     // Log file update
     if (self.verboseLogging == YES) NSLog(@"[iCloud] An update has been pushed from iCloud with NSMetadataQuery");
     
@@ -252,6 +258,9 @@
 }
 
 - (void)endUpdate:(NSNotification *)notification {
+    
+    if(self.ignoreUpdates) return;
+    
     // Get the updated files
     [self updateFiles];
     
