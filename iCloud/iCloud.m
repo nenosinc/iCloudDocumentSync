@@ -329,14 +329,6 @@
                 // Add the file metadata and file names to arrays
                 [discoveredFiles addObject:result];
                 [names addObject:[result valueForAttribute:NSMetadataItemFSNameKey]];
-                
-                if (self.query.resultCount-1 >= idx) {
-                    // Notify the delegate of the results on the main thread
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        if ([self.delegate respondsToSelector:@selector(iCloudFilesDidChange:withNewFileNames:)])
-                            [self.delegate iCloudFilesDidChange:discoveredFiles withNewFileNames:names];
-                    });
-                }
             } else if ([fileStatus isEqualToString:NSURLUbiquitousItemDownloadingStatusNotDownloaded]) {
                 NSError *error;
                 BOOL downloading = [[NSFileManager defaultManager] startDownloadingUbiquitousItemAtURL:fileURL error:&error];
@@ -352,35 +344,28 @@
         // Disable updates to iCloud while we update to avoid errors
         [self.query disableUpdates];
         
-        // The query reports all files found, every time
-        NSArray *queryResults = self.query.results;
-        
         // Log the query results
         if (self.verboseLogging == YES) NSLog(@"Query Results: %@", self.query.results);
         
         // Gather the query results
-        for (NSMetadataItem *result in queryResults) {
-            NSURL *fileURL = [result valueForAttribute:NSMetadataItemURLKey];
+        for (NSMetadataItem *result in self.query.results) {
             [discoveredFiles addObject:result];
-        }
-        
-        // Get file names in from the query
-        NSMutableArray *names = [NSMutableArray array];
-        for (NSMetadataItem *item in self.query.results) {
-            [names addObject:[item valueForAttribute:NSMetadataItemFSNameKey]];
+            [names addObject:[result valueForAttribute:NSMetadataItemFSNameKey]];
         }
         
         // Log query completion
         if (self.verboseLogging == YES) NSLog(@"[iCloud] Finished file update with NSMetadataQuery");
-        
-        // Notify the delegate of the results on the main thread
+		
+        // Reenable Updates
+        [self.query enableUpdates];
+    }
+    
+    // Notify the delegate of the results on the main thread
+    if ([discoveredFiles count] > 0) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([self.delegate respondsToSelector:@selector(iCloudFilesDidChange:withNewFileNames:)])
                 [self.delegate iCloudFilesDidChange:discoveredFiles withNewFileNames:names];
         });
-        
-        // Reenable Updates
-        [self.query enableUpdates];
     }
 }
 
