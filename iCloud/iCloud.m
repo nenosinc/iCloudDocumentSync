@@ -15,7 +15,7 @@
 #endif
 
 @interface iCloud ()
-
+@property (strong,nonatomic) NSOperationQueue *updatesQueue;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier backgroundProcess;
 @property (nonatomic, strong) NSFileManager *fileManager;
 @property (nonatomic, strong) NSNotificationCenter *notificationCenter;
@@ -109,6 +109,28 @@
     // Log the setup
     NSLog(@"[iCloud] Initialized");
 }
+
+//---------------------------------------------------------------------------------------------------------------------------------------------//
+//------------ Queues --------------------------------------------------------------------------------------------------------------------------//
+//---------------------------------------------------------------------------------------------------------------------------------------------//
+#pragma mark - Queue
+
+-(void)setSuspendUpdates:(BOOL)ignoreUpdates{
+    self.updatesQueue.suspended = ignoreUpdates;
+}
+
+-(NSOperationQueue*)updatesQueue{
+    @synchronized(self){
+        
+        if(!_updatesQueue){
+            _updatesQueue = [NSOperationQueue new];
+            _updatesQueue.maxConcurrentOperationCount = 1;
+            _updatesQueue.qualityOfService = NSQualityOfServiceBackground;
+        }
+        return  _updatesQueue;
+    }
+}
+
 
 //---------------------------------------------------------------------------------------------------------------------------------------------//
 //------------ Basic --------------------------------------------------------------------------------------------------------------------------//
@@ -233,37 +255,50 @@
 }
 
 - (void)startUpdate:(NSNotification *)notification {
-    // Log file update
-    if (self.verboseLogging == YES) NSLog(@"[iCloud] Beginning file update with NSMetadataQuery");
-    
-    // Notify the delegate of the results on the main thread
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if ([self.delegate respondsToSelector:@selector(iCloudFileUpdateDidBegin)])
-            [self.delegate iCloudFileUpdateDidBegin];
-    });
+    __weak __typeof(self) wself=self;
+    [self.updatesQueue addOperationWithBlock:^{
+        // Log file update
+        if (wself.verboseLogging == YES) NSLog(@"[iCloud] Beginning file update with NSMetadataQuery");
+        
+        // Notify the delegate of the results on the main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([wself.delegate respondsToSelector:@selector(iCloudFileUpdateDidBegin)])
+                [wself.delegate iCloudFileUpdateDidBegin];
+        });
+    }];
 }
 
 - (void)recievedUpdate:(NSNotification *)notification {
-    // Log file update
-    if (self.verboseLogging == YES) NSLog(@"[iCloud] An update has been pushed from iCloud with NSMetadataQuery");
     
-    // Get the updated files
-    [self updateFiles];
+    __weak __typeof(self) wself=self;
+    [self.updatesQueue addOperationWithBlock:^{
+        // Log file update
+        if (wself.verboseLogging == YES) NSLog(@"[iCloud] An update has been pushed from iCloud with NSMetadataQuery");
+        
+        // Get the updated files
+        [wself updateFiles];
+    }];
+   
 }
 
 - (void)endUpdate:(NSNotification *)notification {
-    // Get the updated files
-    [self updateFiles];
     
-    // Notify the delegate of the results on the main thread
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if ([self.delegate respondsToSelector:@selector(iCloudFileUpdateDidEnd)])
-            [self.delegate iCloudFileUpdateDidEnd];
-    });
-    
-    // Log query completion
-    if (self.verboseLogging == YES) NSLog(@"[iCloud] Finished file update with NSMetadataQuery");
+    __weak __typeof(self) wself=self;
+    [self.updatesQueue addOperationWithBlock:^{
+        // Get the updated files
+        [wself updateFiles];
+        
+        // Notify the delegate of the results on the main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([wself.delegate respondsToSelector:@selector(iCloudFileUpdateDidEnd)])
+                [wself.delegate iCloudFileUpdateDidEnd];
+        });
+        
+        // Log query completion
+        if (wself.verboseLogging == YES) NSLog(@"[iCloud] Finished file update with NSMetadataQuery");
+    }];
 }
+     
 
 - (void)updateFiles {
     // Log file update

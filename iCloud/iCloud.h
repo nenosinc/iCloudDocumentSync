@@ -67,7 +67,15 @@ NS_CLASS_AVAILABLE_IOS(6_0) @interface iCloud : NSObject
 - (void)setupiCloudDocumentSyncWithUbiquityContainer:(NSString *)containerID;
 
 
+/**
+ Temporarely pauses the updates queue in case you need to ensure a smooth UI.
+ 
+ @discussion The updates will be enqueued and performed when the flag is set to false again.
 
+ @param ignoreUpdates Control the supension of the updates queue.
+ */
+- (void)setSuspendUpdates:(BOOL)ignoreUpdates;
+    
 /** @name Delegate */
 
 /** iCloud Delegate helps call methods when document processes begin or end */
