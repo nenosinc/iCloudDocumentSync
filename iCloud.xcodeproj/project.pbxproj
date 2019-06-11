@@ -36,7 +36,6 @@
 
 /* Begin PBXFileReference section */
 		99670E021806160E005BC6B7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		99670E49180622F6005BC6B7 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHANGELOG.md; sourceTree = "<group>"; };
 		99670E4A180622F6005BC6B7 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.md; sourceTree = "<group>"; };
 		996A9B7F177C8DCA0030039A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		996A9B82177C8DCA0030039A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -71,7 +70,6 @@
 			children = (
 				99AD4ABC1837C392008BBEA4 /* iCloud App.xcodeproj */,
 				99670E021806160E005BC6B7 /* README.md */,
-				99670E49180622F6005BC6B7 /* CHANGELOG.md */,
 				99670E4A180622F6005BC6B7 /* LICENSE.md */,
 				9972AF9B18332D6100DD9879 /* CONTRIBUTING.md */,
 				A62FBBD922B0248000E841AB /* CloudDocumentSync */,

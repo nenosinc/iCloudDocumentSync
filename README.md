@@ -2,7 +2,7 @@
 
 iCloud Document Sync makes it easy for developers to integrate the iCloud document storage APIs into iOS applications. This is how iCloud document-storage and management should've been out of the box from Apple. Integrate iCloud into iOS (macOS coming soon) Objective-C document projects with one-line code methods. Sync, upload, manage, and remove documents to and from iCloud with only  a few lines of code (compared to the hundreds of lines and hours that it usually takes). Get iCloud up and running in your iOS app in only a few minutes.
 
-If you like the project, please [star it](https://github.com/iRareMedia/iCloudDocumentSync) on GitHub! Watch the project on GitHub for updates. If you use iCloud Document Sync in your app, send an email to contact[at]iraremedia.com or let us know on Twitter @iRareMedia.
+If you like the project, please [star it](https://github.com/iRareMedia/iCloudDocumentSync) on GitHub! Watch the project on GitHub for updates. If you use iCloud Document Sync in your app, send an email to hello[at]samspencer.com or let me know on Twitter @spamsencer.
 
 # Project Features
 iCloud Document Sync is a great way to use iCloud document storage in your iOS app. Below are a few key project features and highlights.
@@ -36,20 +36,16 @@ iCloud Document Sync is a great way to use iCloud document storage in your iOS a
 Learn more about the project requirements, licensing, and contributions.
 
 ## Requirements
-Requires Xcode 5.0.1+ for use in any iOS Project. Requires a minimum of iOS 6.0 as the deployment target. 
+Requires Xcode 10.0+ for use in any iOS Project. Requires a minimum of iOS 8.0 as the deployment target. 
 
 | Current Build Target 	| Earliest Supported Build Target 	| Earliest Compatible Build Target |
 |:--------------------:	|:-------------------------------:	|:--------------------------------:|
 |       iOS 12.2            	|            iOS 10.0                       	|             iOS 8.0              	|
 |     Xcode 10      	        |          Xcode 10            	        |           Xcode 10            	|
+|     Swift 5                  |          Swift 5                        |           Swift 5                |
 
 > REQUIREMENTS NOTE  
 *Supported* means that the library has been tested with this version. *Compatible* means that the library should work on this OS version (i.e. it doesn't rely on any unavailable SDK features) but is no longer being tested for compatibility and may require tweaking or bug fixes to run correctly.
-
-## License 
-This project is licensed under the MIT License. See the [full iCloud Document Sync license here](https://github.com/iRareMedia/iCloudDocumentSync/blob/master/LICENSE.md).
-
-Attribution is not required, but it appreciated. We have spent a lot of time, energy, and resources working on this project - so a little *Thanks!* (or something to that affect) would be much appreciated. If you use iCloud Document Sync in your app, send an email to contact@iraremedia.com or let us know on Twitter @iRareMedia.
 
 ## Contributions
 Any contribution is more than welcome! You can contribute through pull requests and issues on GitHub. Learn more [about contributing to the project here](https://github.com/iRareMedia/iCloudDocumentSync/blob/master/CONTRIBUTING.md).
@@ -57,7 +53,7 @@ Any contribution is more than welcome! You can contribute through pull requests 
 ## Sample App
 The iOS Sample App included with this project demonstrates how to use many of the features in iCloud Document Sync. You can refer to the sample app for an understanding of how to use and setup iCloud Document Sync. The app should work with iCloud as-is (you may need to provide your own Bundle ID though).
 
-<img width=700 src="https://raw.github.com/iRareMedia/iCloudDocumentSync/master/iCloud%20App%20-%20iOS/AppBanner.png"/>
+<img width=100% src="https://raw.github.com/iRareMedia/iCloudDocumentSync/master/iCloud%20App%20-%20iOS/AppBanner.png"/>
 
 # Installation
 Adding iCloud Document Sync to your project is easy. There are multiple ways to add iCloud Document Sync to your project. Choose the process below which best suits your needs. Follow the steps to get everything up and running in only a few minutes.
@@ -73,19 +69,12 @@ The iCloud.framework can be retrieved in two different ways:
  2. Download your preferred iCloud Document Sync Framework release from the [Project Releases](https://github.com/iRareMedia/iCloudDocumentSync/releases) section. Frameworks are available as far back as version 7.0. Unzip then drag and drop the `.framework` file into your project.   
 
 ### Traditional Setup
-Drag and drop the *iCloud* folder into your Xcode project. When you do so, check the "Copy items into destination group's folder" box. Delete the `iCloud-Prefix.pch` file. 
-
-### Swift Project Setup
-To use iCloud Document Sync in a Swift project, you must create a [bridging header](https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html). 
-
-If you already have a bridging header, simply import `iCloud.h` (use the `#import <iCloud/iCloud.h>` syntax when importing the framework, otherwise use `#import "iCloud.h"`). 
-
-If you do not already have a bridging header, install iCloud Document Sync into your project using any of the above processes. When adding the files to Xcode, you will be prompted to create a bridging header - create one. Then, import iCloud Document Sync (see paragraph above).
+Drag and drop the *CloudDocumentSync* folder into your Xcode project. When you do so, check the "Copy items into destination group's folder" box.
 
 # Setup
 After installing iCloud Document Sync, it only takes a few lines of code to get it up an running.  
   1. Import iCloud (see relevant install instructions above) to your header file(s).  
-  2. Subscribe to the `<iCloudDelegate>` delegate.  
+  2. Conform to the `CloudDelegate` delegate.  
   3. Set the delegate and optionally enable verbose logging:  
    
         [[iCloud sharedCloud] setDelegate:self]; // Set this if you plan to use the delegate
