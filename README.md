@@ -1,6 +1,6 @@
-<img width=725 src="https://raw.githubusercontent.com/iRareMedia/iCloudDocumentSync/master/iCloud%20App%20-%20iOS/CloudBanner.png"/>
+<img width=100% src="https://raw.githubusercontent.com/iRareMedia/iCloudDocumentSync/master/iCloud%20App%20-%20iOS/CloudBanner.png"/>
 
-iCloud Document Sync makes it easy for developers to integrate the iCloud document storage APIs into iOS applications. This is how iCloud document-storage and management should've been out of the box from Apple. Integrate iCloud into iOS (OS X coming soon) Objective-C document projects with one-line code methods. Sync, upload, manage, and remove documents to and from iCloud with only  a few lines of code (compared to the hundreds of lines and hours that it usually takes). Get iCloud up and running in your iOS app in only a few minutes.
+iCloud Document Sync makes it easy for developers to integrate the iCloud document storage APIs into iOS applications. This is how iCloud document-storage and management should've been out of the box from Apple. Integrate iCloud into iOS (macOS coming soon) Objective-C document projects with one-line code methods. Sync, upload, manage, and remove documents to and from iCloud with only  a few lines of code (compared to the hundreds of lines and hours that it usually takes). Get iCloud up and running in your iOS app in only a few minutes.
 
 If you like the project, please [star it](https://github.com/iRareMedia/iCloudDocumentSync) on GitHub! Watch the project on GitHub for updates. If you use iCloud Document Sync in your app, send an email to contact[at]iraremedia.com or let us know on Twitter @iRareMedia.
 
@@ -38,11 +38,10 @@ Learn more about the project requirements, licensing, and contributions.
 ## Requirements
 Requires Xcode 5.0.1+ for use in any iOS Project. Requires a minimum of iOS 6.0 as the deployment target. 
 
-| Current Build Target 	| Earliest Supported Build Target 	| Earliest Compatible Build Target 	|
-|:--------------------:	|:-------------------------------:	|:--------------------------------:	|
-|       iOS 8.1        	|            iOS 7.0              	|             iOS 6.0              	|
-|     Xcode 6.1.1      	|          Xcode 5.1.1            	|           Xcode 5.0.1            	|
-|      LLVM 6.0        	|             LLVM 5.0            	|             LLVM 5.0             	|
+| Current Build Target 	| Earliest Supported Build Target 	| Earliest Compatible Build Target |
+|:--------------------:	|:-------------------------------:	|:--------------------------------:|
+|       iOS 12.2            	|            iOS 10.0                       	|             iOS 8.0              	|
+|     Xcode 10      	        |          Xcode 10            	        |           Xcode 10            	|
 
 > REQUIREMENTS NOTE  
 *Supported* means that the library has been tested with this version. *Compatible* means that the library should work on this OS version (i.e. it doesn't rely on any unavailable SDK features) but is no longer being tested for compatibility and may require tweaking or bug fixes to run correctly.

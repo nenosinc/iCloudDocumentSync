@@ -28,19 +28,19 @@
 
 @interface MHPrettyDate()
 
-@property (strong, nonatomic)   NSDate*            today;
-@property (readonly, nonatomic) NSDate*            yesterday;
-@property (readonly, nonatomic) NSDate*            tomorrow;
-@property (readonly, nonatomic) NSDate*            weekAgo;
-@property (readonly, nonatomic) NSCalendar*        calendar;
-@property (strong, nonatomic)   NSDateFormatter*   dateFormatter;
+@property (strong, nonatomic)   NSDate *today;
+@property (readonly, nonatomic) NSDate *yesterday;
+@property (readonly, nonatomic) NSDate *tomorrow;
+@property (readonly, nonatomic) NSDate *weekAgo;
+@property (readonly, nonatomic) NSCalendar *calendar;
+@property (strong, nonatomic)   NSDateFormatter *dateFormatter;
 @property (assign)              MHPrettyDateFormat dateFormat;
 
-+(MHPrettyDate*) sharedInstance;
--(NSDate* )      normalizeDate:(NSDate*) date;
--(BOOL)          isSameDay:(NSDate*) date as:(NSDate*) secondDate;
++ (MHPrettyDate *)sharedInstance;
+- (NSDate *)normalizeDate:(NSDate *)date;
+- (BOOL)isSameDay:(NSDate *)date as:(NSDate *)secondDate;
 
-+(NSString*)     formattedStringForDate:(NSDate*) date withFormat:(MHPrettyDateFormat) dateFormat;
++ (NSString *)formattedStringForDate:(NSDate *)date withFormat:(MHPrettyDateFormat)dateFormat;
 
 @end
     
@@ -51,91 +51,70 @@
 @synthesize tomorrow       = _tomorrow;
 @synthesize weekAgo        = _weekAgo;
 
-#pragma mark - get singleton
-//
-// singleton factory
-//
-+ (MHPrettyDate*)sharedInstance
-{
+// MARK: - Singleton -
+
++ (MHPrettyDate *)sharedInstance {
     static          dispatch_once_t p           = 0;
-    __strong static MHPrettyDate*   _singleton  = nil;
+    __strong static MHPrettyDate *  _singleton  = nil;
     
-    dispatch_once(&p,
-    ^{
+    dispatch_once(&p, ^{
         _singleton = [[self alloc] init];
     });
     return _singleton;
 }
 
-- (void)clearCache
-{
+- (void)clearCache {
     _tomorrow = nil;
     _today = nil;
     _yesterday = nil;
     _weekAgo = nil;
 }
 
-#pragma mark - worker methods
+// MARK: - Worker Methods -
 
 // this is a worker method
--(NSDate* ) normalizeDate:(NSDate*) date
-{
-    NSDateComponents* dateComponents = [self.calendar
-                                        components: NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit |
-                                        NSWeekdayCalendarUnit
-                                        fromDate:  date];
-    NSDate* returnDate = [self.calendar dateFromComponents:dateComponents];
+- (NSDate *)normalizeDate:(NSDate *)date {
+    NSDateComponents *dateComponents = [self.calendar components: NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay |NSCalendarUnitWeekday fromDate:date];
+    NSDate *returnDate = [self.calendar dateFromComponents:dateComponents];
     return returnDate;
 }
 
--(NSDate* ) normalizeTime:(NSDate*) date
-{
-   NSDateComponents* dateComponents = [self.calendar
-                                         components: NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit |
-                                                     NSHourCalendarUnit | NSMinuteCalendarUnit
-                                           fromDate: date];
-   NSDate* returnDate = [self.calendar dateFromComponents:dateComponents];
+- (NSDate *)normalizeTime:(NSDate *)date {
+   NSDateComponents* dateComponents = [self.calendar components: NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute fromDate: date];
+   NSDate *returnDate = [self.calendar dateFromComponents:dateComponents];
    return returnDate;
 }
 
- 
--(NSComparisonResult) compareTimeFromNow:(NSDate*) compareDate
-{
+- (NSComparisonResult)compareTimeFromNow:(NSDate *)compareDate {
    NSDate *normalNow  = [self normalizeTime:[NSDate date]];
    NSDate *normalTest = [self normalizeTime:compareDate];
    
    return [normalNow compare:normalTest];
 }
 
--(NSInteger) minutesFromNow:(NSDate*) compareDate
-{
+- (NSInteger)minutesFromNow:(NSDate *)compareDate {
    return ([compareDate timeIntervalSinceNow] / 60);
 }
 
--(NSInteger) hoursFromNow:(NSDate*) compareDate
-{
+- (NSInteger)hoursFromNow:(NSDate *)compareDate {
    return ([compareDate timeIntervalSinceNow] / (60 * 60));
 }
 
--(NSInteger) daysFromNow:(NSDate*) compareDate
-{
+- (NSInteger)daysFromNow:(NSDate *)compareDate {
    return ([compareDate timeIntervalSinceNow] / ((60 * 60) * 24));
 }
 
--(BOOL) isSameDay:(NSDate*) date as:(NSDate*) secondDate
-{
-    NSDate* date1 = [self normalizeDate:date];
-    NSDate* date2 = [self normalizeDate:secondDate];
+- (BOOL)isSameDay:(NSDate *)date as:(NSDate *)secondDate {
+    NSDate *date1 = [self normalizeDate:date];
+    NSDate *date2 = [self normalizeDate:secondDate];
     
     return [date1 isEqualToDate:date2];
 }
 
-+(NSString*) makePrettyDate:(NSDate*) date withFormat:(MHPrettyDateFormat) dateFormat withDateStyle:(NSDateFormatterStyle) dateStyle withTimeStyle:(NSDateFormatterStyle)timeStyle
-{
-   NSString* dateString;
++ (NSString *)makePrettyDate:(NSDate *)date withFormat:(MHPrettyDateFormat)dateFormat withDateStyle:(NSDateFormatterStyle) dateStyle withTimeStyle:(NSDateFormatterStyle)timeStyle {
+   NSString *dateString;
    
-   switch (dateFormat)
-   {
+   switch (dateFormat) {
       case MHPrettyDateFormatWithTime:
       case MHPrettyDateFormatNoTime:
       case MHPrettyDateFormatTodayTimeOnly:
@@ -155,44 +134,31 @@
    return dateString;
 };
 
-+(NSString*) formattedStringForTime:(NSDate*) date withFormat:(MHPrettyDateFormat) dateFormat
-{
++ (NSString *)formattedStringForTime:(NSDate *)date withFormat:(MHPrettyDateFormat) dateFormat {
    NSString *dateString;
    
    // handle future date cases
-   if ([MHPrettyDate isFutureTime: date])
-   {
-      if ((dateFormat == MHPrettyDateLongRelativeTime) || [MHPrettyDate isToday:date])
-      {
+   if ([MHPrettyDate isFutureTime: date]) {
+      if ((dateFormat == MHPrettyDateLongRelativeTime) || [MHPrettyDate isToday:date]) {
          dateString = [MHPrettyDate formattedStringForDate:date withFormat:MHPrettyDateFormatWithTime];
-      }
-      else
-      {
+      } else {
          dateString = [MHPrettyDate formattedStringForDate:date withFormat:MHPrettyDateFormatNoTime];
       }
-   }
-   else if ([MHPrettyDate isWithin24Hours:date])
-   {
+   } else if ([MHPrettyDate isWithin24Hours:date]) {
       MHPrettyDate *prettyDate = [MHPrettyDate sharedInstance];
-      if ([MHPrettyDate isWithinHour: date])
-      {
+      if ([MHPrettyDate isWithinHour: date]) {
          // if within 60 minutes print minutes
          NSInteger minutes = [prettyDate minutesFromNow: date] * -1;
          NSString  *post;
          
-         if (minutes == 0)
-         {
+         if (minutes == 0) {
             dateString = NSLocalizedStringFromTable(@"Now", @"MHPrettyDate", nil);
-         }
-         else
-         {
+         } else {
             if (minutes == 1) post = (dateFormat == MHPrettyDateLongRelativeTime) ? NSLocalizedStringFromTable(@" minute ago", @"MHPrettyDate", nil) : NSLocalizedStringFromTable(@"m", @"MHPrettyDate", nil);
             else post = (dateFormat == MHPrettyDateLongRelativeTime) ? NSLocalizedStringFromTable(@" minutes ago", @"MHPrettyDate", nil) : NSLocalizedStringFromTable(@"m", @"MHPrettyDate", nil);
             dateString = [NSString stringWithFormat: @"%ld%@", (long)minutes, post];
          }
-      }
-      else
-      {
+      } else {
          // else print hours
          NSInteger hours = [prettyDate hoursFromNow: date] * -1;
          NSString  *post;
@@ -201,13 +167,9 @@
          else post = (dateFormat == MHPrettyDateLongRelativeTime) ? NSLocalizedStringFromTable(@" hours ago", @"MHPrettyDate", nil) : NSLocalizedStringFromTable(@"h", @"MHPrettyDate", nil);
          dateString = [NSString stringWithFormat: @"%ld%@", (long)hours, post];
       }
-   }
-   else if ([MHPrettyDate isYesterday:date])
-   {
+   } else if ([MHPrettyDate isYesterday:date]) {
       dateString = (dateFormat == MHPrettyDateLongRelativeTime) ? NSLocalizedStringFromTable(@"1 day ago", @"MHPrettyDate", nil) : NSLocalizedStringFromTable(@"1d", @"MHPrettyDate", nil);
-   }
-   else
-   {
+   } else {
       MHPrettyDate *prettyDate = [MHPrettyDate sharedInstance];
       NSInteger days = [prettyDate daysFromNow: date] * -1;
       NSString  *post;
@@ -219,59 +181,43 @@
    return dateString;
 }
 
-+(NSString*) formattedStringForDate:(NSDate*) date withFormat:(MHPrettyDateFormat) dateFormat
-{
++ (NSString *)formattedStringForDate:(NSDate *)date withFormat:(MHPrettyDateFormat) dateFormat {
     return [MHPrettyDate formattedStringForDate:date withFormat:dateFormat withDateStyle:NSDateFormatterShortStyle withTimeStyle:NSDateFormatterShortStyle];
 }
 
-+(NSString*) formattedStringForDate:(NSDate*) date withFormat:(MHPrettyDateFormat) dateFormat withDateStyle:(NSDateFormatterStyle) dateStyle
-{
++ (NSString *)formattedStringForDate:(NSDate *)date withFormat:(MHPrettyDateFormat) dateFormat withDateStyle:(NSDateFormatterStyle) dateStyle {
     return [MHPrettyDate formattedStringForDate:date withFormat:dateFormat withDateStyle:dateStyle withTimeStyle:NSDateFormatterShortStyle];
 }
 
 // TODO: this method needs to be refactored and localized
-+(NSString*) formattedStringForDate:(NSDate*) date withFormat:(MHPrettyDateFormat) dateFormat withDateStyle:(NSDateFormatterStyle) dateStyle withTimeStyle:(NSDateFormatterStyle) timeStyle
-{
-    NSString*        dateString;
-    NSDateFormatter* formatter   = [[NSDateFormatter alloc] init];
++ (NSString *)formattedStringForDate:(NSDate *)date withFormat:(MHPrettyDateFormat) dateFormat withDateStyle:(NSDateFormatterStyle) dateStyle withTimeStyle:(NSDateFormatterStyle) timeStyle {
+    NSString *dateString;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     
-    if ([MHPrettyDate willMakePretty:date])
-    {
-        if ([MHPrettyDate isTomorrow:date])
-        {
+    if ([MHPrettyDate willMakePretty:date]) {
+        if ([MHPrettyDate isTomorrow:date]) {
             dateString = NSLocalizedStringFromTable(@"'Tomorrow'", @"MHPrettyDate", @"This value is used in a DateFormat, the single quotes are important.");
-        }
-        else if ([MHPrettyDate isToday:date])
-        {
+        } else if ([MHPrettyDate isToday:date]) {
             dateString = NSLocalizedStringFromTable(@"'Today'", @"MHPrettyDate", @"This value is used in a DateFormat, the single quotes are important.");
-        }
-        else if ([MHPrettyDate isYesterday:date])
-        {
+        } else if ([MHPrettyDate isYesterday:date]) {
             dateString = NSLocalizedStringFromTable(@"'Yesterday'", @"MHPrettyDate", @"This value is used in a DateFormat, the single quotes are important.");
-        }
-        else
-        {
+        } else {
             dateString = @"EEEE";
         }
         
         // special case for MHPrettyDateFormatWithTime
-        if (dateFormat == MHPrettyDateFormatWithTime)
-        {
+        if (dateFormat == MHPrettyDateFormatWithTime) {
             // today show only time
-            if ([MHPrettyDate isToday:date])
-            {
+            if ([MHPrettyDate isToday:date]) {
                dateString = @"h:mm a";
-            }
-            else
-            {
+            } else {
                // otherwise show date string and time
                dateString = [NSString stringWithFormat:@"%@ h:mm a", dateString];
             }
         }
         
         // special case for MHPrettyDateFormatTodayTimeOnly
-        if (dateFormat == MHPrettyDateFormatTodayTimeOnly)
-        {
+        if (dateFormat == MHPrettyDateFormatTodayTimeOnly) {
             // today show only time
             if ([MHPrettyDate isToday:date])
             {
@@ -281,25 +227,19 @@
 
         [formatter setDateFormat: dateString];
         return [formatter stringFromDate:date];
-    }
-    else if (dateFormat == MHPrettyDateFormatWithTime)
-    {
+    } else if (dateFormat == MHPrettyDateFormatWithTime) {
         return [NSDateFormatter localizedStringFromDate:date dateStyle:dateStyle timeStyle:timeStyle];
         
-    }
-    else
-    {
+    } else {
         return [NSDateFormatter localizedStringFromDate:date dateStyle:dateStyle timeStyle:NSDateFormatterNoStyle];
     }    
 }
 
 
-#pragma mark - accessors
-
+// MARK: - Accessors -
 // TODO: these methods can be refactored
 
-- (void)sanitize
-{
+- (void)sanitize {
     if (_today) {
         if (![self isSameDay:_today as:[NSDate date]]) {
             [self clearCache];
@@ -307,26 +247,19 @@
     }
 }
 
-//
-// today is read/write (write is for testing only)
-//
-
--(NSDate*) today
-{
+/// today is read/write (write is for testing only)
+- (NSDate *)today {
     [self sanitize];
-    if (!_today)
-    {
+    if (!_today) {
         _today = [self normalizeDate:[NSDate date]];
     }
     return _today;
 }
 
-// yesterday is today minus 1 day
--(NSDate*) yesterday
-{
+/// yesterday is today minus 1 day
+- (NSDate *)yesterday {
     [self sanitize];
-    if (!_yesterday)
-    {
+    if (!_yesterday) {
         NSDateComponents* comps = [[NSDateComponents alloc] init];
         [comps setDay: -1];
         _yesterday = [self.calendar dateByAddingComponents:comps toDate:self.today options:0];
@@ -334,12 +267,10 @@
     return _yesterday;
 }
 
-// yesterday is today minus 1 day
--(NSDate*) weekAgo
-{
+/// yesterday is today minus 1 day
+- (NSDate *)weekAgo {
     [self sanitize];
-    if (!_weekAgo)
-    {
+    if (!_weekAgo) {
         NSDateComponents* comps = [[NSDateComponents alloc] init];
         [comps setDay: -6];
         _weekAgo = [self.calendar dateByAddingComponents:comps toDate:self.today options:0];
@@ -347,12 +278,10 @@
     return _weekAgo;
 }
 
-// tomorrow is today plus 1 day
--(NSDate*) tomorrow
-{
+/// tomorrow is today plus 1 day
+- (NSDate *)tomorrow {
     [self sanitize];
-    if (!_tomorrow)
-    {
+    if (!_tomorrow) {
         NSDateComponents* comps = [[NSDateComponents alloc] init];
         [comps setDay: 1];
         _tomorrow = [self.calendar dateByAddingComponents:comps toDate:self.today options:0];
@@ -360,99 +289,83 @@
     return _tomorrow;
 }
 
-// calendar
--(NSCalendar*) calendar
-{
-    if (!_calendar)
-    {
-       _calendar = [[NSCalendar alloc] initWithCalendarIdentifier: NSGregorianCalendar];
+/// calendar
+- (NSCalendar *)calendar {
+    if (!_calendar) {
+       _calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     }
     return _calendar;
 }
 
-// nsdateformattter
--(NSDateFormatter*) dateFormatter
-{
-    if (!_dateFormatter)
-    {
+/// nsdateformattter
+- (NSDateFormatter *)dateFormatter {
+    if (!_dateFormatter) {
         _dateFormatter = [[NSDateFormatter alloc] init];
     }
     return _dateFormatter;
 }
 
-#pragma mark - public methods
+// MARK: - Public Methods -
 
-+(NSString*) prettyDateFromDate:(NSDate*) date withFormat:(MHPrettyDateFormat) dateFormat
-{
++ (NSString *)prettyDateFromDate:(NSDate *)date withFormat:(MHPrettyDateFormat)dateFormat {
     return [MHPrettyDate makePrettyDate:date withFormat:dateFormat withDateStyle:NSDateFormatterShortStyle withTimeStyle:NSDateFormatterShortStyle];
 }
 
-+(NSString*) prettyDateFromDate:(NSDate*) date withFormat:(MHPrettyDateFormat) dateFormat withDateStyle:(NSDateFormatterStyle) dateStyle
-{
++ (NSString *)prettyDateFromDate:(NSDate *)date withFormat:(MHPrettyDateFormat)dateFormat withDateStyle:(NSDateFormatterStyle) dateStyle {
     return [MHPrettyDate makePrettyDate:date withFormat:dateFormat withDateStyle:dateStyle withTimeStyle:NSDateFormatterShortStyle];
 }
 
-+(NSString*) prettyDateFromDate:(NSDate*) date withFormat:(MHPrettyDateFormat) dateFormat withDateStyle:(NSDateFormatterStyle) dateStyle withTimeStyle:(NSDateFormatterStyle) timeStyle
-{
++ (NSString *)prettyDateFromDate:(NSDate *)date withFormat:(MHPrettyDateFormat)dateFormat withDateStyle:(NSDateFormatterStyle) dateStyle withTimeStyle:(NSDateFormatterStyle)timeStyle {
     return [MHPrettyDate makePrettyDate:date withFormat:dateFormat withDateStyle:dateStyle withTimeStyle:timeStyle];
 }
 
-+(BOOL) willMakePretty:(NSDate *)date
-{
++ (BOOL)willMakePretty:(NSDate *)date {
    return ([MHPrettyDate isTomorrow:date] || [MHPrettyDate isWithinWeek:date]);
 }
 
-#pragma mark - date relative
-+(BOOL) isToday:(NSDate*) date
-{
-    MHPrettyDate* prettyDate = [MHPrettyDate sharedInstance];
+// MARK: - Date Relative -
+
++ (BOOL)isToday:(NSDate *)date {
+    MHPrettyDate *prettyDate = [MHPrettyDate sharedInstance];
     return [prettyDate isSameDay:date as:prettyDate.today];
 };
 
-+(BOOL) isTomorrow:(NSDate*) date
-{
-    MHPrettyDate* prettyDate = [MHPrettyDate sharedInstance];
++ (BOOL)isTomorrow:(NSDate *)date {
+    MHPrettyDate *prettyDate = [MHPrettyDate sharedInstance];
     return [prettyDate isSameDay:date as:prettyDate.tomorrow];
 };
 
-+(BOOL) isYesterday:(NSDate*) date
-{
-    MHPrettyDate* prettyDate = [MHPrettyDate sharedInstance];
++ (BOOL)isYesterday:(NSDate *)date {
+    MHPrettyDate *prettyDate = [MHPrettyDate sharedInstance];
     return [prettyDate isSameDay:date as:prettyDate.yesterday];
 };
 
-+(BOOL) isFutureDate:(NSDate *) date
-{
-   MHPrettyDate* prettyDate  = [MHPrettyDate sharedInstance];
-   NSDate*       compareDate = [prettyDate normalizeDate:date];
++ (BOOL)isFutureDate:(NSDate *) date {
+   MHPrettyDate *prettyDate  = [MHPrettyDate sharedInstance];
+   NSDate *compareDate = [prettyDate normalizeDate:date];
    
    return ([prettyDate.today compare:compareDate] == NSOrderedAscending);
 }
 
-+(BOOL) isPastDate:(NSDate *) date
-{
-   MHPrettyDate* prettyDate  = [MHPrettyDate sharedInstance];
-   NSDate*       compareDate = [prettyDate normalizeDate:date];
++ (BOOL)isPastDate:(NSDate *) date {
+   MHPrettyDate *prettyDate  = [MHPrettyDate sharedInstance];
+   NSDate *compareDate = [prettyDate normalizeDate:date];
    
    return ([prettyDate.today compare:compareDate] == NSOrderedDescending);
 }
 
-+(BOOL) isWithinWeek:(NSDate*) date;
-{
-    MHPrettyDate* prettyDate   = [MHPrettyDate sharedInstance];
-    NSDate*       today        = prettyDate.today;
-    NSDate*       weekAgo      = prettyDate.weekAgo;
-    NSDate*       testDate     = [prettyDate normalizeDate:date];
++ (BOOL)isWithinWeek:(NSDate *)date; {
+    MHPrettyDate *prettyDate   = [MHPrettyDate sharedInstance];
+    NSDate *today        = prettyDate.today;
+    NSDate *weekAgo      = prettyDate.weekAgo;
+    NSDate *testDate     = [prettyDate normalizeDate:date];
     BOOL          isWithinWeek = NO;
 
-    if ([prettyDate isSameDay:testDate as:weekAgo] || [prettyDate isSameDay:testDate as:today])
-    {
+    if ([prettyDate isSameDay:testDate as:weekAgo] || [prettyDate isSameDay:testDate as:today]) {
         isWithinWeek = YES;
-    }
-    else
-    {
-        NSDate* earlierDate = [testDate earlierDate: today];
-        NSDate* laterDate   = [testDate laterDate:   weekAgo];
+    } else {
+        NSDate *earlierDate = [testDate earlierDate: today];
+        NSDate *laterDate   = [testDate laterDate:   weekAgo];
         
         isWithinWeek = ([testDate isEqualToDate:earlierDate] && [testDate isEqualToDate:laterDate]);
     }
@@ -460,38 +373,31 @@
     return isWithinWeek;
 }
 
-#pragma mark - time relative
+// MARK: - Time Relative -
 
-+(BOOL) isNow:(NSDate*) date
-{
-   MHPrettyDate* prettyDate   = [MHPrettyDate sharedInstance];
++ (BOOL)isNow:(NSDate *)date {
+   MHPrettyDate *prettyDate   = [MHPrettyDate sharedInstance];
    return ([prettyDate compareTimeFromNow:date] == NSOrderedSame);
 }
 
-+(BOOL) isFutureTime:(NSDate*) date
-{
-   MHPrettyDate* prettyDate   = [MHPrettyDate sharedInstance];
++ (BOOL)isFutureTime:(NSDate *)date {
+   MHPrettyDate *prettyDate   = [MHPrettyDate sharedInstance];
    return ([prettyDate compareTimeFromNow:date] == NSOrderedAscending);
 }
 
-+(BOOL) isPastTime:(NSDate*) date
-{
-   MHPrettyDate* prettyDate   = [MHPrettyDate sharedInstance];
++ (BOOL)isPastTime:(NSDate *)date {
+   MHPrettyDate *prettyDate   = [MHPrettyDate sharedInstance];
    return ([prettyDate compareTimeFromNow:date] == NSOrderedDescending);
 }
 
-+(BOOL) isWithin24Hours:(NSDate*) date
-{
-   MHPrettyDate* prettyDate   = [MHPrettyDate sharedInstance];
++ (BOOL)isWithin24Hours:(NSDate *)date {
+   MHPrettyDate *prettyDate   = [MHPrettyDate sharedInstance];
    return ([prettyDate daysFromNow:date] == 0);
 }
 
-+(BOOL) isWithinHour:(NSDate*) date
-{
-   MHPrettyDate* prettyDate   = [MHPrettyDate sharedInstance];
++ (BOOL)isWithinHour:(NSDate *)date {
+   MHPrettyDate *prettyDate   = [MHPrettyDate sharedInstance];
    return ([prettyDate hoursFromNow:date] == 0);
 }
 
-
-#pragma mark -
 @end

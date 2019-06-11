@@ -6,27 +6,13 @@
 //  Available on GitHub. Licensed under MIT with Attribution.
 //
 
-// Check for Objective-C Modules
-#if __has_feature(objc_modules)
-    // We recommend enabling Objective-C Modules in your project Build Settings for numerous benefits over regular #imports. Read more from the Modules documentation: http://clang.llvm.org/docs/Modules.html
-    @import Foundation;
-    @import UIKit;
-#else
-    #import <Foundation/Foundation.h>
-    #import <UIKit/UIKit.h>
-#endif
+@import Foundation;
+@import UIKit;
 
-// Import iCloudDocument
-#import "iCloudDocument.h"
-
-// Ensure that the build is for iOS 6.0 or higher
-#ifndef __IPHONE_6_0
-    #error iCloudDocumentSync is built with features only available is iOS SDK 6.0 and later.
-#endif
+@class iCloudDocument;
 
 // Create a constant for accessing the documents directory
 #define DOCUMENT_DIRECTORY @"Documents"
-
 
 /** iCloud Document Sync makes it easy for developers to integrate the iCloud document storage APIs into iOS applications. This is how iCloud document-storage and management should've been out of the box from Apple. Integrate iCloud into iOS (OS X coming soon) Objective-C document projects with one-line code methods. Sync, upload, manage, and remove documents to and from iCloud with only a few lines of code (compared to the hundreds of lines and hours that it usually takes). Get iCloud up and running in your iOS app in only a few minutes. Updates and more details on this project can be found on [GitHub](http://www.github.com/iRareMedia/iCloudDocumentSync). If you like the project, please star it on GitHub!
  
@@ -44,10 +30,10 @@
     [[iCloud sharedCloud] updateFiles]; // Force iCloud Update: This is done automatically when changes are made, but we want to make sure the view is always updated when presented
  
  
- @warning Only available on iOS 6.0 and later on apps with valid code signing and entitlements. Requires Xcode 5.0.1 and later. Check the online documentation for more information on setting up iCloud in your app. */
+ @warning Only available on iOS 6.0 and later on apps with valid code signing and entitlements. Requires Xcode 10.0 and later. Check the online documentation for more information on setting up iCloud in your app. */
 @class iCloud;
 @protocol iCloudDelegate;
-NS_CLASS_AVAILABLE_IOS(6_0) @interface iCloud : NSObject
+@interface iCloud : NSObject
 
 
 
@@ -346,37 +332,6 @@ NS_CLASS_AVAILABLE_IOS(6_0) @interface iCloud : NSObject
  @param documentVersion The version of the document which should be kept and saved. All other conflicting versions will be removed. */
 - (void)resolveConflictForFile:(NSString *)documentName withSelectedFileVersion:(NSFileVersion *)documentVersion __attribute__((nonnull));
 
-
-
-/** @name Deprecated Methods */
-
-/** DEPRECATED. Use listCloudFiles instead. Get a list of files stored in iCloud
- 
- @deprecated Deprecated in version 7.3. Use listCloudFiles instead.
- @return NSArray with a list of all the files currently stored in your app's iCloud Documents directory. May return a nil value if iCloud is unavailable. */
-- (NSArray *)getListOfCloudFiles __attribute((deprecated(" use listCloudFiles instead.")));
-
-/** DEPRECATED. Use saveAndCloseDocumentWithName:withContent:completion: instead. Record changes made to a document in iCloud. Changes are saved when the document is closed.
- 
- @deprecated Deprecated beginning in version 7.1. Use saveAndCloseDocumentWithName:withContent:completion: instead. This method may become unavailable in a future version.
- 
- @param documentName The name of the document being written to iCloud. This value must not be nil.
- @param content The data to write to the document
- @param handler Code block called when the document changes are recorded. The completion block passes UIDocument and NSData objects containing the saved document and it's contents in the form of NSData. The NSError object contains any error information if an error occurred, otherwise it will be nil. */
-- (void)saveChangesToDocumentWithName:(NSString *)documentName withContent:(NSData *)content completion:(void (^)(UIDocument *cloudDocument, NSData *documentData, NSError *error))handler __attribute__((nonnull)) __deprecated;
-
-/** DEPRECATED. Use uploadLocalOfflineDocuments instead, like so: [[iCloud sharedCloud] uploadLocalOfflineDocuments];
- 
- @deprecated Deprecated in version 7.0. Use uploadLocalOfflineDocuments instead.
- @param delegate The iCloudDelegate object to be used for delegate notifications */
-+ (void)uploadLocalOfflineDocumentsWithDelegate:(id<iCloudDelegate>)delegate __deprecated;
-
-/** DEPRECATED. Use updateFiles instead, like so: [[iCloud sharedCloud] updateFiles];
- 
- @deprecated Deprecated in version 7.0. Use updateFiles instead.
- @param delegate The iCloudDelegate object to be used for delegate notifications */
-+ (void)updateFilesWithDelegate:(id<iCloudDelegate>)delegate __deprecated;
-
 @end
 
 
@@ -441,66 +396,6 @@ NS_CLASS_AVAILABLE_IOS(6_0) @interface iCloud : NSObject
  @param cloudFile An NSDictionary with the cloud file and various other information. This parameter contains the fileContent as NSData, fileURL as NSURL, and modifiedDate as NSDate.
  @param localFile An NSDictionary with the local file and various other information. This parameter contains the fileContent as NSData, fileURL as NSURL, and modifiedDate as NSDate. */
 - (void)iCloudFileConflictBetweenCloudFile:(NSDictionary *)cloudFile andLocalFile:(NSDictionary *)localFile;
-
-
-
-
-/** @name Deprecated Delegate Methods */
-
-
-/** DEPRECATED. Sent to the delegate where there is a conflict between a local file and an iCloud file during an upload
- 
- @deprecated Deprecated in version 7.0. Use iCloudFileConflictBetweenCloudFile:andLocalFile: instead.
- 
- @param cloudFile An NSDictionary with the cloud file and various other information. This parameter contains the fileContent as NSData, fileURL as NSURL, and modifiedDate as NSDate.
- @param localFile An NSDictionary with the local file and various other information. This parameter contains the fileContent as NSData, fileURL as NSURL, and modifiedDate as NSDate. */
-- (void)iCloudFileUploadConflictWithCloudFile:(NSDictionary *)cloudFile andLocalFile:(NSDictionary *)localFile __deprecated;
-
-
-/** DEPRECATED. Called when there is an error while performing an iCloud process
- 
- @deprecated Deprecated in version 6.1. Use the NSError parameter available in corresponding methods' completion handlers.
- @param error An NSError with a message, error code, and information */
-- (void)iCloudError:(NSError *)error __deprecated __unavailable;
-
-/** DEPRECATED. Tells the delegate that there was an error while performing a process
- 
- @deprecated Deprecated in version 6.0. Use the NSError parameter available in corresponding methods' completion handlers.
- @param error Returns the NSError that occurred */
-- (void)cloudError:(NSError *)error __deprecated __unavailable;
-
-/** DEPRECATED. Tells the delegate that the files in iCloud have been modified
- 
- @deprecated Deprecated in version 6.0. Use iCloudFilesDidChange:withNewFileNames: instead.
- 
- @param files Returns a list of the files now in the app's iCloud documents directory - each file in the array contains information such as file version, url, localized name, date, etc.
- @param fileNames Returns a list of the file names now in the app's iCloud documents directory */
-- (void)fileListChangedWithFiles:(NSMutableArray *)files andFileNames:(NSMutableArray *)fileNames __deprecated __unavailable;
-
-/** DEPRECATED. Tells the delegate that a document was successfully deleted.
- @deprecated Deprecated in version 6.0. To be removed in version 8.0. Use the completion handlers in deleteDocumentWithName:completion: instead. */
-- (void)documentWasDeleted __deprecated __unavailable;
-
-/** DEPRECATED. Tells the delegate that a document was successfully saved
- @deprecated Deprecated in version 6.0. To be removed in version 8.0. Use the completion handlers in saveDocumentWithName:withContent:completion: instead. */
-- (void)documentWasSaved __deprecated __unavailable;
-
-/** DEPRECATED. Tells the delegate that a document finished uploading
- @deprecated Deprecated in version 6.0. To be removed in version 8.0. Use the completion handlers in uploadLocalOfflineDocumentsWithDelegate:repeatingHandler:completion: instead. */
-- (void)documentsFinishedUploading __deprecated __unavailable;
-
-/** DEPRECATED. Tells the delegate that a document started uploading
- @deprecated Deprecated in version 6.0. To be removed in version 8.0. Delegate methods are no longer used to report method-specfic conditions and so this method is never called. Completion blocks are now used.  */
-- (void)documentsStartedUploading __deprecated __unavailable;
-
-/** DEPRECATED. Tells the delegate that a document started downloading
- @deprecated Deprecated in version 6.0. To be removed in version 8.0. Delegate methods are no longer used to report method-specfic conditions and so this method is never called. Completion blocks are now used.  */
-- (void)documentsStartedDownloading __deprecated __unavailable;
-
-/** DEPRECATED. Tells the delegate that a document finished downloading
- @deprecated Deprecated in version 6.0. To be removed in version 8.0. Delegate methods are no longer used to report method-specfic conditions and so this method is never called. Completion blocks are now used. */
-- (void)documentsFinishedDownloading __deprecated __unavailable;
-
 
 
 @end

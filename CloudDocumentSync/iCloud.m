@@ -8,11 +8,7 @@
 
 #import "iCloud.h"
 
-// Check for ARC
-#if !__has_feature(objc_arc)
-    // Add the -fobjc-arc flag to enable ARC for only these files, as described in the ARC documentation: http://clang.llvm.org/docs/AutomaticReferenceCounting.html
-    #error iCloudDocumentSync is built with Objective-C ARC. You must enable ARC for iCloudDocumentSync.
-#endif
+#import "CloudDocumentSync-Swift.h"
 
 @interface iCloud ()
 @property (strong,nonatomic) NSOperationQueue *updatesQueue;
@@ -74,8 +70,8 @@
     dispatch_async(dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
         NSLog(@"[iCloud] Initializing Ubiquity Container");
         
-        _ubiquityContainer = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:containerID];
-        if (_ubiquityContainer) {
+        self.ubiquityContainer = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:containerID];
+        if (self.ubiquityContainer) {
             // We can write to the ubiquity container
             
             dispatch_async(dispatch_get_main_queue (), ^(void) {
@@ -83,16 +79,16 @@
                 NSLog(@"[iCloud] Initializing Document Enumeration");
                 
                 // Check iCloud Availability
-                id cloudToken = [_fileManager ubiquityIdentityToken];
+                id cloudToken = [self.fileManager ubiquityIdentityToken];
                 
                 // Sync and Update Documents List
                 [self enumerateCloudDocuments];
                 
                 // Subscribe to changes in iCloud availability (should run on main thread)
-                [_notificationCenter addObserver:self selector:@selector(checkCloudAvailability) name:NSUbiquityIdentityDidChangeNotification object:nil];
+                [self.notificationCenter addObserver:self selector:@selector(checkCloudAvailability) name:NSUbiquityIdentityDidChangeNotification object:nil];
                 
-                if ([_delegate respondsToSelector:@selector(iCloudDidFinishInitializingWitUbiquityToken: withUbiquityContainer:)])
-                    [_delegate iCloudDidFinishInitializingWitUbiquityToken:cloudToken withUbiquityContainer:_ubiquityContainer];
+                if ([self.delegate respondsToSelector:@selector(iCloudDidFinishInitializingWitUbiquityToken: withUbiquityContainer:)])
+                    [self.delegate iCloudDidFinishInitializingWitUbiquityToken:cloudToken withUbiquityContainer:self.ubiquityContainer];
             });
             
             // Log the setup
@@ -110,19 +106,16 @@
     NSLog(@"[iCloud] Initialized");
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------//
-//------------ Queues --------------------------------------------------------------------------------------------------------------------------//
-//---------------------------------------------------------------------------------------------------------------------------------------------//
-#pragma mark - Queue
 
--(void)setSuspendUpdates:(BOOL)ignoreUpdates{
+// MARK: - Queues
+
+- (void)setSuspendUpdates:(BOOL)ignoreUpdates {
     self.updatesQueue.suspended = ignoreUpdates;
 }
 
--(NSOperationQueue*)updatesQueue{
-    @synchronized(self){
-        
-        if(!_updatesQueue){
+- (NSOperationQueue *)updatesQueue {
+    @synchronized(self) {
+        if(!_updatesQueue) {
             _updatesQueue = [NSOperationQueue new];
             _updatesQueue.maxConcurrentOperationCount = 1;
             _updatesQueue.qualityOfService = NSQualityOfServiceBackground;
@@ -132,10 +125,7 @@
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------//
-//------------ Basic --------------------------------------------------------------------------------------------------------------------------//
-//---------------------------------------------------------------------------------------------------------------------------------------------//
-#pragma mark - Basic
+// MARK: - Basic
 
 - (BOOL)checkCloudAvailability {
     id cloudToken = [self.fileManager ubiquityIdentityToken];
@@ -269,7 +259,6 @@
 }
 
 - (void)recievedUpdate:(NSNotification *)notification {
-    
     __weak __typeof(self) wself=self;
     [self.updatesQueue addOperationWithBlock:^{
         // Log file update
@@ -282,7 +271,6 @@
 }
 
 - (void)endUpdate:(NSNotification *)notification {
-    
     __weak __typeof(self) wself=self;
     [self.updatesQueue addOperationWithBlock:^{
         // Get the updated files
@@ -311,54 +299,30 @@
     NSMutableArray *discoveredFiles = [NSMutableArray array];
     NSMutableArray *names = [NSMutableArray array];
 
-    if ([self.query respondsToSelector:@selector(enumerateResultsUsingBlock:)]) {
-        // Code for iOS 7.0 and later
+    // Enumerate through the results
+    [self.query enumerateResultsUsingBlock:^(id result, NSUInteger idx, BOOL *stop) {
+        // Grab the file URL
+        NSURL *fileURL = [result valueForAttribute:NSMetadataItemURLKey];
+        NSString *fileStatus;
+        [fileURL getResourceValue:&fileStatus forKey:NSURLUbiquitousItemDownloadingStatusKey error:nil];
         
-        // Enumerate through the results
-        [self.query enumerateResultsUsingBlock:^(id result, NSUInteger idx, BOOL *stop) {
-            // Grab the file URL
-            NSURL *fileURL = [result valueForAttribute:NSMetadataItemURLKey];
-            NSString *fileStatus;
-            [fileURL getResourceValue:&fileStatus forKey:NSURLUbiquitousItemDownloadingStatusKey error:nil];
-            
-            if ([fileStatus isEqualToString:NSURLUbiquitousItemDownloadingStatusDownloaded]) {
-                // File will be updated soon
-            }
-            
-            if ([fileStatus isEqualToString:NSURLUbiquitousItemDownloadingStatusCurrent]) {
-                // Add the file metadata and file names to arrays
-                [discoveredFiles addObject:result];
-                [names addObject:[result valueForAttribute:NSMetadataItemFSNameKey]];
-            } else if ([fileStatus isEqualToString:NSURLUbiquitousItemDownloadingStatusNotDownloaded]) {
-                NSError *error;
-                BOOL downloading = [[NSFileManager defaultManager] startDownloadingUbiquitousItemAtURL:fileURL error:&error];
-                if (self.verboseLogging == YES) NSLog(@"[iCloud] %@ started downloading locally, successful? %@", [fileURL lastPathComponent], downloading ? @"YES" : @"NO");
-                if (error) {
-                    if (self.verboseLogging == YES) NSLog(@"[iCloud] Ubiquitous item failed to start downloading with error: %@", error);
-                }
-            }
-        }];
-    } else {
-        // Code for iOS 6.1 and earlier
-        
-        // Disable updates to iCloud while we update to avoid errors
-        [self.query disableUpdates];
-        
-        // Log the query results
-        if (self.verboseLogging == YES) NSLog(@"Query Results: %@", self.query.results);
-        
-        // Gather the query results
-        for (NSMetadataItem *result in self.query.results) {
-            [discoveredFiles addObject:result];
-            [names addObject:[result valueForAttribute:NSMetadataItemFSNameKey]];
+        if ([fileStatus isEqualToString:NSURLUbiquitousItemDownloadingStatusDownloaded]) {
+            // File will be updated soon
         }
         
-        // Log query completion
-        if (self.verboseLogging == YES) NSLog(@"[iCloud] Finished file update with NSMetadataQuery");
-		
-        // Reenable Updates
-        [self.query enableUpdates];
-    }
+        if ([fileStatus isEqualToString:NSURLUbiquitousItemDownloadingStatusCurrent]) {
+            // Add the file metadata and file names to arrays
+            [discoveredFiles addObject:result];
+            [names addObject:[result valueForAttribute:NSMetadataItemFSNameKey]];
+        } else if ([fileStatus isEqualToString:NSURLUbiquitousItemDownloadingStatusNotDownloaded]) {
+            NSError *error;
+            BOOL downloading = [[NSFileManager defaultManager] startDownloadingUbiquitousItemAtURL:fileURL error:&error];
+            if (self.verboseLogging == YES) NSLog(@"[iCloud] %@ started downloading locally, successful? %@", [fileURL lastPathComponent], downloading ? @"YES" : @"NO");
+            if (error) {
+                if (self.verboseLogging == YES) NSLog(@"[iCloud] Ubiquitous item failed to start downloading with error: %@", error);
+            }
+        }
+    }];
     
     // Notify the delegate of the results on the main thread
     if ([discoveredFiles count] > 0) {
@@ -567,14 +531,8 @@
                             NSDictionary *cloudFile = @{@"fileContents": document.contents, @"fileURL": cloudFileURL, @"modifiedDate": cloudModDate};
                             NSDictionary *localFile = @{@"fileContents": localFileData, @"fileURL": localFileURL, @"modifiedDate": localModDate};;
                             
-                            if ([self.delegate respondsToSelector:@selector(iCloudFileUploadConflictWithCloudFile:andLocalFile:)]) {
+                            if ([self.delegate respondsToSelector:@selector(iCloudFileConflictBetweenCloudFile:andLocalFile:)]) {
                                 [self.delegate iCloudFileConflictBetweenCloudFile:cloudFile andLocalFile:localFile];
-                            } else if ([self.delegate respondsToSelector:@selector(iCloudFileUploadConflictWithCloudFile:andLocalFile:)]) {
-                                NSLog(@"[iCloud] WARNING: iCloudFileUploadConflictWithCloudFile:andLocalFile is deprecated and will become unavailable in a future version. Use iCloudFileConflictBetweenCloudFile:andLocalFile instead.");
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-                                [self.delegate iCloudFileUploadConflictWithCloudFile:cloudFile andLocalFile:localFile];
-#pragma clang diagnostic pop
                             }
                         }
                     }
@@ -710,14 +668,8 @@
                     NSDictionary *cloudFile = @{@"fileContents": document.contents, @"fileURL": cloudURL, @"modifiedDate": cloudModDate};
                     NSDictionary *localFile = @{@"fileContents": localFileData, @"fileURL": localURL, @"modifiedDate": localModDate};;
                     
-                    if ([self.delegate respondsToSelector:@selector(iCloudFileUploadConflictWithCloudFile:andLocalFile:)]) {
+                    if ([self.delegate respondsToSelector:@selector(iCloudFileConflictBetweenCloudFile:andLocalFile:)]) {
                         [self.delegate iCloudFileConflictBetweenCloudFile:cloudFile andLocalFile:localFile];
-                    } else if ([self.delegate respondsToSelector:@selector(iCloudFileUploadConflictWithCloudFile:andLocalFile:)]) {
-                        NSLog(@"[iCloud] WARNING: iCloudFileUploadConflictWithCloudFile:andLocalFile is deprecated and will become unavailable in a future version. Use iCloudFileConflictBetweenCloudFile:andLocalFile instead.");
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-                        [self.delegate iCloudFileUploadConflictWithCloudFile:cloudFile andLocalFile:localFile];
-#pragma clang diagnostic pop
                     }
                     
                     return;
@@ -1489,12 +1441,6 @@
                     
                     if ([self.delegate respondsToSelector:@selector(iCloudFileConflictBetweenCloudFile:andLocalFile:)]) {
                         [self.delegate iCloudFileConflictBetweenCloudFile:cloudFile andLocalFile:localFile];
-                    } else if ([self.delegate respondsToSelector:@selector(iCloudFileUploadConflictWithCloudFile:andLocalFile:)]) {
-                        NSLog(@"[iCloud] WARNING: iCloudFileUploadConflictWithCloudFile:andLocalFile is deprecated and will become unavailable in a future version. Use iCloudFileConflictBetweenCloudFile:andLocalFile instead.");
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-                        [self.delegate iCloudFileUploadConflictWithCloudFile:cloudFile andLocalFile:localFile];
-#pragma clang diagnostic pop
                     }
                     
                     return;
@@ -1690,88 +1636,6 @@
             return;
         }
     });
-}
-
-//---------------------------------------------------------------------------------------------------------------------------------------------//
-//------------ Deprecated Methods -------------------------------------------------------------------------------------------------------------//
-//---------------------------------------------------------------------------------------------------------------------------------------------//
-#pragma mark - Deprecated Methods
-
-+ (void)uploadLocalOfflineDocumentsWithDelegate:(id<iCloudDelegate>)delegate {
-    for (int i = 0; i <= 5; i++) NSLog(@"[iCloud] WARNING: uploadLocalOfflineDocumentsWithDelegate: is deprecated and will become unavailable in version 8.0. Use [- uploadLocalOfflineDocuments] instead.");
-}
-
-+ (void)updateFilesWithDelegate:(id<iCloudDelegate>)delegate {
-    for (int i = 0; i <= 5; i++) NSLog(@"[iCloud] WARNING: updateFilesWithDelegate: is deprecated and will become unavailable in version 8.0. Use [- updateFiles] instead.");
-}
-
-- (NSArray *)getListOfCloudFiles {
-    for (int i = 0; i <= 5; i++) NSLog(@"[iCloud] WARNING: getListOfCloudFiles is deprecated and will become unavailable in a future version. Use [- listCloudFiles] instead. This method will return nil.");
-    return nil;
-}
-
-- (void)saveChangesToDocumentWithName:(NSString *)documentName withContent:(NSData *)content completion:(void (^)(UIDocument *cloudDocument, NSData *documentData, NSError *error))handler {
-    // This method is deprecated: Due to the fact, that the document is recreated in closed state on every call, it is just a copy of the saveAndCloseDocumentWithName-method above
-    for (int i = 0; i <= 5; i++) NSLog(@"[iCloud] WARNING: saveChangesToDocumentWithName:withContent:completion: is deprecated and will become unavailable in version 8.0. Use [- saveAndCloseDocumentWithName:withContent:completion:] instead.");
-    
-	[self saveAndCloseDocumentWithName:documentName withContent:content completion:handler];
-    
-	/*
-     
-     // Log save
-     if (verboseLogging == YES) NSLog(@"[iCloud] Beginning document change save");
-     
-     // Check for iCloud
-     if ([self quickCloudCheck] == NO) return;
-     
-     // Check for nil / null document name
-     if (documentName == nil || [documentName isEqualToString:@""]) {
-     // Log error
-     if (verboseLogging == YES) NSLog(@"[iCloud] Specified document name must not be empty");
-     NSError *error = [NSError errorWithDomain:@"The specified document name was empty / blank and could not be saved. Specify a document name next time." code:001 userInfo:nil];
-     
-     handler(nil, nil, error);
-     
-     return;
-     }
-     
-     // Get the URL to save the changes to
-     NSURL *fileURL = [[self ubiquitousDocumentsDirectoryURL] URLByAppendingPathComponent:documentName];
-     
-     // Initialize a document with that path
-     iCloudDocument *document = [[iCloudDocument alloc] initWithFileURL:fileURL];
-     document.contents = content;
-     
-     // If the file exists, close it; otherwise, create it.
-     if ([fileManager fileExistsAtPath:[fileURL path]]) {
-     // Log recording
-     if (verboseLogging == YES) NSLog(@"[iCloud] Document exists, saving changes");
-     
-     // Record Changes
-     [document updateChangeCount:UIDocumentChangeDone];
-     
-     handler(document, document.contents, nil);
-     } else {
-     // Log saving
-     if (verboseLogging == YES) NSLog(@"[iCloud] Document is new, saving");
-     
-     // Save and create the new document
-     [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
-     if (success) {
-     // Log the save
-     if (verboseLogging == YES) NSLog(@"[iCloud] New document created successfully, recorded changes");
-     
-     // Run the completion block and pass the document
-     handler(document, document.contents, nil);;
-     } else {
-     NSLog(@"[iCloud] Error while creating the document: %s", __PRETTY_FUNCTION__);
-     NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"%s error while creating the document, %@, in iCloud", __PRETTY_FUNCTION__, document.fileURL] code:100 userInfo:[NSDictionary dictionaryWithObject:fileURL forKey:@"FileURL"]];
-     
-     handler(document, document.contents, error);
-     }
-     }];
-     }
-	 */
 }
 
 @end
