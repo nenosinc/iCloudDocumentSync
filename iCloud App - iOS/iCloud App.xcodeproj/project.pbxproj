@@ -11,7 +11,6 @@
 		996B9CA31830073C006A36DA /* MHPrettyDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 996B9CA21830073C006A36DA /* MHPrettyDate.m */; };
 		997591521839500900DECF95 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 997591511839500900DECF95 /* Settings.bundle */; };
 		99AD4AC61837C3D3008BBEA4 /* CloudBanner.png in Resources */ = {isa = PBXBuildFile; fileRef = 99AD4AC51837C3D3008BBEA4 /* CloudBanner.png */; };
-		99ADF830184644FD005553A5 /* iPadStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99ADF82F184644FD005553A5 /* iPadStoryboard.storyboard */; };
 		99D6CEFA1845B22400CD77BA /* ConflictViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99D6CEF91845B22400CD77BA /* ConflictViewController.m */; };
 		99E85B01182DC9280039FC97 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E85B00182DC9280039FC97 /* Foundation.framework */; };
 		99E85B03182DC9280039FC97 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E85B02182DC9280039FC97 /* CoreGraphics.framework */; };
@@ -19,7 +18,7 @@
 		99E85B0B182DC9280039FC97 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 99E85B09182DC9280039FC97 /* InfoPlist.strings */; };
 		99E85B0D182DC9280039FC97 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 99E85B0C182DC9280039FC97 /* main.m */; };
 		99E85B11182DC9280039FC97 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 99E85B10182DC9280039FC97 /* AppDelegate.m */; };
-		99E85B14182DC9280039FC97 /* iPhoneStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99E85B12182DC9280039FC97 /* iPhoneStoryboard.storyboard */; };
+		99E85B14182DC9280039FC97 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99E85B12182DC9280039FC97 /* Storyboard.storyboard */; };
 		99E85B19182DC9280039FC97 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99E85B18182DC9280039FC97 /* Images.xcassets */; };
 		99E85B21182DC9280039FC97 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E85B00182DC9280039FC97 /* Foundation.framework */; };
 		99E85B22182DC9280039FC97 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E85B04182DC9280039FC97 /* UIKit.framework */; };
@@ -30,6 +29,8 @@
 		99E85B40182DE16E0039FC97 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99E85B3F182DE16E0039FC97 /* WelcomeViewController.m */; };
 		99FB117D1842A34900406254 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99FB117C1842A34900406254 /* ShareViewController.m */; };
 		99FB11811842A6A100406254 /* TLTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 99FB11801842A6A100406254 /* TLTransitionAnimator.m */; };
+		A62FBBF522B04E9B00E841AB /* CloudDocumentSync.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A62FBBF422B04E9B00E841AB /* CloudDocumentSync.framework */; };
+		A62FBBF722B04FFB00E841AB /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A62FBBF622B04FFB00E841AB /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +49,6 @@
 		996B9CA21830073C006A36DA /* MHPrettyDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHPrettyDate.m; sourceTree = "<group>"; };
 		997591511839500900DECF95 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		99AD4AC51837C3D3008BBEA4 /* CloudBanner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloudBanner.png; sourceTree = "<group>"; };
-		99ADF82F184644FD005553A5 /* iPadStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iPadStoryboard.storyboard; sourceTree = "<group>"; };
 		99D6CEF81845B22400CD77BA /* ConflictViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConflictViewController.h; sourceTree = "<group>"; };
 		99D6CEF91845B22400CD77BA /* ConflictViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConflictViewController.m; sourceTree = "<group>"; };
 		99E85AFD182DC9280039FC97 /* iCloud App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iCloud App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,7 +61,7 @@
 		99E85B0E182DC9280039FC97 /* iCloud App-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iCloud App-Prefix.pch"; sourceTree = "<group>"; };
 		99E85B0F182DC9280039FC97 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		99E85B10182DC9280039FC97 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		99E85B13182DC9280039FC97 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/iPhoneStoryboard.storyboard; sourceTree = "<group>"; };
+		99E85B13182DC9280039FC97 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Storyboard.storyboard; sourceTree = "<group>"; };
 		99E85B18182DC9280039FC97 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		99E85B1E182DC9280039FC97 /* iCloud AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iCloud AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		99E85B27182DC9280039FC97 /* iCloud AppTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iCloud AppTests-Info.plist"; sourceTree = "<group>"; };
@@ -78,6 +78,8 @@
 		99FB117C1842A34900406254 /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
 		99FB117F1842A6A100406254 /* TLTransitionAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLTransitionAnimator.h; sourceTree = "<group>"; };
 		99FB11801842A6A100406254 /* TLTransitionAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLTransitionAnimator.m; sourceTree = "<group>"; };
+		A62FBBF422B04E9B00E841AB /* CloudDocumentSync.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CloudDocumentSync.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A62FBBF622B04FFB00E841AB /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A62FBBF522B04E9B00E841AB /* CloudDocumentSync.framework in Frameworks */,
 				99E85B03182DC9280039FC97 /* CoreGraphics.framework in Frameworks */,
 				99E85B05182DC9280039FC97 /* UIKit.framework in Frameworks */,
 				99E85B01182DC9280039FC97 /* Foundation.framework in Frameworks */,
@@ -136,6 +139,7 @@
 		99E85AFF182DC9280039FC97 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A62FBBF422B04E9B00E841AB /* CloudDocumentSync.framework */,
 				99E85B00182DC9280039FC97 /* Foundation.framework */,
 				99E85B02182DC9280039FC97 /* CoreGraphics.framework */,
 				99E85B04182DC9280039FC97 /* UIKit.framework */,
@@ -149,8 +153,7 @@
 				99E85B35182DC9510039FC97 /* iCloud App.entitlements */,
 				99E85B0F182DC9280039FC97 /* AppDelegate.h */,
 				99E85B10182DC9280039FC97 /* AppDelegate.m */,
-				99E85B12182DC9280039FC97 /* iPhoneStoryboard.storyboard */,
-				99ADF82F184644FD005553A5 /* iPadStoryboard.storyboard */,
+				99E85B12182DC9280039FC97 /* Storyboard.storyboard */,
 				99E85B38182DD0DD0039FC97 /* ListViewController.h */,
 				99E85B39182DD0DD0039FC97 /* ListViewController.m */,
 				99E85B3B182DD34C0039FC97 /* DocumentViewController.h */,
@@ -177,6 +180,7 @@
 				99FB117E1842A6A100406254 /* TLTransitionAnimator */,
 				996B9CA01830073C006A36DA /* MHPrettyDate */,
 				997591511839500900DECF95 /* Settings.bundle */,
+				A62FBBF622B04FFB00E841AB /* Launch Screen.storyboard */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -256,7 +260,6 @@
 				ORGANIZATIONNAME = "iRare Media";
 				TargetAttributes = {
 					99E85AFC182DC9280039FC97 = {
-						DevelopmentTeam = 243F4RK8Z3;
 						SystemCapabilities = {
 							com.apple.iCloud = {
 								enabled = 1;
@@ -295,10 +298,10 @@
 				99E85B19182DC9280039FC97 /* Images.xcassets in Resources */,
 				99E85B0B182DC9280039FC97 /* InfoPlist.strings in Resources */,
 				997591521839500900DECF95 /* Settings.bundle in Resources */,
-				99E85B14182DC9280039FC97 /* iPhoneStoryboard.storyboard in Resources */,
+				99E85B14182DC9280039FC97 /* Storyboard.storyboard in Resources */,
 				9935A8E01846E5B4007C5628 /* AppBanner.png in Resources */,
 				99AD4AC61837C3D3008BBEA4 /* CloudBanner.png in Resources */,
-				99ADF830184644FD005553A5 /* iPadStoryboard.storyboard in Resources */,
+				A62FBBF722B04FFB00E841AB /* Launch Screen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,12 +359,12 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		99E85B12182DC9280039FC97 /* iPhoneStoryboard.storyboard */ = {
+		99E85B12182DC9280039FC97 /* Storyboard.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				99E85B13182DC9280039FC97 /* Base */,
 			);
-			name = iPhoneStoryboard.storyboard;
+			name = Storyboard.storyboard;
 			sourceTree = "<group>";
 		};
 		99E85B28182DC9280039FC97 /* InfoPlist.strings */ = {
@@ -423,7 +426,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -470,7 +473,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -480,12 +483,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "iCloud App/iCloud App.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iOS Development: iRare Media (4N75L7CCKZ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = KEQ3L79VAK;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"${GROUP_DIR}/",
@@ -493,14 +495,14 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iCloud App/iCloud App-Prefix.pch";
 				INFOPLIST_FILE = "iCloud App/iCloud App-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/iCloud-czvouwccqemjyoaohcvbhcgaovtb/Build/Products/Debug-iphoneos",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.iRare-Media.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.SamSpencer.iCloudApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c256d79e-a01e-4748-8d7f-cbb9cc4fc838";
+				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -511,12 +513,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "iCloud App/iCloud App.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iOS Development: iRare Media (4N75L7CCKZ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = KEQ3L79VAK;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"${GROUP_DIR}/",
@@ -524,14 +525,14 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iCloud App/iCloud App-Prefix.pch";
 				INFOPLIST_FILE = "iCloud App/iCloud App-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/iCloud-czvouwccqemjyoaohcvbhcgaovtb/Build/Products/Debug-iphoneos",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.iRare-Media.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.SamSpencer.iCloudApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c256d79e-a01e-4748-8d7f-cbb9cc4fc838";
+				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;

@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="huV-Mq-5rr">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Conflict Resolver-->
+        <scene sceneID="Xjg-F1-1Ey">
+            <objects>
+                <tableViewController title="Conflict Resolver" id="OkL-IS-kZD" customClass="ConflictViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="55" sectionHeaderHeight="22" sectionFooterHeight="22" id="9Nn-GX-GS5">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="versionCell" textLabel="TsW-Bl-tyI" detailTextLabel="oKg-IS-UM9" rowHeight="55" style="IBUITableViewCellStyleSubtitle" id="X8J-2a-u6C">
+                                <rect key="frame" x="0.0" y="22" width="414" height="55"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="X8J-2a-u6C" id="uq9-1W-9zB">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="54.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TsW-Bl-tyI">
+                                            <rect key="frame" x="20" y="10" width="35" height="21.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oKg-IS-UM9">
+                                            <rect key="frame" x="20" y="31.5" width="44" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="OkL-IS-kZD" id="4wH-mM-14u"/>
+                            <outlet property="delegate" destination="OkL-IS-kZD" id="F7f-Hs-c3j"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Conflict Resolver" id="Jyu-HR-ZOH">
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="34h-2A-eK5">
+                            <connections>
+                                <action selector="cancel:" destination="OkL-IS-kZD" id="T27-Of-2wZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JMd-Xg-fv7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3036" y="-577"/>
+        </scene>
+        <!--iCloud Document-->
+        <scene sceneID="ufC-wZ-h7g">
+            <objects>
+                <viewController id="vXZ-lx-hvc" customClass="DocumentViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" text="Type document text here" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Gf-qp-yr3">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.0" green="0.64470146210000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <connections>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="Im8-io-AcX"/>
+                                </connections>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="0Gf-qp-yr3" secondAttribute="bottom" id="9V4-eS-YlE"/>
+                            <constraint firstItem="0Gf-qp-yr3" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="BxG-8c-cmg"/>
+                            <constraint firstItem="0Gf-qp-yr3" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="RR1-wA-vXN"/>
+                            <constraint firstAttribute="trailing" secondItem="0Gf-qp-yr3" secondAttribute="trailing" id="blv-Xd-SMo"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="yty-st-RhN"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="iCloud Document" id="m1a-3h-Ydb">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="k3I-oe-9M7">
+                            <connections>
+                                <action selector="shareDocument:" destination="vXZ-lx-hvc" id="4Dk-6C-kX9"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <connections>
+                        <outlet property="textView" destination="0Gf-qp-yr3" id="0pL-Ux-cpR"/>
+                        <segue destination="VCd-p7-PFD" kind="presentation" identifier="share" id="lUj-Fo-Ewy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3037.1770636420924" y="98.652742346938751"/>
+        </scene>
+        <!--Share-->
+        <scene sceneID="kfM-5Q-qT3">
+            <objects>
+                <viewController storyboardIdentifier="ShareView" title="Share" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VCd-p7-PFD" customClass="ShareViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KGG-9A-K9m">
+                        <rect key="frame" x="0.0" y="0.0" width="250" height="225"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document successfully published to iCloud" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ea3-yx-zpT">
+                                <rect key="frame" x="20" y="20" width="210" height="54"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="19"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aoY-UU-zMH">
+                                <rect key="frame" x="0.0" y="134" width="250" height="43"/>
+                                <color key="backgroundColor" red="0.20000000000000001" green="0.2901960784" blue="0.42745098040000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43" id="4j6-f5-c75"/>
+                                </constraints>
+                                <state key="normal" title="Share Link">
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="shareLink" destination="VCd-p7-PFD" eventType="touchUpInside" id="40e-Zk-83Q"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="https://www.icloud.com/download/documents/?p=01&amp;t=c1BADRReSHO0CQB-PkMY5MnC0-SsYP6dS0lbeII" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.40000000000000002" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tBo-qn-bh1">
+                                <rect key="frame" x="0.0" y="185" width="250" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="o7W-fA-MpV"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="11"/>
+                                <color key="textColor" red="0.90037637948989868" green="0.90037637948989868" blue="0.90037637948989868" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document available until December 20, 2013" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="46h-j1-ILS">
+                                <rect key="frame" x="20" y="82" width="210" height="44"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PHh-yl-NyR">
+                                <rect key="frame" x="0.0" y="0.0" width="26" height="26"/>
+                                <color key="backgroundColor" red="0.20000000000000001" green="0.2901960784" blue="0.42745098040000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="26" id="Hj7-sZ-6i6"/>
+                                    <constraint firstAttribute="height" constant="26" id="qe3-tW-a2X"/>
+                                </constraints>
+                                <state key="normal" title="X">
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="done" destination="VCd-p7-PFD" eventType="touchUpInside" id="gK5-1Z-8Sj"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.64470146210000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="aoY-UU-zMH" secondAttribute="trailing" id="1qz-Bz-UqU"/>
+                            <constraint firstItem="ea3-yx-zpT" firstAttribute="leading" secondItem="46h-j1-ILS" secondAttribute="leading" id="4gX-Hf-FtD"/>
+                            <constraint firstItem="ea3-yx-zpT" firstAttribute="trailing" secondItem="46h-j1-ILS" secondAttribute="trailing" id="5VY-PK-buQ"/>
+                            <constraint firstItem="ea3-yx-zpT" firstAttribute="leading" secondItem="8qa-oc-PIP" secondAttribute="leading" constant="20" id="9z2-ts-Lax"/>
+                            <constraint firstItem="aoY-UU-zMH" firstAttribute="top" secondItem="46h-j1-ILS" secondAttribute="bottom" constant="8" symbolic="YES" id="BnN-pC-xTc"/>
+                            <constraint firstItem="PHh-yl-NyR" firstAttribute="leading" secondItem="KGG-9A-K9m" secondAttribute="leading" id="C1r-TU-m0K"/>
+                            <constraint firstItem="ea3-yx-zpT" firstAttribute="top" secondItem="KGG-9A-K9m" secondAttribute="topMargin" constant="-24" id="F5g-VR-viA"/>
+                            <constraint firstItem="46h-j1-ILS" firstAttribute="top" secondItem="ea3-yx-zpT" secondAttribute="bottom" constant="8" symbolic="YES" id="cKg-At-vTF"/>
+                            <constraint firstItem="PHh-yl-NyR" firstAttribute="leading" secondItem="aoY-UU-zMH" secondAttribute="leading" id="gxr-Eb-Dz0"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="tBo-qn-bh1" secondAttribute="bottom" constant="-14" id="mq5-vZ-KeE"/>
+                            <constraint firstItem="46h-j1-ILS" firstAttribute="top" secondItem="PHh-yl-NyR" secondAttribute="bottom" constant="56" id="muK-gD-1sn"/>
+                            <constraint firstItem="46h-j1-ILS" firstAttribute="centerX" secondItem="aoY-UU-zMH" secondAttribute="centerX" id="n7y-Ug-qJk"/>
+                            <constraint firstItem="tBo-qn-bh1" firstAttribute="top" secondItem="aoY-UU-zMH" secondAttribute="bottom" constant="8" symbolic="YES" id="pEP-Nk-J64"/>
+                            <constraint firstItem="PHh-yl-NyR" firstAttribute="top" secondItem="KGG-9A-K9m" secondAttribute="top" id="tC2-HC-1aJ"/>
+                            <constraint firstItem="aoY-UU-zMH" firstAttribute="leading" secondItem="tBo-qn-bh1" secondAttribute="leading" id="wKY-38-27N"/>
+                            <constraint firstItem="aoY-UU-zMH" firstAttribute="trailing" secondItem="tBo-qn-bh1" secondAttribute="trailing" id="wic-13-WHv"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="8qa-oc-PIP"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="250" height="225"/>
+                    <connections>
+                        <outlet property="date" destination="46h-j1-ILS" id="r7T-qw-pyh"/>
+                        <outlet property="link" destination="tBo-qn-bh1" id="UTa-GU-l9q"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uVl-G8-YdS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4108.3805923125401" y="175.3328284438775"/>
+        </scene>
+        <!--iCloud Files-->
+        <scene sceneID="rOd-Qb-HgB">
+            <objects>
+                <tableViewController id="Fmu-lH-HEg" customClass="ListViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="55" sectionHeaderHeight="22" sectionFooterHeight="22" id="3Fj-5w-Yqh">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="go8-yB-cYm" detailTextLabel="bE7-mf-qkf" rowHeight="55" style="IBUITableViewCellStyleSubtitle" id="Ts2-To-x5b">
+                                <rect key="frame" x="0.0" y="22" width="414" height="55"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ts2-To-x5b" id="TG9-qH-RG8">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="54.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="go8-yB-cYm">
+                                            <rect key="frame" x="20" y="10" width="35" height="21.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bE7-mf-qkf">
+                                            <rect key="frame" x="20" y="31.5" width="44" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Fmu-lH-HEg" id="27F-9a-cGB"/>
+                            <outlet property="delegate" destination="Fmu-lH-HEg" id="ICL-Bo-5C9"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="iCloud Files" id="Udv-xo-v7z">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="kKO-EM-UqG">
+                            <connections>
+                                <segue destination="vXZ-lx-hvc" kind="show" identifier="newDocument" id="d7T-jd-tZf"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <connections>
+                        <segue destination="67H-UU-IPo" kind="presentation" identifier="showWelcome" id="5CC-Xj-Ax2"/>
+                        <segue destination="OkL-IS-kZD" kind="show" identifier="showConflict" id="277-Nb-nLr"/>
+                        <segue destination="vXZ-lx-hvc" kind="show" identifier="documentView" id="YWc-gK-XYn"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xO2-6y-90r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1902.961562696913" y="98.652742346938751"/>
+        </scene>
+        <!--Welcome View Controller-->
+        <scene sceneID="3KE-2z-Vt5">
+            <objects>
+                <viewController id="67H-UU-IPo" customClass="WelcomeViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="v05-c4-P0W">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="CUr-T0-jGx">
+                                <rect key="frame" x="20" y="431" width="374" height="246"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="246" id="S9g-4T-I8h"/>
+                                </constraints>
+                                <string key="text">This iCloud demo app demonstrates how to use many features of iCloud with the iCloud Document Sync project available on GitHub. 
+
+To properly use this project please do the following:
+• Make sure this demo app's entitlements are valid
+• Sign into an iCloud account on the current device
+• Turn ON iCloud in the Settings app</string>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Banner" translatesAutoresizingMaskIntoConstraints="NO" id="GqP-lu-jlf">
+                                <rect key="frame" x="67" y="94" width="280" height="200"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a62-pC-xrR">
+                                <rect key="frame" x="0.0" y="831" width="414" height="45"/>
+                                <color key="backgroundColor" red="1" green="0.67371316025159467" blue="0.051510570556390078" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Setup iCloud Before Continuing">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="setupCloud:" destination="67H-UU-IPo" eventType="touchUpInside" id="OBM-b3-ftT"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZgZ-OX-6dP">
+                                <rect key="frame" x="0.0" y="831" width="414" height="45"/>
+                                <color key="backgroundColor" red="0.0" green="0.64470146207564039" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="5Hm-1O-g8q"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Start Using iCloud">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="startCloud:" destination="67H-UU-IPo" eventType="touchUpInside" id="7Ev-hA-1pq"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to iCloud" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="30K-du-Q7Q">
+                                <rect key="frame" x="101.5" y="358" width="211" height="47"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="47" id="odp-XF-vWe"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="30K-du-Q7Q" firstAttribute="top" secondItem="GqP-lu-jlf" secondAttribute="bottom" constant="64" id="2tX-ey-hxB"/>
+                            <constraint firstItem="CUr-T0-jGx" firstAttribute="leading" secondItem="v05-c4-P0W" secondAttribute="leadingMargin" id="3bZ-Rl-FMQ"/>
+                            <constraint firstItem="30K-du-Q7Q" firstAttribute="centerX" secondItem="v05-c4-P0W" secondAttribute="centerX" id="6cS-d4-woD"/>
+                            <constraint firstItem="a62-pC-xrR" firstAttribute="top" secondItem="ZgZ-OX-6dP" secondAttribute="top" id="G9Q-FF-w1g"/>
+                            <constraint firstItem="ZgZ-OX-6dP" firstAttribute="leading" secondItem="a62-pC-xrR" secondAttribute="leading" id="Kj0-Jp-xmW"/>
+                            <constraint firstItem="a62-pC-xrR" firstAttribute="trailing" secondItem="ZgZ-OX-6dP" secondAttribute="trailing" id="Yvl-NJ-Arx"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="ZgZ-OX-6dP" secondAttribute="bottom" constant="-14" id="dMa-0E-n8P"/>
+                            <constraint firstItem="ZgZ-OX-6dP" firstAttribute="baseline" secondItem="a62-pC-xrR" secondAttribute="firstBaseline" id="eGC-tA-cMg"/>
+                            <constraint firstItem="CUr-T0-jGx" firstAttribute="top" secondItem="30K-du-Q7Q" secondAttribute="bottom" constant="26" id="lQI-gc-GZf"/>
+                            <constraint firstItem="GqP-lu-jlf" firstAttribute="top" secondItem="m08-5e-UpV" secondAttribute="top" constant="50" id="meb-6G-6v4"/>
+                            <constraint firstItem="GqP-lu-jlf" firstAttribute="centerX" secondItem="v05-c4-P0W" secondAttribute="centerX" id="n6a-zC-pc6"/>
+                            <constraint firstItem="m08-5e-UpV" firstAttribute="trailing" secondItem="CUr-T0-jGx" secondAttribute="trailing" constant="20" id="niI-u7-Are"/>
+                            <constraint firstAttribute="trailing" secondItem="a62-pC-xrR" secondAttribute="trailing" id="wU0-cs-f2c"/>
+                            <constraint firstItem="ZgZ-OX-6dP" firstAttribute="leading" secondItem="v05-c4-P0W" secondAttribute="leading" id="yj1-MD-AS9"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="m08-5e-UpV"/>
+                    </view>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="setupCloudButton" destination="a62-pC-xrR" id="prS-BG-oyJ"/>
+                        <outlet property="startCloudButton" destination="ZgZ-OX-6dP" id="IKn-HY-k5h"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pyq-nN-fo7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3034.7826086956525" y="817.63392857142856"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Rgl-Ak-gFH">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="huV-Mq-5rr" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" largeTitles="YES" id="fdE-ms-J10">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.0" green="0.64470146210000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Fmu-lH-HEg" kind="relationship" relationship="rootViewController" id="fYq-Ay-OMt"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L6q-tO-VVf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="770.84646082755739" y="98.652742346938751"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Banner" width="280" height="200"/>
+    </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="d7T-jd-tZf"/>
+    </inferredMetricsTieBreakers>
+    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+</document>

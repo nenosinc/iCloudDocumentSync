@@ -21,7 +21,7 @@
 
 #pragma mark - View Lifecycle
 
-- (id)initWithStyle:(UITableViewStyle)style {
+- (instancetype)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
@@ -203,10 +203,10 @@
             } else {
                 [[iCloud sharedCloud] updateFiles];
                 
-                [fileObjectList removeObjectAtIndex:indexPath.row];
-                [fileNameList removeObjectAtIndex:indexPath.row];
+                [self.fileObjectList removeObjectAtIndex:indexPath.row];
+                [self.fileNameList removeObjectAtIndex:indexPath.row];
                 
-                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             }
         }];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {

@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-public protocol iCloudDelegate {
+@objc public protocol iCloudDelegate {
     
     /** Called when the availability of iCloud changes
      

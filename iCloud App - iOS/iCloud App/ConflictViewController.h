@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 iRare Media. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <iCloud/iCloud.h>
+@import UIKit;
+@import CloudDocumentSync;
 #import "MHPrettyDate.h"
 
 @interface ConflictViewController : UITableViewController

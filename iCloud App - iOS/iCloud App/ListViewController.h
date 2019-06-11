@@ -7,7 +7,7 @@
 //
 
 @import UIKit;
-#import <iCloud/iCloud.h>
+@import CloudDocumentSync;
 
 #import "DocumentViewController.h"
 #import "TLTransitionAnimator.h"
