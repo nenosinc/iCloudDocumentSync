@@ -4,10 +4,15 @@ import PackageDescription
 
 let package = Package(
     name: "iCloud Document Sync",
+    products: [
+        .library(name: "iCloudDocumentSync", targets: ["CloudDocumentSync"])
+    ],
     dependencies: [
         
     ],
     targets: [
-        .target(name: "CloudDocumentSync", dependencies: [], path: "CloudDocumentSync", sources: ["iCloud.swift", "iCloudDelegate.swift", "iCloudTypes.swift", "iCloudDocument.swift"]),
+        .target(name: "CloudDocumentSync", 
+                dependencies: []
+        ),
     ]
 )
