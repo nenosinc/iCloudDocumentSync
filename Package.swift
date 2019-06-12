@@ -12,7 +12,8 @@ let package = Package(
     ],
     targets: [
         .target(name: "CloudDocumentSync", 
-                dependencies: []
+                dependencies: [],
+                path: "CloudDocumentSync/"
         ),
     ]
 )
