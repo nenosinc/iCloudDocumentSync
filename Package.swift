@@ -13,7 +13,7 @@ let package = Package(
     targets: [
         .target(name: "CloudDocumentSync", 
                 dependencies: [],
-                path: "CloudDocumentSync/"
+                path: "CloudDocumentSync"
         ),
     ]
 )
