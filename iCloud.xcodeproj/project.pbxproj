@@ -46,6 +46,8 @@
 		A62FBC0C22B0530D00E841AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A62FBC0E22B0530D00E841AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A62FBC1322B0534900E841AB /* iCloudApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iCloudApp.entitlements; sourceTree = "<group>"; };
+		A6A73DEF22B16B15001A6EA7 /* iCloudDocumentSync.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = iCloudDocumentSync.podspec; sourceTree = "<group>"; };
+		A6A73DF022B16CC4001A6EA7 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,8 @@
 		9994D19B16FE3ABF00AB071B = {
 			isa = PBXGroup;
 			children = (
+				A6A73DF022B16CC4001A6EA7 /* Package.swift */,
+				A6A73DEF22B16B15001A6EA7 /* iCloudDocumentSync.podspec */,
 				99670E021806160E005BC6B7 /* README.md */,
 				99670E4A180622F6005BC6B7 /* LICENSE.md */,
 				9972AF9B18332D6100DD9879 /* CONTRIBUTING.md */,
