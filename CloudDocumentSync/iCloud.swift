@@ -8,19 +8,19 @@
 
 import UIKit
 
-@objc public class iCloud: NSObject {
+public class iCloud: NSObject {
     
     
     // MARK: - Properties
     
     /// iCloud shared instance object.
-    @objc public static let sharedCloud = iCloud()
+    public static let sharedCloud = iCloud()
     
     /// iCloud Delegate must be set to recieve file and availability callbacks.
-    @objc public var delegate: iCloudDelegate?
+    public var delegate: iCloudDelegate?
     
     /// Enable verbose logging for detailed feedback in the console log during debugging. Turning this off only prints crucial log notes such as errors.
-    @objc public var verboseLogging: Bool = false
+    public var verboseLogging: Bool = false
     private func printVerbose(_ items: Any...) {
         if verboseLogging == true {
             print(items)
@@ -112,7 +112,7 @@ import UIKit
     public var fileExtension: String = "*"
     
     private var fileList: [AnyHashable] = []
-    private var previousQueryResults: [UbiquitousMetaDataItem] = []
+    private var previousQueryResults: [UbiquitousMetadataItem] = []
     private var query: NSMetadataQuery = NSMetadataQuery.init()
     
     private var updatesQueue: OperationQueue = OperationQueue()
@@ -187,6 +187,7 @@ import UIKit
     
     // MARK: - Checking Availability
     
+    /// Check if iCloud is available
     @objc public func checkCloudAvailability() -> Bool {
         if let cloudToken: UbiquityIdentityToken = fileManager.ubiquityIdentityToken {
             printVerbose("[iCloud] iCloud is available. Ubiquity URL: \(ubiquityContainer?.absoluteString ?? ""), Ubiquity Token: \(cloudToken)")
@@ -286,8 +287,8 @@ import UIKit
         })
     }
     
-    /** Check for and update the list of files stored in your app's iCloud Documents Folder. This method is automatically called by iOS when there are changes to files in the iCloud Directory. */
-    @objc public func updateFiles() {
+    /// Check for and update the list of files stored in your app's iCloud Documents Folder. This method is automatically called by the system when there are changes to files in the iCloud Directory.
+    public func updateFiles() {
         // Log file update
         printVerbose("[iCloud] Beginning file update with NSMetadataQuery")
         
@@ -295,38 +296,40 @@ import UIKit
         guard approximateCloudAvailability == true else { return }
         
         updatesQueue.addOperation {
-            var discoveredFiles: [NSMetadataItem] = []
-            var names: [String] = []
+            var files: [CloudFile] = []
             
-            let results: [UbiquitousMetaDataItem] = self.query.results.compactMap {
-                UbiquitousMetaDataItem($0 as! NSMetadataItem)
+            let results: [UbiquitousMetadataItem] = self.query.results.compactMap {
+                UbiquitousMetadataItem($0 as! NSMetadataItem)
             }
             
-            results.forEach {
-                if $0.status == .downloaded {
-                    // File will be updated soon
-                } else if $0.status == .current {
-                    // Append metadata and filenames into arrays
-                    discoveredFiles.append($0.item)
-                    names.append($0.name)
-                } else if $0.status == .notDownloaded {
+            results.forEach { metadata in
+                switch metadata.status {
+                case .downloaded:
+                    break
+                case .current:
+                    files.append(CloudFile.init(filename: metadata.name, 
+                                                meta: metadata, 
+                                                document: iCloudDocument.init(fileURL: metadata.url)))
+                case .notDownloaded:
                     var downloading: Bool = true
                     do {
-                        try FileManager.default.startDownloadingUbiquitousItem(at: $0.url)
+                        try FileManager.default.startDownloadingUbiquitousItem(at: metadata.url)
                     } catch {
                         downloading = false
                         self.printVerbose("[iCloud] Ubiquitous item failed to start downloading with error: " + error.localizedDescription)
                     }
                     
-                    self.printVerbose("[iCloud] " + $0.url.lastPathComponent + " started downloading locally, successfull? " + ( downloading ? "true" : "false"))
+                    self.printVerbose("[iCloud] " + metadata.url.lastPathComponent + " started downloading locally, successfull? " + (downloading ? "true" : "false"))
+                default:
+                    break
                 }
             }
             
             self.previousQueryResults = results
             
             // Notify delegate about results
-            DispatchQueue.main.async { 
-                self.delegate?.filesDidChange(discoveredFiles, with: names)
+            DispatchQueue.main.async {
+                self.delegate?.filesChanged(files)
             }
         }
     }
@@ -334,20 +337,19 @@ import UIKit
     
     // MARK: - Saving
     
-    /**
-     Create, save, and close a document in iCloud.
-     
-     First, iCloud Document Sync checks if the specified document exists. If the document exists it is saved and closed. If the document does not exist, it is created then closed.
-     
-     iCloud Document Sync uses UIDocument and NSData to store and manage files. All of the heavy lifting with NSData and UIDocument is handled for you. There's no need to actually create or manage any files, just give iCloud Document Sync your data, and the rest is done for you.
-     
-     To create a new document or save an existing one (close the document), use this method.     Documents can be created even if the user is not connected to the internet. The only case in which a document will not be created is when the user has disabled iCloud or if the current application is not setup for iCloud.
-     
-     - Parameter name: Filename of document being written to iCloud.
-     - Parameter content: Data containing file content.
-     - Parameter completion: Code block which is called after succesful file saving. Error will be nil if no error was present.
-     */
-    @objc public func saveAndCloseDocument(_ name: String, with content: Data, completion: ((UIDocument?, Data?, Error?) -> Void)? = nil) {
+    /// Create, save, and close a document in iCloud.
+    /// 
+    /// First, iCloud Document Sync checks if the specified document exists. If the document exists it is saved and closed. If the document does not exist, it is created then closed.
+    ///
+    /// iCloud Document Sync uses `UIDocument` and `Data` to store and manage files. All of the heavy lifting with `Data` and `UIDocument` is handled for you. There's no need to actually create or manage any files, just give iCloudDocumentSync your data, and the rest is done for you.
+    /// 
+    /// To create a new document or save an existing one (close the document), use this method. 
+    /// Documents can be created even if the user is not connected to the internet. The only case in which a document will not be created is when the user has disabled iCloud or if the current application is not setup for iCloud.
+    /// 
+    /// - parameter name: Filename of document being written to iCloud.
+    /// - parameter content: Data containing file content.
+    /// - parameter completion: Code block which is called after succesful file saving. Error will be `nil` if no error occured.
+    public func saveAndCloseDocument(_ name: String, with content: Data, completion: ((UIDocument?, Data?, Error?) -> Void)? = nil) {
         printVerbose("[iCloud] Beginning document save")
         
         // Don't Check for iCloud... we need to save the file

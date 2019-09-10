@@ -12,15 +12,41 @@
 		A62FBBE722B0274300E841AB /* iCloudDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62FBBE622B0274300E841AB /* iCloudDocument.swift */; };
 		A62FBBE922B0417A00E841AB /* iCloudTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62FBBE822B0417A00E841AB /* iCloudTypes.swift */; };
 		A62FBBED22B044DE00E841AB /* iCloudDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62FBBEC22B044DE00E841AB /* iCloudDelegate.swift */; };
-		A62FBBFF22B0530C00E841AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62FBBFE22B0530C00E841AB /* AppDelegate.swift */; };
-		A62FBC0122B0530C00E841AB /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62FBC0022B0530C00E841AB /* DocumentBrowserViewController.swift */; };
-		A62FBC0322B0530C00E841AB /* DocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62FBC0222B0530C00E841AB /* DocumentViewController.swift */; };
-		A62FBC0522B0530C00E841AB /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62FBC0422B0530C00E841AB /* Document.swift */; };
-		A62FBC0822B0530C00E841AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A62FBC0622B0530C00E841AB /* Main.storyboard */; };
-		A62FBC0A22B0530D00E841AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A62FBC0922B0530D00E841AB /* Assets.xcassets */; };
-		A62FBC0D22B0530D00E841AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A62FBC0B22B0530D00E841AB /* LaunchScreen.storyboard */; };
-		A62FBC1222B0532800E841AB /* CloudDocumentSync.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A62FBBD822B0248000E841AB /* CloudDocumentSync.framework */; };
+		A6F358B72327F71200062637 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F358B62327F71200062637 /* AppDelegate.swift */; };
+		A6F358B92327F71200062637 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F358B82327F71200062637 /* SceneDelegate.swift */; };
+		A6F358BB2327F71200062637 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F358BA2327F71200062637 /* MasterViewController.swift */; };
+		A6F358BD2327F71200062637 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F358BC2327F71200062637 /* DetailViewController.swift */; };
+		A6F358C02327F71200062637 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6F358BE2327F71200062637 /* Main.storyboard */; };
+		A6F358C22327F71300062637 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A6F358C12327F71300062637 /* Assets.xcassets */; };
+		A6F358C52327F71300062637 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6F358C32327F71300062637 /* LaunchScreen.storyboard */; };
+		A6F358CA2327F73A00062637 /* CloudDocumentSync.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A62FBBD822B0248000E841AB /* CloudDocumentSync.framework */; };
+		A6F358CB2327F73A00062637 /* CloudDocumentSync.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A62FBBD822B0248000E841AB /* CloudDocumentSync.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A6F358D22327FB3D00062637 /* CloudFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F358D02327F8E400062637 /* CloudFile.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A6F358CC2327F73A00062637 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9994D19C16FE3ABF00AB071B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A62FBBD722B0248000E841AB;
+			remoteInfo = CloudDocumentSync;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A6F358CE2327F73A00062637 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A6F358CB2327F73A00062637 /* CloudDocumentSync.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		99670E021806160E005BC6B7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
@@ -36,18 +62,19 @@
 		A62FBBE622B0274300E841AB /* iCloudDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudDocument.swift; sourceTree = "<group>"; };
 		A62FBBE822B0417A00E841AB /* iCloudTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudTypes.swift; sourceTree = "<group>"; };
 		A62FBBEC22B044DE00E841AB /* iCloudDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudDelegate.swift; sourceTree = "<group>"; };
-		A62FBBFC22B0530B00E841AB /* iCloudApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iCloudApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A62FBBFE22B0530C00E841AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A62FBC0022B0530C00E841AB /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
-		A62FBC0222B0530C00E841AB /* DocumentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewController.swift; sourceTree = "<group>"; };
-		A62FBC0422B0530C00E841AB /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
-		A62FBC0722B0530C00E841AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		A62FBC0922B0530D00E841AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A62FBC0C22B0530D00E841AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		A62FBC0E22B0530D00E841AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A62FBC1322B0534900E841AB /* iCloudApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iCloudApp.entitlements; sourceTree = "<group>"; };
 		A6A73DEF22B16B15001A6EA7 /* iCloudDocumentSync.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = iCloudDocumentSync.podspec; sourceTree = "<group>"; };
 		A6A73DF022B16CC4001A6EA7 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		A6F358B42327F71200062637 /* Cloud Files.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cloud Files.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A6F358B62327F71200062637 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A6F358B82327F71200062637 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		A6F358BA2327F71200062637 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
+		A6F358BC2327F71200062637 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		A6F358BF2327F71200062637 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A6F358C12327F71300062637 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A6F358C42327F71300062637 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A6F358C62327F71300062637 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A6F358CF2327F76300062637 /* Cloud Files.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Cloud Files.entitlements"; sourceTree = "<group>"; };
+		A6F358D02327F8E400062637 /* CloudFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudFile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,11 +85,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A62FBBF922B0530B00E841AB /* Frameworks */ = {
+		A6F358B12327F71200062637 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A62FBC1222B0532800E841AB /* CloudDocumentSync.framework in Frameworks */,
+				A6F358CA2327F73A00062637 /* CloudDocumentSync.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,7 +105,7 @@
 				99670E4A180622F6005BC6B7 /* LICENSE.md */,
 				9972AF9B18332D6100DD9879 /* CONTRIBUTING.md */,
 				A62FBBD922B0248000E841AB /* CloudDocumentSync */,
-				A62FBBFD22B0530C00E841AB /* iCloudApp */,
+				A6F358B52327F71200062637 /* Cloud Files */,
 				9994D1A616FE3ABF00AB071B /* Frameworks */,
 				9994D1A516FE3ABF00AB071B /* Products */,
 			);
@@ -88,7 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				A62FBBD822B0248000E841AB /* CloudDocumentSync.framework */,
-				A62FBBFC22B0530B00E841AB /* iCloudApp.app */,
+				A6F358B42327F71200062637 /* Cloud Files.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -111,25 +138,26 @@
 				A62FBBEC22B044DE00E841AB /* iCloudDelegate.swift */,
 				A62FBBE822B0417A00E841AB /* iCloudTypes.swift */,
 				A62FBBE622B0274300E841AB /* iCloudDocument.swift */,
+				A6F358D02327F8E400062637 /* CloudFile.swift */,
 				A62FBBDB22B0248000E841AB /* Info.plist */,
 			);
 			path = CloudDocumentSync;
 			sourceTree = "<group>";
 		};
-		A62FBBFD22B0530C00E841AB /* iCloudApp */ = {
+		A6F358B52327F71200062637 /* Cloud Files */ = {
 			isa = PBXGroup;
 			children = (
-				A62FBC1322B0534900E841AB /* iCloudApp.entitlements */,
-				A62FBBFE22B0530C00E841AB /* AppDelegate.swift */,
-				A62FBC0022B0530C00E841AB /* DocumentBrowserViewController.swift */,
-				A62FBC0222B0530C00E841AB /* DocumentViewController.swift */,
-				A62FBC0422B0530C00E841AB /* Document.swift */,
-				A62FBC0622B0530C00E841AB /* Main.storyboard */,
-				A62FBC0922B0530D00E841AB /* Assets.xcassets */,
-				A62FBC0B22B0530D00E841AB /* LaunchScreen.storyboard */,
-				A62FBC0E22B0530D00E841AB /* Info.plist */,
+				A6F358CF2327F76300062637 /* Cloud Files.entitlements */,
+				A6F358B62327F71200062637 /* AppDelegate.swift */,
+				A6F358B82327F71200062637 /* SceneDelegate.swift */,
+				A6F358BA2327F71200062637 /* MasterViewController.swift */,
+				A6F358BC2327F71200062637 /* DetailViewController.swift */,
+				A6F358BE2327F71200062637 /* Main.storyboard */,
+				A6F358C12327F71300062637 /* Assets.xcassets */,
+				A6F358C32327F71300062637 /* LaunchScreen.storyboard */,
+				A6F358C62327F71300062637 /* Info.plist */,
 			);
-			path = iCloudApp;
+			path = "Cloud Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,21 +192,23 @@
 			productReference = A62FBBD822B0248000E841AB /* CloudDocumentSync.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		A62FBBFB22B0530B00E841AB /* iCloudApp */ = {
+		A6F358B32327F71200062637 /* Cloud Files */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A62FBC0F22B0530D00E841AB /* Build configuration list for PBXNativeTarget "iCloudApp" */;
+			buildConfigurationList = A6F358C72327F71300062637 /* Build configuration list for PBXNativeTarget "Cloud Files" */;
 			buildPhases = (
-				A62FBBF822B0530B00E841AB /* Sources */,
-				A62FBBF922B0530B00E841AB /* Frameworks */,
-				A62FBBFA22B0530B00E841AB /* Resources */,
+				A6F358B12327F71200062637 /* Frameworks */,
+				A6F358CE2327F73A00062637 /* Embed Frameworks */,
+				A6F358B02327F71200062637 /* Sources */,
+				A6F358B22327F71200062637 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				A6F358CD2327F73A00062637 /* PBXTargetDependency */,
 			);
-			name = iCloudApp;
-			productName = iCloudApp;
-			productReference = A62FBBFC22B0530B00E841AB /* iCloudApp.app */;
+			name = "Cloud Files";
+			productName = "Cloud Files";
+			productReference = A6F358B42327F71200062637 /* Cloud Files.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -187,24 +217,16 @@
 		9994D19C16FE3ABF00AB071B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1020;
-				LastUpgradeCheck = 1020;
+				LastSwiftUpdateCheck = 1100;
+				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = "Sam Spencer";
 				TargetAttributes = {
 					A62FBBD722B0248000E841AB = {
 						CreatedOnToolsVersion = 10.2.1;
 						LastSwiftMigration = 1020;
 					};
-					A62FBBFB22B0530B00E841AB = {
-						CreatedOnToolsVersion = 10.2.1;
-						SystemCapabilities = {
-							com.apple.DataProtection = {
-								enabled = 1;
-							};
-							com.apple.iCloud = {
-								enabled = 1;
-							};
-						};
+					A6F358B32327F71200062637 = {
+						CreatedOnToolsVersion = 11.0;
 					};
 				};
 			};
@@ -222,7 +244,7 @@
 			projectRoot = "";
 			targets = (
 				A62FBBD722B0248000E841AB /* CloudDocumentSync */,
-				A62FBBFB22B0530B00E841AB /* iCloudApp */,
+				A6F358B32327F71200062637 /* Cloud Files */,
 			);
 		};
 /* End PBXProject section */
@@ -235,13 +257,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A62FBBFA22B0530B00E841AB /* Resources */ = {
+		A6F358B22327F71200062637 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A62FBC0D22B0530D00E841AB /* LaunchScreen.storyboard in Resources */,
-				A62FBC0A22B0530D00E841AB /* Assets.xcassets in Resources */,
-				A62FBC0822B0530C00E841AB /* Main.storyboard in Resources */,
+				A6F358C52327F71300062637 /* LaunchScreen.storyboard in Resources */,
+				A6F358C22327F71300062637 /* Assets.xcassets in Resources */,
+				A6F358C02327F71200062637 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,37 +276,46 @@
 			files = (
 				A62FBBE122B0255600E841AB /* iCloud.swift in Sources */,
 				A62FBBED22B044DE00E841AB /* iCloudDelegate.swift in Sources */,
+				A6F358D22327FB3D00062637 /* CloudFile.swift in Sources */,
 				A62FBBE922B0417A00E841AB /* iCloudTypes.swift in Sources */,
 				A62FBBE722B0274300E841AB /* iCloudDocument.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A62FBBF822B0530B00E841AB /* Sources */ = {
+		A6F358B02327F71200062637 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A62FBC0522B0530C00E841AB /* Document.swift in Sources */,
-				A62FBC0322B0530C00E841AB /* DocumentViewController.swift in Sources */,
-				A62FBC0122B0530C00E841AB /* DocumentBrowserViewController.swift in Sources */,
-				A62FBBFF22B0530C00E841AB /* AppDelegate.swift in Sources */,
+				A6F358B72327F71200062637 /* AppDelegate.swift in Sources */,
+				A6F358B92327F71200062637 /* SceneDelegate.swift in Sources */,
+				A6F358BB2327F71200062637 /* MasterViewController.swift in Sources */,
+				A6F358BD2327F71200062637 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		A6F358CD2327F73A00062637 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A62FBBD722B0248000E841AB /* CloudDocumentSync */;
+			targetProxy = A6F358CC2327F73A00062637 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
-		A62FBC0622B0530C00E841AB /* Main.storyboard */ = {
+		A6F358BE2327F71200062637 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A62FBC0722B0530C00E841AB /* Base */,
+				A6F358BF2327F71200062637 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		A62FBC0B22B0530D00E841AB /* LaunchScreen.storyboard */ = {
+		A6F358C32327F71300062637 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A62FBC0C22B0530D00E841AB /* Base */,
+				A6F358C42327F71300062637 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -391,16 +422,18 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SEMICOLON_BEFORE_METHOD_BODY = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 8.0.0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = KEQ3L79VAK;
@@ -408,8 +441,11 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_PARAMETER = YES;
 				INFOPLIST_FILE = CloudDocumentSync/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
@@ -427,6 +463,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7 armv7s i386";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -437,17 +474,19 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SEMICOLON_BEFORE_METHOD_BODY = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 8.0.0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = KEQ3L79VAK;
@@ -456,8 +495,11 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_PARAMETER = YES;
 				INFOPLIST_FILE = CloudDocumentSync/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
@@ -475,12 +517,13 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7 armv7s i386";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
-		A62FBC1022B0530D00E841AB /* Debug */ = {
+		A6F358C82327F71300062637 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -493,24 +536,26 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = iCloudApp/iCloudApp.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = "Cloud Files/Cloud Files.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = KEQ3L79VAK;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = iCloudApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				INFOPLIST_FILE = "Cloud Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.samuelspencer.iCloudApp;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.samuelspencer.Cloud-Files";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -518,7 +563,7 @@
 			};
 			name = Debug;
 		};
-		A62FBC1122B0530D00E841AB /* Release */ = {
+		A6F358C92327F71300062637 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -531,26 +576,28 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = iCloudApp/iCloudApp.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = "Cloud Files/Cloud Files.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = KEQ3L79VAK;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = iCloudApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				INFOPLIST_FILE = "Cloud Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.samuelspencer.iCloudApp;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.samuelspencer.Cloud-Files";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
@@ -579,11 +626,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A62FBC0F22B0530D00E841AB /* Build configuration list for PBXNativeTarget "iCloudApp" */ = {
+		A6F358C72327F71300062637 /* Build configuration list for PBXNativeTarget "Cloud Files" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A62FBC1022B0530D00E841AB /* Debug */,
-				A62FBC1122B0530D00E841AB /* Release */,
+				A6F358C82327F71300062637 /* Debug */,
+				A6F358C92327F71300062637 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

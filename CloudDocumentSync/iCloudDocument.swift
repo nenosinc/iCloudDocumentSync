@@ -8,13 +8,13 @@
 
 import UIKit
 
-@objc public protocol iCloudDocumentDelegate {
-    /** Delegate method fired when an error occurs during an attempt to read, save, or revert a document. */
+public protocol iCloudDocumentDelegate {
+    /// Handle errors during an attempt to read, save, or revert a document.
     func documentErrorOccurred(error: Error)
 }
 
-/** iCloudDocumentSync will nromally manage all reading and writing using an iCloudDocument object. All document content will be stored and returned as `Data`. However, if you choose to subclass an iCloudDocument to define your own document structure and data format, you must still provide mechnisms to read and write your custom format using the `Data` type. */
-@objc public class iCloudDocument: UIDocument {
+/// iCloudDocumentSync will normally manage all reading and writing using an iCloudDocument object. All document content will be stored and returned as `Data`. However, if you choose to subclass an iCloudDocument to define your own document structure and data format, you must still provide mechanisms to read and write your custom format using the `Data` type.
+public class iCloudDocument: UIDocument {
     
     public var contents: Data = Data.init()
     public var delegate: iCloudDocumentDelegate?

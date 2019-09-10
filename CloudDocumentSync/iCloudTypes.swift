@@ -10,7 +10,7 @@ import Foundation
 
 public typealias UbiquityIdentityToken = (NSCoding & NSCopying & NSObjectProtocol)
 
-public struct UbiquitousMetaDataItem {
+public struct UbiquitousMetadataItem {
     public var item: NSMetadataItem
     public var url: URL
     public var name: String

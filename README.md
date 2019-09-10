@@ -38,7 +38,7 @@ Requires Xcode 10.0+ for use in any iOS Project. Requires a minimum of iOS 8.0 a
 | Current Build Target 	| Earliest Supported Build Target 	| Earliest Compatible Build Target |
 |:--------------------:	|:-------------------------------:	|:--------------------------------:|
 |       iOS 12.2            	|            iOS 10.0         |             iOS 8.0              	|
-|     Xcode 10      	        |          Xcode 10           |           Xcode 10            	|
+|     Xcode 10.3      	        |          Xcode 10           |           Xcode 10            	|
 |     Swift 5                  |          Swift 5          |           Swift 5                |
 
 ## Contributions
