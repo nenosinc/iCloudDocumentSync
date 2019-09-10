@@ -1,4 +1,4 @@
-<img width=725 src="https://raw.githubusercontent.com/iRareMedia/iCloudDocumentSync/master/iCloud%20App%20-%20iOS/CloudBanner.png"/>
+<img width=100% src="https://raw.githubusercontent.com/iRareMedia/iCloudDocumentSync/master/iCloud%20App%20-%20iOS/CloudBanner.png"/>
 
 iCloud Document Sync makes it easy for developers to integrate the iCloud document storage APIs into iOS applications. This is how iCloud document-storage and management should've been out of the box from Apple. Integrate iCloud into iOS (OS X coming soon) Objective-C document projects with one-line code methods. Sync, upload, manage, and remove documents to and from iCloud with only  a few lines of code (compared to the hundreds of lines and hours that it usually takes). Get iCloud up and running in your iOS app in only a few minutes.
 
@@ -58,7 +58,7 @@ Any contribution is more than welcome! You can contribute through pull requests 
 ## Sample App
 The iOS Sample App included with this project demonstrates how to use many of the features in iCloud Document Sync. You can refer to the sample app for an understanding of how to use and setup iCloud Document Sync. The app should work with iCloud as-is (you may need to provide your own Bundle ID though).
 
-<img width=700 src="https://raw.github.com/iRareMedia/iCloudDocumentSync/master/iCloud%20App%20-%20iOS/AppBanner.png"/>
+<img width=100% src="https://raw.github.com/iRareMedia/iCloudDocumentSync/master/iCloud%20App%20-%20iOS/AppBanner.png"/>
 
 # Installation
 Adding iCloud Document Sync to your project is easy. There are multiple ways to add iCloud Document Sync to your project. Choose the process below which best suits your needs. Follow the steps to get everything up and running in only a few minutes.
