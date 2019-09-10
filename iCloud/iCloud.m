@@ -319,8 +319,13 @@
             // Grab the file URL
             NSURL *fileURL = [result valueForAttribute:NSMetadataItemURLKey];
             NSString *fileStatus;
-            [fileURL getResourceValue:&fileStatus forKey:NSURLUbiquitousItemDownloadingStatusKey error:nil];
-            
+	    NSError *error;
+	    [fileURL getResourceValue:&fileStatus forKey:NSURLUbiquitousItemDownloadingStatusKey error:&error];
+	    if(error){
+		//If failed to get the resource value of the file, the file should not appear in the 'names' list.
+	        if (self.verboseLogging == YES) NSLog(@"[iCloud] Failed to get resource value with error: %@.", error);
+	        return;
+	    }     
             if ([fileStatus isEqualToString:NSURLUbiquitousItemDownloadingStatusDownloaded]) {
                 // File will be updated soon
             }
