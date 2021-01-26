@@ -105,29 +105,39 @@ There are many methods available on iCloud Document Sync. The most important / h
 ### Checking for iCloud Availability
 iCloud Document Sync checks for iCloud availability before performing any iCloud-related operations. Any iCloud Document Sync methods may return prematurely and without warning if iCloud is unavailable. Therefore, you should always check if iCloud is available before performing any iCloud operations.
 
-    BOOL cloudIsAvailable = [[iCloud sharedCloud] checkCloudAvailability];
-    if (cloudIsAvailable) {
-        //YES
-    }
+```objective-c
+BOOL cloudIsAvailable = [[iCloud sharedCloud] checkCloudAvailability];
+if (cloudIsAvailable) {
+    //YES
+}
+```
 
 This checks if iCloud is available by looking for the application's ubiquity token. It returns a boolean value; YES if iCloud is available, and NO if it is not. Check the log / documentation for details on why it may not be available. You can also check for the availability of the iCloud ubiquity *container* by calling the following method:
 
-    BOOL cloudContainerIsAvailable = [[iCloud sharedCloud] checkCloudUbiquityContainer];
+```objective-c
+BOOL cloudContainerIsAvailable = [[iCloud sharedCloud] checkCloudUbiquityContainer];
+```
 
 The `checkCloudAvailability` method will call the `iCloudAvailabilityDidChangeToState: withUbiquityToken: withUbiquityContainer:` delegate method. 
 
 ### Syncing Documents
 To get iCloud Document Sync to initialize for the first time, and continue to update when there are changes you'll need to initialize iCloud. By initializing iCloud, it will start syncing with iCloud for the first time and in the future.  
 
-    [[iCloud sharedCloud] init];
+```objective-c
+[[iCloud sharedCloud] init];
+```
 
 You can manually fetch changes from iCloud too:
 
-    [[iCloud sharedCloud] updateFiles];
+```objective-c
+[[iCloud sharedCloud] updateFiles];
+```
 
 iCloud Document Sync will automatically detect changes in iCloud documents. When something changes the delegate method below is fired and will pass an NSMutableArray of all the files (NSMetadata Items) and their names (NSStrings) stored in iCloud.
 
-    - (void)iCloudFilesDidChange:(NSMutableArray *)files withNewFileNames:(NSMutableArray *)fileNames
+```objective-c
+- (void)iCloudFilesDidChange:(NSMutableArray *)files withNewFileNames:(NSMutableArray *)fileNames
+```
 
 ### Uploading Documents
 iCloud Document Sync uses UIDocument and NSData to store and manage files. All of the heavy lifting with NSData and UIDocument is handled for you. There's no need to actually create or manage any files, just give iCloud Document Sync your data, and the rest is done for you.
@@ -222,8 +232,9 @@ When a document's state changes to *in conflict*, your application should take t
 
 The array returned contains a list of NSFileVersion objects for the specified file. You can then use this list of file versions to either automatically merge changes or have the user select the correct version. Use the following method to resolve the conflict by submitting the "correct" version of the file.
 
-    [[iCloud sharedCloud] resolveConflictForFile:@"docName.ext" withSelectedFileVersion:[NSFileVersion object]];
-
+```objective-c
+[[iCloud sharedCloud] resolveConflictForFile:@"docName.ext" withSelectedFileVersion:[NSFileVersion object]];
+```
 
 ## Delegate
 iCloud Document Sync delegate methods notify you of the status of iCloud and your documents stored in iCloud. To use the iCloud delegate, subscribe to the `iCloudDelegate` protocol and then set the `delegate` property. To use the iCloudDocument delegate, subscribe to the `iCloudDocumentDelegate` protocol and then set the `delegate` property.
@@ -231,12 +242,16 @@ iCloud Document Sync delegate methods notify you of the status of iCloud and you
 ### iCloud Availability Changed
 Called (automatically by iOS) when the availability of iCloud changes.  The first parameter, `cloudIsAvailable`, is a boolean value that is YES if iCloud is available and NO if iCloud is not available. The second parameter, `ubiquityToken`, is an iCloud ubiquity token that represents the current iCloud identity. Can be used to determine if iCloud is available and if the iCloud account has been changed (ex. if the user logged out and then logged in with a different iCloud account). This object may be nil if iCloud is not available for any reason. The third parameter, `ubiquityContainer`, is the root URL path to the current application's ubiquity container. This URL may be nil until the ubiquity container is initialized.
 
-    - (void)iCloudAvailabilityDidChangeToState:(BOOL)cloudIsAvailable withUbiquityToken:(id)ubiquityToken withUbiquityContainer:(NSURL *)ubiquityContainer
+```objective-c
+- (void)iCloudAvailabilityDidChangeToState:(BOOL)cloudIsAvailable withUbiquityToken:(id)ubiquityToken withUbiquityContainer:(NSURL *)ubiquityContainer
+```
 
 ### iCloud Files Changed
 When the files stored in your app's iCloud Document's directory change, this delegate method is called.  The first parameter, `files`, contains an array of NSMetadataItems which can be used to gather information about a file (ex. URL, Name, Dates, etc). The second parameter, `fileNames`, contains an array of the name of each file as NSStrings.
 
-    - (void)iCloudFilesDidChange:(NSMutableArray *)files withNewFileNames:(NSMutableArray *)fileNames
+```objective-c
+- (void)iCloudFilesDidChange:(NSMutableArray *)files withNewFileNames:(NSMutableArray *)fileNames
+```
 
 ### iCloud File Conflict
 When uploading multiple files to iCloud there is a possibility that files may exist both locally and in iCloud - causing a conflict. iCloud Document Sync can handle most conflict cases and will report the action taken in the log. When iCloud Document Sync can't figure out how to resolve the file conflict (this happens when both the modified date and contents are the same), it will pass the files and relevant information to you using this delegate method.  The delegate method contains two NSDictionaries, one which contains information about the iCloud file, and the other about the local file. Both dictionaries contain the same keys with the same types of objects stored at each key:  
@@ -246,14 +261,20 @@ When uploading multiple files to iCloud there is a possibility that files may ex
 
 Below is the delegate method to be used
 
-    - (void)iCloudFileConflictBetweenCloudFile:(NSDictionary *)cloudFile andLocalFile:(NSDictionary *)localFile;
+```objective-c
+- (void)iCloudFileConflictBetweenCloudFile:(NSDictionary *)cloudFile andLocalFile:(NSDictionary *)localFile;
+```
 
 ### iCloud Query Parameter
 Called before creating an iCloud Query filter. Specify the type of file to be queried. If this delegate method is not implemented or returns nil, all files stored in the documents directory will be queried. Should return a single file extension formatted (as an NSString) like this: `@"txt"`
 
-    - (NSString *)iCloudQueryLimitedToFileExtension
+```objective-c
+- (NSString *)iCloudQueryLimitedToFileExtension
+```
 
 ### iCloud Document Error
 Delegate method fired when an error occurs during an attempt to read, save, or revert a document. This delegate method is only available on the `iCloudDocumentDelegate` with the `iCloudDocument` class. If you implement the iCloudDocument delegate, then you *must* implement this method - it is required.
 
-    - (void)iCloudDocumentErrorOccured:(NSError *)error
+```objective-c
+- (void)iCloudDocumentErrorOccured:(NSError *)error
+```
