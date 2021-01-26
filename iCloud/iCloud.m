@@ -220,18 +220,28 @@
     if (self.verboseLogging == YES) NSLog(@"[iCloud] Creating metadata query and notifications");
     
     // Request information from the delegate
-    if ([self.delegate respondsToSelector:@selector(iCloudQueryLimitedToFileExtension)]) {
-        NSString *fileExt = [self.delegate iCloudQueryLimitedToFileExtension];
-        if (fileExt != nil && ![fileExt isEqualToString:@""]) self.fileExtension = fileExt;
-        else self.fileExtension = @"*";
+    if ([self.delegate respondsToSelector:@selector(iCloudQueryLimitedToFileExtensions)]) {
+        NSArray *fileExt = [self.delegate iCloudQueryLimitedToFileExtensions];
+        if (fileExt != nil && [fileExt count] > 0) self.fileExtension = [[fileExt valueForKey:@"description"] componentsJoinedByString:@","];
+        else self.fileExtension = nil;
         
         // Log file extension
-        NSLog(@"[iCloud] Document query filter has been set to %@", self.fileExtension);
-    } else self.fileExtension = @"*";
+        NSLog(@"[iCloud] Document query filter has been set to IN { %@ }", self.fileExtension);
+    } else self.fileExtension = nil;
     
-    // Setup iCloud Metadata Query
-	[self.query setSearchScopes:@[NSMetadataQueryUbiquitousDocumentsScope]];
-	[self.query setPredicate:[NSPredicate predicateWithFormat:[NSString stringWithFormat:@"%%K.pathExtension LIKE '%@'", self.fileExtension], NSMetadataItemFSNameKey]];
+    // Setup iCloud Metadata Query : scope
+    [self.query setSearchScopes:@[NSMetadataQueryUbiquitousDocumentsScope]];
+    
+    // Setup iCloud Metadata Query : predicate
+    if(self.fileExtension != nil)
+    {
+        [self.query setPredicate:[NSPredicate predicateWithFormat:[NSString stringWithFormat:@"%%K.pathExtension IN { %@ }", self.fileExtension], NSMetadataItemFSNameKey]];
+    }
+    
+    // Setup iCloud Metadata Query : order by (could be not working on some iOS release)
+    NSSortDescriptor *FileNameSortDescriptor = [[NSSortDescriptor alloc] initWithKey:NSMetadataItemFSNameKey ascending:FALSE];
+    NSArray *sortDescriptors = [NSArray arrayWithObjects:FileNameSortDescriptor, nil];
+    [self.query setSortDescriptors:sortDescriptors];
     
     // Notify the responder that an update has begun
 	[self.notificationCenter addObserver:self selector:@selector(startUpdate:) name:NSMetadataQueryDidStartGatheringNotification object:self.query];
@@ -366,12 +376,10 @@
     }
     
     // Notify the delegate of the results on the main thread
-    if ([discoveredFiles count] > 0) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if ([self.delegate respondsToSelector:@selector(iCloudFilesDidChange:withNewFileNames:)])
-                [self.delegate iCloudFilesDidChange:discoveredFiles withNewFileNames:names];
-        });
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(iCloudFilesDidChange:withNewFileNames:)])
+            [self.delegate iCloudFilesDidChange:discoveredFiles withNewFileNames:names];
+    });
 }
 
 

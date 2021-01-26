@@ -409,8 +409,8 @@ NS_CLASS_AVAILABLE_IOS(6_0) @interface iCloud : NSObject
  
  @discussion If this delegate is not implemented or returns nil, all files stored in the documents directory will be queried.
  
- @return An NSString with one file extension formatted like this: @"txt" */
-- (NSString *)iCloudQueryLimitedToFileExtension;
+ @return An NSArray with one file extension formatted like this (NSString with usage of simple quote): [NSArray arrayWithObjects:@"'zip'", @"'txt'", nil] */
+- (NSArray *)iCloudQueryLimitedToFileExtensions;
 
 
 /** Called before an iCloud Query begins.
@@ -501,6 +501,9 @@ NS_CLASS_AVAILABLE_IOS(6_0) @interface iCloud : NSObject
  @deprecated Deprecated in version 6.0. To be removed in version 8.0. Delegate methods are no longer used to report method-specfic conditions and so this method is never called. Completion blocks are now used. */
 - (void)documentsFinishedDownloading __deprecated __unavailable;
 
+/** DEPRECATED. Tells the delegate that a document finished downloading
+ @deprecated Deprecated in version 7.4. To be removed in version 8.0. Delegate methods are no longer used to report method-specfic conditions and so this method is never called. Completion blocks are now used. */
+- (NSString *)iCloudQueryLimitedToFileExtension __deprecated __unavailable;
 
 
 @end
